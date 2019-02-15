@@ -1,0 +1,37 @@
+.settings__delete__button button{
+  width: 201px;
+  height: 48px;
+  box-sizing: border-box;
+
+  font-size: 21px;
+  font-family: $fontFamaly;
+  color: #F7477C;
+  border: 2px solid #F7477C;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  outline: none;
+  background: rgba(0, 0, 0, 0);
+}
+
+.settings__close__block {
+  position: relative;
+  left: -32px;
+  top: -32px;
+  right: 32px;
+  width: 300px;
+  height: 25px;
+
+  border-radius: 15px 15px 0 0;
+  -webkit-border-radius: 15px 15px 0 0;
+  -moz-border-radius: 15px 15px 0 0;
+  background: linear-gradient(180deg,
+          #58574E 0%,
+          #403F3A 100%);
+}
+
+.settings__close__icon img{
+  position: relative;
+  left: 9px;
+  top: -5px;
+}

@@ -1,0 +1,9 @@
+div.profile__button {
+  position: absolute;
+  left: 1.2%;
+  top: 27px;
+
+  @extend %white;
+  font-size: 26px;
+  text-decoration-line: underline;
+}

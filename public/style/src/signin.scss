@@ -1,0 +1,34 @@
+.signin__background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 150;
+
+  background: $backgroundColorBack;
+  backdrop-filter: blur(14px);
+}
+
+.signin {
+  position: absolute;
+  width: 394.79px;
+  height: 392.52px;
+  left: 52%;
+  top: 42%;
+
+  background: linear-gradient(121.54deg,
+          $backgroundColor2 0%,
+          $backgroundColor4 101.11%);
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  transform: rotate(-16.34deg) translate(-50%, -50%);
+}
+
+.signin__rotate {
+  position: relative;
+  left: 46px;
+  top: 57px;
+  transform: rotate(16.34deg);
+}

@@ -1,0 +1,35 @@
+div.footer {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.34%;
+  bottom: 29px;
+  right: 0;
+  left: 0;
+}
+
+div.footer__left__content {
+  display: flex;
+}
+
+div.footer__left__content div {
+  margin-right: 80px;
+}
+
+div.footer__left__content div:last-child {
+  margin-right: 0;
+}
+
+
+
+div.footer__content__item__white {
+  @extend %white;
+  font-size: 25px;
+  text-decoration-line: underline;
+}
+
+div.footer__content__item__yellow {
+  @extend %yellow;
+  font-size: 25px;
+  text-decoration-line: underline;
+}

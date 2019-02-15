@@ -1,0 +1,21 @@
+div.logo__button {
+  position: absolute;
+  right: 14%;
+  top: 46px;
+
+  font-family: $fontFamalyLogo;
+  font-weight: 300;
+  font-size: 59px;
+
+  color: $fontColorYellow;
+}
+
+div.logo__button__postscript {
+  position: relative;
+  top: 14px;
+  left: 168px;
+
+  @extend %white;
+  font-size: 22px;
+
+}

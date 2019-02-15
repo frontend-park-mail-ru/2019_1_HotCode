@@ -1,0 +1,66 @@
+.main {
+  position: relative;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  width: calc(50vw - 40px);
+  min-width: 516.27px;
+  min-height: 253.75px;
+  transform: translate(-50%, -50%);
+  justify-content: space-between;
+
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  background: rgba(247, 71, 124, 1);
+
+}
+
+.main::before {
+  content: '';
+  padding-top: 50%;
+  float: left;
+}
+.main::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.main__left__arrow {
+  position: relative;
+  width: 6.86%;
+  min-width: 35.45px;
+  min-height: 86.05px;
+  right: 44.24%;
+}
+
+.main__left__arrow::before {       //  TODO Переделать на зависимость высоты и ширины в JS
+  content: '';
+  padding-top: 50%;
+  float: left;
+}
+.main__left__arrow::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.main__right__arrow {
+  position: relative;
+  width: 6.86%;
+  min-width: 35.45px;
+  min-height: 86.05px;
+  left: 44.24%;
+}
+
+.main__right__arrow::before {       //  TODO Переделать на зависимость высоты и ширины в JS
+  content: '';
+  padding-top: 50%;
+  float: left;
+}
+.main__right__arrow::after {
+  content: '';
+  display: block;
+  clear: both;
+}

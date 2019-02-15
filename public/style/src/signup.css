@@ -1,0 +1,12 @@
+.signup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(50vw - 40px);
+  min-width: 516.27px;
+  min-height: 253.75px;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  background: #f7477c; }
+
+/*# sourceMappingURL=signup.css.map */

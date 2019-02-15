@@ -1,0 +1,25 @@
+.game__background__img img{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  //width: 100%;
+  //height: 100%;
+  width: 100vw;
+  height: 100vh;
+
+  filter: blur(14px);
+}
+
+.game__background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  //width: 100%;
+  //height: 100%;
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 51, 102, 0.58);
+}
