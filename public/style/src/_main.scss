@@ -1,66 +1,66 @@
 .main {
-  position: relative;
+  position: absolute;
   display: flex;
+  width: 64.53%;
+  min-width: 615px;
   top: 50%;
   left: 50%;
-  width: calc(50vw - 40px);
-  min-width: 516.27px;
-  min-height: 253.75px;
   transform: translate(-50%, -50%);
   justify-content: space-between;
+}
+
+.main__center {
+  margin: 0 10px;
+}
+
+.main__screen {
+  width: calc(49vw);
+  min-width: 516.27px;
+  min-height: 253.75px;
 
   border-radius: 15px;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   background: rgba(247, 71, 124, 1);
-
 }
 
-.main::before {
+.main__screen::before {
   content: '';
   padding-top: 50%;
   float: left;
 }
-.main::after {
+.main__screen::after {
   content: '';
   display: block;
   clear: both;
 }
 
 .main__left__arrow {
-  position: relative;
-  width: 6.86%;
+  width: 5.86%;
   min-width: 35.45px;
   min-height: 86.05px;
-  right: 44.24%;
-}
-
-.main__left__arrow::before {       //  TODO Переделать на зависимость высоты и ширины в JS
-  content: '';
-  padding-top: 50%;
-  float: left;
-}
-.main__left__arrow::after {
-  content: '';
-  display: block;
-  clear: both;
 }
 
 .main__right__arrow {
-  position: relative;
-  width: 6.86%;
+  width: 5.86%;
   min-width: 35.45px;
   min-height: 86.05px;
-  left: 44.24%;
 }
 
-.main__right__arrow::before {       //  TODO Переделать на зависимость высоты и ширины в JS
-  content: '';
-  padding-top: 50%;
-  float: left;
+.main__head {
+  position: relative;
+  bottom: 8%;
+  text-align: center;
+
+  @extend %white;
+  font-size: 38px;
 }
-.main__right__arrow::after {
-  content: '';
-  display: block;
-  clear: both;
+
+.main__name__game {
+  position: relative;
+  top: 6%;
+
+  font-family: $fontFamalyLogo;
+  color: $fontColorYellow;
+  font-size: 38px;
 }

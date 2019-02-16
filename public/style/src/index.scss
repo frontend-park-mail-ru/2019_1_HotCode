@@ -1,6 +1,6 @@
 @import "reset";
 
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Roboto|Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Roboto|Titillium+Web|IBM+Plex+Mono:300|Roboto:300|Titillium+Web:300');
 
 $backgroundColor: rgba(0, 18, 45, 1);  // Темный цвет градиента на фоне
 $backgroundColor2: rgba(0, 51, 102, 1);  // Основной цвет градиента у всплывающего окна
@@ -8,6 +8,7 @@ $backgroundColor3: rgba(0, 106, 106, 0.25);  // Светлый цвет град
 $backgroundColor4: rgba(71, 121, 142, 1);  // Светлый цвет градиента у всплывающего окна
 $backgroundColorBack: rgba(49, 47, 126, 0.51);  // Цвет фона всплывающего окна
 $fontColorWhite: rgba(238, 238, 238, 1);  // Белый
+$fontColorGray: rgba(238, 238, 238, 0.5); // Прозрачный
 $fontColorYellow: rgba(255, 215, 0, 1);  // Желтый
 
 $fontFamalyLogo: Titillium Web;
@@ -28,13 +29,25 @@ $fontFamaly2: IBM Plex Mono;
   color: $fontColorWhite;
 }
 
-body {
-  height: 100vh;
+.background {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -150;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+
   background: linear-gradient(230.08deg,
           $backgroundColor -11.62%,
           $backgroundColor2 50.77%,
           $backgroundColor3 160.07%);
-
 }
 
 @import "options";

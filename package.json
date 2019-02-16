@@ -1,0 +1,24 @@
+{
+  "name": "2019_1_HotCode",
+  "version": "1.0.0",
+  "description": "Репозиторий фронтенда",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-park-mail-ru/2019_1_HotCode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frontend-park-mail-ru/2019_1_HotCode/issues"
+  },
+  "homepage": "https://github.com/frontend-park-mail-ru/2019_1_HotCode#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
