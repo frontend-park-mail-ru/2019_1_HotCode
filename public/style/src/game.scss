@@ -90,14 +90,18 @@
 }
 
 .game__options__line {
+  width: 37%;
+  min-width: 490px;
   display: flex;
+  justify-content: space-between;
 }
 
 .game__options__line a{
+  width: 33.333%;
+  text-align: center;
   @extend %white;
   font-weight: 300;
   font-size: 26px;
-  margin-right: 3.75%;
 }
 
 .game__options__line a:focus{
@@ -107,11 +111,22 @@
   text-decoration-line: underline;
 }
 
-
-
-.game__options__line div:last-child {
-  margin-right: 0;
+.game__options__line a:first-child {
+  text-align: left;
 }
+
+.game__options__line a:last-child {
+  text-align: right;
+}
+
+//.game__options__line table{
+//  width: 100%;
+//  text-align: center;
+//}
+//
+//.game__options__line td {
+//  width: 33.333%;
+//}
 
 .game__line {
   position: relative;
@@ -123,7 +138,6 @@
 }
 
 .game__discription {
-  //display: none;
   margin-top: 4%;
   width: 90%;
 
@@ -133,10 +147,6 @@
   font-size: 26px;
   text-align: justify;
 
-}
-
-.game__leaderboard {
-  display: none;
 }
 
 .game__table__type {

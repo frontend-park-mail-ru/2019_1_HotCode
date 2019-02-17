@@ -53,11 +53,11 @@ a {
 * {
   box-sizing: border-box; }
 
-div.footer__content__item__yellow, .signup__logo, .signup__input input:focus, .signup__button input, .game__start, .game__options__line a:focus {
+.footer__content__item:focus, .signup__logo, .signup__input input:focus, .signup__button input, .game__start, .game__options__line a:focus {
   font-family: Roboto;
   color: gold; }
 
-div.profile__button, div.footer__content__item__white, div.logo__button__postscript, .main__head, .signup__inputs__right, .signup__input__label, .signup__input input, .signup__button button, .game__logo, .game__options__line a, .game__discription, .game__table__type a:focus, .game__table__type a:hover, .game__leaderboard table {
+.profile__button, .footer__content__item, .logo__button__postscript, .main__head, .signup__inputs__right, .signup__input__label, .signup__input input, .signup__button button, .game__logo, .game__options__line a, .game__discription, .game__table__type a:focus, .game__table__type a:hover, .game__leaderboard table {
   font-family: IBM Plex Mono;
   color: #eeeeee; }
 
@@ -77,14 +77,19 @@ div.profile__button, div.footer__content__item__white, div.logo__button__postscr
   background-size: cover;
   background: linear-gradient(230.08deg, #00122d -11.62%, #003366 50.77%, rgba(0, 106, 106, 0.25) 160.07%); }
 
-div.profile__button {
+.hidden {
+  display: none !important; }
+
+.profile__button {
   position: absolute;
   left: 1.2%;
   top: 27px;
-  font-size: 26px;
+  font-size: 26px; }
+
+.profile__button:hover {
   text-decoration-line: underline; }
 
-div.footer {
+.footer {
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -93,24 +98,23 @@ div.footer {
   right: 0;
   left: 0; }
 
-div.footer__left__content {
-  display: flex; }
+.footer__left__content {
+  display: flex;
+  justify-content: space-between;
+  width: 21%;
+  min-width: 290px; }
 
-div.footer__left__content div {
-  margin-right: 80px; }
+.footer__left__content a {
+  width: 50%; }
 
-div.footer__left__content div:last-child {
-  margin-right: 0; }
+.footer__content__item {
+  white-space: nowrap;
+  font-size: 25px; }
 
-div.footer__content__item__white {
-  font-size: 25px;
+.footer__content__item:hover {
   text-decoration-line: underline; }
 
-div.footer__content__item__yellow {
-  font-size: 25px;
-  text-decoration-line: underline; }
-
-div.logo__button {
+.logo__button {
   position: absolute;
   right: 14%;
   top: 46px; }
@@ -122,7 +126,7 @@ div.logo__button {
   font-size: 59px;
   color: gold; }
 
-div.logo__button__postscript {
+.logo__button__postscript {
   text-align: right;
   margin-top: 9px;
   font-weight: 300;
@@ -141,7 +145,7 @@ div.logo__button__postscript {
 .main__center {
   margin: 0 10px; }
 
-.main__screen {
+.main__screen img {
   width: calc(49vw);
   min-width: 516.27px;
   min-height: 253.75px;
@@ -297,7 +301,7 @@ div.logo__button__postscript {
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   background-size: cover;
-  background: rgba(49, 47, 126, 0.51);
+  background: rgba(49, 47, 126, 0.76);
   backdrop-filter: blur(14px); }
 
 .signin {
@@ -317,6 +321,13 @@ div.logo__button__postscript {
   left: 46px;
   top: 57px;
   transform: rotate(16.34deg); }
+
+.settings {
+  position: absolute;
+  top: 15.23%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 47.34%; }
 
 .settings__delete__button button {
   width: 201px;
@@ -426,18 +437,25 @@ div.logo__button__postscript {
   min-width: 770px; }
 
 .game__options__line {
-  display: flex; }
+  width: 37%;
+  min-width: 490px;
+  display: flex;
+  justify-content: space-between; }
 
 .game__options__line a {
+  width: 33.333%;
+  text-align: center;
   font-weight: 300;
-  font-size: 26px;
-  margin-right: 3.75%; }
+  font-size: 26px; }
 
 .game__options__line a:hover {
   text-decoration-line: underline; }
 
-.game__options__line div:last-child {
-  margin-right: 0; }
+.game__options__line a:first-child {
+  text-align: left; }
+
+.game__options__line a:last-child {
+  text-align: right; }
 
 .game__line {
   position: relative;
@@ -454,9 +472,6 @@ div.logo__button__postscript {
   font-weight: 300;
   font-size: 26px;
   text-align: justify; }
-
-.game__leaderboard {
-  display: none; }
 
 .game__table__type {
   display: flex; }

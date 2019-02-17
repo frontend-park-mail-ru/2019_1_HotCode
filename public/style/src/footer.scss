@@ -1,4 +1,4 @@
-div.footer {
+.footer {
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -8,28 +8,27 @@ div.footer {
   left: 0;
 }
 
-div.footer__left__content {
+.footer__left__content {
   display: flex;
+  justify-content: space-between;
+  width: 21%;
+  min-width: 290px;
 }
 
-div.footer__left__content div {
-  margin-right: 80px;
+.footer__left__content a {
+  width: 50%;
 }
 
-div.footer__left__content div:last-child {
-  margin-right: 0;
-}
-
-
-
-div.footer__content__item__white {
+.footer__content__item {
   @extend %white;
+  white-space: nowrap;
   font-size: 25px;
-  text-decoration-line: underline;
 }
 
-div.footer__content__item__yellow {
+.footer__content__item:focus {
   @extend %yellow;
-  font-size: 25px;
+}
+
+.footer__content__item:hover {
   text-decoration-line: underline;
 }
