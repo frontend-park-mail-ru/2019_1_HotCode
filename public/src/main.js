@@ -1,3 +1,6 @@
+'use strict';
+
+import '../style/index.scss';
 
 const nav = document.getElementsByClassName('navigation')[0];
 const elementCollection = Array.from(nav.children);
@@ -10,9 +13,8 @@ const options = Array.from(document
 document
     .getElementsByClassName('game__options__line')[0]
     .addEventListener('click', (event) => {
-        if (curState === 'game__menu') {
+        if (curState === 'game') {
             const elementClassName = event.target.getAttribute('data-option');
-            console.log(elementClassName);
 
             options.forEach((element) => {
                 element.classList.add('hidden');
@@ -26,17 +28,16 @@ document
 
 document.addEventListener('click', (event) => {
     const elementClassName = event.target.getAttribute('data-section');
-    console.log(event.target.className);
-    console.log(curState);
+    console.log(event.target.tagName);
 
-    if (curState === 'signin__background') {
+    if (curState === 'signin' || curState === 'signup') {
         if (event.target.className === 'signin__background') {
-            nav.getElementsByClassName(curState)[0].classList.add('hidden');
+            document.getElementById(curState).classList.add('hidden');
         }
         curState = null;
     }
-    else if (elementClassName === 'signin__background') {
-        nav.getElementsByClassName(elementClassName)[0].classList.remove('hidden');
+    else if (elementClassName === 'signin' || elementClassName === 'signup') {
+        document.getElementById(elementClassName).classList.remove('hidden');
         curState = elementClassName;
     }
     else if (elementClassName !== null) {
@@ -44,7 +45,7 @@ document.addEventListener('click', (event) => {
         elementCollection.forEach((element) => {
             element.classList.add('hidden');
 
-            if (element.classList[0] === elementClassName) {
+            if (element.id === elementClassName) {
                 element.classList.remove('hidden');
             }
         });

@@ -7,9 +7,6 @@
   width: auto;
   height: auto;
   z-index: -100;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   background-size: cover;
 
@@ -25,9 +22,6 @@
   width: auto;
   height: auto;
   z-index: -50;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   background-size: cover;
 
@@ -68,8 +62,6 @@
 
   border: 1px solid $fontColorYellow;
   border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
   @extend %yellow;
   font-weight: 300;
   font-size: 34px;
@@ -86,7 +78,7 @@
 
 .game__left__content {
   max-width: 60%;
-  min-width: 770px;
+  min-width: 700px;
 }
 
 .game__options__line {
@@ -118,15 +110,6 @@
 .game__options__line a:last-child {
   text-align: right;
 }
-
-//.game__options__line table{
-//  width: 100%;
-//  text-align: center;
-//}
-//
-//.game__options__line td {
-//  width: 33.333%;
-//}
 
 .game__line {
   position: relative;
@@ -192,14 +175,27 @@
   padding: 10px 7px;
 }
 
-.game__right__content {
-  width: 480px;
-  height: 360px;
+.game__right__content{
+  width: 30%;
+}
+
+.game__right__content img{
+  width: 100%;
+  min-width: 360px;
+  min-height: 240px;
   box-sizing: border-box;
 
   border: 2px solid #FFD700;
   border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  background: url("../../source/hqdefault.jpg") no-repeat;
+}
+
+.game__right__content img::before {
+  content: '';
+  padding-top: 50%;
+  float: left;
+}
+.game__right__content img::after {
+  content: '';
+  display: block;
+  clear: both;
 }

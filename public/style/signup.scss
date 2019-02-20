@@ -1,9 +1,27 @@
+//.signup {
+//  position: absolute;
+//  top: 15.23%;
+//  left: 50%;
+//  transform: translate(-50%, 0);
+//  width: 47.34%;
+//}
+
 .signup {
   position: absolute;
-  top: 15.23%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 47.34%;
+  width: 479.79px;
+  height: 480.52px;
+  left: 52%;
+  top: 42%;
+  background: linear-gradient(121.54deg, #003366 0%, #47798e 101.11%);
+  border-radius: 15px;
+  transform: rotate(-16.34deg) translate(-50%, -50%);
+}
+
+.signup__rotate {
+  position: relative;
+  left: 55px;
+  top: 68px;
+  transform: rotate(16.34deg);
 }
 
 .signup__logo {
@@ -37,8 +55,6 @@
   font-size: 30px;
   border: 2px solid $fontColorWhite;
   border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
   outline: none;
 }
 
@@ -62,8 +78,6 @@
   @extend %white;
   border: 2px solid $fontColorWhite;
   border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
   outline: none;
   font-size: 21px;
   background: rgba(0, 0, 0, 0);
@@ -95,7 +109,7 @@
   margin-top: 30px;
 }
 
-.signup__button input {
+.signup__button input[type='submit'] {
   width: 146px;
   height: 48px;
   margin-right: 30px;
@@ -105,13 +119,11 @@
   font-size: 21px;
   border: 2px solid $fontColorYellow;
   border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
   outline: none;
   background: rgba(0, 0, 0, 0);
 }
 
-.signup__button button {
+.signup__button input[type='button'] {
   width: 146px;
   height: 48px;
   box-sizing: border-box;
@@ -120,8 +132,6 @@
   font-size: 21px;
   border: 2px solid $fontColorWhite;
   border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
   outline: none;
   background: rgba(0, 0, 0, 0);
 }
