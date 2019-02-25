@@ -1,0 +1,213 @@
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .form__logo {
+    position: static;
+    left: auto;
+    text-align: center;
+
+    font-size: calc(1.8em + 0.8vh);
+  }
+
+
+  .modal__info form {  // TODO Убрать этот костыль
+    margin-bottom: 0;
+  }
+
+  .form__label {
+    display: none;
+  }
+
+  .form__input input{
+    width: 100%;
+    height: calc(2.25em + 0.5vh);
+
+    border: 0;
+    border-radius: 0;
+    font-size: calc(0.9em + 0.5vh);
+    background: $backgroundInputColor;
+  }
+
+  .form__input{
+    margin-bottom: 7%;
+  }
+
+  .form__input:last-child{
+    margin-bottom: 0;
+  }
+
+  .form__input input::-webkit-input-placeholder {
+    color: rgba(238, 238, 238, 0.5);
+  }
+
+  .form__input input::-moz-placeholder {
+    color: rgba(238, 238, 238, 0.5);
+  }
+
+  .form__input input:focus{
+    border: 0;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .form__buttons {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6%;
+  }
+
+  .form__button {
+    width: 90%;
+    margin-right: 0;
+    margin-bottom: 4%;
+  }
+
+  .form__button:last-child {
+    margin-bottom: 0;
+  }
+
+  .form__button input[type='submit'] {
+    width: 100%;
+    height: 2.25em;
+
+    font-size: calc(0.9em + 0.7vh);
+    border-radius: 8px;
+  }
+
+  .form__button div {
+    display: block;
+    width: auto;
+    height: auto;
+    overflow: inherit;
+    text-align: center;
+
+    font-size: calc(0.9em + 0.5vh);
+    border: 0;
+    border-radius: 0;
+    outline: none;
+    background: transparent;
+  }
+
+  .form__button div:hover {
+    text-decoration-line: underline;;
+  }
+
+
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .form__logo {
+    position: static;
+    left: auto;
+    text-align: center;
+
+    font-size: calc(1.8em + 0.8vh);
+  }
+
+
+  .modal__info form {  // TODO Убрать этот костыль
+    margin-bottom: 0;
+  }
+
+  .form__label {
+    display: none;
+  }
+
+  .form__input input{
+    width: 100%;
+    height: calc(2.25em + 0.5vh);
+
+    border: 0;
+    border-radius: 0;
+    font-size: calc(0.9em + 0.5vh);
+    background: $backgroundInputColor;
+  }
+
+  .form__input{
+    margin-bottom: 7%;
+  }
+
+  .form__input:last-child{
+    margin-bottom: 0;
+  }
+
+  .form__input input::-webkit-input-placeholder {
+    color: rgba(238, 238, 238, 0.5);
+  }
+
+  .form__input input::-moz-placeholder {
+    color: rgba(238, 238, 238, 0.5);
+  }
+
+  .form__input input:focus{
+    border: 0;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .form__buttons {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6%;
+  }
+
+  .form__button {
+    width: 90%;
+    margin-right: 0;
+    margin-bottom: 4%;
+  }
+
+  .form__button:last-child {
+    margin-bottom: 0;
+  }
+
+  .form__button input[type='submit'] {
+    width: 100%;
+    height: 2.25em;
+
+    font-size: calc(0.9em + 0.7vh);
+    border-radius: 8px;
+  }
+
+  .form__button div {
+    display: block;
+    width: auto;
+    height: auto;
+    overflow: inherit;
+    text-align: center;
+
+    font-size: calc(0.9em + 0.5vh);
+    border: 0;
+    border-radius: 0;
+    outline: none;
+    background: transparent;
+  }
+
+  .form__button div:hover {
+    text-decoration-line: underline;;
+  }
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){
+
+}
+
+//@media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {
+//  .form__input input{
+//    width: 49vw;
+//    max-width: 399px;
+//  }
+//
+//  .form__button input[type='submit'] {
+//    min-width: 93px;
+//    width: 22vw;
+//    max-width: 146px;
+//  }
+//
+//  .form__button div {
+//    min-width: 93px;
+//    width: 22vw;
+//    max-width: 146px;
+//  }
+//}
+
+@media only screen  and (min-width: 1224px) {
+
+}

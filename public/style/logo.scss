@@ -1,26 +1,43 @@
+//header {
+//  position: fixed;
+//  display: flex;
+//  flex-direction: row-reverse;
+//  justify-content: space-between;
+//  align-items: flex-start;
+//  top: 2.5%;
+//  right: 0;
+//  left: 0;
+//}
+
 .logo__button {
-  position: absolute;
-  right: 14%;
-  top: 46px;
+  position: fixed;
+  top: 2.5%;
+  right: 13.34%;
+  //margin-right: 11%;
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 9;
 }
 
 .logo {
-  top: 46px;
-
   font-family: $fontFamalyLogo;
   font-weight: 300;
-  font-size: 59px;
+  font-size: 2.4em;
 
   color: $fontColorYellow;
-
 }
 
-.logo__button__postscript {
-  text-align: right;
+.logo::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.logo__postscript {
+  float: right;
   margin-top: 9px;
 
   @extend %white;
   font-weight: 300;
-  font-size: 22px;
-
+  font-size: 0.9em;
 }

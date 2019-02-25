@@ -1,24 +1,22 @@
-@import "reset";
-
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Roboto|Titillium+Web|IBM+Plex+Mono:300|Roboto:300|Titillium+Web:300');
 
 $backgroundColor: rgba(0, 18, 45, 1);  // Темный цвет градиента на фоне
 $backgroundColor2: rgba(0, 51, 102, 1);  // Основной цвет градиента у всплывающего окна
 $backgroundColor3: rgba(0, 106, 106, 0.25);  // Светлый цвет градиента на фоне
 $backgroundColor4: rgba(71, 121, 142, 1);  // Светлый цвет градиента у всплывающего окна
-//$backgroundColorBack: rgba(49, 47, 126, 0.51);  // Цвет фона всплывающего окна
+$backgroundColor5: rgba(23, 73, 115, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundInputColor: rgba(42, 93, 126, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundColorBack2: rgba(49, 47, 126, 0.51);  // Цвет фона всплывающего окна
 $backgroundColorBack: rgba(49, 47, 126, 0.86);  // Цвет фона всплывающего окна
 $fontColorWhite: rgba(238, 238, 238, 1);  // Белый
 $fontColorGray: rgba(238, 238, 238, 0.5); // Прозрачный
 $fontColorYellow: rgba(255, 215, 0, 1);  // Желтый
 
 $fontFamalyLogo: Titillium Web;
-$fontFamaly: Roboto;
+$fontFamaly: Titillium Web;
 $fontFamaly2: IBM Plex Mono;
 
-* {
-  box-sizing: border-box;
-}
+$DefaultFontSize: 22px;
 
 %yellow {
   font-family: $fontFamaly;
@@ -28,6 +26,26 @@ $fontFamaly2: IBM Plex Mono;
 %white {
   font-family: $fontFamaly2;
   color: $fontColorWhite;
+}
+
+@import "reset";
+
+*, *:after, *:before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  transition: .5s ease-in-out; /* добавим плавность переходов для всех элементов страницы*/
+}
+
+body {
+  font-family: $fontFamaly;
+  font-size: $DefaultFontSize;
+  //font-weight: 300;
+  color: $fontColorWhite;
+}
+
+.container {
+  padding: 0 2.34%;
 }
 
 .background {
@@ -53,7 +71,14 @@ $fontFamaly2: IBM Plex Mono;
 
 @import "options";
 @import "main";
-@import "signup";
-@import "signin";
+@import "modal";
+@import "form";
 @import "settings";
 @import "game";
+
+
+@import "options_media";
+@import "main_media";
+@import "modal_media";
+@import "form_media";
+@import "settings_medea";

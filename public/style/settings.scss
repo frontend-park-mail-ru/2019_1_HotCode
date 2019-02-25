@@ -6,29 +6,63 @@
   width: 47.34%;
 }
 
+.signup__inputs {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.signup__inputs__right {   // TODO оцентрировать аватарку в телефонной раскладке, сделать ее пропорционально сжимающейся
+  position: relative;
+  width: 300px;
+  height: 300px;
+  min-width: 200px;
+  min-height: 200px;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.signup__inputs__left {
+  margin-right: 30px;
+}
+
 .settings__delete__button input{
   width: 201px;
-  height: 48px;
+  height: 2.25em;
   box-sizing: border-box;
 
-  font-size: 21px;
+  font-size: 0.9em;
   font-family: $fontFamaly;
   color: #F7477C;
   border: 2px solid #F7477C;
   border-radius: 15px;
   outline: none;
   background: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.settings__load__avatar {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+
+  @extend %white;
+  font-size: 30px;
+  border: 2px solid $fontColorWhite;
+  border-radius: 15px;
+  outline: none;
 }
 
 .settings__close__block {
-  position: relative;
-  left: -32px;
-  top: -32px;
-  right: 32px;
-  width: 300px;
+  position: absolute;
+  width: 100%;
   height: 25px;
+  overflow: hidden;
 
-  border-radius: 15px 15px 0 0;
   background: linear-gradient(180deg,
           #58574E 0%,
           #403F3A 100%);
@@ -37,5 +71,4 @@
 .settings__close__icon img{
   position: relative;
   left: 9px;
-  top: -5px;
 }

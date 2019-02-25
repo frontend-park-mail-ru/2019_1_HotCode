@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "watch": "webpack --watch"
+    "watch": "webpack --mode development --watch",
+    "compile-pug": "pug -c ./public/src/components/form/form.pug -o public/src/components/form"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,17 @@
   },
   "homepage": "https://github.com/frontend-park-mail-ru/2019_1_HotCode#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
     "css-mqpacker": "^7.0.0",
     "express": "^4.16.4",
     "imagemin": "^6.1.0",
     "imagemin-mozjpeg": "^8.0.0",
-    "imagemin-svgo": "^7.0.0"
+    "imagemin-svgo": "^7.0.0",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.7",

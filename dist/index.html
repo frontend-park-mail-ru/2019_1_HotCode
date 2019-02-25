@@ -2,53 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WarScript</title>
-<link href="style.ab51b00987b4c8e4e2e7.css" rel="stylesheet"></head>
+<link href="style.dfc03ab8a7a154f9ebbf.css" rel="stylesheet"></head>
 <body>
     <div class="background"></div>
 
+    <!--<header class="container">-->
     <div class="logo__button">
-        <a href="#" data-section="main" class="logo">[ WarScript ]</a>
-        <div class="logo__button__postscript">by HotCode</div>
+        <div class="logo">[ WarScript ]</div>
+        <div class="logo__postscript">by HotCode</div>
     </div>
-    <a href="#" data-section="settings" class="profile__button">{User Data}</a>
-
+    <div class="profile__button">{User Data}</div>
+    <!--</header>-->
+    <div class="container">
     <nav class="navigation">
 
         <div id="main" class="main">
-            <img src="img/left-arrow.svg" class="main__left__arrow"/>
             <div class="main__center">
-                <div class="main__head">Choose a $ {game}</div>
-                <div class="main__screen">
-                    <a href="#"><img data-section="game" src="img/Data-wing-4_1516196099-e1516208811916.jpg"/></a>
+                <div class="carusel">
+                    <input type="radio" id="car0" name="car" checked="checked"/>
+                    <div></div>
+                    <input type="radio" id="car1" name="car"/>
+                    <div>
+                        <label class="carusel__arrow" for="car0"><img src="img/left-arrow.svg"></label>
+                        <label for="car0">
+                        <img class="carusel__item" src="img/Data-wing-4_1516196099-e1516208811916.jpg">
+                        </label>
+                    </div>
+
+                    <input type="radio" id="car2" name="car"/>
+                    <div>
+                        <label class="carusel__arrow" for="car1"><img src="img/left-arrow.svg"/></label>
+                        <label for="car1">
+                        <img class="carusel__item" src="img/Data-wing-4_1516196099-e1516208811916.jpg">
+                        </label>
+                    </div>
+
+                    <input type="radio" id="car3" name="car"/>
+                    <div>
+                        <label class="carusel__arrow" for="car2"><img src="img/left-arrow.svg"/></label>
+                        <label for="car2">
+                        <img class="carusel__item" src="img/Data-wing-4_1516196099-e1516208811916.jpg">
+                        </label>
+                    </div>
                 </div>
-                <div class="main__name__game"><' DATA WING /></div>
             </div>
-            <img src="img/right-arrow.svg" class="main__right__arrow"/>
         </div>
 
         <div id="settings" class="settings hidden">
-            <div class="signup__logo">Settings</div>
+            <div class="form__logo">Settings</div>
 
             <form action="#" method="post">
                 <div class="signup__inputs">
                     <div class="signup__inputs__left">
-                        <div class="signup__input">
-                            <div class="signup__input__label">Username</div>
-                            <input type="text" placeholder="Ivanov@mail.ru" maxlength="32">
+                        <div class="form__input">
+                            <div class="form__label">Username</div>
+                            <input type="text" name="username" placeholder="Ivanov@mail.ru" maxlength="32">
                         </div>
-                        <div class="signup__input">
-                            <div class="signup__input__label">Old Password</div>
-                            <input type="password" maxlength="32">
+                        <div class="form__input">
+                            <div class="form__label">Old Password</div>
+                            <input type="password" name="oldPassword" maxlength="32">
                         </div>
-                        <div class="signup__input">
-                            <div class="signup__input__label">New Password</div>
-                            <input type="password" maxlength="32">
+                        <div class="form__input">
+                            <div class="form__label">New Password</div>
+                            <input type="password" name="newPassword" maxlength="32">
                         </div>
-                        <div class="signup__input">
-                            <div class="signup__input__label">Repeat New Password</div>
-                            <input type="password" maxlength="32">
+                        <div class="form__input">
+                            <div class="form__label">Repeat New Password</div>
+                            <input type="password" name="repeatNewPassword" maxlength="32">
                         </div>
                     </div>
 
@@ -58,81 +80,22 @@
                                 <img src="img/close-icon.svg">
                             </div>
                         </div>
+                        <div class="settings__load__avatar">
+                            Choose avatar
+                        </div>
                     </div>
                 </div>
 
-                <div class="signup__buttons">
-                    <div class="signup__button">
+                <div class="form__buttons">
+                    <div class="form__button">
                         <input type="submit" value="Confirm">
                     </div>
-                    <a href="#"><div class="settings__delete__button">
+                    <div class="form__button settings__delete__button">
                         <input type="button" value="Delete account">
-                    </div></a>
+                    </div>
                 </div>
             </form>
 
-        </div>
-
-        <div id="signin" class="signin__background hidden">
-            <div class="signin">
-                <div class="signin__rotate">
-                    <div class="signup__logo">Sign In</div>
-
-                    <form action="#" method="post">
-                        <div class="signup__input">
-                            <div class="signup__input__label">Username</div>
-                            <input type="text" placeholder="Ivanov@mail.ru" maxlength="32" required>
-                        </div>
-                        <div class="signup__input">
-                            <div class="signup__input__label">Password</div>
-                            <input type="password" maxlength="32" required>
-                        </div>
-
-                        <div class="signup__buttons">
-                            <div class="signup__button">
-                                <input type="submit" value="Sign In">
-                            </div>
-                            <a href="#"><div class="signup__button">
-                                <input data-section="signup" type="button" value="Sign Up">
-                            </div></a>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-        <div id="signup" class="signin__background hidden">
-            <div class="signup">
-                <div class="signup__rotate">
-                    <div class="signup__logo">Sign Up</div>
-
-                    <form action="#" method="post">
-                        <div class="signup__input">
-                            <div class="signup__input__label">Username</div>
-                            <input type="text" placeholder="Ivanov@mail.ru" maxlength="32" required>
-                        </div>
-                        <div class="signup__input">
-                            <div class="signup__input__label">Password</div>
-                            <input type="password" maxlength="32" required>
-                        </div>
-                        <div class="signup__input">
-                            <div class="signup__input__label">Repeat Password</div>
-                            <input type="password" maxlength="32" required>
-                        </div>
-
-                        <div class="signup__buttons">
-                            <div class="signup__button">
-                                <input type="submit" value="Sign Up">
-                            </div>
-                            <a href="#"><div class="signup__button">
-                                <input data-section="signin" type="button" value="Sign In">
-                            </div></a>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
         </div>
 
         <div id="game" class="game__menu hidden">
@@ -218,14 +181,94 @@
         </div>
 
     </nav>
-
-
-    <div class="footer">
-        <div class="footer__left__content">
-            <a href="#" data-section="signin" class="footer__content__item">Sign in</a>
-            <a href="#" data-section="signup" class="footer__content__item">Sign up</a>
-        </div>
-        <a href="#" class="footer__content__item">About us</a>
     </div>
-<script type="text/javascript" src="main.1ab6a8555eac68350add.js"></script></body>
+
+    <input type="radio" id="mod0" name="modal" class="modal__check" checked="checked"/>
+    <div></div>
+    <input type="radio" id="mod1" name="modal" class="modal__check"/>
+    <div class="signin">
+        <label for="mod0" class="model__background"></label>
+        <div class="modal">
+            <label class="modal__close" for="mod0">&times;</label>
+            <div class="modal__info">
+                <div class="form__logo">Sign In</div>
+
+                <form action="#" method="post" class="signin__form">
+                    <div>
+                        <div class="form__input">
+                            <div class="form__label">Username</div>
+                            <input type="text" name="username" placeholder="Ivanov@mail.ru" maxlength="32" required>
+                        </div>
+                        <div class="form__input">
+                            <div class="form__label">Password</div>
+                            <input type="password" name="password" maxlength="32" required>
+                        </div>
+                    </div>
+
+                    <div class="form__buttons">
+                        <div class="form__button">
+                            <input type="submit" value="Sign In">
+                        </div>
+                        <div class="form__button">
+                            <label for="mod2"><div>Sign Up</div></label>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <input type="radio" id="mod2" name="modal" class="modal__check"/>
+    <div class="signup">
+        <label for="mod0" class="model__background"></label>
+        <div class="modal">
+            <label class="modal__close" for="mod0">&times;</label>
+            <div class="modal__info">
+                <div class="form__logo">Sign Up</div>
+
+                <form action="#" method="post" class="signup__form">
+                    <div>
+                        <div class="form__input">
+                            <div class="form__label">Username</div>
+                            <input type="text" name="username" placeholder="Ivanov@mail.ru" maxlength="32" required>
+                        </div>
+                        <div class="form__input">
+                            <div class="form__label">Password</div>
+                            <input type="password" name="password" maxlength="32" required>
+                        </div>
+                        <div class="form__input">
+                            <div class="form__label">Repeat Password</div>
+                            <input type="password" name="repeatPassword" maxlength="32" required>
+                        </div>
+                    </div>
+
+                    <div class="form__buttons">
+                        <div class="form__button">
+                            <input type="submit" value="Sign Up">
+                        </div>
+                        <div class="form__button">
+                            <label for="mod1"><div>Sign In</div></label>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="container">
+            <div class="footer__left__content">
+                <label for="mod1" class="footer__content__item">Sign in</label>
+                <label for="mod2" class="footer__content__item">Sign up</label>
+            </div>
+            <a href="#" class="footer__content__item">About us</a>
+    </footer>
+
+    <nav class="nav">
+        <input class="nav__check" type="checkbox" id="showmenu"/>
+        <label class="nav__showmenu" for="showmenu"><span></span></label>
+        <label class="nav__back" for="showmenu"></label>
+        <div class="menu"></div>
+    </nav>
+<script type="text/javascript" src="main.1c43353f40789d3fe8b1.js"></script></body>
 </html>

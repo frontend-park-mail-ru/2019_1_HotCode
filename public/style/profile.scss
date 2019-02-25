@@ -1,10 +1,10 @@
 .profile__button {
-  position: absolute;
-  left: 1.2%;
-  top: 27px;
-
+  position: fixed;
+  top: 2.5%;
+  left: 2.34%;
   @extend %white;
-  font-size: 26px;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 .profile__button:hover {

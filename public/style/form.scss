@@ -1,0 +1,105 @@
+.form__logo {
+  position: relative;
+  left: -44px;
+  margin-bottom: 4%;
+
+  @extend %yellow;
+  font-size: 1.8em;
+}
+
+
+.modal__info form {  // TODO Убрать этот костыль
+  margin-bottom: 27.22%;
+}
+
+.form__label {
+  margin-bottom: 2%;
+
+  @extend %white;
+  font-size: 0.9em;
+}
+
+.form__input input{
+  width: 399px;
+  height: 2.25em;
+  padding-left: calc(10px + 2%);
+  box-sizing: border-box;
+
+  @extend %white;
+  border: 2px solid $fontColorWhite;
+  border-radius: 15px;
+  outline: none;
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0);
+}
+
+.form__input{
+  margin-bottom: 5%;
+}
+
+.form__input:last-child{
+  margin-bottom: 0;
+}
+
+.form__input input::-webkit-input-placeholder {
+  color: rgba(238, 238, 238, 0.5);
+}
+
+.form__input input::-moz-placeholder {
+  color: rgba(238, 238, 238, 0.5);
+}
+
+.form__input input:focus{
+  @extend %yellow;
+  border: 2px solid $fontColorYellow;
+}
+
+.form__buttons {
+  display: flex;
+  margin-top: 7%;
+}
+
+.form__button * {
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.form__button {
+  margin-right: 7%;
+}
+
+.form__button:last-child {
+  margin-right: 0;
+}
+
+.form__button input[type='submit'] {
+  width: 146px;
+  height: 2.25em;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  @extend %yellow;
+  font-size: 0.9em;
+  border: 2px solid $fontColorYellow;
+  border-radius: 15px;
+  outline: none;
+  background: rgba(0, 0, 0, 0);
+}
+
+.form__button div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 146px;
+  height: 2.25em;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  @extend %white;
+  font-size: 0.9em;
+  border: 2px solid $fontColorWhite;
+  border-radius: 15px;
+  outline: none;
+  background: rgba(0, 0, 0, 0);
+}
+

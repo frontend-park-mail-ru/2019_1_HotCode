@@ -1,0 +1,55 @@
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  body {
+    font-weight: normal;
+    font-size: 15px;
+  }
+
+  .logo {
+    font-size: calc(1.5em + 0.4vh);
+  }
+
+  .logo__postscript {
+    font-size: calc(0.5em + 0.4vh);
+  }
+
+  .profile__button, footer {
+    display: none;
+  }
+
+  .nav__showmenu {
+    display: block;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  body {
+    font-size: 15px;
+  }
+
+  .logo {
+    font-size: calc(1.5em + 0.4vw);
+  }
+
+  .logo__postscript {
+    font-size: calc(0.5em + 0.4vw);
+  }
+
+  .profile__button, footer {
+    display: none;
+  }
+
+  .nav__showmenu {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {
+  .logo {
+    font-size: calc(2.4em - 1vh);
+  }
+}
+
+
+@media only screen  and (min-width: 1224px) {
+
+}
