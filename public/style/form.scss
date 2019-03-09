@@ -3,24 +3,47 @@
   left: -44px;
   margin-bottom: 4%;
 
-  @extend %yellow;
+  @extend %yellowLogo;
   font-size: 1.8em;
 }
-
 
 .modal__info form {  // TODO Убрать этот костыль
   margin-bottom: 27.22%;
 }
 
+.form__input {
+  margin-bottom: 7%;
+}
+
+.form__input__header {
+  display: flex;
+  max-width: 399px;
+  width: 73vw;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: row-reverse;
+  margin-bottom: 1.5%;
+}
+
 .form__label {
-  margin-bottom: 2%;
+  display: inline-block;
+  max-width: 65%;
+  margin-right: 0.9em;
 
   @extend %white;
   font-size: 0.9em;
 }
 
+.form__error {
+  font-family: $fontFamaly2;
+  font-size: 0.8em;
+  color: $fontColorError;
+  text-shadow: 0 0 10px $fontColorError;
+}
+
 .form__input input{
-  width: 399px;
+  max-width: 399px;
+  width: 73vw;
   height: 2.25em;
   padding-left: calc(10px + 2%);
   box-sizing: border-box;
@@ -31,10 +54,6 @@
   outline: none;
   font-size: 0.9em;
   background: rgba(0, 0, 0, 0);
-}
-
-.form__input{
-  margin-bottom: 5%;
 }
 
 .form__input:last-child{
@@ -50,12 +69,13 @@
 }
 
 .form__input input:focus{
-  @extend %yellow;
+  color: $fontColorYellow;
   border: 2px solid $fontColorYellow;
 }
 
 .form__buttons {
   display: flex;
+  flex-direction: row-reverse;
   margin-top: 7%;
 }
 
@@ -65,14 +85,14 @@
 }
 
 .form__button {
-  margin-right: 7%;
+  margin-left: 7%;
 }
 
 .form__button:last-child {
-  margin-right: 0;
+  margin-left: 0;
 }
 
-.form__button input[type='submit'] {
+.form__button button[type='submit'] {
   width: 146px;
   height: 2.25em;
   box-sizing: border-box;

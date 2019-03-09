@@ -3,72 +3,67 @@
   top: 15.23%;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 47.34%;
 }
 
-.signup__inputs {
+.settings form {
   display: flex;
   flex-wrap: wrap-reverse;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   align-content: flex-start;
+  padding-bottom: 12%;
 }
 
-.signup__inputs__right {   // TODO оцентрировать аватарку в телефонной раскладке, сделать ее пропорционально сжимающейся
+.form__inputs__right {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 14vw;
   min-width: 200px;
   min-height: 200px;
-  margin-bottom: 32px;
+  max-width: 300px;
+  max-height: 300px;
+  margin-bottom: 7%;
   box-sizing: border-box;
   overflow: hidden;
+  border: 2px solid $fontColorWhite;
   border-radius: 15px;
 }
 
-.signup__inputs__left {
-  margin-right: 30px;
+.form__inputs__right::before {
+  content: '';
+  padding-top: 100%;
+  float: left;
 }
 
-.settings__delete__button input{
-  width: 201px;
-  height: 2.25em;
-  box-sizing: border-box;
+.form__inputs__right::after {
+  content: '';
+  display: block;
+  clear: both;
+}
 
-  font-size: 0.9em;
-  font-family: $fontFamaly;
-  color: #F7477C;
-  border: 2px solid #F7477C;
-  border-radius: 15px;
-  outline: none;
-  background: rgba(0, 0, 0, 0);
-  cursor: pointer;
+.form__inputs__left {
+  margin-right: 6vw;
+}
+
+#avatar {
+  display: none;
 }
 
 .settings__load__avatar {
+  position: absolute;
   width: 100%;
   height: 100%;
-  padding: 30px;
+  padding: 1.2em;
 
-  @extend %white;
-  font-size: 30px;
-  border: 2px solid $fontColorWhite;
+  font-family: $fontFamaly2;
+  color: $fontColorGray;
+  font-size: 1.1em;
   border-radius: 15px;
   outline: none;
 }
 
-.settings__close__block {
+.form__inputs__right img {
   position: absolute;
   width: 100%;
-  height: 25px;
-  overflow: hidden;
-
-  background: linear-gradient(180deg,
-          #58574E 0%,
-          #403F3A 100%);
-}
-
-.settings__close__icon img{
-  position: relative;
-  left: 9px;
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
 }

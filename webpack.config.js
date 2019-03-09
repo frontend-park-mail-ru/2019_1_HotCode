@@ -6,10 +6,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const imagemin = require('imagemin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminSvgo = require('imagemin-svgo');
+const imageminPngquant = require('imagemin-pngquant');
+const imageminGiflossy = require('imagemin-giflossy');
 const TerserPlugin = require('terser-webpack-plugin');
 
 (async () => {
-    await imagemin(['public/img/*.{jpg,svg}'], 'dist/img', {
+    await imagemin(['public/img/*.{jpg,svg,png,gif}'], 'dist/img', {
         use: [
             imageminSvgo({
                 plugins: [
@@ -20,9 +22,20 @@ const TerserPlugin = require('terser-webpack-plugin');
                 plugins: [
                     {quality: 65}
                 ]
+            }),
+            imageminPngquant({
+                plugins: [
+                    {lossy: 80}
+                ]
+            }),
+            imageminGiflossy({
+                plugins: [
+                    {lossy: 80}
+                ]
             })
         ]
     });
+    await imagemin(['./*.{ico}'], 'dist', {});
 })();
 
 module.exports = {
@@ -36,8 +49,13 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
+                use: ["babel-loader"]
+            },
+            {
+                test: /.pug$/,
                 use: {
-                    loader: "babel-loader"
+                    loader: 'pug-loader',
+                    query: {}
                 }
             },
             {
@@ -49,8 +67,16 @@ module.exports = {
                     })
             },
             {
-                test: /\.(png|jpe?g|gif|woff|woff2|eot|ttf|svg)$/,
-                loader: 'url-loader?limit=100000',
+                test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'img'
+                        },
+                    },
+                ],
             }
         ]
     },
@@ -58,7 +84,9 @@ module.exports = {
         new CleanWebpackPlugin('dist', {} ),
         new ExtractTextPlugin({filename: 'style.[hash].css'}),
         new HtmlWebpackPlugin({
-            template: './public/index.html'
+            title: 'WarScript',
+            favicon: './favicon.ico',
+            meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
         }),
         new WebpackMd5Hash()
     ],

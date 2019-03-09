@@ -19,6 +19,12 @@
   .nav__showmenu {
     display: block;
   }
+
+  .full-screen {
+    top: auto;
+    bottom: 0;
+    border-radius: 1.25vh 0 0 0;
+  }
 }
 
 @media only screen and (max-width : 900px) and (orientation: landscape) {
@@ -41,11 +47,21 @@
   .nav__showmenu {
     display: block;
   }
+
+  .full-screen {
+    top: auto;
+    bottom: 0;
+    border-radius: 1.25vh 0 0 0;
+  }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {
-  .logo {
-    font-size: calc(2.4em - 1vh);
+  body {
+    font-size: 18px;
+  }
+
+  .modal__windows, #settings {
+    font-size: 22px;
   }
 }
 

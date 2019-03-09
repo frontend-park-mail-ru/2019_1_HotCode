@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Roboto|Titillium+Web|IBM+Plex+Mono:300|Roboto:300|Titillium+Web:300');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Roboto|Titillium+Web|IBM+Plex+Mono:300,500|Roboto:300|Jura:400,500,600&subset=cyrillic');
 
 $backgroundColor: rgba(0, 18, 45, 1);  // Темный цвет градиента на фоне
 $backgroundColor2: rgba(0, 51, 102, 1);  // Основной цвет градиента у всплывающего окна
@@ -11,12 +11,19 @@ $backgroundColorBack: rgba(49, 47, 126, 0.86);  // Цвет фона всплы�
 $fontColorWhite: rgba(238, 238, 238, 1);  // Белый
 $fontColorGray: rgba(238, 238, 238, 0.5); // Прозрачный
 $fontColorYellow: rgba(255, 215, 0, 1);  // Желтый
+$fontColorError: rgba(255, 99, 71, 1); // Оранжевый
 
-$fontFamalyLogo: Titillium Web;
-$fontFamaly: Titillium Web;
+$fontFamalyLogo: Jura;
+$fontFamaly: Roboto;
 $fontFamaly2: IBM Plex Mono;
 
 $DefaultFontSize: 22px;
+
+%yellowLogo {
+  font-family: $fontFamalyLogo;
+  font-weight: 500;
+  color: $fontColorYellow;
+}
 
 %yellow {
   font-family: $fontFamaly;
@@ -40,7 +47,6 @@ $DefaultFontSize: 22px;
 body {
   font-family: $fontFamaly;
   font-size: $DefaultFontSize;
-  //font-weight: 300;
   color: $fontColorWhite;
 }
 

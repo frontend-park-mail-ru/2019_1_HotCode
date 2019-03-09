@@ -16,26 +16,15 @@
   content: 'Choose a ${game}';
   position: relative;
   bottom: 2vw;
+  left: 50%;
+  transform: translateX(-50%);
 
-  display: block;
-  text-align: center;
-  z-index: 5;
+  display: inline-block;
   @extend %white;
-  font-size: calc(1em + 0.6vw);
-
-}
-
-.main__center::after {
-  content: '< DATA WING />';
-  position: relative;
-  top: 2vw;
-
-  display: block;
-  font-family: $fontFamalyLogo;
-  color: $fontColorYellow;
   font-size: calc(1em + 0.6vw);
   white-space: nowrap;
   z-index: 5;
+
 }
 
 .carusel input{display: none;}
@@ -64,6 +53,9 @@
   top: 0;
   display: none;
   width: 100%;
+  height: 100%;
+  background-image: url("../img/Data-wing-4_1516196099-e1516208811916.jpg");
+  background-size: contain;
   will-change: transform;
   backface-visibility: hidden;
   border-radius: 1.25vw;
@@ -102,7 +94,21 @@ input:checked+div+input+div .carusel__item {
   left: 0;
   transform: rotate(0) scale(1);
   transform-origin: 50% 50% 0;
-  box-shadow: 0 0 205px 20px rgba(0,0,0,.67);
+  box-shadow: -60px 0 136px -15px rgba(0,0,0,.67),
+  60px 0 136px -15px rgba(0,0,0,.67),
+  5px 5px 15px 5px transparent;
+}
+
+input:checked+div+input+div .carusel__item::after {
+  content: '< DATA WING />';
+  position: absolute;
+  bottom: -15%;
+
+  display: inline-block;
+  @extend %yellowLogo;
+  font-size: calc(1em + 0.6vw);
+  white-space: nowrap;
+  z-index: 5;
 }
 
 input:checked+div+input+div+input+div .carusel__item {

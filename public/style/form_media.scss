@@ -4,7 +4,7 @@
     left: auto;
     text-align: center;
 
-    font-size: calc(1.8em + 0.8vh);
+    font-size: calc(1.6em + 0.8vh);
   }
 
 
@@ -12,11 +12,28 @@
     margin-bottom: 0;
   }
 
+  .form__input {
+    margin-bottom: 3%;
+  }
+
+  .form__input__header {
+    max-width: none;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
   .form__label {
     display: none;
   }
 
+  .form__error {
+    padding-right: calc(10px + 2%);
+    height: calc(1em + .5vh);
+    font-size: calc(0.6em + 0.7vh);
+  }
+
   .form__input input{
+    max-width: none;
     width: 100%;
     height: calc(2.25em + 0.5vh);
 
@@ -24,10 +41,6 @@
     border-radius: 0;
     font-size: calc(0.9em + 0.5vh);
     background: $backgroundInputColor;
-  }
-
-  .form__input{
-    margin-bottom: 7%;
   }
 
   .form__input:last-child{
@@ -50,12 +63,11 @@
   .form__buttons {
     flex-direction: column;
     align-items: center;
-    margin-top: 6%;
   }
 
   .form__button {
-    width: 90%;
-    margin-right: 0;
+    width: 85%;
+    margin-left: 0;
     margin-bottom: 4%;
   }
 
@@ -63,22 +75,24 @@
     margin-bottom: 0;
   }
 
-  .form__button input[type='submit'] {
+  .form__button button[type='submit'] {
     width: 100%;
-    height: 2.25em;
+    height: calc(1.6em + 1.6vh);
 
     font-size: calc(0.9em + 0.7vh);
     border-radius: 8px;
   }
 
   .form__button div {
-    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
     width: auto;
     height: auto;
     overflow: inherit;
-    text-align: center;
 
-    font-size: calc(0.9em + 0.5vh);
+    font-size: calc(0.9em + 0.7vh);
     border: 0;
     border-radius: 0;
     outline: none;
@@ -98,7 +112,7 @@
     left: auto;
     text-align: center;
 
-    font-size: calc(1.8em + 0.8vh);
+    font-size: calc(1.6em + 0.8vw);
   }
 
 
@@ -106,22 +120,35 @@
     margin-bottom: 0;
   }
 
+  .form__input {
+    margin-bottom: 3%;
+  }
+
+  .form__input__header {
+    max-width: none;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
   .form__label {
     display: none;
   }
 
+  .form__error {
+    padding-right: calc(10px + 2%);
+    height: calc(1em + .5vh);
+    font-size: calc(0.6em + 0.7vh);
+  }
+
   .form__input input{
+    max-width: none;
     width: 100%;
-    height: calc(2.25em + 0.5vh);
+    height: calc(2.25em + 0.5vw);
 
     border: 0;
     border-radius: 0;
-    font-size: calc(0.9em + 0.5vh);
+    font-size: calc(0.9em + 0.5vw);
     background: $backgroundInputColor;
-  }
-
-  .form__input{
-    margin-bottom: 7%;
   }
 
   .form__input:last-child{
@@ -144,12 +171,11 @@
   .form__buttons {
     flex-direction: column;
     align-items: center;
-    margin-top: 6%;
   }
 
   .form__button {
-    width: 90%;
-    margin-right: 0;
+    width: 85%;
+    margin-left: 0;
     margin-bottom: 4%;
   }
 
@@ -157,22 +183,24 @@
     margin-bottom: 0;
   }
 
-  .form__button input[type='submit'] {
+  .form__button button[type='submit'] {
     width: 100%;
-    height: 2.25em;
+    height: calc(1.6em + 1.6vw);
 
-    font-size: calc(0.9em + 0.7vh);
+    font-size: calc(0.9em + 0.7vw);
     border-radius: 8px;
   }
 
   .form__button div {
-    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
     width: auto;
     height: auto;
     overflow: inherit;
-    text-align: center;
 
-    font-size: calc(0.9em + 0.5vh);
+    font-size: calc(0.9em + 0.7vw);
     border: 0;
     border-radius: 0;
     outline: none;
@@ -188,25 +216,6 @@
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){
 
 }
-
-//@media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {
-//  .form__input input{
-//    width: 49vw;
-//    max-width: 399px;
-//  }
-//
-//  .form__button input[type='submit'] {
-//    min-width: 93px;
-//    width: 22vw;
-//    max-width: 146px;
-//  }
-//
-//  .form__button div {
-//    min-width: 93px;
-//    width: 22vw;
-//    max-width: 146px;
-//  }
-//}
 
 @media only screen  and (min-width: 1224px) {
 
