@@ -37,15 +37,16 @@ class SettingsForm extends Form{
     }
 
     validateUsername() {
-        try {
-
-            if (User.username !== this.usernameField.getValue()) {
-                Validation.validateUsername(this.usernameField.getValue());
-                this.usernameField.clearError();
-            }
-
-        } catch (usernameError) {
-            this.usernameField.setError(usernameError.errorText);
+        if (User.username !== this.usernameField.getValue()) {
+            Validation.validateUsername(this.usernameField.getValue())
+                .then(() => {
+                    this.usernameField.clearError();
+                })
+                .catch(error => {
+                    this.usernameField.setError(error.errorText);
+                });
+        } else {
+            this.usernameField.clearError();
         }
     }
 

@@ -25,6 +25,8 @@ class Validation {
                         resolve();
                     }
                 });
+            } else {
+                resolve();
             }
         });
     }
