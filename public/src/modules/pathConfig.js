@@ -11,7 +11,9 @@ const urls = {
         editPath: '/users',
         takenPath: '/users/used',
 
-        avatar: '/photos'
+        avatar: '/photos',
+
+        game: '/games'
     }
 };
 

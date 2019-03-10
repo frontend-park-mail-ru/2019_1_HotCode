@@ -4,11 +4,12 @@ import Component from "../baseComponent";
 import EventBus from '../../modules/event-bus';
 
 class Paginator extends Component{
-    constructor(el) {
+    constructor(el, limit = 7) {
         super(el);
 
         this._pageCount = 8;
         this._activePage = 2;
+        this._limit = limit;
 
         this.first = new Component(this.el.querySelector('.pagination__first'));
         this.prev = new Component(this.el.querySelector('.pagination__prev'));
@@ -31,6 +32,7 @@ class Paginator extends Component{
 
     set pageCount(value) {
         this._pageCount = value;
+        EventBus.publish('chengePage', '');
     }
 
     get activePage() {
@@ -39,6 +41,7 @@ class Paginator extends Component{
 
     set activePage(value) {
         this._activePage = value;
+        EventBus.publish('chengePage', '');
     }
 
     onClick() {

@@ -1,9 +1,9 @@
 tr
     th #
     th Player
-    th Result
+    th Score
 each user, index in users
     tr
-        td= index
-        td= user.name
+        td= index + 1
+        td= user.username
         td= user.score
