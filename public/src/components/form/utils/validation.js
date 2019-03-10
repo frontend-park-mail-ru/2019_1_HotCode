@@ -30,11 +30,11 @@ class Validation {
     }
 
     static validatePassword(password) {
-        // const minLength = 8;
-        // if (password.length > 0 &&
-        //     password.length < minLength) {
-        //     throw new ValidationError(ValidationError.lengthError(minLength));
-        // }
+        const minLength = 0;
+        if (password.length > 0 &&
+            password.length < minLength) {
+            throw new ValidationError(ValidationError.lengthError(minLength));
+        }
     }
 
     static validatePasswordEquality(password, passwordRepeat) {

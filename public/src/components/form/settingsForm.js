@@ -5,6 +5,7 @@ import Field from "../field/field";
 import Validation from "./utils/validation";
 import ImageInput from "../imageInput/imageInput";
 import Component from "../baseComponent";
+import User from '../../models/user';
 
 /**
  * SettingsForm Component for SettingsForm

@@ -4,7 +4,6 @@ import Component from "../../components/baseComponent";
 import SettingsForm from "../../components/form/settingsForm";
 import User from "../../models/user";
 import UserService from "../../services/user-service";
-import ImageInput from "../../components/imageInput/imageInput";
 import AvatarService from "../../services/avatar-service";
 
 const settingsTmpl = require('./settingsView.pug');
@@ -27,15 +26,15 @@ class SettingsView {
             image.el.src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;  // Hi, it's http
         }
 
-        this.settingsForm.usernameField.onBlur((event) => {
+        this.settingsForm.usernameField.onBlur(() => {
             this.settingsForm.validateUsername();
         });
 
-        this.settingsForm.newPasswordField.onBlur((event) => {
+        this.settingsForm.newPasswordField.onBlur(() => {
             this.settingsForm.validateNewPassword();
         });
 
-        this.settingsForm.repeatNewPasswordField.onBlur((event) => {
+        this.settingsForm.repeatNewPasswordField.onBlur(() => {
             this.settingsForm.validateNewPasswordEquality();
         });
 
@@ -56,11 +55,11 @@ class SettingsView {
 
             // TODO Обработка ошибок
             if (this.settingsForm.validate()) {
-                let promise = new Promise((resolve, reject) => {
+                let promise = new Promise((resolve) => {
                     if (avatar) {
                         AvatarService.sendAvatar(avatar, (err, resp) => {
                             if (err) {
-                                console.log(err);
+                                // console.log(err);
                             } else {
                                 resolve(resp.photo_uuid);
                             }
@@ -71,13 +70,13 @@ class SettingsView {
                 });
 
                 promise.then((photo_uuid) => {
-                    UserService.edit(username, oldPassword, newPassword, photo_uuid, (err, resp) => {
+                    UserService.edit(username, oldPassword, newPassword, photo_uuid, (err) => {
                         if (err) {
                             this.settingsForm.usernameField.setError(err.username);
                             this.settingsForm.oldPasswordField.setError(err.oldPassword);
                         } else {
                             this.settingsForm.el.reset();
-                            UserService.me((err, resp) => {
+                            UserService.me((err) => {
                                 if (err) {
                                     alert(err.message);
                                 }

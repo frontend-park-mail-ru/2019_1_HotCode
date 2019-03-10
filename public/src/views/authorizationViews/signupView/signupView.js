@@ -40,15 +40,15 @@ class SignupView {
 
         this.signupForm = new SignupForm(this.parent.el.getElementsByTagName('form')[0]);
 
-        this.signupForm.usernameField.onBlur((event) => {
+        this.signupForm.usernameField.onBlur(() => {
             this.signupForm.validateUsername();
         });
 
-        this.signupForm.passwordField.onBlur((event) => {
+        this.signupForm.passwordField.onBlur(() => {
             this.signupForm.validatePassword();
         });
 
-        this.signupForm.passwordRepeatField.onBlur((event) => {
+        this.signupForm.passwordRepeatField.onBlur(() => {
             this.signupForm.validatePasswordEquality();
         });
 
@@ -59,7 +59,7 @@ class SignupView {
 
 
             if (this.signupForm.validate()) {
-                UserService.signup(username, password, (err, resp) => {
+                UserService.signup(username, password, (err) => {
                     if (err) {
                         this.signupForm.usernameField.setError(err.username);
                     } else {

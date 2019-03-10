@@ -4,7 +4,7 @@ class ValidationError {
 
     static emptyFieldError() {
         return 'Fill this field';
-    };
+    }
 
     static lengthError(minLenght) {
         return `Minimum length of ${minLenght} characters`;

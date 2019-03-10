@@ -2,9 +2,9 @@
 
 import Paths from './pathConfig';
 
-// const server = Paths.server.backend;
-// const avatatServer = Paths.server.avatarBackend;
-const server = '';
+
+const server = Paths.server.backend;
+const avatatServer = Paths.server.avatarBackend;
 
 class Http {
 
@@ -63,7 +63,6 @@ class Http {
         };
 
         if (avatarBackend && body) {
-            console.log('avatar');
             xhr.send(body);
         } else if (body) {
             xhr.send(JSON.stringify(body));

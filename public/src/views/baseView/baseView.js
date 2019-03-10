@@ -6,12 +6,10 @@ import MainView from "../mainView/mainView";
 import SettingsView from "../settingsView/settingsView";
 import SigninView from "../authorizationViews/signinView/signinView";
 import SignupView from "../authorizationViews/signupView/signupView";
-import User from "../../models/user";
 import UserService from "../../services/user-service";
 import EventBus from '../../modules/event-bus';
 import Tabbar from "../../components/tabbar/tabbar";
 import Checkbox from "../../components/checkbox/checkbox";
-import AvatarService from "../../services/avatar-service";
 
 const baseTmpl = require('./baseView.pug');
 
@@ -54,22 +52,22 @@ class BaseView {
             launchFullScreen,
             cancelFullscreen
         );
-        this.mainButton = new Button(document.querySelector('#logo'), (event) => {
+        this.mainButton = new Button(document.querySelector('#logo'), () => {
             mainView.render();
         });
-        this.profileButton = new Button(document.querySelector('#profile'), (event) => {
-            UserService.me((err, resp) => {
+        this.profileButton = new Button(document.querySelector('#profile'), () => {
+            UserService.me((err) => {
                 if (err) {
-                    console.log(err.message);
+                    // console.log(err.message);
                 } else {
                     settingsView.render();
                 }
             }, true);
         });
-        this.signoutButton = new Button(document.querySelector('#signout'), (event) => {
-            UserService.signout((err, resp) => {
+        this.signoutButton = new Button(document.querySelector('#signout'), () => {
+            UserService.signout((err) => {
                 if (err) {
-                    console.log(err.message);
+                    // console.log(err.message);
                 }
             });
         });
@@ -110,7 +108,7 @@ class BaseView {
             this.modalWindows.onChange();
         });
 
-        UserService.me((err, resp) => {
+        UserService.me((err) => {
             if (err) {
                 EventBus.publish('unauthorized', '');
             } else {

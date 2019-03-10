@@ -1,10 +1,8 @@
-'use strict';
+import Component from '../baseComponent';
+import Tab from './tab';
 
-import Component from "../baseComponent";
-import Tab from "./tab";
-
-class Tabbar extends Component{
-    constructor(el, callbacks, defaultState = 0) {
+class Tabbar extends Component {
+    constructor(el, callbacks) {
         super(el);
 
         this._tabbarContent = new Component(this.el.querySelector('div'));
@@ -12,10 +10,6 @@ class Tabbar extends Component{
         for (let tabId in callbacks) {
             this.getTabById(tabId).callback = callbacks[tabId];
         }
-    }
-
-    set defaultTab(newDefaultState) {
-        this._defaultTab = this._tabs[newDefaultState];
     }
 
     getTabById(id) {

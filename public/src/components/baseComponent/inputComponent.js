@@ -34,12 +34,12 @@ class InputComponent extends Component{
     }
 
     hideAllReferences() {
-        const references = Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
+        Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
             .map(reference => (new Component(reference)).hide());
     }
 
     showAllReferences() {
-        const references = Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
+        Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
             .map(reference => (new Component(reference)).show());
     }
 

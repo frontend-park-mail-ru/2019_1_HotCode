@@ -35,7 +35,7 @@ class SigninView {
 
         this.signinForm = new SigninForm(this.parent.el.getElementsByTagName('form')[0]);
 
-        this.signinForm.usernameField.onBlur((event) => {
+        this.signinForm.usernameField.onBlur(() => {
             this.signinForm.validateUsername();
         });
 
@@ -45,7 +45,7 @@ class SigninView {
             const password = this.signinForm.passwordField.getValue();
 
             if (this.signinForm.validate()) {
-                UserService.auth(username, password, (err, resp) => {
+                UserService.auth(username, password, (err) => {
                     if (err) {
                         this.signinForm.usernameField.setError(err.username);
                         this.signinForm.passwordField.setError(err.password);
