@@ -5,6 +5,7 @@ import SettingsForm from "../../components/form/settingsForm";
 import User from "../../models/user";
 import UserService from "../../services/user-service";
 import AvatarService from "../../services/avatar-service";
+import ValidationError from "../../components/form/utils/validationError";
 
 const settingsTmpl = require('./settingsView.pug');
 
@@ -72,8 +73,12 @@ class SettingsView {
                 promise.then((photo_uuid) => {
                     UserService.edit(username, oldPassword, newPassword, photo_uuid, (err) => {
                         if (err) {
-                            this.settingsForm.usernameField.setError(err.username);
-                            this.settingsForm.oldPasswordField.setError(err.oldPassword);
+                            if (err.username) {
+                                this.settingsForm.usernameField.setError(ValidationError.uniqueError());
+                            }
+                            if (err.oldPassword) {
+                                this.settingsForm.oldPasswordField.setError(ValidationError.invalidPasswordError())
+                            }
                         } else {
                             this.settingsForm.el.reset();
                             UserService.me((err) => {

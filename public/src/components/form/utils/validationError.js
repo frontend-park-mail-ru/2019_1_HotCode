@@ -3,23 +3,27 @@
 class ValidationError {
 
     static emptyFieldError() {
-        return 'Fill this field';
+        return 'fill_this_field';
     }
 
     static lengthError(minLenght) {
-        return `Minimum length of ${minLenght} characters`;
+        return `minimum_length_of_${minLenght}_characters`;
     }
 
     static uniqueError() {
-        return 'This name is already taken';
+        return 'this_nam_is_already_taken';
     }
 
     static passwordEqualityError() {
-        return 'Passwords do not match';
+        return 'passwords_do_not_match';
     }
 
-    static loginError() {
-        return 'Invalid username / password'
+    static notExistError() {
+        return 'user_does_not_exist';
+    }
+
+    static invalidPasswordError() {
+        return 'invalid_password';
     }
 
     constructor(errorText) {

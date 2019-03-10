@@ -4,6 +4,7 @@ import Component from "../../../components/baseComponent";
 import UserService from "../../../services/user-service";
 import SigninForm from "../../../components/form/signinForm";
 import EventBus from "../../../modules/event-bus";
+import ValidationError from "../../../components/form/utils/validationError";
 
 const formBaseTmpl = require('../formBaseView.pug');
 
@@ -47,8 +48,12 @@ class SigninView {
             if (this.signinForm.validate()) {
                 UserService.auth(username, password, (err) => {
                     if (err) {
-                        this.signinForm.usernameField.setError(err.username);
-                        this.signinForm.passwordField.setError(err.password);
+                        if (err.username) {
+                            this.signinForm.usernameField.setError(ValidationError.notExistError());
+                        }
+                        if (err.password) {
+                            this.signinForm.passwordField.setError(ValidationError.invalidPasswordError());
+                        }
                     } else {
                         EventBus.publish('mod0', '')
                     }

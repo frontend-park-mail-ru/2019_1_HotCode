@@ -4,6 +4,7 @@ import Component from "../../../components/baseComponent";
 import UserService from "../../../services/user-service";
 import SignupForm from "../../../components/form/signupForm";
 import EventBus from  '../../../modules/event-bus';
+import ValidationError from "../../../components/form/utils/validationError";
 
 const formBaseTmpl = require('../formBaseView.pug');
 
@@ -60,8 +61,8 @@ class SignupView {
 
             if (this.signupForm.validate()) {
                 UserService.signup(username, password, (err) => {
-                    if (err) {
-                        this.signupForm.usernameField.setError(err.username);
+                    if (err && err.username) {
+                        this.signupForm.usernameField.setError(ValidationError.uniqueError());
                     } else {
                         EventBus.publish('mod0', '')
                     }
