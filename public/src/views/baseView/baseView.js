@@ -62,7 +62,7 @@ class BaseView {
                 } else {
                     settingsView.render();
                 }
-            }, true);
+            });
         });
         this.signoutButton = new Button(document.querySelector('#signout'), () => {
             UserService.signout((err) => {
