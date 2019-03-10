@@ -9,7 +9,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "watch": "webpack --mode development --watch",
-    "compile-pug": "pug -c ./public/src/components/form/form.pug -o public/src/components/form"
+    "deploy": "webpack --mode development && now && now alias"
   },
   "repository": {
     "type": "git",

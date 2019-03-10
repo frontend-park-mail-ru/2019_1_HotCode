@@ -1,0 +1,33 @@
+#game.game__menu
+    .game__background__img
+        img(src='img/Data-wing-4_1516196099-e1516208811916.jpg')
+        .game__background
+    .game
+        .game__first__line
+            .game__logo DATA WING
+            .game__start
+                | Let&apos;s play
+        .game__options__line
+            div
+                label(for='option0') Description
+            div
+                label(for='option1') Rules
+            div
+                label(for='option2') LeaderBoard
+        .game__main
+            .game__left__content
+                .game__line
+                .game__content
+                    .game__description
+                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    .game__rule.hidden
+                        | Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    .game__leaderboard.hidden
+                        include ./liderboardView.pug
+            .game__right__content
+                img(src='img/hqdefault.jpg')
+        .options__check
+            input#option0.option__check(type='radio', name='options', checked='checked')
+            input#option1.option__check(type='radio', name='options')
+            input#option2.option__check(type='radio', name='options')
+            input#option3.option__check(type='radio', name='options')

@@ -29,11 +29,8 @@ footer {
   white-space: nowrap;
 }
 
-.footer__content__item label:focus {
-  color: $fontColorYellow;
-}
-
 .footer__content__item label:hover {
+  color: $fontColorYellow;
   text-decoration-line: underline;
 }
 

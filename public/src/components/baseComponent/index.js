@@ -24,6 +24,14 @@ class Component {
         this.el.classList.remove('hidden');
     }
 
+    active() {
+        this.el.classList.add('active');
+    }
+
+    disactive() {
+        this.el.classList.remove('active');
+    }
+
     setText(text) {
         this.el.textContent = text;
     }
@@ -31,6 +39,10 @@ class Component {
     append(component) {
         this.el.appendChild(component.el);
         return this;
+    }
+
+    off(event, callback) {
+        this.el.removeEventListener(event, callback);
     }
 
     on(event, callback) {

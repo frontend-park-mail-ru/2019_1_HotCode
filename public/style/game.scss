@@ -88,26 +88,29 @@
   justify-content: space-between;
 }
 
-.game__options__line a{
+.game__options__line div{
   width: 33.333%;
   text-align: center;
+}
+
+.game__options__line label {
   @extend %white;
   font-weight: 300;
   font-size: 26px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.game__options__line a:focus{
-  @extend %yellow;
-}
-.game__options__line a:hover {
+.game__options__line label:hover {
+  color: $fontColorYellow;
   text-decoration-line: underline;
 }
 
-.game__options__line a:first-child {
+.game__options__line div:first-child {
   text-align: left;
 }
 
-.game__options__line a:last-child {
+.game__options__line div:last-child {
   text-align: right;
 }
 
@@ -120,7 +123,7 @@
   border-bottom: 2px solid $fontColorWhite;
 }
 
-.game__discription {
+.game__description, .game__rule {
   margin-top: 4%;
   width: 90%;
 
@@ -146,17 +149,18 @@
 }
 
 .game__table__type a:focus {
-  @extend %white;
+  color: $fontColorWhite;
 }
 
 .game__table__type a:hover {
-  @extend %white;
+  color: $fontColorWhite;
   text-decoration-line: underline;
 }
 
 .game__leaderboard table{
   margin-top: 4%;
-  width: 100%;
+  width: 50vw;
+  min-width: 90%;
 
   @extend %white;
   font-weight: 300;
@@ -167,12 +171,38 @@
 }
 
 .game__leaderboard td, th {
+  font-weight: 300;
   padding: 10px 40px;
   border: 2px solid $fontColorWhite;
 }
 
 .game__leaderboard th:first-child, td:first-child{
   padding: 10px 7px;
+}
+
+.pagination {
+  margin-top: 3%;
+  text-align: right;
+}
+
+.pagination span {
+  @extend %white;
+  display: inline-block;
+  size: 1.1em;
+  margin: 1% 0;
+  margin-right: 0.6%;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 300;
+}
+
+.pagination span:last-child {
+  margin-right: 0;
+}
+
+.pagination span:hover {
+  color: $fontColorYellow;
 }
 
 .game__right__content{
@@ -198,4 +228,8 @@
   content: '';
   display: block;
   clear: both;
+}
+
+.option__check {
+  display: none;
 }

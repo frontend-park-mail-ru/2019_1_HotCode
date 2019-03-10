@@ -75,6 +75,11 @@ body {
   display: none !important;
 }
 
+.active {
+  cursor: auto !important;
+  color: $fontColorYellow !important;
+}
+
 @import "options";
 @import "main";
 @import "modal";
