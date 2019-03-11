@@ -2,13 +2,14 @@
 
 import Component from "../baseComponent";
 import EventBus from '../../modules/event-bus';
+import GameService from "../../services/game-service";
 
 class Paginator extends Component{
     constructor(el, limit = 7) {
         super(el);
 
-        this._pageCount = 8;
-        this._activePage = 2;
+        this._pageCount = 0;
+        this._activePage = 1;
         this._limit = limit;
 
         this.first = new Component(this.el.querySelector('.pagination__first'));
@@ -19,9 +20,23 @@ class Paginator extends Component{
         this.last = new Component(this.el.querySelector('.pagination__last'));
 
         this.onClick();
+
         EventBus.subscribe('chengePage', () => {
+            const offset = (this._activePage - 1) * this._limit;
+            GameService.getScores(1, this._limit, (this._activePage - 1) * this._limit)
+                .then(resp => {
+                    EventBus.publish('fullTable', {users: resp, offset: offset});
+                    return GameService.getCountUsers(1);
+                })
+                .then(resp => {
+                    this._pageCount = parseInt((resp.count - 1) / this._limit + 1);
+                })
+                .catch(() => {
+                    // console.log(err.message);
+                });
             this.renderPaginator()
         });
+
         this.renderPaginator();
 
     }

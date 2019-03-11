@@ -60,13 +60,15 @@ class SignupView {
 
 
             if (this.signupForm.validate()) {
-                UserService.signup(username, password, (err) => {
-                    if (err && err.username) {
-                        this.signupForm.usernameField.setError(ValidationError.uniqueError());
-                    } else {
-                        EventBus.publish('mod0', '')
-                    }
-                });
+                UserService.signup(username, password)
+                    .then(() => {
+                        EventBus.publish('mod0', '');
+                    })
+                    .catch((err) => {
+                        if (err.username) {
+                            this.signupForm.usernameField.setError(ValidationError.uniqueError());
+                        }
+                    });
             }
         });
     }

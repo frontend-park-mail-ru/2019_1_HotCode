@@ -2,15 +2,20 @@
 
 import Component from "../baseComponent";
 import Tab from '../tabbar/tab';
-import EventBus from '../../modules/event-bus'
+import EventBus from '../../modules/event-bus';
+
+
+const carouselTmpl = require('./carousel.pug');
 
 /**
  * Carousel Component for carousel
  * @extends {Component}
  */
 class Carousel extends Component{
-    constructor(el, callback = () => {}) {
+    constructor(el, games = [], callback = () => {}) {
         super(el);
+
+        this.el.innerHTML = carouselTmpl({games: games});
 
         this.mainCallback = callback;
         this.mainContent = new Component(this.el.querySelector('input:checked+div+input+div .carusel__item'));

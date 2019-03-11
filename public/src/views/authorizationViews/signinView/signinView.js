@@ -46,18 +46,18 @@ class SigninView {
             const password = this.signinForm.passwordField.getValue();
 
             if (this.signinForm.validate()) {
-                UserService.auth(username, password, (err) => {
-                    if (err) {
+                UserService.auth(username, password)
+                    .then(() => {
+                        EventBus.publish('mod0', '');
+                    })
+                    .catch((err) => {
                         if (err.username) {
                             this.signinForm.usernameField.setError(ValidationError.notExistError());
                         }
                         if (err.password) {
                             this.signinForm.passwordField.setError(ValidationError.invalidPasswordError());
                         }
-                    } else {
-                        EventBus.publish('mod0', '')
-                    }
-                });
+                    });
             }
         });
     }

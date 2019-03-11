@@ -56,20 +56,21 @@ class BaseView {
             mainView.render();
         });
         this.profileButton = new Button(document.querySelector('#profile'), () => {
-            UserService.me((err) => {
-                if (err) {
-                    // console.log(err.message);
-                } else {
+            UserService.me()
+                .then(() => {
                     settingsView.render();
-                }
-            });
+                })
+                .catch(() => {
+                    EventBus.publish('mod1', '');
+                    // console.log(err.message);
+                });
         });
         this.signoutButton = new Button(document.querySelector('#signout'), () => {
-            UserService.signout((err) => {
-                if (err) {
+            UserService.signout()
+                .catch(() => {
+                    EventBus.publish('mod1', '');
                     // console.log(err.message);
-                }
-            });
+                });
         });
         this.authorizationSection = new Component(document.querySelector('.footer__left__content'));
         this.modalWindows = new Tabbar(document.querySelector('.modal__windows'), {
@@ -108,14 +109,13 @@ class BaseView {
             this.modalWindows.onChange();
         });
 
-        UserService.me((err) => {
-            if (err) {
-                EventBus.publish('unauthorized', '');
-            } else {
+        UserService.me()
+            .then(() => {
                 EventBus.publish('authorized', '');
-            }
-
-        });
+            })
+            .catch(() => {
+                EventBus.publish('unauthorized', '');
+            });
     }
 }
 

@@ -36,6 +36,12 @@ class SettingsForm extends Form{
         });
     }
 
+    resetPasswords() {
+        this.oldPasswordField.clearValue();
+        this.newPasswordField.clearValue();
+        this.repeatNewPasswordField.clearValue();
+    }
+
     validateUsername() {
         if (User.username !== this.usernameField.getValue()) {
             Validation.validateUsername(this.usernameField.getValue())

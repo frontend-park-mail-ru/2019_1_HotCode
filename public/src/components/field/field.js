@@ -33,7 +33,11 @@ class Field extends Component{
     }
 
     setValue(value) {
-        return this.input.el.value = value;
+        this.input.el.value = value;
+    }
+
+    clearValue() {
+        this.input.el.value = '';
     }
 
     setError(errorText) {

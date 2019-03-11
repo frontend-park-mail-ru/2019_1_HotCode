@@ -2,59 +2,44 @@
 
 import Http from '../modules/http';
 import Paths from '../modules/pathConfig';
-import User from "../models/user";
-import EventBus from "../modules/event-bus";
+import User from '../models/user';
+import EventBus from '../modules/event-bus';
 
 class UserService {
-    static signup(username, password, callback) {
+    static signup(username, password) {
         const user = {username, password};
-        Http.Post(Paths.paths.signupPath, user)
+        return Http.Post(Paths.paths.signupPath, user)
             .then(resp => {
                 User.active = true;
                 EventBus.publish('authorized', '');
-                callback(null, resp);
-            })
-            .catch(err => {
-                callback(err, null);
+                return resp;
             });
     }
 
-    static auth(username, password, callback) {
+    static auth(username, password) {
         const user = {username, password};
-        Http.Post(Paths.paths.signinPath, user)
+        return Http.Post(Paths.paths.signinPath, user)
             .then(resp => {
                 User.active = true;
                 EventBus.publish('authorized', '');
-                callback(null, resp);
-            })
-            .catch(err => {
-                callback(err, null);
+                return resp;
             });
     }
 
-    static isTaken(username, callback) {
-        Http.Post(Paths.paths.takenPath, {username})
-            .then(resp => {
-                callback(null, resp);
-            })
-            .catch(err => {
-                callback(err, null);
-            });
+    static isTaken(username) {
+        return Http.Post(Paths.paths.takenPath, {username});
     }
 
-    static signout(callback) {
-        Http.Delete(Paths.paths.signoutPath)
+    static signout() {
+        return Http.Delete(Paths.paths.signoutPath)
             .then(resp => {
                 User.clearData();
                 EventBus.publish('unauthorized', '');
-                callback(null, resp);
-            })
-            .catch(err => {
-                callback(err, null);
+                return resp;
             });
     }
 
-    static edit(username, oldPassword, newPassword, photo_uuid, callback) {
+    static edit(username, oldPassword, newPassword, photo_uuid) {
         let user = {};
         if (username) {
             user.username = username
@@ -67,25 +52,16 @@ class UserService {
             user.photo_uuid = photo_uuid;
         }
         if (user) {
-            Http.Put(Paths.paths.editPath, user)
-                .then(resp => {
-                    callback(null, resp);
-                })
-                .catch(err => {
-                    callback(err, null);
-                });
+            return Http.Put(Paths.paths.editPath, user);
         }
     }
 
-    static me(callback) {
-        Http.Get(Paths.paths.mePath)
+    static me() {
+        return Http.Get(Paths.paths.mePath)
             .then(resp => {
                 User.username = resp.username;
                 User.avatar = resp.photo_uuid;
-                callback(null, resp);
-            })
-            .catch(err => {
-                return callback(err, null);
+                return resp;
             });
     }
 }

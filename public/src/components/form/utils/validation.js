@@ -18,13 +18,14 @@ class Validation {
                     reject(new ValidationError(ValidationError.lengthError(minLength)));
                 }
 
-                UserService.isTaken(username, (err, resp) => {
-                    if (resp.used) {
-                        reject(new ValidationError(ValidationError.uniqueError()));
-                    } else {
-                        resolve();
-                    }
-                });
+                UserService.isTaken(username)
+                    .then(resp => {
+                        if (resp.used) {
+                            reject(new ValidationError(ValidationError.uniqueError()));
+                        } else {
+                            resolve();
+                        }
+                    });
             } else {
                 resolve();
             }

@@ -4,42 +4,20 @@ import Component from "../../components/baseComponent";
 import Tabbar from "../../components/tabbar/tabbar";
 import Paginator from "../../components/pagination/paginator";
 import GameService from "../../services/game-service";
+import Game from "../../models/game";
+import EventBus from '../../modules/event-bus';
 
 const gameMenuTmpl = require('./gameMenuView.pug');
-const tableTmpl = require('./table.pug');
-
-// const users = {
-//     users : [
-//         {
-//             username: 'Fredy',
-//             score: 34
-//         },
-//         {
-//             username: 'Fredy',
-//             score: 34
-//         },
-//         {
-//             username: 'Dorofeev',
-//             score: 5462
-//         },
-//         {
-//             username: 'Romanov',
-//             score: 4354
-//         },
-//         {
-//             username: 'Fredy',
-//             score: 34
-//         }
-//     ]
-// };
+const tableTmpl = require('../../components/table/table.pug');
 
 class GameMenuView {
     constructor() {
         this.parent = new Component(document.querySelector('div.container'));
+        this._renderLimitLiderBpard = 1;
     }
 
     render() {
-        this.parent.el.innerHTML = gameMenuTmpl();
+        this.parent.el.innerHTML = gameMenuTmpl({title: Game.name});
 
         this.descriptionSection = new Component(this.parent.el.querySelector('.game__description'));
         this.ruleSection = new Component(this.parent.el.querySelector('.game__rule'));
@@ -61,22 +39,39 @@ class GameMenuView {
                 this.ruleSection.hide();
                 this.liderBoardSection.show();
 
-                this.defaultLimit = 7;
-
-                this.liderBoardTable = new Component(this.parent.el.querySelector('table'));
-                GameService.getScores(1, this.defaultLimit, 0, (err, resp) => {
-                    if (err) {
-                        // console.log(err.message);
-                    } else {
-                        this.liderBoardTable.el.innerHTML = tableTmpl({users: resp});
-                    }
-                });
-
-                this.paginator = new Paginator(this.parent.el.querySelector('.pagination'), this.defaultLimit);
+                this.renderLiderboard();
             },
         });
 
         this.optionsTabbar.onChange();
+    }
+
+    renderLiderboard() {
+        if (this._renderLimitLiderBpard <= 0) {
+            return
+        }
+        this._renderLimitLiderBpard -=1;
+
+        this.defaultLimit = 2;
+
+        this.paginator = new Paginator(this.parent.el.querySelector('.pagination'), this.defaultLimit);
+
+        EventBus.subscribe('fullTable', table => {
+            this.liderBoardTable.el.innerHTML = tableTmpl(table);
+        });
+
+        this.liderBoardTable = new Component(this.parent.el.querySelector('table'));
+        GameService.getScores(1, this.defaultLimit, 0)
+            .then(resp => {
+                EventBus.publish('fullTable', {users: resp, offset: 0});
+                return GameService.getCountUsers(1);
+            })
+            .then(resp => {
+                this.paginator.pageCount = parseInt((resp.count - 1) / this.defaultLimit + 1);
+            })
+            .catch(() => {
+                // console.log(err.message);
+            });
     }
 }
 

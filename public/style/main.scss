@@ -100,7 +100,7 @@ input:checked+div+input+div .carusel__item {
 }
 
 input:checked+div+input+div .carusel__item::after {
-  content: '< DATA WING />';
+  content: '<' attr(data-content) '/>';
   position: absolute;
   bottom: -15%;
 

@@ -6,35 +6,25 @@ import Game from "../models/game";
 
 class GameService {
 
-    static getScores(id, limit, offset, callback) {
-        Http.Get(`${Paths.paths.game}/${id}/leaderboard?offset=${offset}&limit=${limit}`)
-            .then(resp => {
-                callback(null, resp);
-            })
-            .catch(err => {
-                return callback(err, null);
-            });
+    static getScores(id, limit, offset) {
+        return Http.Get(`${Paths.paths.game}/${id}/leaderboard?offset=${offset}&limit=${limit}`);
     }
 
-    static getGames(callback) {
-        Http.Get(Paths.paths.game)
-            .then(resp => {
-                callback(null, resp);
-            })
-            .catch(err => {
-                return callback(err, null);
-            });
+    static getCountUsers(id) {
+        return Http.Get(`${Paths.paths.game}/${id}/leaderboard/count`);
     }
 
-    static getGame(id, callback) {
-        Http.Get(`${Paths.paths.game}/${id}`)
+    static getGames() {
+        return Http.Get(Paths.paths.game);
+    }
+
+    static getGame(id) {
+        return Http.Get(`${Paths.paths.game}/${id}`)
             .then(resp => {
+
                 Game.id = resp.id;
                 Game.name = resp.title;
-                callback(null, resp);
-            })
-            .catch(err => {
-                return callback(err, null);
+                return resp;
             });
     }
 }

@@ -6,6 +6,7 @@ import User from "../../models/user";
 import UserService from "../../services/user-service";
 import AvatarService from "../../services/avatar-service";
 import ValidationError from "../../components/form/utils/validationError";
+import EventBus from "../../modules/event-bus";
 
 const settingsTmpl = require('./settingsView.pug');
 
@@ -53,41 +54,38 @@ class SettingsView {
 
             const avatar = this.settingsForm.avatarField.getFile();
 
-
-            // TODO Обработка ошибок
             if (this.settingsForm.validate()) {
                 let promise = new Promise((resolve) => {
                     if (avatar) {
-                        AvatarService.sendAvatar(avatar, (err, resp) => {
-                            if (err) {
-                                // console.log(err);
-                            } else {
+                        AvatarService.sendAvatar(avatar)
+                            .then(resp => {
                                 resolve(resp.photo_uuid);
-                            }
-                        })
+                            })
+                            .catch(() => {
+                                // console.log(err);
+                            });
                     } else {
                         resolve('');
                     }
                 });
 
                 promise.then((photo_uuid) => {
-                    UserService.edit(username, oldPassword, newPassword, photo_uuid, (err) => {
-                        if (err) {
+                    UserService.edit(username, oldPassword, newPassword, photo_uuid)
+                        .then(() => {
+                            this.settingsForm.resetPasswords();
+                            UserService.me();
+                        })
+                        .catch((err) => {
+                            if (err.message) {
+                                EventBus.publish('mod1', '');
+                            }
                             if (err.username) {
                                 this.settingsForm.usernameField.setError(ValidationError.uniqueError());
                             }
                             if (err.oldPassword) {
-                                this.settingsForm.oldPasswordField.setError(ValidationError.invalidPasswordError())
+                                this.settingsForm.oldPasswordField.setError(ValidationError.invalidPasswordError());
                             }
-                        } else {
-                            this.settingsForm.el.reset();
-                            UserService.me((err) => {
-                                if (err) {
-                                    alert(err.message);
-                                }
-                            }, true);
-                        }
-                    });
+                        });
                 });
             }
         });
