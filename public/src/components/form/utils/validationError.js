@@ -11,7 +11,7 @@ class ValidationError {
     }
 
     static uniqueError() {
-        return 'this_nam_is_already_taken';
+        return 'this_name_is_already_taken';
     }
 
     static passwordEqualityError() {

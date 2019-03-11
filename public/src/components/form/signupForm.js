@@ -18,7 +18,16 @@ class SignupForm extends Form{
     }
 
     validateUsername() {
-        Validation.validateUsername(this.usernameField.getValue())
+        try {
+            Validation.validateUsername(this.usernameField.getValue());
+            this.usernameField.clearError();
+        } catch (usernameError) {
+            this.usernameField.setError(usernameError.errorText);
+        }
+    }
+
+    validateUsernameOnUnique() {
+        Validation.validateUsernameOnUnique(this.usernameField.getValue())
             .then(() => {
                 this.usernameField.clearError();
             })
@@ -50,6 +59,7 @@ class SignupForm extends Form{
 
     validate() {
         this.validateUsername();
+        this.validateUsernameOnUnique();
         this.validatePassword();
 
         return !this.usernameField.getErrorStatus() &&

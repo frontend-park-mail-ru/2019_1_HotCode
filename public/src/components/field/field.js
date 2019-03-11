@@ -24,6 +24,10 @@ class Field extends Component{
         this.input.on('focus', callback);
     }
 
+    onInput(callback) {
+        this.input.on('input', callback);
+    }
+
     onBlur(callback) {
         this.input.on('blur', callback);
     }

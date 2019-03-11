@@ -43,8 +43,17 @@ class SettingsForm extends Form{
     }
 
     validateUsername() {
+        try {
+            Validation.validateUsername(this.usernameField.getValue());
+            this.usernameField.clearError();
+        } catch (usernameError) {
+            this.usernameField.setError(usernameError.errorText);
+        }
+    }
+
+    validateUsernameOnUnique() {
         if (User.username !== this.usernameField.getValue()) {
-            Validation.validateUsername(this.usernameField.getValue())
+            Validation.validateUsernameOnUnique(this.usernameField.getValue())
                 .then(() => {
                     this.usernameField.clearError();
                 })

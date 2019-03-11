@@ -17,13 +17,12 @@ class SigninForm extends Form{
     }
 
     validateUsername() {
-        Validation.validateUsername(this.usernameField.getValue(), true)
-            .then(() => {
-                this.usernameField.clearError();
-            })
-            .catch(error => {
-                this.usernameField.setError(error.errorText);
-            });
+        try {
+            Validation.validateUsername(this.usernameField.getValue(), true);
+            this.usernameField.clearError();
+        } catch (usernameError) {
+            this.usernameField.setError(usernameError.errorText);
+        }
     }
 
     validatePassword() {

@@ -22,21 +22,24 @@ class SettingsView {
 
         this.settingsForm.usernameField.setValue(User.username);
 
-        // TODO Исправить
         const image = new Component(this.parent.el.querySelector('.form__inputs__right img'));
         if (User.avatar) {
-            image.el.src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;  // Hi, it's http
+            image.el.src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;
         }
 
-        this.settingsForm.usernameField.onBlur(() => {
+        this.settingsForm.usernameField.onInput(() => {
             this.settingsForm.validateUsername();
         });
 
-        this.settingsForm.newPasswordField.onBlur(() => {
+        this.settingsForm.usernameField.onBlur(() => {
+            this.settingsForm.validateUsernameOnUnique();
+        });
+
+        this.settingsForm.newPasswordField.onInput(() => {
             this.settingsForm.validateNewPassword();
         });
 
-        this.settingsForm.repeatNewPasswordField.onBlur(() => {
+        this.settingsForm.repeatNewPasswordField.onInput(() => {
             this.settingsForm.validateNewPasswordEquality();
         });
 
