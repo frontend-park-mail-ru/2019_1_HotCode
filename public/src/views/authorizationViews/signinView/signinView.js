@@ -36,7 +36,7 @@ class SigninView {
 
         this.signinForm = new SigninForm(this.parent.el.getElementsByTagName('form')[0]);
 
-        this.signinForm.usernameField.onBlur(() => {
+        this.signinForm.usernameField.onInput(() => {
             this.signinForm.validateUsername();
         });
 

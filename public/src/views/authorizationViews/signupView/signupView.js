@@ -41,15 +41,19 @@ class SignupView {
 
         this.signupForm = new SignupForm(this.parent.el.getElementsByTagName('form')[0]);
 
-        this.signupForm.usernameField.onBlur(() => {
+        this.signupForm.usernameField.onInput(() => {
             this.signupForm.validateUsername();
         });
 
-        this.signupForm.passwordField.onBlur(() => {
+        this.signupForm.usernameField.onBlur(() => {
+            this.signupForm.validateUsernameOnUnique();
+        });
+
+        this.signupForm.passwordField.onInput(() => {
             this.signupForm.validatePassword();
         });
 
-        this.signupForm.passwordRepeatField.onBlur(() => {
+        this.signupForm.passwordRepeatField.onInput(() => {
             this.signupForm.validatePasswordEquality();
         });
 

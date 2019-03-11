@@ -6,29 +6,38 @@ import ValidationError from "./validationError";
 class Validation {
 
     static validateUsername(username, isLogin = false) {
+        if (username.length === 0) {
+            throw new ValidationError(ValidationError.emptyFieldError());
+        }
+
+        if (!isLogin) {
+
+            const minLength = 0;
+            if (username.length < minLength) {
+                throw new ValidationError(ValidationError.lengthError(minLength));
+            }
+
+        }
+    }
+
+    static validateUsernameOnUnique(username) {
         return new Promise((resolve, reject) => {
-            if (username.length === 0) {
-                reject(new ValidationError(ValidationError.emptyFieldError()));
+
+            try {
+                Validation.validateUsername(username);
+            } catch (usernameError) {
+                reject(usernameError);
+                return;
             }
 
-            if (!isLogin) {
-
-                const minLength = 4;
-                if (username.length < minLength) {
-                    reject(new ValidationError(ValidationError.lengthError(minLength)));
-                }
-
-                UserService.isTaken(username)
-                    .then(resp => {
-                        if (resp.used) {
-                            reject(new ValidationError(ValidationError.uniqueError()));
-                        } else {
-                            resolve();
-                        }
-                    });
-            } else {
-                resolve();
-            }
+            UserService.isTaken(username)
+                .then(resp => {
+                    if (resp.used) {
+                        reject(new ValidationError(ValidationError.uniqueError()));
+                    } else {
+                        resolve();
+                    }
+                });
         });
     }
 
