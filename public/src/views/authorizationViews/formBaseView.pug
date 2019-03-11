@@ -1,0 +1,20 @@
+label.modal__background(for='mod0')
+.modal
+    label.modal__close(for='mod0') &times;
+    .modal__info
+        .form__logo= logotype
+        form(action='#', method='post')
+            .form__inputs
+                each field in formFields
+                    .form__input
+                        .form__input__header
+                            .form__error
+                            .form__label= field.label
+                        input(type=field.type, name=field.name, placeholder=field.placeholder, maxlength='32')
+            .form__buttons
+                .form__button
+                    button(type='submit')= submitButtonName
+                if otherButtonName
+                    .form__button
+                        label(for=`mod${nextFormNumber}`)
+                            div= otherButtonName

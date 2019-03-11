@@ -1,0 +1,17 @@
+#profile {
+  display: none;
+}
+
+.profile__button {
+  position: fixed;
+  top: 2.5%;
+  left: 2.34%;
+  @extend %white;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.profile__button:hover {
+  color: $fontColorYellow;
+  text-decoration-line: underline;
+}
