@@ -1,0 +1,135 @@
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .main {
+    position: fixed;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .main__center::before {
+    position: absolute;
+    left: 0;
+    transform: none;
+    bottom: auto;
+    padding: 1.9%;
+
+    background: $backgroundColorBack2;
+    border-radius: 0 0 1.25vh 0;
+    font-size: calc(1em + 0.4vh);
+  }
+
+  .carusel__item {
+    border-radius: 0;
+  }
+
+  .carusel__arrow{
+    min-width: 0;
+    min-height: 0;
+    top: auto;
+  }
+
+  input:checked+div .carusel__item {
+    left: auto;
+    top: 25%;
+    transform: rotateX(30deg) scale(0.75);
+    transform-origin: bottom center;
+    border-radius: 1.25vh;
+  }
+  input:checked+div+input+div .carusel__item {
+    left: auto;
+    top: 0;
+    box-shadow: 0 0 200px 25px rgba(0,0,0,.67);
+  }
+
+  input:checked+div+input+div .carusel__item::after {
+    bottom: 0;
+    right: 0;
+    padding: 1.9%;
+
+    background: $backgroundColorBack2;
+    border-radius: 1.25vh 0 0 0;
+    font-weight: 600;
+    font-size: calc(1em + 0.4vh);
+  }
+
+  input:checked+div+input+div+input+div .carusel__item {
+    left: auto;
+    top: -25%;
+    transform: rotateX(-30deg) scale(0.75);
+    transform-origin: top center;
+    border-radius: 1.25vh;
+  }
+
+  input:checked+div .carusel__arrow {
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 100%) rotate(-90deg);
+  }
+
+  input:checked+div+input+div+input+div .carusel__arrow {
+    right: 50%;
+    transform: translate(50%, -100%) rotate(90deg);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape)  {
+  .main {
+    position: fixed;
+    min-width: 0;
+  }
+
+  .carusel__arrow{
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .main__center::before {
+    bottom: 1.5vw;
+
+    font-size: calc(1em + 0.4vw);
+  }
+
+  input:checked+div+input+div .carusel__item::after {
+    bottom: -20%;
+
+    font-size: calc(1em + 0.4vh);
+  }
+}
+
+@media only screen  and (min-width: 1224px) {
+
+}
+
+///* Smartphones (вертикальная и горизонтальная ориентация) ----------- */
+//@media only screen and (min-width : 320px) and (max-width : 480px) {
+//  /* стили */
+//}
+//
+///* Smartphones (горизонтальная) ----------- */
+//@media only screen and (min-width: 321px) {
+//  /* стили */
+//}
+//
+///* Smartphones (вертикальная) ----------- */
+//@media only screen and (max-width: 320px) {
+//  /* стили */
+//}
+//
+///* iPads (вертикальная и горизонтальная) ----------- */
+//@media only screen and (min-width: 768px) and (max-width: 1024px) {
+//  /* стили */
+//}
+//
+///* iPads (горизонтальная) ----------- */
+//@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+//  /* стили */
+//}
+//
+///* iPads (вертикальная) ----------- */
+//@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+//  /* стили */
+//}
+//
+///* Настольные компьютеры и ноутбуки ----------- */
+//@media only screen  and (min-width: 1224px) {
+//  /* стили */
+//}
