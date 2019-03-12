@@ -20,7 +20,9 @@ class GameMenuView {
         this.parent.el.innerHTML = gameMenuTmpl({title: Game.name});
 
         this.descriptionSection = new Component(this.parent.el.querySelector('.game__description'));
+
         this.ruleSection = new Component(this.parent.el.querySelector('.game__rule'));
+
         this.liderBoardSection = new Component(this.parent.el.querySelector('.game__leaderboard'));
 
         this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
@@ -52,7 +54,8 @@ class GameMenuView {
         }
         this._renderLimitLiderBpard -=1;
 
-        this.defaultLimit = 2;
+
+        this.defaultLimit = 6;
 
         this.paginator = new Paginator(this.parent.el.querySelector('.pagination'), this.defaultLimit);
 
@@ -61,6 +64,7 @@ class GameMenuView {
         });
 
         this.liderBoardTable = new Component(this.parent.el.querySelector('table'));
+
         GameService.getScores(1, this.defaultLimit, 0)
             .then(resp => {
                 EventBus.publish('fullTable', {users: resp, offset: 0});
