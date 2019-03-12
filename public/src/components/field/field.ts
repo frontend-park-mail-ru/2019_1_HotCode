@@ -1,0 +1,70 @@
+'use strict';
+
+import Component from '../baseComponent/index';
+
+/**
+ * Field Component for inputs
+ * @extends {Component}
+ */
+class Field extends Component{
+
+    private input: Component;
+    private label: Component;
+    private errorField: Component;
+
+    constructor(el: HTMLElement,
+                input?: HTMLElement,
+                label?: HTMLElement,
+                errorField?: HTMLElement)
+    {
+        super(el);
+
+        this.input = new Component(input ||
+            this.el.querySelector('input'));
+
+        this.label = new Component(label ||
+            this.el.querySelector('.form__label'));
+
+        this.errorField = new Component(errorField ||
+            this.el.querySelector('.form__error'));
+    }
+
+    public onFocus(callback: () => void): void {
+        this.input.on('focus', callback);
+    }
+
+    public onInput(callback: () => void): void {
+        this.input.on('input', callback);
+    }
+
+    public onBlur(callback: () => void): void {
+        this.input.on('blur', callback);
+    }
+
+    public getValue(): string {
+        return (<HTMLInputElement>this.input.el).value;
+    }
+
+    public setValue(value: string): void {
+        (<HTMLInputElement>this.input.el).value = value;
+    }
+
+    public clearValue(): void {
+        (<HTMLInputElement>this.input.el).value = '';
+    }
+
+    public setError(errorText: string): void {
+        this.errorField.setText(errorText);
+    }
+
+    public clearError(): void {
+        this.errorField.setText('');
+    }
+
+    // false - валидное поле; true - ошибка
+    public getErrorStatus(): boolean {
+        return !!this.errorField.el.innerText;
+    }
+}
+
+export default Field;
