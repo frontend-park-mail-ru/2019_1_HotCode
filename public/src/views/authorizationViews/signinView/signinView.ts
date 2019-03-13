@@ -6,6 +6,7 @@ import SigninForm from "../../../components/form/signinForm";
 import EventBus from "../../../modules/event-bus";
 import ValidationError from "../../../components/form/utils/validationError";
 import {signinFormConfig} from '../utils/formConfig';
+import {events} from '../../../utils/events';
 
 class SigninView {
 
@@ -37,12 +38,14 @@ class SigninView {
 
                 UserService.auth(username, password)
                     .then(() => {
-                        EventBus.publish('mod0', '');
+                        EventBus.publish(events.closeModal, '');
                     })
                     .catch((err) => {
+
                         if (err.username) {
                             this._signinForm.usernameField.setError(ValidationError.notExistError());
                         }
+
                         if (err.password) {
                             this._signinForm.passwordField.setError(ValidationError.invalidPasswordError());
                         }

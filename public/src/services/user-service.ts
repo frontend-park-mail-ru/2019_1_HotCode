@@ -4,6 +4,7 @@ import Http from '../modules/http';
 import Paths from '../utils/pathConfig';
 import User from '../models/user';
 import EventBus from '../modules/event-bus';
+import {events} from '../utils/events';
 
 class UserService {
 
@@ -15,7 +16,7 @@ class UserService {
             .then(resp => {
 
                 User.active = true;
-                EventBus.publish('authorized', '');
+                EventBus.publish(events.authorized, '');
                 return resp;
             });
     }
@@ -29,7 +30,7 @@ class UserService {
             .then(resp => {
 
                 User.active = true;
-                EventBus.publish('authorized', '');
+                EventBus.publish(events.authorized, '');
                 return resp;
             });
     }
@@ -46,7 +47,7 @@ class UserService {
         return Http.Delete(Paths.paths.signoutPath)
             .then(resp => {
                 User.clearData();
-                EventBus.publish('unauthorized', '');
+                EventBus.publish(events.unauthorized, '');
                 return resp;
             });
     }

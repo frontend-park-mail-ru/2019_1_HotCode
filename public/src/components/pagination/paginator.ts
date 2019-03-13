@@ -3,6 +3,7 @@
 import Component from "../baseComponent/index";
 import EventBus from '../../modules/event-bus';
 import GameService from "../../services/game-service";
+import {events} from '../../utils/events';
 
 class Paginator extends Component{
 
@@ -40,15 +41,17 @@ class Paginator extends Component{
 
         this.onClick();
 
-        EventBus.subscribe('chengePage', () => {
+        EventBus.subscribe(events.chengePage, () => {
             const offset = (this._activePage - 1) * this._limit;
 
             GameService.getScores(1, this._limit, (this._activePage - 1) * this._limit)
                 .then(resp => {
-                    EventBus.publish('fullTable', {users: resp, offset: offset});
+
+                    EventBus.publish(events.fillTable, {users: resp, offset: offset});
                     return GameService.getCountUsers(1);
                 })
                 .then(resp => {
+
                     this._pageCount = Math.floor((resp.count - 1) / this._limit + 1);
                 })
                 .catch(() => {
@@ -68,7 +71,7 @@ class Paginator extends Component{
 
     set pageCount(value) {
         this._pageCount = value;
-        EventBus.publish('chengePage', '');
+        EventBus.publish(events.chengePage, '');
     }
 
     get activePage() {
@@ -77,34 +80,34 @@ class Paginator extends Component{
 
     set activePage(value) {
         this._activePage = value;
-        EventBus.publish('chengePage', '');
+        EventBus.publish(events.chengePage, '');
     }
 
     public onClick(): void {
         this._first.on('click', () => {
             this._activePage = 1;
-            EventBus.publish('chengePage', '');
+            EventBus.publish(events.chengePage, '');
         });
 
         this._prev.on('click', () => {
             this._activePage -= 1;
-            EventBus.publish('chengePage', '');
+            EventBus.publish(events.chengePage, '');
         });
 
         this._next.on('click', () => {
             this._activePage += 1;
-            EventBus.publish('chengePage', '');
+            EventBus.publish(events.chengePage, '');
         });
 
         this._last.on('click', () => {
             this._activePage = this._pageCount;
-            EventBus.publish('chengePage', '');
+            EventBus.publish(events.chengePage, '');
         });
 
         this._pages.map(page => {
             page.on('click', (e) => {
                 this._activePage = +(<HTMLElement>e.target).innerText;
-                EventBus.publish('chengePage', '');
+                EventBus.publish(events.chengePage, '');
             })
         })
     }
@@ -124,17 +127,24 @@ class Paginator extends Component{
 
     private renderPaginator(): void {
         if (this._activePage > 1) {
+
             this._first.show();
             this._prev.show();
+
         } else {
+
             this._first.hide();
             this._prev.hide();
         }
 
+
         if (this._activePage < this._pageCount) {
+
             this._next.show();
             this._last.show();
+
         } else {
+
             this._next.hide();
             this._last.hide();
         }

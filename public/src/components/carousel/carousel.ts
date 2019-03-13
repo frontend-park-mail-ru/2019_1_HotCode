@@ -3,6 +3,7 @@
 import Component from "../baseComponent/index";
 import Tab from '../tabbar/tab';
 import EventBus from '../../modules/event-bus';
+import {events} from '../../utils/events';
 
 
 const carouselTmpl = require('./carousel.pug');
@@ -44,7 +45,7 @@ class Carousel extends Component{
     public onClick(): void {
         this._clickRemover = this._centerContent.on('click', this._clickCallback);
 
-        EventBus.subscribe('chengeStateCarousel', () => {
+        EventBus.subscribe(events.chengeStateCarousel, () => {
             this._clickRemover.remover();
             this._centerContent = this.getActiveItem();
             this._clickRemover = this._centerContent.on('click', this._clickCallback);
@@ -66,7 +67,7 @@ class Carousel extends Component{
         this.on('change', (event) => {
 
             if ((<HTMLInputElement>event.target).checked) {
-                EventBus.publish('chengeStateCarousel', '');
+                EventBus.publish(events.chengeStateCarousel, '');
             }
         });
     }

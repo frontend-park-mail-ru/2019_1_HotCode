@@ -22,7 +22,7 @@ class Field extends Component{
         super(el);
 
         this._input = new Component(input ||
-            this.el.querySelector('input'));
+            this.el.getElementsByTagName('input')[0]);
 
         this._label = new Component(label ||
             this.el.querySelector('.form__label'));

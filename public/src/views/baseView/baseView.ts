@@ -10,7 +10,8 @@ import UserService from "../../services/user-service";
 import EventBus from '../../modules/event-bus';
 import Tabbar from "../../components/tabbar/tabbar";
 import Checkbox from "../../components/checkbox/checkbox";
-import {activeFullScreen, cancselFullScreen} from "../../modules/full-screen"
+import {activeFullScreen, cancselFullScreen} from "../../modules/full-screen";
+import {events} from '../../utils/events';
 
 class BaseView {
 
@@ -53,7 +54,7 @@ class BaseView {
                     settingsView.render();
                 })
                 .catch(() => {
-                    EventBus.publish('mod1', '');
+                    EventBus.publish(events.openSignIn, '');
                     // console.log(err.message);
                 });
         });
@@ -61,7 +62,7 @@ class BaseView {
         this._signoutButton = new Button(document.querySelector('#signout'), () => {
             UserService.signout()
                 .catch(() => {
-                    EventBus.publish('mod1', '');
+                    EventBus.publish(events.openSignIn, '');
                     // console.log(err.message);
                 });
         });
@@ -88,10 +89,10 @@ class BaseView {
 
         UserService.me()
             .then(() => {
-                EventBus.publish('authorized', '');
+                EventBus.publish(events.authorized, '');
             })
             .catch(() => {
-                EventBus.publish('unauthorized', '');
+                EventBus.publish(events.unauthorized, '');
             });
     }
 
@@ -102,13 +103,13 @@ class BaseView {
         this._signoutButton.onClick();
         this._modalWindows.onChange();
 
-        EventBus.subscribe('authorized', () => {
+        EventBus.subscribe(events.authorized, () => {
             this._authorizationSection.hide();
             this._profileButton.showAllReferences();
             this._signoutButton.showAllReferences();
         });
 
-        EventBus.subscribe('unauthorized', () => {
+        EventBus.subscribe(events.unauthorized, () => {
             this._profileButton.hideAllReferences();
             this._signoutButton.hideAllReferences();
             this._authorizationSection.show();

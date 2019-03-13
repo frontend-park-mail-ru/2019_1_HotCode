@@ -7,6 +7,7 @@ import UserService from "../../services/user-service";
 import AvatarService from "../../services/avatar-service";
 import ValidationError from "../../components/form/utils/validationError";
 import EventBus from "../../modules/event-bus";
+import {events} from '../../utils/events';
 
 class SettingsView {
 
@@ -18,7 +19,7 @@ class SettingsView {
     constructor() {
         this._parent = new Component(document.querySelector('div.container'));
 
-        EventBus.subscribe('onOldPassword', () => {
+        EventBus.subscribe(events.onOldPassword, () => {
 
             if (this.settingsForm.oldPasswordField.getValue()) {
 
@@ -36,10 +37,10 @@ class SettingsView {
     public render(): void {
         this._parent.el.innerHTML = this._template();
 
-        this.settingsForm = new SettingsForm(this._parent.el.querySelector('form'));
+        this.settingsForm = new SettingsForm(this._parent.el.getElementsByTagName('form')[0]);
 
 
-        EventBus.publish('onOldPassword');
+        EventBus.publish(events.onOldPassword);
 
 
         this.settingsForm.usernameField.setValue(User.username);
@@ -59,7 +60,7 @@ class SettingsView {
         });
 
         this.settingsForm.oldPasswordField.onInput(() => {
-            EventBus.publish('onOldPassword');
+            EventBus.publish(events.onOldPassword);
         });
 
         this.settingsForm.newPasswordField.onInput(() => {
@@ -113,7 +114,7 @@ class SettingsView {
                         })
                         .catch((err) => {
                             if (err.message) {
-                                EventBus.publish('mod1', '');
+                                EventBus.publish(events.openSignIn, '');
                             }
                             if (err.username) {
                                 this.settingsForm.usernameField.setError(ValidationError.uniqueError());

@@ -4,6 +4,7 @@ import Component from "../../../components/baseComponent/index";
 import Paginator from "../../../components/pagination/paginator";
 import GameService from "../../../services/game-service";
 import EventBus from '../../../modules/event-bus';
+import {events} from '../../../utils/events';
 
 const tableTmpl = require('../../../components/table/table.pug');
 
@@ -25,24 +26,33 @@ class LiderboardView {
 
         this._paginator = new Paginator(this._parent.el.querySelector('.pagination'), this._defaultLimit);
 
-        EventBus.subscribe('fullTable', table => {
+
+        EventBus.subscribe(events.fillTable, table => {
             this._liderBoardTable.el.innerHTML = tableTmpl(table);
         });
 
-        this._liderBoardTable = new Component(this._parent.el.querySelector('table'));
+
+        this._liderBoardTable = new Component(this._parent.el.getElementsByTagName('table')[0]);
+
 
         GameService.getScores(1, this._defaultLimit, 0)
             .then(resp => {
-                EventBus.publish('fullTable', {users: resp, offset: 0});
+
+                EventBus.publish(events.fillTable, {users: resp, offset: 0});
                 return GameService.getCountUsers(1);
+
             })
             .then(resp => {
+
                 this._paginator.pageCount = Math.floor((resp.count - 1) / this._defaultLimit + 1);
+
             })
             .catch(() => {
                 // console.log(err.message);
             });
     }
+
+
 
     public clear(): void {
         this._paginator = null;

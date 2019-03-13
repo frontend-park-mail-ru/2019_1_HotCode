@@ -6,6 +6,7 @@ import SignupForm from "../../../components/form/signupForm";
 import EventBus from '../../../modules/event-bus';
 import ValidationError from "../../../components/form/utils/validationError";
 import {signupFormConfig} from '../utils/formConfig';
+import {events} from '../../../utils/events';
 
 class SignupView {
 
@@ -50,7 +51,7 @@ class SignupView {
 
                 UserService.signup(username, password)
                     .then(() => {
-                        EventBus.publish('mod0', '');
+                        EventBus.publish(events.closeModal, '');
                     })
                     .catch((err) => {
                         if (err.username) {
