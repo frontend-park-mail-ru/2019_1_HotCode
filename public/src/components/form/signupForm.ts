@@ -61,8 +61,14 @@ class SignupForm extends Form{
         try {
 
             Validation.validatePassword(this._passwordField.getValue());
-            Validation.validatePasswordEquality(this._passwordField.getValue(),
-                                                this._passwordRepeatField.getValue());
+
+            if (!this._passwordField.virginityField &&
+                !this._passwordRepeatField.virginityField) {
+
+                Validation.validatePasswordEquality(this._passwordField.getValue(),
+                    this._passwordRepeatField.getValue());
+            }
+
             this._passwordField.clearError();
 
         } catch (passwordError) {
@@ -73,8 +79,13 @@ class SignupForm extends Form{
     public validatePasswordEquality(): void {
         try {
 
-            Validation.validatePasswordEquality(this._passwordField.getValue(),
-                                                this._passwordRepeatField.getValue());
+            if (!this._passwordField.virginityField &&
+                !this._passwordRepeatField.virginityField) {
+
+                Validation.validatePasswordEquality(this._passwordField.getValue(),
+                    this._passwordRepeatField.getValue());
+            }
+
             this._passwordField.clearError();
 
         } catch (passwordError) {
