@@ -17,6 +17,20 @@ class SettingsView {
 
     constructor() {
         this._parent = new Component(document.querySelector('div.container'));
+
+        EventBus.subscribe('onOldPassword', () => {
+
+            if (this.settingsForm.oldPasswordField.getValue()) {
+
+                this.settingsForm.newPasswordField.show();
+                this.settingsForm.repeatNewPasswordField.show();
+
+                return
+            }
+
+            this.settingsForm.newPasswordField.hide();
+            this.settingsForm.repeatNewPasswordField.hide();
+        });
     }
 
     public render(): void {
@@ -24,12 +38,17 @@ class SettingsView {
 
         this.settingsForm = new SettingsForm(this._parent.el.querySelector('form'));
 
+
+        EventBus.publish('onOldPassword');
+
+
         this.settingsForm.usernameField.setValue(User.username);
 
         const image = new Component(this._parent.el.querySelector('.form__inputs__right img'));
         if (User.avatar) {
             (<HTMLImageElement>image.el).src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;
         }
+
 
         this.settingsForm.usernameField.onInput(() => {
             this.settingsForm.validateUsername();
@@ -39,6 +58,10 @@ class SettingsView {
             this.settingsForm.validateUsernameOnUnique();
         });
 
+        this.settingsForm.oldPasswordField.onInput(() => {
+            EventBus.publish('onOldPassword');
+        });
+
         this.settingsForm.newPasswordField.onInput(() => {
             this.settingsForm.validateNewPassword();
         });
@@ -46,6 +69,7 @@ class SettingsView {
         this.settingsForm.repeatNewPasswordField.onInput(() => {
             this.settingsForm.validateNewPasswordEquality();
         });
+
 
         this.settingsForm.avatarField.onChange();
 
@@ -74,9 +98,11 @@ class SettingsView {
                             .catch(() => {
                                 // console.log(err);
                             });
-                    } else {
-                        resolve('');
+
+                        return;
                     }
+
+                    resolve('');
                 });
 
                 promise.then((photo_uuid: string) => {

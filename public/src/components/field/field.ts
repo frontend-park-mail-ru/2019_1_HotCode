@@ -8,9 +8,11 @@ import Component from '../baseComponent/index';
  */
 class Field extends Component{
 
-    private input: Component;
-    private label: Component;
-    private errorField: Component;
+    private _input: Component;
+    private _label: Component;
+    private _errorField: Component;
+
+    private _virginityField: boolean;
 
     constructor(el: HTMLElement,
                 input?: HTMLElement,
@@ -19,51 +21,59 @@ class Field extends Component{
     {
         super(el);
 
-        this.input = new Component(input ||
+        this._input = new Component(input ||
             this.el.querySelector('input'));
 
-        this.label = new Component(label ||
+        this._label = new Component(label ||
             this.el.querySelector('.form__label'));
 
-        this.errorField = new Component(errorField ||
+        this._errorField = new Component(errorField ||
             this.el.querySelector('.form__error'));
+
+        this._virginityField = true;
+
+        this._input.on('focus', () => this._virginityField = false );
+    }
+
+    get virginityField(): boolean {
+        return this._virginityField;
     }
 
     public onFocus(callback: () => void): void {
-        this.input.on('focus', callback);
+        this._input.on('focus', callback);
     }
 
     public onInput(callback: () => void): void {
-        this.input.on('input', callback);
+        this._input.on('input', callback);
     }
 
     public onBlur(callback: () => void): void {
-        this.input.on('blur', callback);
+        this._input.on('blur', callback);
     }
 
     public getValue(): string {
-        return (<HTMLInputElement>this.input.el).value;
+        return (<HTMLInputElement>this._input.el).value;
     }
 
     public setValue(value: string): void {
-        (<HTMLInputElement>this.input.el).value = value;
+        (<HTMLInputElement>this._input.el).value = value;
     }
 
     public clearValue(): void {
-        (<HTMLInputElement>this.input.el).value = '';
+        (<HTMLInputElement>this._input.el).value = '';
     }
 
     public setError(errorText: string): void {
-        this.errorField.setText(errorText);
+        this._errorField.setText(errorText);
     }
 
     public clearError(): void {
-        this.errorField.setText('');
+        this._errorField.setText('');
     }
 
     // false - валидное поле; true - ошибка
     public getErrorStatus(): boolean {
-        return !!this.errorField.el.innerText;
+        return !!this._errorField.el.innerText;
     }
 }
 

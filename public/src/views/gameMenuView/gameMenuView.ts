@@ -56,7 +56,7 @@ class GameMenuView {
 
                 if (this._renderLimitLiderBpard >= 1) {
                     this.liderBoardView.render();
-                    this._renderLimitLiderBpard -= 1;
+                    this._renderLimitLiderBpard--;
                 }
             },
         });

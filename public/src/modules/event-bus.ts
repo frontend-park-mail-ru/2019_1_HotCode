@@ -21,7 +21,9 @@ class EventBus {
 
         return {
             unsubscribe: () => {
+
                 delete this.subscriptions[eventType][id];
+
                 if(Object.keys(this.subscriptions[eventType]).length === 0) {
                     delete this.subscriptions[eventType];
                 }

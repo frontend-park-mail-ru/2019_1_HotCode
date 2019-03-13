@@ -73,8 +73,10 @@ class SettingsForm extends Form{
 
     public validateUsername(): void {
         try {
+
             Validation.validateUsername(this._usernameField.getValue());
             this._usernameField.clearError();
+
         } catch (usernameError) {
             this._usernameField.setError(usernameError.errorText);
         }
@@ -82,6 +84,7 @@ class SettingsForm extends Form{
 
     public validateUsernameOnUnique(): void {
         if (User.username !== this._usernameField.getValue()) {
+
             Validation.validateUsernameOnUnique(this._usernameField.getValue())
                 .then(() => {
                     this._usernameField.clearError();
@@ -89,14 +92,18 @@ class SettingsForm extends Form{
                 .catch(error => {
                     this._usernameField.setError(error.errorText);
                 });
-        } else {
-            this._usernameField.clearError();
+
+            return;
         }
+
+        this._usernameField.clearError();
     }
 
     public validateOldPassword(): void {
         try {
+
             this._oldPasswordField.clearError();
+
         } catch (passwordError) {
             this._oldPasswordField.setError(passwordError.errorText);
         }
@@ -104,9 +111,20 @@ class SettingsForm extends Form{
 
     public validateNewPassword(): void {
         try {
-            Validation.validatePassword(this._newPasswordField.getValue());
-            Validation.validatePasswordEquality(this._newPasswordField.getValue(),
-                this._repeatNewPasswordField.getValue());
+
+            if (this._oldPasswordField.getValue()) {
+
+                Validation.validatePassword(this._newPasswordField.getValue());
+
+                if (!this._newPasswordField.virginityField &&
+                    !this._repeatNewPasswordField.virginityField) {
+
+                    Validation.validatePasswordEquality(this._newPasswordField.getValue(),
+                        this._repeatNewPasswordField.getValue());
+                }
+
+            }
+
             this._newPasswordField.clearError();
         } catch (passwordError) {
             this._newPasswordField.setError(passwordError.errorText);
@@ -115,9 +133,16 @@ class SettingsForm extends Form{
 
     public validateNewPasswordEquality(): void {
         try {
-            Validation.validatePasswordEquality(this._newPasswordField.getValue(),
-                this._repeatNewPasswordField.getValue());
+            if (this._oldPasswordField.getValue() &&
+                !this._newPasswordField.virginityField &&
+                !this._repeatNewPasswordField.virginityField) {
+
+                Validation.validatePasswordEquality(this._newPasswordField.getValue(),
+                    this._repeatNewPasswordField.getValue());
+            }
+
             this._newPasswordField.clearError();
+
         } catch (passwordError) {
             this._newPasswordField.setError(passwordError.errorText);
         }

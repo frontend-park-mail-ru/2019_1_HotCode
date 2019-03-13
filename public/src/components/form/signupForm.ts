@@ -38,8 +38,10 @@ class SignupForm extends Form{
 
     public validateUsername(): void {
         try {
+
             Validation.validateUsername(this._usernameField.getValue());
             this._usernameField.clearError();
+
         } catch (usernameError) {
             this._usernameField.setError(usernameError.errorText);
         }
@@ -57,10 +59,12 @@ class SignupForm extends Form{
 
     public validatePassword(): void {
         try {
+
             Validation.validatePassword(this._passwordField.getValue());
             Validation.validatePasswordEquality(this._passwordField.getValue(),
                                                 this._passwordRepeatField.getValue());
             this._passwordField.clearError();
+
         } catch (passwordError) {
             this._passwordField.setError(passwordError.errorText);
         }
@@ -68,9 +72,11 @@ class SignupForm extends Form{
 
     public validatePasswordEquality(): void {
         try {
+
             Validation.validatePasswordEquality(this._passwordField.getValue(),
                                                 this._passwordRepeatField.getValue());
             this._passwordField.clearError();
+
         } catch (passwordError) {
             this._passwordField.setError(passwordError.errorText);
         }

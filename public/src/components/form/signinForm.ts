@@ -32,8 +32,10 @@ class SigninForm extends Form{
 
     public validateUsername(): void {
         try {
+
             Validation.validateUsername(this._usernameField.getValue(), true);
             this._usernameField.clearError();
+
         } catch (usernameError) {
             this._usernameField.setError(usernameError.errorText);
         }
@@ -41,7 +43,9 @@ class SigninForm extends Form{
 
     public validatePassword(): void {
         try {
+
             this._passwordField.clearError();
+
         } catch (passwordError) {
             this._passwordField.setError(passwordError.errorText);
         }

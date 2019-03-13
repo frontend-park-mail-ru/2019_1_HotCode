@@ -23,25 +23,47 @@ interface FsDocumentElement extends HTMLElement {
 export function activeFullScreen(): void {
     const fsDocElem = <FsDocumentElement> document.documentElement;
 
-    if (fsDocElem.requestFullscreen)
+    if (fsDocElem.requestFullscreen) {
         fsDocElem.requestFullscreen();
-    else if (fsDocElem.msRequestFullscreen)
+        return;
+    }
+
+    if (fsDocElem.msRequestFullscreen) {
         fsDocElem.msRequestFullscreen();
-    else if (fsDocElem.mozRequestFullScreen)
+        return;
+    }
+
+    if (fsDocElem.mozRequestFullScreen) {
         fsDocElem.mozRequestFullScreen();
-    else if (fsDocElem.webkitRequestFullscreen)
+        return;
+    }
+
+    if (fsDocElem.webkitRequestFullscreen) {
         fsDocElem.webkitRequestFullscreen();
+        return;
+    }
 }
 
 export function cancselFullScreen(): void {
     const fsDoc = <FsDocument> document;
 
-    if (fsDoc.exitFullscreen)
+    if (fsDoc.exitFullscreen) {
         fsDoc.exitFullscreen();
-    else if (fsDoc.msExitFullscreen)
+        return;
+    }
+
+    if (fsDoc.msExitFullscreen) {
         fsDoc.msExitFullscreen();
-    else if (fsDoc.mozCancelFullScreen)
+        return;
+    }
+
+    if (fsDoc.mozCancelFullScreen) {
         fsDoc.mozCancelFullScreen();
-    else if (fsDoc.webkitExitFullscreen)
+        return;
+    }
+
+    if (fsDoc.webkitExitFullscreen) {
         fsDoc.webkitExitFullscreen();
+        return;
+    }
 }

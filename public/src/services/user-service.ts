@@ -64,7 +64,7 @@ class UserService {
             user.username = username
         }
 
-        if (newPassword || oldPassword) {
+        if (oldPassword) {
             user.oldPassword = oldPassword;
             user.newPassword = newPassword;
         }
@@ -73,7 +73,7 @@ class UserService {
             user.photo_uuid = photo_uuid;
         }
 
-        if (user) {
+        if (Object.keys(user).length != 0) {
             return Http.Put(Paths.paths.editPath, user);
         }
     }
