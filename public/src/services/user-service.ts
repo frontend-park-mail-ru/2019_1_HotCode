@@ -5,6 +5,7 @@ import Paths from '../utils/pathConfig';
 import User from '../models/user';
 import EventBus from '../modules/event-bus';
 import {events} from '../utils/events';
+import Message from '../utils/message';
 
 class UserService {
 
@@ -77,6 +78,7 @@ class UserService {
         if (Object.keys(user).length != 0) {
             return Http.Put(Paths.paths.editPath, user);
         }
+        return Promise.reject({message: Message.emptyFormError()});
     }
 
 

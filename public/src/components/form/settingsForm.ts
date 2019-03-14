@@ -78,7 +78,7 @@ class SettingsForm extends Form{
             this._usernameField.clearError();
 
         } catch (usernameError) {
-            this._usernameField.setError(usernameError.errorText);
+            this._usernameField.setError(usernameError.text);
         }
     }
 

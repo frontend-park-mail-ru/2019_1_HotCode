@@ -7,7 +7,7 @@ class Http {
     private static server: string = Paths.server.backend;
     private static avatatServer: string = Paths.server.avatarBackend;
 
-    static Get(path: string, avatarBackend = false, body = {}): Promise<any> {
+    static Get(path: string, avatarBackend = false, body = ''): Promise<any> {
         return Http.request('GET', path, body, avatarBackend);
     }
 
@@ -24,52 +24,52 @@ class Http {
     }
 
     static request(method: string, path: string, body?: any, avatarBackend?: boolean): Promise<any> {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            const back = avatarBackend ? Http.avatatServer : Http.server;
-            xhr.open(method, `${back}${path}`, true);
-            xhr.withCredentials = true;
+        const back = avatarBackend ? Http.avatatServer : Http.server;
 
-            if (!avatarBackend) {
-                if (method === 'PUT' ||
-                    method === 'POST') {
-                    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
-                }
+        let headers = new Headers();
+
+        if (!avatarBackend) {
+            if (method === 'PUT' ||
+                method === 'POST') {
+
+                headers.append('Content-Type', 'application/json');
             }
+        }
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState !== 4) return;
-                if (+xhr.status >= 400) {
-                    let error = '';
-                    if (xhr.getResponseHeader("Content-Type") === 'image/jpeg' ||
-                        xhr.getResponseHeader("Content-Type") === 'image/png' ||
-                        xhr.getResponseHeader("Content-Type") === 'image/gif') {
-                        error = xhr.responseText;
-                    } else {
-                        error = xhr.responseText ? JSON.parse(xhr.responseText) : xhr.responseText;
-                    }
-                    return reject(error);
+        if (body && !avatarBackend) {
+            // console.log('body', body);
+            body = JSON.stringify(body);
+        }
+
+        if (method !== 'PUT' &&
+            method !== 'POST') {
+            body = undefined;
+        }
+
+        const uri = back + path;
+
+        const init = {
+            method: method,
+            headers: headers,
+            body: body,
+            mode: 'cors',
+            credentials: 'include',
+        };
+
+        const request = new Request(uri, <RequestInit>init);
+
+        return fetch(request)
+            .then(responce => {
+                if (!responce.ok) {
+                    return responce.text().then(error => {
+                        return Promise.reject(error ? JSON.parse(error) : error);
+                    });
                 }
-
-                let response = '';
-                if (xhr.getResponseHeader("Content-Type") === 'image/jpeg' ||
-                    xhr.getResponseHeader("Content-Type") === 'image/png' ||
-                    xhr.getResponseHeader("Content-Type") === 'image/gif') {
-                    response = xhr.responseText;
-                } else {
-                    response = xhr.responseText ? JSON.parse(xhr.responseText) : xhr.responseText;
-                }
-                resolve(response);
-            };
-
-            if (avatarBackend && body) {
-                xhr.send(body);
-            } else if (body) {
-                xhr.send(JSON.stringify(body));
-            } else {
-                xhr.send();
-            }
-        });
+                return responce.text();
+            })
+            .then(resp => {
+                return Promise.resolve(resp ? JSON.parse(resp) : resp);
+            })
     }
 }
 

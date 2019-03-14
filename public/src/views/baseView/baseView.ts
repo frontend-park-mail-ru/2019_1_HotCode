@@ -12,6 +12,9 @@ import Tabbar from "../../components/tabbar/tabbar";
 import Checkbox from "../../components/checkbox/checkbox";
 import {activeFullScreen, cancselFullScreen} from "../../modules/full-screen";
 import {events} from '../../utils/events';
+import Alert from '../../components/alert/alert';
+import Message from "../../utils/message";
+
 
 class BaseView {
 
@@ -26,7 +29,7 @@ class BaseView {
     private _authorizationSection: Component;
 
     constructor() {
-        this._parent = Component.Create('div');
+        this._parent = Component.Create();
         document.body.insertBefore(this._parent.el, document.body.firstChild);
     }
 
@@ -38,6 +41,8 @@ class BaseView {
         const signinView = new SigninView();
         const signupView = new SignupView();
         mainView.render();
+
+        Alert.updateElement();
 
         this._fullscreenButton = new Checkbox(document.querySelector('#full-screen'),
             () => activeFullScreen(),
@@ -55,7 +60,7 @@ class BaseView {
                 })
                 .catch(() => {
                     EventBus.publish(events.openSignIn, '');
-                    // console.log(err.message);
+                    Alert.alert(Message.accessError(), true);
                 });
         });
 
@@ -63,7 +68,7 @@ class BaseView {
             UserService.signout()
                 .catch(() => {
                     EventBus.publish(events.openSignIn, '');
-                    // console.log(err.message);
+                    Alert.alert(Message.accessError(), true);
                 });
         });
 

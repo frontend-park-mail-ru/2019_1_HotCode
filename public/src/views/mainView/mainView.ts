@@ -32,9 +32,6 @@ class MainView {
                 this._mainCarousel.renderCarousel(resp);
                 this._mainCarousel.onClick();
             })
-            .catch(() => {
-                // console.log(err.message);
-            });
     }
 
     public clear(): void {

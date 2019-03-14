@@ -5,6 +5,8 @@ import Paginator from "../../../components/pagination/paginator";
 import GameService from "../../../services/game-service";
 import EventBus from '../../../modules/event-bus';
 import {events} from '../../../utils/events';
+import Alert from '../../../components/alert/alert';
+import Message from '../../../utils/message';
 
 const tableTmpl = require('../../../components/table/table.pug');
 
@@ -47,9 +49,6 @@ class LiderboardView {
                 this._paginator.pageCount = Math.floor((resp.count - 1) / this._defaultLimit + 1);
 
             })
-            .catch(() => {
-                // console.log(err.message);
-            });
     }
 
 

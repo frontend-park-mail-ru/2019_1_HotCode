@@ -35,10 +35,8 @@
 }
 
 .form__error {
-  font-family: $fontFamaly2;
   font-size: 0.8em;
-  color: $fontColorError;
-  text-shadow: 0 0 10px $fontColorError;
+  @extend %error;
 }
 
 .form__input input{

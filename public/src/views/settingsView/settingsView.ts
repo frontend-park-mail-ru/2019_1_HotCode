@@ -8,6 +8,8 @@ import AvatarService from "../../services/avatar-service";
 import ValidationError from "../../components/form/utils/validationError";
 import EventBus from "../../modules/event-bus";
 import {events} from '../../utils/events';
+import Alert from '../../components/alert/alert';
+import Message from '../../utils/message';
 
 class SettingsView {
 
@@ -39,6 +41,7 @@ class SettingsView {
 
         this.settingsForm = new SettingsForm(this._parent.el.getElementsByTagName('form')[0]);
 
+        this.settingsForm.resetPasswords();
 
         EventBus.publish(events.onOldPassword);
 
@@ -97,7 +100,7 @@ class SettingsView {
                                 resolve(resp.photo_uuid);
                             })
                             .catch(() => {
-                                // console.log(err);
+                                Alert.alert(Message.fileFormatError(), true);
                             });
 
                         return;
@@ -107,13 +110,20 @@ class SettingsView {
                 });
 
                 promise.then((photo_uuid: string) => {
+
                     UserService.edit(username, oldPassword, newPassword, photo_uuid)
                         .then(() => {
                             this.settingsForm.resetPasswords();
+                            Alert.alert(Message.successfulUpdate());
                             UserService.me();
                         })
                         .catch((err) => {
+                            if (err.message && err.message === Message.emptyFormError()) {
+                                Alert.alert(err.message, true);
+                                return;
+                            }
                             if (err.message) {
+                                Alert.alert(Message.accessError(), true);
                                 EventBus.publish(events.openSignIn, '');
                             }
                             if (err.username) {

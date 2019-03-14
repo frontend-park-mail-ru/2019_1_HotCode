@@ -8,11 +8,11 @@ interface FsDocument extends HTMLDocument {
     webkitExitFullscreen?: () => void;
 }
 
-// export function isFullScreen(): boolean {
-//     const fsDoc = <FsDocument> document;
-//
-//     return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
-// }
+export function isFullScreen(): boolean {
+    const fsDoc = <FsDocument> document;
+
+    return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
+}
 
 interface FsDocumentElement extends HTMLElement {
     msRequestFullscreen?: () => void;
@@ -23,47 +23,53 @@ interface FsDocumentElement extends HTMLElement {
 export function activeFullScreen(): void {
     const fsDocElem = <FsDocumentElement> document.documentElement;
 
-    if (fsDocElem.requestFullscreen) {
-        fsDocElem.requestFullscreen();
-        return;
-    }
+    if(!isFullScreen()) {
 
-    if (fsDocElem.msRequestFullscreen) {
-        fsDocElem.msRequestFullscreen();
-        return;
-    }
+        if (fsDocElem.requestFullscreen) {
+            fsDocElem.requestFullscreen();
+            return;
+        }
 
-    if (fsDocElem.mozRequestFullScreen) {
-        fsDocElem.mozRequestFullScreen();
-        return;
-    }
+        if (fsDocElem.msRequestFullscreen) {
+            fsDocElem.msRequestFullscreen();
+            return;
+        }
 
-    if (fsDocElem.webkitRequestFullscreen) {
-        fsDocElem.webkitRequestFullscreen();
-        return;
+        if (fsDocElem.mozRequestFullScreen) {
+            fsDocElem.mozRequestFullScreen();
+            return;
+        }
+
+        if (fsDocElem.webkitRequestFullscreen) {
+            fsDocElem.webkitRequestFullscreen();
+            return;
+        }
     }
 }
 
 export function cancselFullScreen(): void {
     const fsDoc = <FsDocument> document;
 
-    if (fsDoc.exitFullscreen) {
-        fsDoc.exitFullscreen();
-        return;
-    }
+    if(isFullScreen()) {
 
-    if (fsDoc.msExitFullscreen) {
-        fsDoc.msExitFullscreen();
-        return;
-    }
+        if (fsDoc.exitFullscreen) {
+            fsDoc.exitFullscreen();
+            return;
+        }
 
-    if (fsDoc.mozCancelFullScreen) {
-        fsDoc.mozCancelFullScreen();
-        return;
-    }
+        if (fsDoc.msExitFullscreen) {
+            fsDoc.msExitFullscreen();
+            return;
+        }
 
-    if (fsDoc.webkitExitFullscreen) {
-        fsDoc.webkitExitFullscreen();
-        return;
+        if (fsDoc.mozCancelFullScreen) {
+            fsDoc.mozCancelFullScreen();
+            return;
+        }
+
+        if (fsDoc.webkitExitFullscreen) {
+            fsDoc.webkitExitFullscreen();
+            return;
+        }
     }
 }
