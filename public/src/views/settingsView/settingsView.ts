@@ -92,48 +92,51 @@ class SettingsView {
 
             if (this.settingsForm.validate()) {
 
-                let promise = new Promise((resolve) => {
+                this.sendAvatar(avatar)
+                    .then((photo_uuid: string) => {
 
-                    if (avatar) {
-                        AvatarService.sendAvatar(avatar)
-                            .then(resp => {
-                                resolve(resp.photo_uuid);
-                            })
-                            .catch(() => {
-                                Alert.alert(Message.fileFormatError(), true);
-                            });
+                        const newUserData =
+                            SettingsView.getNewUserObject(username, oldPassword, newPassword, photo_uuid);
 
-                        return;
-                    }
+                        if (Object.keys(newUserData).length == 0) {
+                            throw '';
+                            // Promise.reject('');
+                        }
 
-                    resolve('');
-                });
+                        return newUserData;
+                    })
+                    .catch(() => {
 
-                promise.then((photo_uuid: string) => {
+                        throw Alert.alert(Message.emptyFormError(), true);
+                    })
+                    .then(newUser => {
 
-                    UserService.edit(username, oldPassword, newPassword, photo_uuid)
-                        .then(() => {
-                            this.settingsForm.resetPasswords();
-                            Alert.alert(Message.successfulUpdate());
-                            UserService.me();
-                        })
-                        .catch((err) => {
-                            if (err.message && err.message === Message.emptyFormError()) {
-                                Alert.alert(err.message, true);
-                                return;
-                            }
-                            if (err.message) {
-                                Alert.alert(Message.accessError(), true);
-                                EventBus.publish(events.openSignIn, '');
-                            }
-                            if (err.username) {
-                                this.settingsForm.usernameField.setError(ValidationError.uniqueError());
-                            }
-                            if (err.oldPassword) {
-                                this.settingsForm.oldPasswordField.setError(ValidationError.invalidPasswordError());
-                            }
-                        });
-                });
+                        return UserService.edit(newUser);
+                    })
+                    .then(() => {
+
+                        this.settingsForm.resetPasswords();
+                        Alert.alert(Message.successfulUpdate());
+                        UserService.me();
+                    })
+                    .catch((err) => {
+
+                        if (err && err.message) {
+
+                            Alert.alert(Message.accessError(), true);
+                            EventBus.publish(events.openSignIn, '');
+
+                        }
+                        if (err && err.username) {
+
+                            this.settingsForm.usernameField.setError(ValidationError.uniqueError());
+
+                        }
+                        if (err && err.oldPassword) {
+
+                            this.settingsForm.oldPasswordField.setError(ValidationError.invalidPasswordError());
+                        }
+                    });
             }
         });
     }
@@ -141,6 +144,52 @@ class SettingsView {
     public clear(): void {
         this._parent.el.innerHTML = '';
         this.settingsForm = null;
+    }
+
+
+    private sendAvatar(avatar: File): Promise<any> {
+        return new Promise((resolve) => {
+
+            if (avatar) {
+                AvatarService.sendAvatar(avatar)
+                    .then(resp => {
+                        if (User.avatar !== resp.photo_uuid) {
+                            resolve(resp.photo_uuid);
+                        }
+                        resolve('');
+                    })
+                    .catch(() => {
+                        Alert.alert(Message.fileFormatError(), true);
+                    });
+
+                return;
+            }
+
+            resolve('');
+        });
+    }
+
+    private static getNewUserObject(username: string,
+                             oldPassword: string,
+                             newPassword: string,
+                             photo_uuid: string): {[key: string]: string} {
+
+        let user: {[key: string]: string} = {};
+
+        if (username) {
+            user.username = username
+        }
+
+        if (oldPassword) {
+            user.oldPassword = oldPassword;
+            user.newPassword = newPassword;
+        }
+
+        if (photo_uuid) {
+            user.photo_uuid = photo_uuid;
+        }
+
+        return user;
     }
 }
 

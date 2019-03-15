@@ -54,31 +54,9 @@ class UserService {
     }
 
 
-    static edit(username: string,
-                oldPassword: string,
-                newPassword: string,
-                photo_uuid: string): Promise<any>
-    {
+    static edit(user: {[key: string]: string}): Promise<any> {
 
-        let user: {[key: string]: string} = {};
-
-        if (username) {
-            user.username = username
-        }
-
-        if (oldPassword) {
-            user.oldPassword = oldPassword;
-            user.newPassword = newPassword;
-        }
-
-        if (photo_uuid) {
-            user.photo_uuid = photo_uuid;
-        }
-
-        if (Object.keys(user).length != 0) {
-            return Http.Put(Paths.paths.editPath, user);
-        }
-        return Promise.reject({message: Message.emptyFormError()});
+        return Http.Put(Paths.paths.editPath, user);
     }
 
 

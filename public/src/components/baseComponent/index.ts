@@ -22,8 +22,8 @@ class Component {
     {
         const el: HTMLElement = document.createElement(tagName);
 
-        classes.forEach(className => {
-           el.classList.add(className);
+        classes.map(cls => {
+            el.classList.add(cls);
         });
 
         for (let name in attrs) {
