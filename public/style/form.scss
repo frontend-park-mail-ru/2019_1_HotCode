@@ -12,11 +12,12 @@
 }
 
 .form__input {
-  margin-bottom: 7%;
+  margin-bottom: 4%;
 }
 
 .form__input__header {
   display: flex;
+  height: 0.8em;
   max-width: 399px;
   width: 73vw;
   justify-content: space-between;
@@ -25,25 +26,25 @@
   margin-bottom: 1.5%;
 }
 
-.form__label {
-  display: inline-block;
-  max-width: 65%;
-  margin-right: 0.9em;
-
-  @extend %white;
-  font-size: 0.9em;
-}
-
 .form__error {
+  max-width: 70%;
   font-size: 0.8em;
+
+  word-break: break-word;
   @extend %error;
 }
+
+.form__input__label {
+  position: relative;
+}
+
+$input_padding: calc(10px + 2%);
 
 .form__input input{
   max-width: 399px;
   width: 73vw;
   height: 2.25em;
-  padding-left: calc(10px + 2%);
+  padding-left: $input_padding;
   box-sizing: border-box;
 
   @extend %white;
@@ -51,24 +52,50 @@
   border-radius: 15px;
   outline: none;
   font-size: 0.9em;
+  font-weight: 300;
   background: rgba(0, 0, 0, 0);
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-135%);
+
+  @extend %white;
+  font-size: 0.9em;
 }
 
 .form__input:last-child{
   margin-bottom: 0;
 }
 
-.form__input input::-webkit-input-placeholder {
-  color: rgba(238, 238, 238, 0.5);
+.form__input input::placeholder{
+  opacity: 0;
 }
 
-.form__input input::-moz-placeholder {
-  color: rgba(238, 238, 238, 0.5);
+.form__input input:placeholder-shown:focus + .form__label{
+  top: 0;
+  left: 0;
+  transform: translateY(-135%);
 }
+
+.form__input input:placeholder-shown + .form__label{
+  top: 50%;
+  left: $input_padding;
+  transform: translateY(-50%);
+  color: rgba(238, 238, 238, 0.5);
+  pointer-events: none;
+}
+
 
 .form__input input:focus{
   color: $fontColorYellow;
   border: 2px solid $fontColorYellow;
+}
+
+.form__input input:focus + .form__label{
+  color: $fontColorYellow;
 }
 
 .form__buttons {
