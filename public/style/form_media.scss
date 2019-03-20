@@ -17,18 +17,13 @@
   }
 
   .form__input__header {
+    height: calc(1em + .5vh);
     max-width: none;
     width: 100%;
-    margin-bottom: 0;
-  }
-
-  .form__label {
-    display: none;
   }
 
   .form__error {
     padding-right: calc(10px + 2%);
-    height: calc(1em + .5vh);
     font-size: calc(0.6em + 0.7vh);
   }
 
@@ -43,16 +38,17 @@
     background: $backgroundInputColor;
   }
 
+  .form__label {
+    left: $input_padding;
+    font-size: calc(0.9em + 0.5vh);
+  }
+
   .form__input:last-child{
     margin-bottom: 0;
   }
 
-  .form__input input::-webkit-input-placeholder {
-    color: rgba(238, 238, 238, 0.5);
-  }
-
-  .form__input input::-moz-placeholder {
-    color: rgba(238, 238, 238, 0.5);
+  .form__input input:placeholder-shown:focus + .form__label{
+    left: $input_padding;
   }
 
   .form__input input:focus{
@@ -77,7 +73,7 @@
 
   .form__button button[type='submit'] {
     width: 100%;
-    height: calc(1.6em + 1.6vh);
+    height: calc(1.4em + 1.6vh);
 
     font-size: calc(0.9em + 0.7vh);
     border-radius: 8px;
@@ -125,19 +121,14 @@
   }
 
   .form__input__header {
+    height: calc(1em + .5vw);
     max-width: none;
     width: 100%;
-    margin-bottom: 0;
-  }
-
-  .form__label {
-    display: none;
   }
 
   .form__error {
     padding-right: calc(10px + 2%);
-    height: calc(1em + .5vh);
-    font-size: calc(0.6em + 0.7vh);
+    font-size: calc(0.6em + 0.7vw);
   }
 
   .form__input input{
@@ -151,16 +142,17 @@
     background: $backgroundInputColor;
   }
 
+  .form__label {
+    left: $input_padding;
+    font-size: calc(0.9em + 0.5vw);
+  }
+
   .form__input:last-child{
     margin-bottom: 0;
   }
 
-  .form__input input::-webkit-input-placeholder {
-    color: rgba(238, 238, 238, 0.5);
-  }
-
-  .form__input input::-moz-placeholder {
-    color: rgba(238, 238, 238, 0.5);
+  .form__input input:placeholder-shown:focus + .form__label{
+    left: $input_padding;
   }
 
   .form__input input:focus{
@@ -185,7 +177,7 @@
 
   .form__button button[type='submit'] {
     width: 100%;
-    height: calc(1.6em + 1.6vw);
+    height: calc(1.4em + 1.6vw);
 
     font-size: calc(0.9em + 0.7vw);
     border-radius: 8px;

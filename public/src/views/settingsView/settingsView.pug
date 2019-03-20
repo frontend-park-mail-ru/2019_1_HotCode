@@ -2,18 +2,19 @@ mixin field(label, type, name, placeholder)
     .form__input
         .form__input__header
             .form__error
+        .form__input__label
+            input(type=type, name=name, placeholder=placeholder, maxlength='32')
             .form__label= label
-        input(type=type, name=name, placeholder=placeholder, maxlength='32')
 
 #settings.settings
     .form__logo Settings
     form(action='#', method='post')
         .form__inputs__left
             .form__inputs
-                +field('Username', 'text', 'username', 'Human325')
-                +field('Old Password', 'password', 'oldPassword')
-                +field('New Password', 'password', 'newPassword')
-                +field('Repeat New Password', 'password', 'repeatNewPassword')
+                +field('Username', 'text', 'username', 'Username')
+                +field('Old Password', 'password', 'oldPassword', 'Password')
+                +field('New Password', 'password', 'newPassword', 'Password')
+                +field('Repeat New Password', 'password', 'repeatNewPassword', 'Password')
             .form__buttons
                 .form__button
                     button(type='submit') Confirm

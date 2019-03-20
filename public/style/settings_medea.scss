@@ -34,10 +34,11 @@
     width: 14vh;
     min-width: 64px;
     min-height: 64px;
-    margin-bottom: 2%;
+    margin-bottom: 4%;
     margin-left: 7%;
     box-sizing: border-box;
     overflow: hidden;
+    border: 0;
     border-radius: 15px;
   }
 
@@ -50,8 +51,12 @@
     margin-bottom: 0;
   }
 
-  .settings .form__label {
-    display: none;
+  .settings .form__input{
+    margin-bottom: 3%;
+  }
+
+  .settings .form__input:last-child{
+    margin-bottom: 0;
   }
 
   .settings .form__input input{
@@ -61,15 +66,8 @@
     border: 0;
     border-radius: 0;
     font-size: calc(0.9em + 0.5vh);
+    font-weight: 300;
     background: $backgroundInputColor;
-  }
-
-  .settings .form__input{
-    margin-bottom: 2%;
-  }
-
-  .settings .form__input:last-child{
-    margin-bottom: 0;
   }
 
   .settings .form__input input::-webkit-input-placeholder {
@@ -147,8 +145,9 @@
   .form__inputs__right {
     min-width: 150px;
     min-height: 150px;
-    margin-bottom: 2%;
+    margin-bottom: 4%;
     margin-left: 7%;
+    border: 0;
   }
 
   .form__inputs__left {
@@ -156,12 +155,16 @@
     margin-right: 0;
   }
 
-  .settings .modal__info form {  // TODO Убрать этот костыль
+  .settings .form__input{
+    margin-bottom: 3%;
+  }
+
+  .settings .form__input:last-child{
     margin-bottom: 0;
   }
 
-  .settings .form__label {
-    display: none;
+  .settings .modal__info form {  // TODO Убрать этот костыль
+    margin-bottom: 0;
   }
 
   .settings .form__input input{
@@ -171,15 +174,8 @@
     border: 0;
     border-radius: 0;
     font-size: calc(0.9em + 0.5vh);
+    font-weight: 300;
     background: $backgroundInputColor;
-  }
-
-  .settings .form__input{
-    margin-bottom: 2%;
-  }
-
-  .settings .form__input:last-child{
-    margin-bottom: 0;
   }
 
   .settings .form__input input::-webkit-input-placeholder {

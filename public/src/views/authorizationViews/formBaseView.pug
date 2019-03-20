@@ -9,8 +9,9 @@ label.modal__background(for='mod0')
                     .form__input
                         .form__input__header
                             .form__error
+                        .form__input__label
+                            input(type=field.type, name=field.name, placeholder=field.placeholder, maxlength='32')
                             .form__label= field.label
-                        input(type=field.type, name=field.name, placeholder=field.placeholder, maxlength='32')
             .form__buttons
                 .form__button
                     button(type='submit')= submitButtonName
