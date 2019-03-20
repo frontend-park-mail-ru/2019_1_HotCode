@@ -1,5 +1,8 @@
 {
-  "name": "war-script",
+  "name": "warscript",
   "version": 2,
+  "builds": [
+    { "src": "./dist/**/*", "use": "@now/static" }
+  ],
   "alias": ["warscript.now.sh"]
 }

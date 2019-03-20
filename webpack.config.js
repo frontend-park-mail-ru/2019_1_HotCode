@@ -9,6 +9,7 @@ const imageminSvgo = require('imagemin-svgo');
 const imageminPngquant = require('imagemin-pngquant');
 const imageminGiflossy = require('imagemin-giflossy');
 const TerserPlugin = require('terser-webpack-plugin');
+const TSLintPlugin = require('tslint-webpack-plugin');
 
 (async () => {
     await imagemin(['public/img/*.{jpg,svg,png,gif}'], 'dist/img', {
@@ -39,7 +40,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 })();
 
 module.exports = {
-    entry: './public/src/main.js',
+    entry: './public/src/main.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[contenthash].js'
@@ -47,9 +48,10 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.tsx?$/,
+                enforce: 'pre',
                 exclude: /node_modules/,
-                use: ["babel-loader", "eslint-loader"]
+                use: ['ts-loader', 'tslint-loader']
             },
             {
                 test: /.pug$/,
@@ -79,6 +81,9 @@ module.exports = {
                 ],
             }
         ]
+    },
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.js' ]
     },
     plugins: [
         new CleanWebpackPlugin('dist', {} ),

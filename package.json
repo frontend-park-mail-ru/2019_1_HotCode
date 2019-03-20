@@ -38,6 +38,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/node": "^11.11.1",
     "autoprefixer": "^9.4.7",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -59,6 +60,11 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.2",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.13.1",
+    "tslint-loader": "^3.5.4",
+    "tslint-webpack-plugin": "^2.0.4",
+    "typescript": "^3.3.3333",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
