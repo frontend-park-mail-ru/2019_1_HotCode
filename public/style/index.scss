@@ -11,6 +11,7 @@ $backgroundColorBack: rgba(49, 47, 126, 0.86);  // Цвет фона всплы�
 $fontColorWhite: rgba(238, 238, 238, 1);  // Белый
 $fontColorGray: rgba(238, 238, 238, 0.5); // Прозрачный
 $fontColorYellow: rgba(255, 215, 0, 1);  // Желтый
+$fontColorYellowLight: rgba(255, 215, 0, 1);  // Желтый яркий
 $fontColorError: rgba(255, 99, 71, 1); // Оранжевый
 
 $fontFamalyLogo: Jura;
@@ -41,6 +42,32 @@ $DefaultFontSize: 22px;
   text-shadow: 0 0 10px $fontColorError;
 }
 
+%yellowLiteLight {
+  text-shadow:
+          $fontColorYellowLight 0 0 20px,
+          $fontColorYellowLight 0 0 30px,
+          $fontColorYellowLight 0 0 40px,
+          $fontColorYellowLight 0 0 50px,
+          $fontColorYellowLight 0 0 75px;
+}
+
+%yellowStrongLight {
+  text-shadow:
+  #FFF 0 0 15px,
+  $fontColorYellowLight 0 0 20px,
+  $fontColorYellowLight 0 0 30px,
+  $fontColorYellowLight 0 0 40px,
+  $fontColorYellowLight 0 0 50px,
+  $fontColorYellowLight 0 0 75px;
+}
+
+%whiteLiteLight {
+  text-shadow:
+          $fontColorWhite 0 0 20px,
+          $fontColorWhite 0 0 30px,
+          $fontColorWhite 0 0 40px;
+}
+
 @import "reset";
 
 *, *:after, *:before {
@@ -67,8 +94,10 @@ body {
   top: 50%;
   min-width: 100%;
   min-height: 100%;
-  size: auto;
+  width: calc(100% + 200px);
+  height: calc(100% + 160px);
   z-index: -150;
+  transition: all 0s ease 0s;
   transform: translateX(-50%) translateY(-50%);
   background-size: cover;
 

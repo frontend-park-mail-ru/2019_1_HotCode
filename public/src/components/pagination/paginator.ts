@@ -3,7 +3,7 @@
 import Component from "../baseComponent/index";
 import EventBus from '../../modules/event-bus';
 import GameService from "../../services/game-service";
-import {events} from '../../utils/events';
+import {events} from '../../modules/utils/events';
 
 class Paginator extends Component{
 

@@ -1,7 +1,7 @@
 'use strict';
 
 import Http from '../modules/http';
-import Paths from '../utils/pathConfig';
+import {avatarPaths} from './utils/paths';
 
 class AvatarService {
 
@@ -9,13 +9,13 @@ class AvatarService {
 
         let data = new FormData();
         data.append('photo', photo);
-        return Http.Post(Paths.paths.avatar, data, true);
+        return Http.Post(avatarPaths.sendAvatarPath, data, true);
     }
 
 
     static getAvatar(photo_uuid: string): Promise<any> {
 
-        return Http.Get(`${Paths.paths.avatar}/${photo_uuid}`, true);
+        return Http.Get(`${avatarPaths.getAvatarPath}/${photo_uuid}`, true);
     }
 }
 

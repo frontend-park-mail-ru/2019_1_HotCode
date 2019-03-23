@@ -1,6 +1,7 @@
 'use strict';
 
 import Component from '../baseComponent/index';
+import Checkbox from '../checkbox/checkbox';
 
 /**
  * Field Component for inputs
@@ -8,11 +9,13 @@ import Component from '../baseComponent/index';
  */
 class Field extends Component{
 
-    private _input: Component;
-    private _label: Component;
-    private _errorField: Component;
+    private input: Component;
+    private label: Component;
+    private errorField: Component;
 
     private _virginityField: boolean;
+
+    private showPasswordCheckbox: Checkbox;
 
     constructor(el: HTMLElement,
                 input?: HTMLElement,
@@ -21,18 +24,29 @@ class Field extends Component{
     {
         super(el);
 
-        this._input = new Component(input ||
+        this.input = new Component(input ||
             this.el.getElementsByTagName('input')[0]);
 
-        this._label = new Component(label ||
+        this.label = new Component(label ||
             this.el.querySelector('.form__label'));
 
-        this._errorField = new Component(errorField ||
+        this.errorField = new Component(errorField ||
             this.el.querySelector('.form__error'));
 
         this._virginityField = true;
 
-        this._input.on('focus', () => this._virginityField = false );
+        this.input.on('focus', () => this._virginityField = false );
+
+        if ((<HTMLInputElement>this.input.el).type === 'password') {
+            this.showPasswordCheckbox = new Checkbox(this.el.querySelector('input[type="checkbox"'),
+                () => {
+                    (<HTMLInputElement>this.input.el).type = 'text';
+                },
+                () => {
+                    (<HTMLInputElement>this.input.el).type = 'password';
+                });
+            this.showPasswordCheckbox.onChange();
+        }
     }
 
     get virginityField(): boolean {
@@ -40,40 +54,40 @@ class Field extends Component{
     }
 
     public onFocus(callback: () => void): void {
-        this._input.on('focus', callback);
+        this.input.on('focus', callback);
     }
 
     public onInput(callback: () => void): void {
-        this._input.on('input', callback);
+        this.input.on('input', callback);
     }
 
     public onBlur(callback: () => void): void {
-        this._input.on('blur', callback);
+        this.input.on('blur', callback);
     }
 
     public getValue(): string {
-        return (<HTMLInputElement>this._input.el).value;
+        return (<HTMLInputElement>this.input.el).value;
     }
 
     public setValue(value: string): void {
-        (<HTMLInputElement>this._input.el).value = value;
+        (<HTMLInputElement>this.input.el).value = value;
     }
 
     public clearValue(): void {
-        (<HTMLInputElement>this._input.el).value = '';
+        (<HTMLInputElement>this.input.el).value = '';
     }
 
     public setError(errorText: string): void {
-        this._errorField.setText(errorText);
+        this.errorField.setText(errorText);
     }
 
     public clearError(): void {
-        this._errorField.setText('');
+        this.errorField.setText('');
     }
 
     // false - валидное поле; true - ошибка
     public getErrorStatus(): boolean {
-        return !!this._errorField.el.innerText;
+        return !!this.errorField.el.innerText;
     }
 }
 

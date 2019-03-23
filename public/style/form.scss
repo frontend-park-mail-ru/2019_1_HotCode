@@ -56,6 +56,14 @@ $input_padding: calc(10px + 2%);
   background: rgba(0, 0, 0, 0);
 }
 
+.form__show__password {
+  position: absolute;
+  top: 50%;
+  transform: translate(-160%, -50%);
+  display: inline-block;
+  cursor: pointer;
+}
+
 .form__label {
   position: absolute;
   top: 0;
@@ -74,13 +82,13 @@ $input_padding: calc(10px + 2%);
   opacity: 0;
 }
 
-.form__input input:placeholder-shown:focus + .form__label{
+.form__input input:placeholder-shown:focus ~ .form__label{
   top: 0;
   left: 0;
   transform: translateY(-135%);
 }
 
-.form__input input:placeholder-shown + .form__label{
+.form__input input:placeholder-shown ~ .form__label{
   top: 50%;
   left: $input_padding;
   transform: translateY(-50%);
@@ -94,7 +102,8 @@ $input_padding: calc(10px + 2%);
   border: 2px solid $fontColorYellow;
 }
 
-.form__input input:focus + .form__label{
+.form__input input:focus ~ .form__label,
+.form__input input:focus ~ .form__show__password{
   color: $fontColorYellow;
 }
 
@@ -131,6 +140,11 @@ $input_padding: calc(10px + 2%);
   background: rgba(0, 0, 0, 0);
 }
 
+.form__button button[type='submit']:hover {
+  transition: .3s ease-in-out;
+  filter: drop-shadow($fontColorYellowLight 0 0 10px);
+}
+
 .form__button div {
   display: flex;
   justify-content: center;
@@ -148,3 +162,7 @@ $input_padding: calc(10px + 2%);
   background: rgba(0, 0, 0, 0);
 }
 
+.form__button div:hover {
+  transition: .3s ease-in-out;
+  filter: drop-shadow($fontColorWhite 0 0 10px);
+}

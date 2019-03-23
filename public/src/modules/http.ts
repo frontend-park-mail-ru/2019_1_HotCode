@@ -1,11 +1,11 @@
 'use strict';
 
-import Paths from '../utils/pathConfig';
+import serverNames from './utils/serverNames';
 
 class Http {
 
-    private static server: string = Paths.server.backend;
-    private static avatatServer: string = Paths.server.avatarBackend;
+    private static server: string = serverNames.backend;
+    private static avatatServer: string = serverNames.avatarBackend;
 
     static Get(path: string, avatarBackend = false, body = ''): Promise<any> {
         return Http.request('GET', path, body, avatarBackend);
@@ -29,6 +29,7 @@ class Http {
         let headers = new Headers();
 
         if (!avatarBackend) {
+
             if (method === 'PUT' ||
                 method === 'POST') {
 
@@ -37,7 +38,6 @@ class Http {
         }
 
         if (body && !avatarBackend) {
-            // console.log('body', body);
             body = JSON.stringify(body);
         }
 
@@ -60,14 +60,18 @@ class Http {
 
         return fetch(request)
             .then(responce => {
+
                 if (!responce.ok) {
+
                     return responce.text().then(error => {
+
                         return Promise.reject(error ? JSON.parse(error) : error);
                     });
                 }
                 return responce.text();
             })
             .then(resp => {
+
                 return Promise.resolve(resp ? JSON.parse(resp) : resp);
             })
     }

@@ -16,7 +16,7 @@ class Component {
         this._el = value;
     }
 
-    static Create(tagName: string = 'div',
+    public static Create(tagName: string = 'div',
                   classes: string[] = [],
                   attrs: {[key: string]: string} = {}): Component
     {
@@ -31,6 +31,10 @@ class Component {
         }
 
         return new Component(el);
+    }
+
+    public static getBy(querySelector: string): Component {
+        return new Component(document.querySelector(querySelector));
     }
 
     public hide(): void {

@@ -4,12 +4,13 @@
   "description": "Репозиторий фронтенда",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "watch": "webpack --mode development --watch",
-    "deploy": "webpack --mode development && now && now alias"
+    "deploy": "now && now alias",
+    "now-build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -27,12 +28,14 @@
     "cookie-parser": "^1.4.4",
     "css-mqpacker": "^7.0.0",
     "express": "^4.16.4",
+    "express-history-api-fallback": "^2.2.1",
     "imagemin": "^6.1.0",
     "imagemin-giflossy": "^5.1.10",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^7.0.0",
     "imagemin-svgo": "^7.0.0",
     "morgan": "^1.9.1",
+    "path": "^0.12.7",
     "pug": "^2.0.3",
     "pug-cli": "^1.0.0-alpha6",
     "uuid": "^3.3.2"

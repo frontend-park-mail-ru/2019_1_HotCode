@@ -1,32 +1,32 @@
 'use strict';
 
 import Http from '../modules/http';
-import Paths from '../utils/pathConfig';
 import Game from "../models/game";
+import {gamePaths} from './utils/paths';
 
 class GameService {
 
     static getScores(id: number, limit: number, offset: number): Promise<any> {
 
-        return Http.Get(`${Paths.paths.game}/${id}/leaderboard?offset=${offset}&limit=${limit}`);
+        return Http.Get(`${gamePaths.getScorePath}/${id}/leaderboard?offset=${offset}&limit=${limit}`);
     }
 
 
     static getCountUsers(id: number): Promise<any> {
 
-        return Http.Get(`${Paths.paths.game}/${id}/leaderboard/count`);
+        return Http.Get(`${gamePaths.getCountUsersPath}/${id}/leaderboard/count`);
     }
 
 
     static getGames(): Promise<any> {
 
-        return Http.Get(Paths.paths.game);
+        return Http.Get(gamePaths.getGamesPath);
     }
 
 
     static getGame(id: number): Promise<any> {
 
-        return Http.Get(`${Paths.paths.game}/${id}`)
+        return Http.Get(`${gamePaths.getGamePath}/${id}`)
             .then(resp => {
 
                 Game.id = resp.id;

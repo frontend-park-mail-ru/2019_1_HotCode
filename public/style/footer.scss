@@ -30,8 +30,8 @@ footer {
 }
 
 .footer__content__item label:hover {
-  color: $fontColorYellow;
-  text-decoration-line: underline;
+  transition: .3s ease-in-out;
+  @extend %whiteLiteLight;
 }
 
 #signout {

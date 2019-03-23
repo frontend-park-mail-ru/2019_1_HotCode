@@ -63,10 +63,15 @@
   top: 0;
   bottom: 0;
   left: 0;
-  display: block;
+
+  display: flex;
   width: 50vw;
   margin: 0;
-  padding: 17px 0;
+  padding: 25% 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
   z-index: 11;
   text-transform: uppercase;
   line-height: 2em;
@@ -77,6 +82,23 @@
   transition: transform .3s;
   will-change: transform;
   backface-visibility: hidden;
+}
+
+.menu__header {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu__footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu label {
+  text-transform: uppercase;
+  line-height: 2em;
+  letter-spacing: 3px;
+  font-size: calc(1em + 0.4vh);
 }
 
 .nav__check:checked~.nav__back {

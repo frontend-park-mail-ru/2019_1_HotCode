@@ -22,6 +22,10 @@
   color: $fontColorYellow;
 }
 
+.logo:hover {
+  @extend %yellowStrongLight;
+}
+
 .logo__postscript {
   margin-top: 2%;
   @extend %white;

@@ -1,11 +1,10 @@
 'use strict';
 
 import Http from '../modules/http';
-import Paths from '../utils/pathConfig';
 import User from '../models/user';
 import EventBus from '../modules/event-bus';
-import {events} from '../utils/events';
-import Message from '../utils/message';
+import {events} from '../modules/utils/events';
+import {userPaths} from './utils/paths';
 
 class UserService {
 
@@ -13,7 +12,7 @@ class UserService {
 
         const user = {username, password};
 
-        return Http.Post(Paths.paths.signupPath, user)
+        return Http.Post(userPaths.signupPath, user)
             .then(resp => {
 
                 User.active = true;
@@ -27,7 +26,7 @@ class UserService {
 
         const user = {username, password};
 
-        return Http.Post(Paths.paths.signinPath, user)
+        return Http.Post(userPaths.loginPath, user)
             .then(resp => {
 
                 User.active = true;
@@ -39,13 +38,13 @@ class UserService {
 
     static isTaken(username: string): Promise<any> {
 
-        return Http.Post(Paths.paths.takenPath, {username});
+        return Http.Post(userPaths.takenPath, {username});
     }
 
 
     static signout(): Promise<any> {
 
-        return Http.Delete(Paths.paths.signoutPath)
+        return Http.Delete(userPaths.logoutPath)
             .then(resp => {
                 User.clearData();
                 EventBus.publish(events.unauthorized, '');
@@ -56,13 +55,13 @@ class UserService {
 
     static edit(user: {[key: string]: string}): Promise<any> {
 
-        return Http.Put(Paths.paths.editPath, user);
+        return Http.Put(userPaths.editPath, user);
     }
 
 
     static me(): Promise<any> {
 
-        return Http.Get(Paths.paths.mePath)
+        return Http.Get(userPaths.mePath)
             .then(resp => {
 
                 User.username = resp.username;

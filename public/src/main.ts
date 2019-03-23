@@ -1,7 +1,7 @@
 'use strict';
 
 import '../style/index.scss';
-import BaseView from './views/baseView/baseView';
+import ViewService from './services/view-service';
 
-const base = new BaseView();
-base.render();
+ViewService.start();
+ViewService.goTo(window.location.pathname);

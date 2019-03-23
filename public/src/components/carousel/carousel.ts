@@ -3,7 +3,7 @@
 import Component from "../baseComponent/index";
 import Tab from '../tabbar/tab';
 import EventBus from '../../modules/event-bus';
-import {events} from '../../utils/events';
+import {events} from '../../modules/utils/events';
 
 
 const carouselTmpl = require('./carousel.pug');
