@@ -8,15 +8,11 @@ footer {
 }
 
 .footer__left__content {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   width: 21%;
   min-width: 290px;
   max-width: 500px;
-}
-
-.footer__left__content .footer__content__item {  // TODO Динамическая ширина
-  width: 50%;
 }
 
 .footer__content__item label {

@@ -83,14 +83,13 @@
 }
 
 .game__options__line {
-  width: 37%;
-  min-width: 490px;
-  display: flex;
-  justify-content: space-between;
+  min-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 51%;
 }
 
 .game__options__line div{
-  width: 33.333%;
   text-align: center;
 }
 
@@ -105,14 +104,6 @@
 .game__options__line label:hover {
   color: $fontColorYellow;
   text-decoration-line: underline;
-}
-
-.game__options__line div:first-child {
-  text-align: left;
-}
-
-.game__options__line div:last-child {
-  text-align: right;
 }
 
 .game__line {
