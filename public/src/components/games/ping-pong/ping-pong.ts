@@ -8,7 +8,6 @@ class GameObject extends Component {
         super(el);
     }
 
-
     getX(): any {
         return this.el.style.left;
     }

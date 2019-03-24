@@ -208,7 +208,7 @@ export class Game {
         }
 
         if (p.y + p.height / 2 > top) {
-            p.y = top + p.height / 2;
+            p.y = top - p.height / 2;
         }
     }
 
