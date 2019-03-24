@@ -45,7 +45,7 @@ function sleep() {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve();
-        }, 500);
+        }, 10);
     });
 }
 
@@ -71,9 +71,6 @@ class PingPong extends Component{
     }
 
     public async render(states: any) {
-        console.log('width', states.info.racket.w);
-        console.log('height', states.info.racket.h);
-        console.log('diameter',states.info.ball.diameter);
         this.player1.setWidth(`${states.info.racket.w * this.el.clientWidth}px`);
         this.player1.setHeight(`${states.info.racket.h * this.el.clientHeight}px`);
         this.player2.setWidth(`${states.info.racket.w * this.el.clientWidth}px`);
@@ -88,7 +85,6 @@ class PingPong extends Component{
     }
 
     public async renderState(state: {[key: string]: {[key: string]: number}}) {
-        console.log('x', state.ball.x);
         this.ball.setX(`${state.ball.x * this.el.clientWidth}px`);
         this.ball.setY(`${state.ball.y * this.el.clientHeight}px`);
 

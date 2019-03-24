@@ -23,7 +23,7 @@ export class Player extends GameObject {
         super(x, y, 0, 0);
 
         this.height = height;
-        this.width = width;
+        this.width = width; 1
     }
 }
 
@@ -113,7 +113,7 @@ export class Game {
         let v2 = (bx2 - bx1) * (ay2 - by1) - (by2 - by1) * (ax2 - bx1);
         let v3 = (ax2 - ax1) * (by1 - ay1) - (ay2 - ay1) * (bx1 - ax1);
         let v4 = (ax2 - ax1) * (by2 - ay1) - (ay2 - ay1) * (bx2 - ax1);
-        return (v1 * v2 < 0) && (v3 * v4 < 0);
+        return ((v1 * v2 < 0) && (v3 * v4 < 0)) || (ax1 == bx1 && ay1 == by1) || (ax2 == bx2 && ay1 == by1) || (ax1 == bx1 && ay2 == by2) || (ax2 == bx2 && ay2 == by2);
     }
 
     collision(p: Player, b: Ball) {
@@ -123,12 +123,12 @@ export class Game {
         let p_left = p.x - p.width / 2;
         let p_right = p.x + p.width / 2;
         let p_down = p.y - p.height / 2;
-        let p_up = p.x + p.height / 2;
+        let p_up = p.y + p.height / 2;
 
         let b_left = b.x - b.diameter / 2;
         let b_right = b.x + b.diameter / 2;
         let b_down = b.y - b.diameter / 2;
-        let b_up = b.x + b.diameter / 2;
+        let b_up = b.y + b.diameter / 2;
 
 
         if (p_right < b_left) {
@@ -141,6 +141,7 @@ export class Game {
                 b.x += to_ratio * b.vX - out_ratio * b.vX;
                 b.y += b.vY;
                 b.vX = - b.vX;
+
                 return inter;
             }
         }
@@ -155,7 +156,7 @@ export class Game {
                 b.x += to_ratio * b.vX - out_ratio * b.vX;
                 b.y += b.vY;
                 b.vX = - b.vX;
-            return inter;
+                return inter;
             }
         }
 
@@ -229,14 +230,14 @@ export class Game {
             this.ball.x += this.ball.vX;
             this.ball.y += this.ball.vY;
         }
-        
+
         this.player1.x += this.player1.vX;
         this.player1.y += this.player1.vY;
         this.player2.x += this.player2.vX;
         this.player2.y += this.player2.vY;
 
-        this.playerPossitionCorrection(this.player1, 0, (1/3) * this.fieldWidth, 0, this.fieldHeight);
-        this.playerPossitionCorrection(this.player2, (2/3) * this.fieldWidth, this.fieldWidth, 0, this.fieldHeight);
+        this.playerPossitionCorrection(this.player1, 0, (1 / 3) * this.fieldWidth, 0, this.fieldHeight);
+        this.playerPossitionCorrection(this.player2, (2 / 3) * this.fieldWidth, this.fieldWidth, 0, this.fieldHeight);
     }
 
     // Validators
