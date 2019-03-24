@@ -12,9 +12,9 @@ import Alert from '../../../components/alert/alert';
 import Message from '../../../utils/message';
 import Page from '../page';
 
-class SettingsView extends Page {
+class SettingsPage extends Page {
 
-    private static template = require('./settingsView.pug');
+    private static template = require('./settingsPage.pug');
 
     private settingsForm: SettingsForm;
 
@@ -26,7 +26,7 @@ class SettingsView extends Page {
 
     public render(): void {
         super.render();
-        this.renderTmpl(SettingsView.template);
+        this.renderTmpl(SettingsPage.template);
 
         this.settingsForm = new SettingsForm(this.parent.el.getElementsByTagName('form')[0]);
 
@@ -99,7 +99,7 @@ class SettingsView extends Page {
                     .then((photo_uuid: string) => {
 
                         const newUserData =
-                            SettingsView.getNewUserObject(username, oldPassword, newPassword, photo_uuid);
+                            SettingsPage.getNewUserObject(username, oldPassword, newPassword, photo_uuid);
 
                         if (Object.keys(newUserData).length == 0) {
                             throw '';
@@ -198,4 +198,4 @@ class SettingsView extends Page {
     }
 }
 
-export default SettingsView;
+export default SettingsPage;

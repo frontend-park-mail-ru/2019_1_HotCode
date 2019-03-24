@@ -6,9 +6,9 @@ import GameService from "../../../services/game-service";
 import Page from '../page';
 import ViewService from '../../../services/view-service';
 
-class MainView extends Page {
+class MainPage extends Page {
 
-    private static template = require('./mainView.pug');
+    private static template = require('./mainPage.pug');
 
     private mainCarousel: Carousel;
 
@@ -18,7 +18,7 @@ class MainView extends Page {
 
     public render(): void {
         super.render();
-        this.renderTmpl(MainView.template);
+        this.renderTmpl(MainPage.template);
 
         this.mainCarousel = new Carousel(this.parent.el.querySelector('.carusel'), () => {
             GameService.getGame(1)
@@ -39,4 +39,4 @@ class MainView extends Page {
     }
 }
 
-export default MainView;
+export default MainPage;

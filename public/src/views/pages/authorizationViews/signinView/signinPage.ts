@@ -9,9 +9,9 @@ import {signinFormConfig} from '../utils/formConfig';
 import {events} from '../../../../modules/utils/events';
 import Page from '../../page';
 
-class SigninView extends Page {
+class SigninPage extends Page {
 
-    private static template = require('../formBaseView.pug');
+    private static template = require('../formBasePage.pug');
 
     private signinForm: SigninForm;
 
@@ -21,7 +21,7 @@ class SigninView extends Page {
 
     public render(): void {
         super.render();
-        this.renderTmpl(SigninView.template, signinFormConfig);
+        this.renderTmpl(SigninPage.template, signinFormConfig);
 
         this.signinForm = new SigninForm(this.parent.el.getElementsByTagName('form')[0]);
 
@@ -62,4 +62,4 @@ class SigninView extends Page {
     }
 }
 
-export default SigninView;
+export default SigninPage;

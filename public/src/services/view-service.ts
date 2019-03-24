@@ -4,13 +4,13 @@ import Router from '../modules/router';
 import {viewPaths} from './utils/paths';
 import ViewInfo from '../views/viewInfo';
 import Component from '../components/baseComponent/index';
-import BaseView from '../views/layers/baseView/baseView';
-import MainView from '../views/pages/mainView/mainView';
-import SettingsView from '../views/pages/settingsView/settingsView';
-import GameMenuView from '../views/layers/gameMenuLayer/gameMenuView';
-import SignupView from '../views/pages/authorizationViews/signupView/signupView';
-import SigninView from '../views/pages/authorizationViews/signinView/signinView';
-import LiderboardView from '../views/pages/gameMenuView/liderboardView/liderboardView';
+import BaseLayer from '../views/layers/baseView/baseLayer';
+import MainPage from '../views/pages/mainView/mainPage';
+import SettingsPage from '../views/pages/settingsView/settingsPage';
+import GameMenuLayer from '../views/layers/gameMenuLayer/gameMenuLayer';
+import SignupPage from '../views/pages/authorizationViews/signupView/signupPage';
+import SigninPage from '../views/pages/authorizationViews/signinView/signinPage';
+import LiderboardPage from '../views/pages/gameMenuView/liderboardView/liderboardPage';
 import DescriptionPage from '../views/pages/gameMenuView/descriptionPage/descriptionPage';
 import GamePage from '../views/pages/gameMenuView/gamePage/gamePage';
 
@@ -19,7 +19,7 @@ class ViewService {
     private static views = [
         new ViewInfo(
             'baseLayer',
-            () => new BaseView(),
+            () => new BaseLayer(),
             'root',
             null,
             [
@@ -32,19 +32,19 @@ class ViewService {
         ),
         new ViewInfo(
             'mainPage',
-            () => new MainView(Component.getBy('div.container')),
+            () => new MainPage(Component.getBy('div.container')),
             'mainContainer',
             viewPaths.mainViewPath
         ),
         new ViewInfo(
             'settingsPage',
-            () => new SettingsView(Component.getBy('div.container')),
+            () => new SettingsPage(Component.getBy('div.container')),
             'mainContainer',
             viewPaths.settingsViewPath
         ),
         new ViewInfo(
             'gameMenuLayer',
-            () => new GameMenuView(Component.getBy('div.container')),
+            () => new GameMenuLayer(Component.getBy('div.container')),
             'mainContainer',
             null,
             [
@@ -55,7 +55,7 @@ class ViewService {
         ),
         new ViewInfo(
             'signinPage',
-            () => new SigninView(Component.getBy('.modal__window')),
+            () => new SigninPage(Component.getBy('.modal__window')),
             'modalWindow',
             viewPaths.loginViewPath,
             null,
@@ -63,7 +63,7 @@ class ViewService {
         ),
         new ViewInfo(
             'signupPage',
-            () => new SignupView(Component.getBy('.modal__window')),
+            () => new SignupPage(Component.getBy('.modal__window')),
             'modalWindow',
             viewPaths.signupViewPath,
             null,
@@ -77,7 +77,7 @@ class ViewService {
         ),
         new ViewInfo(
             'liderboardPage',
-            () => new LiderboardView(Component.getBy('.game__content')),
+            () => new LiderboardPage(Component.getBy('.game__content')),
             'gameContainer',
             viewPaths.liderboardViewPath
         ),

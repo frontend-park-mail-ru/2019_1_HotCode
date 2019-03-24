@@ -14,9 +14,9 @@ import Parallax from '../../../modules/parallax';
 import Layer from '../layer';
 import ViewService from '../../../services/view-service';
 
-class BaseView extends Layer{
+class BaseLayer extends Layer{
 
-    private static template = require('./baseView.pug');
+    private static template = require('./baseLayer.pug');
 
     private _fullscreenButton: Checkbox;
     private _logoButton: Button;
@@ -31,7 +31,7 @@ class BaseView extends Layer{
     }
 
     public render() : void {
-        this.renderTmpl(BaseView.template);
+        this.renderTmpl(BaseLayer.template);
 
         const parallax = new Parallax(new Component(document.querySelector('.background')));
         parallax.moveBackground();
@@ -117,4 +117,4 @@ class BaseView extends Layer{
     }
 }
 
-export default BaseView;
+export default BaseLayer;

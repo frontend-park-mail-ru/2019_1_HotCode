@@ -9,13 +9,15 @@ import Page from '../../page';
 
 const tableTmpl = require('../../../../components/table/table.pug');
 
-class LiderboardView extends Page{
+class LiderboardPage extends Page{
 
-    private static template = require('./liderboardView.pug');
+    private static template = require('./liderboardPage.pug');
 
     private defaultLimit: number;
     private liderBoardTable: Component;
     private paginator: Paginator;
+
+    private fillTable: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent, 'LiderBoard - Game - WarScript');
@@ -23,14 +25,14 @@ class LiderboardView extends Page{
 
     public render(): void {
         super.render();
-        this.renderTmpl(LiderboardView.template);
+        this.renderTmpl(LiderboardPage.template);
 
         this.defaultLimit = 6;
 
         this.paginator = new Paginator(this.parent.el.querySelector('.pagination'), this.defaultLimit);
 
 
-        EventBus.subscribe(events.fillTable, table => {
+        this.fillTable = EventBus.subscribe(events.fillTable, table => {
             this.liderBoardTable.el.innerHTML = tableTmpl(table);
         });
 
@@ -57,9 +59,10 @@ class LiderboardView extends Page{
     public clear(): void {
         this.parent.el.innerHTML = '';
 
+        this.fillTable.unsubscribe();
         this.paginator = null;
         this.liderBoardTable = null;
     }
 }
 
-export default LiderboardView;
+export default LiderboardPage;

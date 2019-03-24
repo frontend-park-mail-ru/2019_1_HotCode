@@ -7,9 +7,9 @@ import Parallax from '../../../modules/parallax';
 import Layer from '../layer';
 import ViewService from '../../../services/view-service';
 
-class GameMenuView extends Layer {
+class GameMenuLayer extends Layer {
 
-    private static template = require('./gameMenuView.pug');
+    private static template = require('./gameMenuLayer.pug');
 
     private gameContainer: Component;
     private gameImageLogo: Component;
@@ -22,7 +22,7 @@ class GameMenuView extends Layer {
     }
 
     public render(): void {
-        this.renderTmpl(GameMenuView.template, {title: Game.name});
+        this.renderTmpl(GameMenuLayer.template, {title: Game.name});
 
         const parallax = new Parallax(new Component(this.parent.el.querySelector('.game__background__img img')));
         parallax.moveBackground();
@@ -60,7 +60,10 @@ class GameMenuView extends Layer {
         this.parent.el.innerHTML = '';
 
         this.optionsTabbar = null;
+        this.gameContainer = null;
+        this.gameImageLogo = null;
+        this.gameContent = null;
     }
 }
 
-export default GameMenuView;
+export default GameMenuLayer;

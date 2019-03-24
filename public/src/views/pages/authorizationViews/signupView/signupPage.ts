@@ -9,9 +9,9 @@ import {signupFormConfig} from '../utils/formConfig';
 import {events} from '../../../../modules/utils/events';
 import Page from '../../page';
 
-class SignupView extends Page {
+class SignupPage extends Page {
 
-    private static template = require('../formBaseView.pug');
+    private static template = require('../formBasePage.pug');
 
     private _signupForm: SignupForm;
 
@@ -21,7 +21,7 @@ class SignupView extends Page {
 
     public render(): void {
         super.render();
-        this.renderTmpl(SignupView.template, signupFormConfig);
+        this.renderTmpl(SignupPage.template, signupFormConfig);
 
         this._signupForm = new SignupForm(this.parent.el.getElementsByTagName('form')[0]);
 
@@ -69,4 +69,4 @@ class SignupView extends Page {
     }
 }
 
-export default SignupView;
+export default SignupPage;
