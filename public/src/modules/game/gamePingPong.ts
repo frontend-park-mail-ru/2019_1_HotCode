@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 class GameObject {
     x: number;
@@ -41,7 +41,7 @@ export class PlayablePlayer extends Player {
 export class Ball extends GameObject {
     diameter: number;
     constructor(diameter: number, x: number, y: number, vX: number, vY: number) {
-        super(x, y, vX, vY);
+        super(x, y, vX, vY)
         this.diameter = diameter;
     }
 }
@@ -64,7 +64,14 @@ export class Game {
 
     getInfo(): any {
         return {
-            "ratio": this.fieldWidth / this.fieldHeight
+            "ratio": this.fieldWidth / this.fieldHeight,
+            "racket": {
+                "w": this.player1.width / this.fieldWidth,
+                "h": this.player1.height / this.fieldHeight,
+            },
+            "ball": {
+                "diameter": this.ball.diameter / this.fieldHeight,
+            }
         }
     }
 
@@ -134,7 +141,6 @@ export class Game {
                 b.x += to_ratio * b.vX - out_ratio * b.vX;
                 b.y += b.vY;
                 b.vX = - b.vX;
-                console.log(1);
                 return inter;
             }
         }
@@ -149,7 +155,6 @@ export class Game {
                 b.x += to_ratio * b.vX - out_ratio * b.vX;
                 b.y += b.vY;
                 b.vX = - b.vX;
-                console.log(2);
             return inter;
             }
         }
@@ -164,7 +169,6 @@ export class Game {
                 b.y += to_ratio * b.vY - out_ratio * b.vY;
                 b.x += b.vX;
                 b.vY = - b.vY;
-                console.log(3);
                 return inter;
             }
         }
@@ -179,7 +183,6 @@ export class Game {
                 b.y += to_ratio * b.vY - out_ratio * b.vY;
                 b.x += b.vX;
                 b.vY = - b.vY;
-                console.log(4);
                 return inter;
             }
         }

@@ -31,7 +31,7 @@ class GamePage extends Page{
 
             if (this.testCodeForm.validate()) {
 
-                this.pingPong.render(runCode(code).states);
+                this.pingPong.render(runCode(code));
             }
         });
     }

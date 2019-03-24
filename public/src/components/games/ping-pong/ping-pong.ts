@@ -25,19 +25,19 @@ class GameObject extends Component {
         this.el.style.top = value;
     }
 
-    getWidth(): number {
-        return +this.el.style.width;
+    getWidth(): string {
+        return this.el.style.width;
     }
 
-    setWidth(value: number) {
+    setWidth(value: string) {
         this.el.style.width = value.toString();
     }
 
-    getHeight(): number {
-        return +this.el.style.height;
+    getHeight(): string {
+        return this.el.style.height;
     }
 
-    setHeight(value: number) {
+    setHeight(value: string) {
         this.el.style.height = value.toString();
     }
 }
@@ -71,8 +71,15 @@ class PingPong extends Component{
         this.height = +this.el.style.height;
     }
 
-    public async render(states: {[key: string]: {[key: string]: number}}[]) {
-        for(let state of states) {
+    public async render(states: any) {
+        this.player1.setWidth(`${states.info.racket.w * this.el.clientWidth}px`);
+        this.player1.setHeight(`${states.info.racket.h * this.el.clientHeight}px`);
+        this.player2.setWidth(`${states.info.racket.w * this.el.clientWidth}px`);
+        this.player2.setHeight(`${states.info.racket.h * this.el.clientHeight}px`);
+
+        this.ball.setHeight(`${states.info.ball.diametr * this.el.clientHeight}px`);
+
+        for(let state of states.states) {
             await this.renderState(state);
         }
     }
