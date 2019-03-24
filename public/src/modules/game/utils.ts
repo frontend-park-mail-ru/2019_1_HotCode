@@ -3,8 +3,12 @@ import Tester from './tester';
 
 export const runCode = (code: string) => {
     const bot = (me: PlayablePlayer, enemy: Player, ball: Ball) => {
-        me.setMoveVector(1, 0, -1);
-    };
+        const dx = ball.x - me.x;
+        const dy = ball.y - me.y;
+
+
+        me.setMoveVector(5, dx, dy);
+};
 
     const p1 = new Function("me", "enemy", "ball", code);
     const g = new Game(250, 500);

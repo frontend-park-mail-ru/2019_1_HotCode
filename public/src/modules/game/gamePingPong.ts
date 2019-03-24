@@ -33,7 +33,12 @@ export class PlayablePlayer extends Player {
     }
 
     setMoveVector(speed: number, x: number, y: number) {
+
         let nSpeed = speed / Math.sqrt(x * x + y * y);
+        if (isNaN(nSpeed) || nSpeed == Infinity) {
+            nSpeed = 0;
+        }
+
         this.vX = x * nSpeed;
         this.vY = y * nSpeed;
     }
@@ -59,7 +64,7 @@ export class Game {
 
         this.player1 = new Player(fieldWidth / 10, fieldHeight / 2, fieldHeight / 5, fieldWidth / 20);
         this.player2 = new Player(fieldWidth - fieldWidth / 10, fieldHeight / 2, fieldHeight / 5, fieldWidth / 20);
-        this.ball = new Ball(10, fieldWidth / 2, fieldHeight / 2, 5, 0);
+        this.ball = new Ball(10, fieldWidth / 2, fieldHeight / 2, 2, 2);
     }
 
     getInfo(): any {
@@ -136,26 +141,32 @@ export class Game {
                 this.intersection(p_down, p_right, p_up, p_right, b_down, b_left, b_down + bRelVy, b_left + bRelVx) ||
                 this.intersection(p_down, p_right, p_up, p_right, b_up, b_left, b_up + bRelVy, b_left + bRelVx);
             if (inter) {
-                let to_ratio = bRelVx / (b_left - p_right);
+                let to_ratio = Math.abs((b_left - p_right) / bRelVx);
                 let out_ratio = 1 - to_ratio;
-                b.x += to_ratio * b.vX - out_ratio * b.vX;
+                let new_speed =- b.vX;
+                b.x += to_ratio * b.vX + out_ratio * new_speed;
                 b.y += b.vY;
-                b.vX = - b.vX;
+                b.vX = new_speed;
 
                 return inter;
             }
         }
 
         if (p_left > b_right) {
+            //console.log(p_down, p_left, p_up, p_left, b_down, b_right, b_down + bRelVy, b_right + bRelVx);
+            //console.log(p_down, p_left, p_up, p_left, b_up, b_right, b_up + bRelVy, b_right + bRelVx);
+            //console.log(this.intersection(p_down, p_left, p_up, p_left, b_down, b_right, b_down + bRelVy, b_right + bRelVx));
+            //console.log(this.intersection(p_down, p_left, p_up, p_left, b_up, b_right, b_up + bRelVy, b_right + bRelVx));
             let inter =
                 this.intersection(p_down, p_left, p_up, p_left, b_down, b_right, b_down + bRelVy, b_right + bRelVx) ||
                 this.intersection(p_down, p_left, p_up, p_left, b_up, b_right, b_up + bRelVy, b_right + bRelVx);
             if (inter) {
-                let to_ratio = bRelVx / (p_left - b_right);
+                let to_ratio = Math.abs((p_left - b_right) / bRelVx);
                 let out_ratio = 1 - to_ratio;
-                b.x += to_ratio * b.vX - out_ratio * b.vX;
+                let new_speed = - b.vX;
+                b.x += to_ratio * b.vX + out_ratio * new_speed;
                 b.y += b.vY;
-                b.vX = - b.vX;
+                b.vX = new_speed;
                 return inter;
             }
         }
@@ -165,11 +176,12 @@ export class Game {
                 this.intersection(p_left, p_up, p_right, p_up, b_left, b_down, b_left + bRelVx, b_down + bRelVy) ||
                 this.intersection(p_left, p_up, p_right, p_up, b_right, b_down, b_right + bRelVx, b_down + bRelVy);
             if (inter) {
-                let to_ratio = bRelVy / (b_down - p_up);
+                let to_ratio = Math.abs((b_down - p_up) / bRelVy);
                 let out_ratio = 1 - to_ratio;
-                b.y += to_ratio * b.vY - out_ratio * b.vY;
+                let new_speed =- b.vY;
+                b.y += to_ratio * b.vY - out_ratio * new_speed;
                 b.x += b.vX;
-                b.vY = - b.vY;
+                b.vY = new_speed;
                 return inter;
             }
         }
@@ -179,11 +191,12 @@ export class Game {
                 this.intersection(p_left, p_down, p_right, p_down, b_left, b_up, b_left + bRelVx, b_up + bRelVy) ||
                 this.intersection(p_left, p_down, p_right, p_down, b_right, b_up, b_right + bRelVx, b_up + bRelVy);
             if (inter) {
-                let to_ratio = bRelVy / (p_down - b_up);
+                let to_ratio = Math.abs((p_down - b_up) / bRelVy);
                 let out_ratio = 1 - to_ratio;
-                b.y += to_ratio * b.vY - out_ratio * b.vY;
+                let new_speed = - b.vY;
+                b.y += to_ratio * b.vY - out_ratio * new_speed;
                 b.x += b.vX;
-                b.vY = - b.vY;
+                b.vY = new_speed;
                 return inter;
             }
         }
@@ -192,7 +205,14 @@ export class Game {
     }
 
     ballPossitionCorrection() {
-
+        if (this.ball.y + this.ball.diameter / 2 > this.fieldHeight) {
+            this.ball.y -= this.ball.y * 2 + this.ball.diameter - this.fieldHeight * 2;
+            this.ball.vY = -this.ball.vY
+        }
+        if (this.ball.y - this.ball.diameter / 2 < 0) {
+            this.ball.y += this.ball.y * 2 + this.ball.diameter;
+            this.ball.vY = -this.ball.vY
+        }
     }
 
     playerPossitionCorrection(p: Player, left: number, right: number, bottom: number, top: number) {
@@ -230,11 +250,21 @@ export class Game {
             this.ball.x += this.ball.vX;
             this.ball.y += this.ball.vY;
         }
+        let ball_speed = Math.sqrt(this.ball.vX * this.ball.vX + this.ball.vY * this.ball.vY)
+        if (ball_speed > 6) {
+            this.ball.vX *= 6 / ball_speed
+            this.ball.vY *= 6 / ball_speed
+        }
+        this.ballPossitionCorrection();
 
-        this.player1.x += this.player1.vX;
-        this.player1.y += this.player1.vY;
-        this.player2.x += this.player2.vX;
-        this.player2.y += this.player2.vY;
+        if (!coll1) {
+            this.player1.x += this.player1.vX;
+            this.player1.y += this.player1.vY;
+        }
+        if (!coll2) {
+            this.player2.x += this.player2.vX;
+            this.player2.y += this.player2.vY;
+        }
 
         this.playerPossitionCorrection(this.player1, 0, (1 / 3) * this.fieldWidth, 0, this.fieldHeight);
         this.playerPossitionCorrection(this.player2, (2 / 3) * this.fieldWidth, this.fieldWidth, 0, this.fieldHeight);
