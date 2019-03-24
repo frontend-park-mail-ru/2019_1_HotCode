@@ -234,3 +234,15 @@
 .option__check {
   display: none;
 }
+
+.game__play {
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 3%;
+}
+
+.game__play__content {
+  max-width: none;
+  width: 100%;
+}

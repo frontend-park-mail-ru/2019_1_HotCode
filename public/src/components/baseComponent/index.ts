@@ -37,6 +37,14 @@ class Component {
         return new Component(document.querySelector(querySelector));
     }
 
+    public addClass(className: string): void {
+        this._el.classList.add(className);
+    }
+
+    public removeClass(className: string): void {
+        this._el.classList.remove(className);
+    }
+
     public hide(): void {
         this._el.classList.add('hidden');
     }

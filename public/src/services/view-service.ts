@@ -25,7 +25,7 @@ class ViewService {
             [
                 'mainPage',
                 'settingsPage',
-                'gameMenuPage',
+                'gameMenuLayer',
                 'signinPage',
                 'signupPage',
             ]

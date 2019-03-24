@@ -11,6 +11,10 @@ class GameMenuView extends Layer {
 
     private static template = require('./gameMenuView.pug');
 
+    private gameContainer: Component;
+    private gameImageLogo: Component;
+    private gameContent: Component;
+
     private optionsTabbar: Tabbar;
 
     constructor(parent: Component) {
@@ -23,14 +27,28 @@ class GameMenuView extends Layer {
         const parallax = new Parallax(new Component(this.parent.el.querySelector('.game__background__img img')));
         parallax.moveBackground();
 
+        this.gameContainer = new Component(this.parent.el.querySelector('.game'));
+        this.gameImageLogo = new Component(this.parent.el.querySelector('.game__right__content'));
+        this.gameContent = new Component(this.parent.el.querySelector('.game__left__content'));
+
         this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
             'option0': () => {
+                this.gameContainer.removeClass('game__play');
+                this.gameImageLogo.show();
+                this.gameContent.removeClass('game__play__content');
                 ViewService.goToGameDescriptionView();
+
             },
             'option1': () => {
+                this.gameContainer.removeClass('game__play');
+                this.gameImageLogo.show();
+                this.gameContent.removeClass('game__play__content');
                 ViewService.goToGameLiderBoardView();
             },
             'option2': () => {
+                this.gameContainer.addClass('game__play');
+                this.gameImageLogo.hide();
+                this.gameContent.addClass('game__play__content');
                 ViewService.goToGameView();
             },
         });

@@ -35,9 +35,11 @@ class Field extends Component{
 
         this._virginityField = true;
 
-        this.input.on('focus', () => this._virginityField = false );
+        if (this.input.el) {
+            this.input.on('focus', () => this._virginityField = false);
+        }
 
-        if ((<HTMLInputElement>this.input.el).type === 'password') {
+        if (this.input.el && (<HTMLInputElement>this.input.el).type === 'password') {
             this.showPasswordCheckbox = new Checkbox(this.el.querySelector('input[type="checkbox"'),
                 () => {
                     (<HTMLInputElement>this.input.el).type = 'text';
@@ -54,40 +56,59 @@ class Field extends Component{
     }
 
     public onFocus(callback: () => void): void {
-        this.input.on('focus', callback);
+        if (this.input.el) {
+            this.input.on('focus', callback);
+        }
     }
 
     public onInput(callback: () => void): void {
-        this.input.on('input', callback);
+        if (this.input.el) {
+            this.input.on('input', callback);
+        }
     }
 
     public onBlur(callback: () => void): void {
-        this.input.on('blur', callback);
+        if (this.input.el) {
+            this.input.on('blur', callback);
+        }
     }
 
     public getValue(): string {
-        return (<HTMLInputElement>this.input.el).value;
+        if (this.input.el) {
+            return (<HTMLInputElement>this.input.el).value;
+        }
     }
 
     public setValue(value: string): void {
-        (<HTMLInputElement>this.input.el).value = value;
+        if (this.input.el) {
+            (<HTMLInputElement>this.input.el).value = value;
+        }
     }
 
     public clearValue(): void {
-        (<HTMLInputElement>this.input.el).value = '';
+        if (this.input.el) {
+            (<HTMLInputElement>this.input.el).value = '';
+        }
     }
 
     public setError(errorText: string): void {
-        this.errorField.setText(errorText);
+        if (this.errorField.el) {
+            this.errorField.setText(errorText);
+        }
     }
 
     public clearError(): void {
-        this.errorField.setText('');
+        if (this.errorField.el) {
+            this.errorField.setText('');
+        }
     }
 
     // false - валидное поле; true - ошибка
     public getErrorStatus(): boolean {
-        return !!this.errorField.el.innerText;
+        if (this.errorField.el) {
+            return !!this.errorField.el.innerText;
+        }
+        return false;
     }
 }
 

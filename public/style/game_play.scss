@@ -1,0 +1,83 @@
+.play {
+  display: grid;
+  grid-template-areas: 'code screen'
+                       'code rules'
+                       'code console';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 1fr 1fr;
+  width: 100%;
+  height: 75vh;
+  margin-top: 2%;
+}
+
+.play__grid__item {
+  background: #555;
+  margin: 1%;
+  padding: 1%;
+}
+
+.play__code {
+  grid-area: code;
+}
+
+.play__code__form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.play__instruments {
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
+  padding-top: 0;
+  width: 100%;
+}
+
+.play__button {
+  height: 30px;
+  width: auto;
+  padding: 0 3%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  @extend %white;
+  font-size: 0.8em;
+  border: 2px solid $fontColorWhite;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(0, 0, 0, 0);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.play__textarea__for__code {
+  width: 100%;
+  height: 100%;
+  transition: all 0s ease 0s;
+  resize: none;
+}
+
+.play__screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-area: screen;
+}
+
+.play__screen__game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: $fontColorWhite;
+}
+
+.play__rules {
+  grid-area: rules;
+}
+
+.play__console {
+  grid-area: console;
+}

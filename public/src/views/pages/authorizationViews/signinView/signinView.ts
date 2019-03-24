@@ -13,7 +13,7 @@ class SigninView extends Page {
 
     private static template = require('../formBaseView.pug');
 
-    private _signinForm: SigninForm;
+    private signinForm: SigninForm;
 
     constructor(parent: Component) {
         super(parent, 'SignIn - WarScript');
@@ -23,19 +23,19 @@ class SigninView extends Page {
         super.render();
         this.renderTmpl(SigninView.template, signinFormConfig);
 
-        this._signinForm = new SigninForm(this.parent.el.getElementsByTagName('form')[0]);
+        this.signinForm = new SigninForm(this.parent.el.getElementsByTagName('form')[0]);
 
-        this._signinForm.usernameField.onInput(() => {
-            this._signinForm.validateUsername();
+        this.signinForm.usernameField.onInput(() => {
+            this.signinForm.validateUsername();
         });
 
-        this._signinForm.onSubmit((event) => {
+        this.signinForm.onSubmit(event => {
             event.preventDefault();
 
-            const username = this._signinForm.usernameField.getValue();
-            const password = this._signinForm.passwordField.getValue();
+            const username = this.signinForm.usernameField.getValue();
+            const password = this.signinForm.passwordField.getValue();
 
-            if (this._signinForm.validate()) {
+            if (this.signinForm.validate()) {
 
                 UserService.auth(username, password)
                     .then(() => {
@@ -44,11 +44,11 @@ class SigninView extends Page {
                     .catch((err) => {
 
                         if (err.username) {
-                            this._signinForm.usernameField.setError(ValidationError.notExistError());
+                            this.signinForm.usernameField.setError(ValidationError.notExistError());
                         }
 
                         if (err.password) {
-                            this._signinForm.passwordField.setError(ValidationError.invalidPasswordError());
+                            this.signinForm.passwordField.setError(ValidationError.invalidPasswordError());
                         }
                     });
             }
@@ -57,7 +57,7 @@ class SigninView extends Page {
 
     public clear(): void {
         this.parent.el.innerHTML = '';
-        this._signinForm = null;
+        this.signinForm = null;
         console.log('login CLEAR');
     }
 }
