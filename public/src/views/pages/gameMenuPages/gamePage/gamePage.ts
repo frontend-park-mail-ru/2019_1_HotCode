@@ -4,7 +4,15 @@ import Component from "../../../../components/baseComponent/index";
 import Page from '../../page';
 import TestCodeForm from '../../../../components/form/testCodeForm';
 import PingPong from '../../../../components/games/ping-pong/ping-pong';
-import {runCode} from '../../../../modules/game/utils';
+import {runCode} from '../../../../modules/game/game';
+
+const defaultCode = `{
+    const dx = ball.x - me.x;
+    const dy = ball.y - me.y;
+    
+    
+    me.setMoveVector(5, dx, dy);
+}`;
 
 class GamePage extends Page{
 
@@ -22,6 +30,12 @@ class GamePage extends Page{
         this.renderTmpl(GamePage.template);
 
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.play__code__form'));
+
+        this.testCodeForm.codeField.setValue(defaultCode);
+
+        this.testCodeForm.codeField.setTheme('ace/theme/monokai');
+        this.testCodeForm.codeField.setMode('ace/mode/javascript');
+
         this.pingPong = new PingPong(this.parent.el.querySelector('.play__screen__game'));
 
         this.testCodeForm.onSubmit(event => {

@@ -47,6 +47,11 @@ abstract class InputComponent extends Component{
             .map(reference => (new Component(<HTMLElement>reference)).show());
     }
 
+    public clearAllReferences(): void {
+        Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
+            .map(reference => (new Component(<HTMLElement>reference)).clear());
+    }
+
 }
 
 export default InputComponent;

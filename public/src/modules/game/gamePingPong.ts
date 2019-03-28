@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 class GameObject {
     x: number;
@@ -23,7 +23,7 @@ export class Player extends GameObject {
         super(x, y, 0, 0);
 
         this.height = height;
-        this.width = width; 1
+        this.width = width;
     }
 }
 
@@ -46,7 +46,7 @@ export class PlayablePlayer extends Player {
 export class Ball extends GameObject {
     diameter: number;
     constructor(diameter: number, x: number, y: number, vX: number, vY: number) {
-        super(x, y, vX, vY)
+        super(x, y, vX, vY);
         this.diameter = diameter;
     }
 }
@@ -207,11 +207,11 @@ export class Game {
     ballPossitionCorrection() {
         if (this.ball.y + this.ball.diameter / 2 > this.fieldHeight) {
             this.ball.y -= this.ball.y * 2 + this.ball.diameter - this.fieldHeight * 2;
-            this.ball.vY = -this.ball.vY
+            this.ball.vY = -this.ball.vY;
         }
         if (this.ball.y - this.ball.diameter / 2 < 0) {
             this.ball.y += this.ball.y * 2 + this.ball.diameter;
-            this.ball.vY = -this.ball.vY
+            this.ball.vY = -this.ball.vY;
         }
     }
 
@@ -250,10 +250,10 @@ export class Game {
             this.ball.x += this.ball.vX;
             this.ball.y += this.ball.vY;
         }
-        let ball_speed = Math.sqrt(this.ball.vX * this.ball.vX + this.ball.vY * this.ball.vY)
+        let ball_speed = Math.sqrt(this.ball.vX * this.ball.vX + this.ball.vY * this.ball.vY);
         if (ball_speed > 6) {
-            this.ball.vX *= 6 / ball_speed
-            this.ball.vY *= 6 / ball_speed
+            this.ball.vX *= 6 / ball_speed;
+            this.ball.vY *= 6 / ball_speed;
         }
         this.ballPossitionCorrection();
 
@@ -273,7 +273,7 @@ export class Game {
     // Validators
     checkSpeed(p: Player) {
         if (Math.sqrt(p.vX * p.vX + p.vY * p.vY) > 10) {
-            throw new Error("speed can not be > 10")
+            throw new Error("speed can not be > 10");
         }
     }
 }

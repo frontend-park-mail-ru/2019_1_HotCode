@@ -18,6 +18,10 @@ abstract class Layer implements IRenderable{
         this.parent.el.innerHTML = generatorTmpl(param);
     }
 
+    public renderTmplBesideHTML(generatorTmpl: (param?: any) => string, param?: any): void {
+        this.parent.el.innerHTML += generatorTmpl(param);
+    }
+
 }
 
 export default Layer;

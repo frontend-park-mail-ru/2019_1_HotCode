@@ -80,6 +80,10 @@ class Component {
             }
         }
     }
+
+    public clear(): void {
+        this.el.innerHTML = '';
+    }
 }
 
 export default Component;

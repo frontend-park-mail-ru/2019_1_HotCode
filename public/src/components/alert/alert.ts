@@ -3,6 +3,9 @@ import AlertItem from './alertItem/alertItem';
 
 class Alert extends Component {
     constructor() {
+        const alertContainer = Component.Create('div', ['alert__container']);
+        document.body.insertBefore(alertContainer.el, document.body.firstChild);
+
         super(document.querySelector('.alert__container'));
     }
 

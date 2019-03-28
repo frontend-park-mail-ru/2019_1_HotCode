@@ -4,30 +4,60 @@ import Router from '../modules/router';
 import {viewPaths} from './utils/paths';
 import ViewInfo from '../views/viewInfo';
 import Component from '../components/baseComponent/index';
-import BaseLayer from '../views/layers/baseView/baseLayer';
-import MainPage from '../views/pages/mainView/mainPage';
-import SettingsPage from '../views/pages/settingsView/settingsPage';
+import BaseLayer from '../views/layers/baseLayer/baseLayer';
+import MainPage from '../views/pages/mainPage/mainPage';
+import SettingsPage from '../views/pages/settingsPage/settingsPage';
 import GameMenuLayer from '../views/layers/gameMenuLayer/gameMenuLayer';
-import SignupPage from '../views/pages/authorizationViews/signupView/signupPage';
-import SigninPage from '../views/pages/authorizationViews/signinView/signinPage';
-import LiderboardPage from '../views/pages/gameMenuView/liderboardView/liderboardPage';
-import DescriptionPage from '../views/pages/gameMenuView/descriptionPage/descriptionPage';
-import GamePage from '../views/pages/gameMenuView/gamePage/gamePage';
+import SignupPage from '../views/pages/authorizationPages/signupPage/signupPage';
+import SigninPage from '../views/pages/authorizationPages/signinPage/signinPage';
+import LiderboardPage from '../views/pages/gameMenuPages/liderboardPage/liderboardPage';
+import DescriptionPage from '../views/pages/gameMenuPages/descriptionPage/descriptionPage';
+import GamePage from '../views/pages/gameMenuPages/gamePage/gamePage';
+import RootLayer from '../views/layers/rootLayer/rootLayer';
+import OptionsLayer from '../views/layers/optionsLayer/optionsLayer';
+import ContainerLayer from '../views/layers/containerLayer/containerLayer';
 
 class ViewService {
 
     private static views = [
         new ViewInfo(
-            'baseLayer',
-            () => new BaseLayer(),
+            'rootLayer',
+            () => new RootLayer(),
             'root',
+            null,
+            [
+                'containerLayer'
+            ]
+        ),
+        new ViewInfo(
+            'containerLayer',
+            () => new ContainerLayer(Component.getBy('.root')),
+            'container',
+            null,
+            [
+                'baseLayer'
+            ]
+        ),
+        // new ViewInfo(
+        //     'optionsLayer',
+        //     () => new OptionsLayer(Component.getBy('.root')),
+        //     'options',
+        //     null,
+        //     [
+        //         'baseLayer'
+        //     ]
+        // ),
+        new ViewInfo(
+            'baseLayer',
+            () => new BaseLayer(Component.getBy('.root')),
+            'base',
             null,
             [
                 'mainPage',
                 'settingsPage',
                 'gameMenuLayer',
                 'signinPage',
-                'signupPage',
+                'signupPage'
             ]
         ),
         new ViewInfo(

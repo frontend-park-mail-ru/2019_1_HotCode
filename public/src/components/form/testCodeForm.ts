@@ -1,7 +1,7 @@
 'use strict';
 
 import Form from "./form";
-import Field from "../field/field";
+import CodeEditor from '../editor/codeEditor';
 
 /**
  * TestCodeForm Component for TestCodeForm
@@ -9,22 +9,21 @@ import Field from "../field/field";
  */
 class TestCodeForm extends Form{
 
-    private _codeField: Field;
+    private _codeField: CodeEditor;
 
     constructor(el: HTMLElement) {
         super(el);
 
-        this._codeField = new Field(this.el.querySelector('.play__textarea__for__code'),
-                                    this.el.querySelector('.play__textarea__for__code'), null, null);
+        this._codeField = new CodeEditor(this.el.querySelector('.play__editor'));
     }
 
-    get codeField(): Field {
+    get codeField(): CodeEditor {
         return this._codeField;
     }
 
 
     public validate(): boolean {
-        return !this._codeField.getErrorStatus();
+        return true;
     }
 }
 
