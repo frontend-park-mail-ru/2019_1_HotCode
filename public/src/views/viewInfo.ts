@@ -2,61 +2,61 @@
 
 class ViewInfo {
 
-    private _keyName: string;
-    private _viewConstructor: () => IRenderable;
-    private _type: string;
-    private _path: string;
-    private _childrenView: string[];
-    private _defaultParent: string;
+    private keyNameField: string;
+    private viewConstructorField: () => IRenderable;
+    private typeField: string;
+    private pathField: string;
+    private childrenViewField: string[];
+    private defaultParentField: string;
 
-    private _view: IRenderable;
+    private viewField: IRenderable;
 
     constructor(keyName: string,
                 viewConstructor: () => IRenderable,
                 type: string,
                 path?: string,
                 childrenView?: string[],
-                defaultView?: string
-                ) {
-        this._keyName = keyName;
-        this._viewConstructor = viewConstructor;
-        this._type = type;
-        this._path = path;
-        this._childrenView = childrenView;
-        this._defaultParent = defaultView;
+                defaultView?: string) {
+
+        this.keyNameField = keyName;
+        this.viewConstructorField = viewConstructor;
+        this.typeField = type;
+        this.pathField = path;
+        this.childrenViewField = childrenView;
+        this.defaultParentField = defaultView;
     }
 
 
     get keyName(): string {
-        return this._keyName;
+        return this.keyNameField;
     }
 
     get viewConstructor(): () => IRenderable {
-        return this._viewConstructor;
+        return this.viewConstructorField;
     }
 
     get type(): string {
-        return this._type;
+        return this.typeField;
     }
 
     get path(): string {
-        return this._path;
+        return this.pathField;
     }
 
     get childrenView(): string[] {
-        return this._childrenView;
+        return this.childrenViewField;
     }
 
     get defaultParent(): string {
-        return this._defaultParent;
+        return this.defaultParentField;
     }
 
     get view(): IRenderable {
-        return this._view;
+        return this.viewField;
     }
 
     public createView(): void {
-        this._view = this.viewConstructor();
+        this.viewField = this.viewConstructor();
     }
 }
 

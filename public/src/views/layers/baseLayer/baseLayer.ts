@@ -34,19 +34,16 @@ class BaseLayer extends Layer{
         super(parent);
     }
 
-    public render() : void {
+    public render(): void {
         this.renderTmplBesideHTML(BaseLayer.template);
 
         this.background = new Component(this.parent.el.querySelector('.background'));
-
-        const parallax = new Parallax(this.background);
-        parallax.moveBackground();
 
         this.menuMobile = new Component(this.parent.el.querySelector('nav.nav'));
 
         this.fullscreenButton = new Checkbox(this.parent.el.querySelector('#full-screen'),
             () => activeFullScreen(),
-            () => cancselFullScreen()
+            () => cancselFullScreen(),
         );
 
         this.logoButton = new Button(this.parent.el.querySelector('#logo'), () => {
@@ -73,13 +70,13 @@ class BaseLayer extends Layer{
         });
 
         this.modalWindows = new Tabbar(this.parent.el.querySelector('.modal__windows'), {
-            'mod0': () => {
+            mod0: () => {
                 ViewService.goBack();
             },
-            'mod1': () => {
+            mod1: () => {
                 ViewService.goToLoginView();
             },
-            'mod2': () => {
+            mod2: () => {
                 ViewService.goToSignupView();
             },
         });
@@ -132,7 +129,7 @@ class BaseLayer extends Layer{
         console.log('base CLEAR');
     }
 
-    private on() : void {
+    private on(): void {
         this.fullscreenButton.onChange();
         this.logoButton.onClick();
         this.profileButton.onClick();

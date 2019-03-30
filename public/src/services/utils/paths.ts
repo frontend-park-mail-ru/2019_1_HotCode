@@ -22,6 +22,7 @@ export const gamePaths = {
 };
 
 export const viewPaths = {
+    startViewPath: '/hello',
     mainViewPath: '/',
     loginViewPath: '/login',
     signupViewPath: '/signup',

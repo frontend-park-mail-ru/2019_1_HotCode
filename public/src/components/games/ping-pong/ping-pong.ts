@@ -1,54 +1,7 @@
 'use strict';
 
 import Component from '../../baseComponent/index';
-
-class GameObject extends Component {
-
-    constructor(el: HTMLElement) {
-        super(el);
-    }
-
-    getX(): any {
-        return this.el.style.left;
-    }
-
-    setX(value: string) {
-        this.el.style.left = value;
-    }
-
-    getY(): any {
-        return this.el.style.top;
-    }
-
-    setY(value: string) {
-        this.el.style.top = value;
-    }
-
-    getWidth(): string {
-        return this.el.style.width;
-    }
-
-    setWidth(value: string) {
-        this.el.style.width = value.toString();
-    }
-
-    getHeight(): string {
-        return this.el.style.height;
-    }
-
-    setHeight(value: string) {
-        this.el.style.height = value.toString();
-    }
-}
-
-function sleep() {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve();
-        }, 10);
-    });
-}
-
+import GameObject from '../gameObject';
 
 class PingPong extends Component{
 
@@ -79,7 +32,7 @@ class PingPong extends Component{
         this.ball.setWidth(`${states.info.ball.diameter * this.el.clientHeight}px`);
         this.ball.setHeight(`${states.info.ball.diameter * this.el.clientHeight}px`);
 
-        for(let state of states.states) {
+        for (const state of states.states) {
             await this.renderState(state);
         }
     }
@@ -94,10 +47,16 @@ class PingPong extends Component{
         this.player2.setX(`${state.player_2.x * this.el.clientWidth}px`);
         this.player2.setY(`${state.player_2.y * this.el.clientHeight}px`);
 
-        await sleep();
+        await PingPong.sleep();
     }
 
-
+    private static sleep() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, 10);
+        });
+    }
 }
 
 export default PingPong;

@@ -5,6 +5,10 @@
   ],
   "jsRules": {},
   "rules": {
+    "ordered-imports": false,
+    "member-ordering": false,
+    "object-literal-sort-keys": false,
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
     "eofline": false,
     "no-trailing-whitespace": false,
     "comment-format": false,

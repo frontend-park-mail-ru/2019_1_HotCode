@@ -10,44 +10,44 @@ import Validation from "./utils/validation";
  */
 class SigninForm extends Form{
 
-    private _usernameField: Field;
-    private _passwordField: Field;
+    private username: Field;
+    private password: Field;
 
     constructor(el: HTMLElement) {
         super(el);
 
         const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.form__input'));
 
-        this._usernameField = new Field(fields[0]);
-        this._passwordField = new Field(fields[1]);
+        this.username = new Field(fields[0]);
+        this.password = new Field(fields[1]);
     }
 
     get usernameField(): Field {
-        return this._usernameField;
+        return this.username;
     }
 
     get passwordField(): Field {
-        return this._passwordField;
+        return this.password;
     }
 
     public validateUsername(): void {
         try {
 
-            Validation.validateUsername(this._usernameField.getValue(), true);
-            this._usernameField.clearError();
+            Validation.validateUsername(this.username.getValue(), true);
+            this.username.clearError();
 
         } catch (usernameError) {
-            this._usernameField.setError(usernameError.errorText);
+            this.username.setError(usernameError.errorText);
         }
     }
 
     public validatePassword(): void {
         try {
 
-            this._passwordField.clearError();
+            this.password.clearError();
 
         } catch (passwordError) {
-            this._passwordField.setError(passwordError.errorText);
+            this.password.setError(passwordError.errorText);
         }
     }
 
@@ -55,8 +55,8 @@ class SigninForm extends Form{
         this.validateUsername();
         this.validatePassword();
 
-        return !this._usernameField.getErrorStatus() &&
-            !this._passwordField.getErrorStatus();
+        return !this.username.getErrorStatus() &&
+            !this.password.getErrorStatus();
     }
 }
 

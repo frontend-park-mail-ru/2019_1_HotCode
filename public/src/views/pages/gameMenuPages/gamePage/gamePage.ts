@@ -31,17 +31,17 @@ class GamePage extends Page{
 
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.play__code__form'));
 
-        this.testCodeForm.codeField.setValue(defaultCode);
+        this.testCodeForm.code.setValue(defaultCode);
 
-        this.testCodeForm.codeField.setTheme('ace/theme/monokai');
-        this.testCodeForm.codeField.setMode('ace/mode/javascript');
+        this.testCodeForm.code.setTheme('ace/theme/monokai');
+        this.testCodeForm.code.setMode('ace/mode/javascript');
 
         this.pingPong = new PingPong(this.parent.el.querySelector('.play__screen__game'));
 
-        this.testCodeForm.onSubmit(event => {
+        this.testCodeForm.onSubmit((event) => {
             event.preventDefault();
 
-            const code = this.testCodeForm.codeField.getValue();
+            const code = this.testCodeForm.code.getValue();
 
             if (this.testCodeForm.validate()) {
 

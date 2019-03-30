@@ -1,12 +1,9 @@
 'use strict';
 
 import Component from "../baseComponent/index";
-import Tab from '../tabbar/tab';
 import EventBus from '../../modules/event-bus';
 import {events} from '../../modules/utils/events';
-
-
-const carouselTmpl = require('./carousel.pug');
+import Parallax from '../../modules/parallax';
 
 /**
  * Carousel Component for carousel
@@ -14,61 +11,220 @@ const carouselTmpl = require('./carousel.pug');
  */
 class Carousel extends Component{
 
-    private _clickCallback: (param?: any) => any;
-    private _centerContent: Component;
-    private _carouselItems: Tab[];
+    private static template = require('./carousel.pug');
 
-    private _clickRemover: {[key: string]: () => void};
+    private clickCallback: (param?: any) => any;
+
+    private leftArrow: Component;
+    private items: Component[];
+    private prevItem: Component;
+    private centerItem: Component;
+    private nextItem: Component;
+    private rightArrow: Component;
+
+    private centerItemId: number;
+    private countItems: number;
+
+    private limit: number;
+
+    private parallax: Parallax;
+
+    private mainClickRemover: {[key: string]: () => void};
+    private onLeftSideClickRemover: {[key: string]: () => void};
+    private onRightSideClickRemover: {[key: string]: () => void};
 
     constructor(el: HTMLElement,
-                callback = () => {},
-                items: {[key: string]: string}[] = [],)
-    {
+                callback: () => void,
+                items: Array<{[key: string]: string | number}> = []) {
+
         super(el);
 
-        this.renderCarousel(items);
+        callback = callback ? callback : () => {
+            return;
+        };
 
-        this._clickCallback = callback;
+        this.centerItemId = 0;
 
-        this.onChange();
+        this.countItems = items.length;
+
+        this.limit = 3;
+
+        this.clickCallback = callback;
+
+        this.render(items);
     }
 
-    public renderCarousel(items: {[key: string]: string | number}[]): void {
-        this.el.innerHTML = carouselTmpl({games: items});
+    public render(items: Array<{[key: string]: string | number}>): void {
+        this.el.innerHTML = Carousel.template({games: items});
 
-        this._centerContent = new Component(this.el.querySelector('input:checked+div+input+div .carusel__item'));
+        this.leftArrow = new Component(this.el.querySelector('.left__arrow'));
 
-        this._carouselItems =
-            Array.from(this.el.querySelectorAll('input[type="radio"]')).map(item => new Tab(<HTMLElement>item));
-    }
+        this.items = Array.from(this.el.querySelectorAll('.carusel__item'))
+            .map((item) => new Component(item as HTMLElement));
 
-    public onClick(): void {
-        this._clickRemover = this._centerContent.on('click', this._clickCallback);
+        this.rightArrow = new Component(this.el.querySelector('.right__arrow'));
+
+        this.onArrowsClick();
 
         EventBus.subscribe(events.chengeStateCarousel, () => {
-            this._clickRemover.remover();
-            this._centerContent = this.getActiveItem();
-            this._clickRemover = this._centerContent.on('click', this._clickCallback);
+
+            this.updateCarousel();
+            this.onItems();
         });
+
+        this.updateCarousel();
+        this.onItems();
     }
 
+    public updateCarousel(): void {
 
-    private getActiveItem(): Component {
-        const prevItem = this._carouselItems.filter(item => item.isChecked())[0];
-        return new Component((<Element>prevItem.el
-            .nextSibling
-            .nextSibling
-            .nextSibling)
-            .querySelector('.carusel__item')
-        );
-    }
 
-    private onChange(): void {
-        this.on('change', (event) => {
+        if (this.centerItemId > 0) {
 
-            if ((<HTMLInputElement>event.target).checked) {
-                EventBus.publish(events.chengeStateCarousel, '');
+            this.leftArrow.show();
+
+        } else {
+
+            this.leftArrow.hide();
+        }
+
+        if (this.centerItemId < this.countItems - 1) {
+
+            this.rightArrow.show();
+
+        } else {
+
+            this.rightArrow.hide();
+        }
+
+        if (this.parallax) {
+
+            this.parallax.offMouseMove();
+        }
+        this.parallax = null;
+        this.centerItem = null;
+        this.prevItem = null;
+        this.nextItem = null;
+
+        const accessItems = this.getAccessItems();
+
+        for (let i = 0; i < this.items.length; i++) {
+
+            if (accessItems.indexOf(i) !== -1) {
+
+                if (i < this.centerItemId) {
+
+                    this.items[i].removeClass('center__item');
+                    this.items[i].removeClass('next__item');
+                    this.items[i].addClass('prev__item');
+
+                    this.prevItem = new Component(this.el.querySelector('.prev__item'));
+
+                } else if (i > this.centerItemId) {
+
+                    this.items[i].removeClass('prev__item');
+                    this.items[i].removeClass('center__item');
+                    this.items[i].addClass('next__item');
+
+                    this.nextItem = new Component(this.el.querySelector('.next__item'));
+
+                } else {
+
+                    this.items[i].removeClass('prev__item');
+                    this.items[i].removeClass('next__item');
+                    this.items[i].addClass('center__item');
+
+                    this.centerItem = new Component(this.el.querySelector('.center__item'));
+
+                    this.parallax = new Parallax(this.centerItem, -4, 4);
+                    this.parallax.onMouseMove();
+                    this.parallax.degMainBackground();
+                }
+
+                this.items[i].show();
+
+            } else {
+
+                this.items[i].el.style.animationName = '';
+                this.items[i].removeClass('prev__item');
+                this.items[i].removeClass('next__item');
+                this.items[i].removeClass('center__item');
+                this.items[i].hide();
             }
+        }
+
+    }
+
+    public onArrowsClick(): void {
+        this.leftArrow.on('click', this.inLeftCallback);
+
+        this.rightArrow.on('click', this.inRightCallback);
+    }
+
+    public onItems() {
+
+        if (this.onLeftSideClickRemover) {
+
+            this.onLeftSideClickRemover.remover();
+        }
+
+        if (this.mainClickRemover) {
+
+            this.mainClickRemover.remover();
+        }
+
+        if (this.onRightSideClickRemover) {
+
+            this.onRightSideClickRemover.remover();
+        }
+
+        if (this.prevItem) {
+
+            this.onLeftSideClickRemover =
+                this.prevItem.on('click', this.inLeftCallback);
+        }
+
+        if (this.centerItem) {
+
+            this.mainClickRemover =
+                this.centerItem.on('click', this.clickCallback);
+        }
+
+        if (this.nextItem) {
+
+            this.onRightSideClickRemover =
+                this.nextItem.on('click', this.inRightCallback);
+        }
+    }
+
+    private inLeftCallback = () => {
+
+        this.centerItem.el.style.animationName = 'inright';
+        this.prevItem.el.style.animationName = 'outleft';
+
+        this.centerItemId -= 1;
+        EventBus.publish(events.chengeStateCarousel);
+    };
+
+    private inRightCallback = () => {
+
+        this.nextItem.el.style.animationName = 'outright';
+        this.centerItem.el.style.animationName = 'inleft';
+
+        this.centerItemId += 1;
+        EventBus.publish(events.chengeStateCarousel);
+    };
+
+    private getAccessItems(): number[] {
+        const border = (this.limit - 1) / 2;
+        const items = [];
+
+        for (let i = this.centerItemId - border; i <= this.centerItemId + border; i++) {
+            items.push(i);
+        }
+
+        return items.filter((item) => {
+            return item >= 0 && item <= this.countItems - 1;
         });
     }
 }

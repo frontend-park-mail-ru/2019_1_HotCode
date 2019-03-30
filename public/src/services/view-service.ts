@@ -16,112 +16,19 @@ import GamePage from '../views/pages/gameMenuPages/gamePage/gamePage';
 import RootLayer from '../views/layers/rootLayer/rootLayer';
 import OptionsLayer from '../views/layers/optionsLayer/optionsLayer';
 import ContainerLayer from '../views/layers/containerLayer/containerLayer';
+import PopUpLayer from '../views/layers/popUpLayer/popUpLayer';
+import StartPage from '../views/pages/startPage/startPage';
 
 class ViewService {
-
-    private static views = [
-        new ViewInfo(
-            'rootLayer',
-            () => new RootLayer(),
-            'root',
-            null,
-            [
-                'containerLayer'
-            ]
-        ),
-        new ViewInfo(
-            'containerLayer',
-            () => new ContainerLayer(Component.getBy('.root')),
-            'container',
-            null,
-            [
-                'baseLayer'
-            ]
-        ),
-        // new ViewInfo(
-        //     'optionsLayer',
-        //     () => new OptionsLayer(Component.getBy('.root')),
-        //     'options',
-        //     null,
-        //     [
-        //         'baseLayer'
-        //     ]
-        // ),
-        new ViewInfo(
-            'baseLayer',
-            () => new BaseLayer(Component.getBy('.root')),
-            'base',
-            null,
-            [
-                'mainPage',
-                'settingsPage',
-                'gameMenuLayer',
-                'signinPage',
-                'signupPage'
-            ]
-        ),
-        new ViewInfo(
-            'mainPage',
-            () => new MainPage(Component.getBy('div.container')),
-            'mainContainer',
-            viewPaths.mainViewPath
-        ),
-        new ViewInfo(
-            'settingsPage',
-            () => new SettingsPage(Component.getBy('div.container')),
-            'mainContainer',
-            viewPaths.settingsViewPath
-        ),
-        new ViewInfo(
-            'gameMenuLayer',
-            () => new GameMenuLayer(Component.getBy('div.container')),
-            'mainContainer',
-            null,
-            [
-                'descriptionPage',
-                'liderboardPage',
-                'gamePage',
-            ]
-        ),
-        new ViewInfo(
-            'signinPage',
-            () => new SigninPage(Component.getBy('.modal__window')),
-            'modalWindow',
-            viewPaths.loginViewPath,
-            null,
-            'mainPage'
-        ),
-        new ViewInfo(
-            'signupPage',
-            () => new SignupPage(Component.getBy('.modal__window')),
-            'modalWindow',
-            viewPaths.signupViewPath,
-            null,
-            'mainPage'
-        ),
-        new ViewInfo(
-            'descriptionPage',
-            () => new DescriptionPage(Component.getBy('.game__content')),
-            'gameContainer',
-            viewPaths.descriptionViewPath
-        ),
-        new ViewInfo(
-            'liderboardPage',
-            () => new LiderboardPage(Component.getBy('.game__content')),
-            'gameContainer',
-            viewPaths.liderboardViewPath
-        ),
-        new ViewInfo(
-            'gamePage',
-            () => new GamePage(Component.getBy('.game__content')),
-            'gameContainer',
-            viewPaths.gameViewPath
-        ),
-    ];
 
     public static goTo(path: string): void {
 
         switch (path) {
+
+            case viewPaths.startViewPath: {
+                ViewService.goToStartView();
+                break;
+            }
 
             case viewPaths.mainViewPath: {
                 ViewService.goToMainView();
@@ -173,6 +80,10 @@ class ViewService {
         Router.popStack();
     }
 
+    public static goToStartView(): void {
+        Router.go(viewPaths.startViewPath);
+    }
+
     public static goToMainView(): void {
         Router.go(viewPaths.mainViewPath);
     }
@@ -205,6 +116,118 @@ class ViewService {
         console.log('Not Found :(');
     }
 
+    private static views = [
+        new ViewInfo(
+            'rootLayer',
+            () => new RootLayer(),
+            'root',
+            null,
+            [
+                'containerLayer',
+            ],
+        ),
+        new ViewInfo(
+            'containerLayer',
+            () => new ContainerLayer(Component.getBy('.root')),
+            'container',
+            null,
+            [
+                'baseLayer',
+            ],
+        ),
+        // new ViewInfo(
+        //     'optionsLayer',
+        //     () => new OptionsLayer(Component.getBy('.root')),
+        //     'options',
+        //     null,
+        //     [
+        //         'baseLayer'
+        //     ]
+        // ),
+        new ViewInfo(
+            'baseLayer',
+            () => new BaseLayer(Component.getBy('.root')),
+            'base',
+            null,
+            [
+                'startPage',
+                'mainPage',
+                'settingsPage',
+                'gameMenuLayer',
+                'popUpLayer',
+            ],
+        ),
+        new ViewInfo(
+            'popUpLayer',
+            () => new PopUpLayer(Component.getBy('.modal__window')),
+            'popup',
+            null,
+            [
+                'signinPage',
+                'signupPage',
+            ],
+            'mainPage',
+        ),
+        new ViewInfo(
+            'startPage',
+            () => new StartPage(Component.getBy('div.container')),
+            'mainContainer',
+            viewPaths.startViewPath,
+        ),
+        new ViewInfo(
+            'mainPage',
+            () => new MainPage(Component.getBy('div.container')),
+            'mainContainer',
+            viewPaths.mainViewPath,
+        ),
+        new ViewInfo(
+            'settingsPage',
+            () => new SettingsPage(Component.getBy('div.container')),
+            'mainContainer',
+            viewPaths.settingsViewPath,
+        ),
+        new ViewInfo(
+            'gameMenuLayer',
+            () => new GameMenuLayer(Component.getBy('div.container')),
+            'mainContainer',
+            null,
+            [
+                'descriptionPage',
+                'liderboardPage',
+                'gamePage',
+            ],
+        ),
+        new ViewInfo(
+            'signinPage',
+            () => new SigninPage(Component.getBy('.modal__info')),
+            'modalWindow',
+            viewPaths.loginViewPath,
+        ),
+        new ViewInfo(
+            'signupPage',
+            () => new SignupPage(Component.getBy('.modal__info')),
+            'modalWindow',
+            viewPaths.signupViewPath,
+        ),
+        new ViewInfo(
+            'descriptionPage',
+            () => new DescriptionPage(Component.getBy('.game__content')),
+            'gameContainer',
+            viewPaths.descriptionViewPath,
+        ),
+        new ViewInfo(
+            'liderboardPage',
+            () => new LiderboardPage(Component.getBy('.game__content')),
+            'gameContainer',
+            viewPaths.liderboardViewPath,
+        ),
+        new ViewInfo(
+            'gamePage',
+            () => new GamePage(Component.getBy('.game__content')),
+            'gameContainer',
+            viewPaths.gameViewPath,
+        ),
+    ];
 }
 
 export default ViewService;

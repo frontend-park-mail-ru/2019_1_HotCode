@@ -2,33 +2,33 @@
 
 class Game {
 
-    private _name: string;
-    private _id: string;
+    private nameField: string;
+    private idField: string;
 
     constructor() {
-        this._name = '';
-        this._id = '';
+        this.nameField = '';
+        this.idField = '';
     }
 
     get name() {
-        return this._name;
+        return this.nameField;
     }
 
     set name(value) {
-        this._name = value;
+        this.nameField = value;
     }
 
     get id() {
-        return this._id;
+        return this.idField;
     }
 
     set id(value) {
-        this._id = value;
+        this.idField = value;
     }
 
     public clearData(): void {
-        this._name = '';
-        this._id = '';
+        this.nameField = '';
+        this.idField = '';
     }
 }
 

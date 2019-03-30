@@ -5,19 +5,19 @@ import Layer from '../layers/layer';
 
 abstract class Page extends Layer{
 
-    private _title: string;
+    private titleField: string;
 
     constructor(parent: Component, title: string) {
         super(parent);
-        this._title = title;
+        this.titleField = title;
     }
 
     get title(): string {
-        return this._title;
+        return this.titleField;
     }
 
     set title(value: string) {
-        this._title = value || this._title;
+        this.titleField = value || this.titleField;
     }
 
     public render(): void {

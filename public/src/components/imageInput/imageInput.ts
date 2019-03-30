@@ -7,12 +7,16 @@ import InputComponent from "../baseComponent/inputComponent";
  * @extends {InputComponent}
  */
 class ImageInput extends InputComponent{
-    constructor(el: HTMLElement, callback = (param?: any) => {}) {
+    constructor(el: HTMLElement, callback: (param?: any) => void) {
+        callback = callback ? callback : () => {
+            return;
+        };
+
         super(el, callback);
     }
 
     public getFile(): File {
-        return (<HTMLInputElement>this.el).files[0];
+        return (this.el as HTMLInputElement).files[0];
     }
 
     public onChange(): void {

@@ -13,37 +13,37 @@ import User from '../../models/user';
  */
 class SettingsForm extends Form{
 
-    private _usernameField: Field;
-    private _oldPasswordField: Field;
-    private _newPasswordField: Field;
-    private _repeatNewPasswordField: Field;
-    private _avatarField: ImageInput;
+    private username: Field;
+    private oldPassword: Field;
+    private newPassword: Field;
+    private repeatNewPassword: Field;
+    private avatar: ImageInput;
 
     constructor(el: HTMLElement) {
         super(el);
 
         const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.form__input'));
 
-        this._usernameField = new Field(fields[0]);
+        this.username = new Field(fields[0]);
 
-        this._oldPasswordField = new Field(fields[1]);
+        this.oldPassword = new Field(fields[1]);
 
-        this._newPasswordField = new Field(fields[2]);
+        this.newPassword = new Field(fields[2]);
 
-        this._repeatNewPasswordField = new Field(fields[3]);
+        this.repeatNewPassword = new Field(fields[3]);
 
-        this._avatarField = new ImageInput(this.el.querySelector('#avatar'), (event) => {
+        this.avatar = new ImageInput(this.el.querySelector('#avatar'), (event) => {
             const avatar = event.target.files[0];
 
             if (avatar && avatar.type.startsWith('image/')) {
 
                 const image = new Component(this.el.querySelector('.form__inputs__right img'));
-                (<HTMLImageElement>image.el).src = avatar;
+                (image.el as HTMLImageElement).src = avatar;
 
                 const reader = new FileReader();
-                reader.onload = (function (aImg) {
-                    return function (e: Event) {
-                        (<HTMLImageElement>aImg).src = (<any>e.target).result;
+                reader.onload = ((aImg) => {
+                    return (e: Event) => {
+                        (aImg as HTMLImageElement).src = (e.target as any).result;
                     };
                 })(image.el);
                 reader.readAsDataURL(avatar);
@@ -52,99 +52,99 @@ class SettingsForm extends Form{
     }
 
     get usernameField(): Field {
-        return this._usernameField;
+        return this.username;
     }
 
     get oldPasswordField(): Field {
-        return this._oldPasswordField;
+        return this.oldPassword;
     }
 
     get newPasswordField(): Field {
-        return this._newPasswordField;
+        return this.newPassword;
     }
 
     get repeatNewPasswordField(): Field {
-        return this._repeatNewPasswordField;
+        return this.repeatNewPassword;
     }
 
     get avatarField(): ImageInput {
-        return this._avatarField;
+        return this.avatar;
     }
 
     public validateUsername(): void {
         try {
 
-            Validation.validateUsername(this._usernameField.getValue());
-            this._usernameField.clearError();
+            Validation.validateUsername(this.username.getValue());
+            this.username.clearError();
 
         } catch (usernameError) {
-            this._usernameField.setError(usernameError.text);
+            this.username.setError(usernameError.text);
         }
     }
 
     public validateUsernameOnUnique(): void {
-        if (User.username !== this._usernameField.getValue()) {
+        if (User.username !== this.username.getValue()) {
 
-            Validation.validateUsernameOnUnique(this._usernameField.getValue())
+            Validation.validateUsernameOnUnique(this.username.getValue())
                 .then(() => {
-                    this._usernameField.clearError();
+                    this.username.clearError();
                 })
-                .catch(error => {
-                    this._usernameField.setError(error.errorText);
+                .catch((error) => {
+                    this.username.setError(error.errorText);
                 });
 
             return;
         }
 
-        this._usernameField.clearError();
+        this.username.clearError();
     }
 
     public validateOldPassword(): void {
         try {
 
-            this._oldPasswordField.clearError();
+            this.oldPassword.clearError();
 
         } catch (passwordError) {
-            this._oldPasswordField.setError(passwordError.errorText);
+            this.oldPassword.setError(passwordError.errorText);
         }
     }
 
     public validateNewPassword(): void {
         try {
 
-            if (this._oldPasswordField.getValue()) {
+            if (this.oldPassword.getValue()) {
 
-                Validation.validatePassword(this._newPasswordField.getValue());
+                Validation.validatePassword(this.newPassword.getValue());
 
-                if (!this._newPasswordField.virginityField &&
-                    !this._repeatNewPasswordField.virginityField) {
+                if (!this.newPassword.virginity &&
+                    !this.repeatNewPassword.virginity) {
 
-                    Validation.validatePasswordEquality(this._newPasswordField.getValue(),
-                        this._repeatNewPasswordField.getValue());
+                    Validation.validatePasswordEquality(this.newPassword.getValue(),
+                        this.repeatNewPassword.getValue());
                 }
 
             }
 
-            this._newPasswordField.clearError();
+            this.newPassword.clearError();
         } catch (passwordError) {
-            this._newPasswordField.setError(passwordError.errorText);
+            this.newPassword.setError(passwordError.errorText);
         }
     }
 
     public validateNewPasswordEquality(): void {
         try {
-            if (this._oldPasswordField.getValue() &&
-                !this._newPasswordField.virginityField &&
-                !this._repeatNewPasswordField.virginityField) {
+            if (this.oldPassword.getValue() &&
+                !this.newPassword.virginity &&
+                !this.repeatNewPassword.virginity) {
 
-                Validation.validatePasswordEquality(this._newPasswordField.getValue(),
-                    this._repeatNewPasswordField.getValue());
+                Validation.validatePasswordEquality(this.newPassword.getValue(),
+                    this.repeatNewPassword.getValue());
             }
 
-            this._newPasswordField.clearError();
+            this.newPassword.clearError();
 
         } catch (passwordError) {
-            this._newPasswordField.setError(passwordError.errorText);
+            this.newPassword.setError(passwordError.errorText);
         }
     }
 
@@ -153,16 +153,16 @@ class SettingsForm extends Form{
         this.validateOldPassword();
         this.validateNewPassword();
 
-        return !this._usernameField.getErrorStatus() &&
-            !this._oldPasswordField.getErrorStatus() &&
-            !this._newPasswordField.getErrorStatus() &&
-            !this._repeatNewPasswordField.getErrorStatus();
+        return !this.username.getErrorStatus() &&
+            !this.oldPassword.getErrorStatus() &&
+            !this.newPassword.getErrorStatus() &&
+            !this.repeatNewPassword.getErrorStatus();
     }
 
     public resetPasswords(): void {
-        this._oldPasswordField.clearValue();
-        this._newPasswordField.clearValue();
-        this._repeatNewPasswordField.clearValue();
+        this.oldPassword.clearValue();
+        this.newPassword.clearValue();
+        this.repeatNewPassword.clearValue();
     }
 }
 

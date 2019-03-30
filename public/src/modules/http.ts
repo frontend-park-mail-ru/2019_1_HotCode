@@ -7,26 +7,26 @@ class Http {
     private static server: string = serverNames.backend;
     private static avatatServer: string = serverNames.avatarBackend;
 
-    static Get(path: string, avatarBackend = false, body = ''): Promise<any> {
+    public static Get(path: string, avatarBackend = false, body = ''): Promise<any> {
         return Http.request('GET', path, body, avatarBackend);
     }
 
-    static Delete(path: string): Promise<any> {
+    public static Delete(path: string): Promise<any> {
         return Http.request('DELETE', path);
     }
 
-    static Post(path: string, body: any, avatarBackend = false): Promise<any> {
+    public static Post(path: string, body: any, avatarBackend = false): Promise<any> {
         return Http.request('POST', path, body, avatarBackend);
     }
 
-    static Put(path: string, body: any): Promise<any> {
+    public static Put(path: string, body: any): Promise<any> {
         return Http.request('PUT', path, body);
     }
 
-    static request(method: string, path: string, body?: any, avatarBackend?: boolean): Promise<any> {
+    private static request(method: string, path: string, body?: any, avatarBackend?: boolean): Promise<any> {
         const back = avatarBackend ? Http.avatatServer : Http.server;
 
-        let headers = new Headers();
+        const headers = new Headers();
 
         if (!avatarBackend) {
 
@@ -49,31 +49,31 @@ class Http {
         const uri = back + path;
 
         const init = {
-            method: method,
-            headers: headers,
-            body: body,
+            method,
+            headers,
+            body,
             mode: 'cors',
             credentials: 'include',
         };
 
-        const request = new Request(uri, <RequestInit>init);
+        const request = new Request(uri, init as RequestInit);
 
         return fetch(request)
-            .then(responce => {
+            .then((responce) => {
 
                 if (!responce.ok) {
 
-                    return responce.text().then(error => {
+                    return responce.text().then((error) => {
 
                         return Promise.reject(error ? JSON.parse(error) : error);
                     });
                 }
                 return responce.text();
             })
-            .then(resp => {
+            .then((resp) => {
 
                 return Promise.resolve(resp ? JSON.parse(resp) : resp);
-            })
+            });
     }
 }
 

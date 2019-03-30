@@ -3,24 +3,24 @@ import ViewInfo from '../views/viewInfo';
 
 class Router {
 
-    private _views: ViewInfo[];
+    private viewsField: ViewInfo[];
 
     private preRenderStack: ViewInfo[];
     private postRenderStack: ViewInfo[];
 
     constructor(views: ViewInfo[] = []) {
-        this._views = views;
+        this.viewsField = views;
 
         this.preRenderStack = [];
         this.postRenderStack = [];
     }
 
     set views(value: ViewInfo[]) {
-        this._views = value;
+        this.viewsField = value;
     }
 
     public start() {
-        window.onpopstate = event => {
+        window.onpopstate = (event) => {
             console.log('popState');
             this.go(window.location.pathname, true);
         };
@@ -30,33 +30,33 @@ class Router {
         console.log('go', path);
         console.log('postStack', this.postRenderStack);
 
-        let newView = this._views.find(view => view.path === path);
+        let newView = this.viewsField.find((view) => view.path === path);
 
-        if (this.postRenderStack.find(view => view.type === newView.type)) {
+        if (this.postRenderStack.find((view) => view.type === newView.type)) {
 
             this.postRenderStack
-                .slice(this.postRenderStack.findIndex(view => view.type === newView.type))
-                .map(view => this.clear(view.view));
+                .slice(this.postRenderStack.findIndex((view) => view.type === newView.type))
+                .map((view) => this.clear(view.view));
 
             this.postRenderStack =
                 this.postRenderStack
-                    .slice(0, this.postRenderStack.findIndex(view => view.type === newView.type));
+                    .slice(0, this.postRenderStack.findIndex((view) => view.type === newView.type));
         }
 
         let defaultView = null;
         while (newView) {
 
-            if (this.postRenderStack.find(view => view.keyName === newView.keyName)) {
+            if (this.postRenderStack.find((view) => view.keyName === newView.keyName)) {
 
                 if (!defaultView) {
 
                     this.postRenderStack
-                        .slice(this.postRenderStack.findIndex(view => view.keyName === newView.keyName) + 1)
-                        .map(view => this.clear(view.view));
+                        .slice(this.postRenderStack.findIndex((view) => view.keyName === newView.keyName) + 1)
+                        .map((view) => this.clear(view.view));
 
                     this.postRenderStack =
                         this.postRenderStack
-                            .slice(0, this.postRenderStack.findIndex(view => view.keyName === newView.keyName) + 1);
+                            .slice(0, this.postRenderStack.findIndex((view) => view.keyName === newView.keyName) + 1);
                 }
 
                 break;
@@ -68,12 +68,12 @@ class Router {
 
             this.preRenderStack.push(newView);
 
-            defaultView = this._views.find(view => view.keyName === newView.defaultParent);
+            defaultView = this.viewsField.find((view) => view.keyName === newView.defaultParent);
 
             newView = this.getParent(newView);
 
             if (!newView) {
-                this.postRenderStack.map(view => this.clear(view.view));
+                this.postRenderStack.map((view) => this.clear(view.view));
                 this.postRenderStack = [];
             }
         }
@@ -87,8 +87,8 @@ class Router {
 
             window.history.pushState(
                 null,
-                (<Page>this.postRenderStack[this.postRenderStack.length - 1].view).title,
-                path
+                (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
+                path,
             );
         }
 
@@ -97,25 +97,26 @@ class Router {
 
     public popStack(): void {
         this.clear(this.postRenderStack.pop().view);
+        this.clear(this.postRenderStack.pop().view);
 
         window.history.pushState(
             null,
-            (<Page>this.postRenderStack[this.postRenderStack.length - 1].view).title,
-            this.postRenderStack[this.postRenderStack.length - 1].path
+            (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
+            this.postRenderStack[this.postRenderStack.length - 1].path,
         );
     }
 
     private getParent(newView: ViewInfo): ViewInfo {
 
-        for (let view of this._views) {
+        for (const view of this.viewsField) {
 
             if (view.childrenView) {
-                let child = view.childrenView.find(child => {
+                const curChild = view.childrenView.find((child) => {
 
                     return child === newView.keyName;
                 });
 
-                if (child) {
+                if (curChild) {
                     return view;
                 }
             }

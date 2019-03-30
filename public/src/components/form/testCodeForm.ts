@@ -9,16 +9,16 @@ import CodeEditor from '../editor/codeEditor';
  */
 class TestCodeForm extends Form{
 
-    private _codeField: CodeEditor;
+    private codeField: CodeEditor;
 
     constructor(el: HTMLElement) {
         super(el);
 
-        this._codeField = new CodeEditor(this.el.querySelector('.play__editor'));
+        this.codeField = new CodeEditor(this.el.querySelector('.play__editor'));
     }
 
-    get codeField(): CodeEditor {
-        return this._codeField;
+    get code(): CodeEditor {
+        return this.codeField;
     }
 
 

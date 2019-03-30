@@ -4,11 +4,6 @@
   "public": false,
   "builds": [
     {
-      "src": "index.js",
-      "use": "@now/node-server",
-      "config": { "maxLambdaSize": "50mb" }
-    },
-    {
       "src": "package.json",
       "use": "@now/static-build"
     }

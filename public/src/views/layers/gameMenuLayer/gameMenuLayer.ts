@@ -24,7 +24,10 @@ class GameMenuLayer extends Layer {
     public render(): void {
         this.renderTmpl(GameMenuLayer.template, {title: Game.name});
 
-        const parallax = new Parallax(new Component(this.parent.el.querySelector('.game__background__img img')));
+        const parallax = new Parallax(new Component(this.parent.el.querySelector('.game__background__img img')),
+            100,
+            80);
+        parallax.onMouseMove();
         parallax.moveBackground();
 
         this.gameContainer = new Component(this.parent.el.querySelector('.game'));
@@ -32,20 +35,20 @@ class GameMenuLayer extends Layer {
         this.gameContent = new Component(this.parent.el.querySelector('.game__left__content'));
 
         this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
-            'option0': () => {
+            option0: () => {
                 this.gameContainer.removeClass('game__play');
                 this.gameImageLogo.show();
                 this.gameContent.removeClass('game__play__content');
                 ViewService.goToGameDescriptionView();
 
             },
-            'option1': () => {
+            option1: () => {
                 this.gameContainer.removeClass('game__play');
                 this.gameImageLogo.show();
                 this.gameContent.removeClass('game__play__content');
                 ViewService.goToGameLiderBoardView();
             },
-            'option2': () => {
+            option2: () => {
                 this.gameContainer.addClass('game__play');
                 this.gameImageLogo.hide();
                 this.gameContent.addClass('game__play__content');

@@ -1,4 +1,4 @@
-import { PlayablePlayer, Player, Ball, Game } from './gamePingPong';
+import { Ball, Game, PlayablePlayer, Player } from './gamePingPong';
 import Tester from './tester';
 
 export const runCode = (code: string) => {

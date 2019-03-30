@@ -8,12 +8,11 @@ import ValidationError from "../../../../components/form/utils/validationError";
 import {signupFormConfig} from '../utils/formConfig';
 import {events} from '../../../../modules/utils/events';
 import Page from '../../page';
-
 class SignupPage extends Page {
 
     private static template = require('../formBasePage.pug');
 
-    private _signupForm: SignupForm;
+    private signupForm: SignupForm;
 
     constructor(parent: Component) {
         super(parent, 'SignUp - WarScript');
@@ -23,32 +22,32 @@ class SignupPage extends Page {
         super.render();
         this.renderTmpl(SignupPage.template, signupFormConfig);
 
-        this._signupForm = new SignupForm(this.parent.el.getElementsByTagName('form')[0]);
+        this.signupForm = new SignupForm(this.parent.el.getElementsByTagName('form')[0]);
 
-        this._signupForm.usernameField.onInput(() => {
-            this._signupForm.validateUsername();
+        this.signupForm.usernameField.onInput(() => {
+            this.signupForm.validateUsername();
         });
 
-        this._signupForm.usernameField.onBlur(() => {
-            this._signupForm.validateUsernameOnUnique();
+        this.signupForm.usernameField.onBlur(() => {
+            this.signupForm.validateUsernameOnUnique();
         });
 
-        this._signupForm.passwordField.onInput(() => {
-            this._signupForm.validatePassword();
+        this.signupForm.passwordField.onInput(() => {
+            this.signupForm.validatePassword();
         });
 
-        this._signupForm.passwordRepeatField.onInput(() => {
-            this._signupForm.validatePasswordEquality();
+        this.signupForm.passwordRepeatField.onInput(() => {
+            this.signupForm.validatePasswordEquality();
         });
 
-        this._signupForm.onSubmit((event) => {
+        this.signupForm.onSubmit((event) => {
             event.preventDefault();
 
-            const username = this._signupForm.usernameField.getValue();
-            const password = this._signupForm.passwordField.getValue();
+            const username = this.signupForm.usernameField.getValue();
+            const password = this.signupForm.passwordField.getValue();
 
 
-            if (this._signupForm.validate()) {
+            if (this.signupForm.validate()) {
 
                 UserService.signup(username, password)
                     .then(() => {
@@ -56,7 +55,7 @@ class SignupPage extends Page {
                     })
                     .catch((err) => {
                         if (err.username) {
-                            this._signupForm.usernameField.setError(ValidationError.uniqueError());
+                            this.signupForm.usernameField.setError(ValidationError.uniqueError());
                         }
                     });
             }
@@ -65,7 +64,8 @@ class SignupPage extends Page {
 
     public clear(): void {
         this.parent.el.innerHTML = '';
-        this._signupForm = null;
+        this.signupForm = null;
+        console.log('signup CLEAR');
     }
 }
 

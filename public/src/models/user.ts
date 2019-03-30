@@ -2,60 +2,60 @@
 
 class User {
 
-    private _username: string;
-    private _id: string;
-    private _active: boolean;
-    private _avatar: string;
+    private usernameField: string;
+    private idField: string;
+    private activeField: boolean;
+    private avatarField: string;
 
     constructor() {
-        this._username = '';
-        this._id = '';
-        this._active = false;
-        this._avatar = '';
+        this.usernameField = '';
+        this.idField = '';
+        this.activeField = false;
+        this.avatarField = '';
     }
 
     get username() {
-        return this._username;
+        return this.usernameField;
     }
 
     set username(value) {
-        this._username = value;
+        this.usernameField = value;
     }
 
     get id() {
-        return this._id;
+        return this.idField;
     }
 
     set id(value) {
-        this._id = value;
+        this.idField = value;
     }
 
     get active() {
-        return this._active;
+        return this.activeField;
     }
 
     set active(value) {
-        this._active = value;
+        this.activeField = value;
     }
 
     get avatar() {
-        return this._avatar;
+        return this.avatarField;
     }
 
     set avatar(value) {
-        this._avatar = value;
+        this.avatarField = value;
     }
 
     public setData(username: string, id = '', active = false): void {
-        this._username = username;
-        this._id = id;
-        this._active = active;
+        this.usernameField = username;
+        this.idField = id;
+        this.activeField = active;
     }
 
     public clearData(): void {
-        this._username = '';
-        this._id = '';
-        this._active = false;
+        this.usernameField = '';
+        this.idField = '';
+        this.activeField = false;
     }
 }
 

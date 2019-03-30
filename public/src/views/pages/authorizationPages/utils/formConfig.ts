@@ -5,18 +5,18 @@ export const signinFormConfig = {
             label: 'Username',
             type: 'text',
             name: 'username',
-            placeholder: 'Username'
+            placeholder: 'Username',
         },
         {
             label: 'Password',
             type: 'password',
             name: 'password',
             placeholder: 'Password',
-        }
+        },
     ],
     submitButtonName: 'Login',
     otherButtonName: 'Sign up',
-    nextFormNumber: 2
+    nextFormNumber: 2,
 };
 
 export const signupFormConfig = {
@@ -26,22 +26,22 @@ export const signupFormConfig = {
             label: 'Username',
             type: 'text',
             name: 'username',
-            placeholder: 'Username'
+            placeholder: 'Username',
         },
         {
             label: 'Password',
             type: 'password',
             name: 'password',
-            placeholder: 'Password'
+            placeholder: 'Password',
         },
         {
             label: 'Repeat Password',
             type: 'password',
             name: 'repeatPassword',
-            placeholder: 'Password'
-        }
+            placeholder: 'Password',
+        },
     ],
     submitButtonName: 'Create',
     otherButtonName: 'Login',
-    nextFormNumber: 1
+    nextFormNumber: 1,
 };

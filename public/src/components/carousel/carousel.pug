@@ -1,9 +1,7 @@
-input#car0(type='radio', name='car', checked='checked')
-div
-each game, index in games
-    input(id=`car${index + 1}`, data-game=game.id, type='radio', name='car')
-    div
-        label.carusel__arrow(for=`car${index}`)
-            img(src='img/left-arrow.svg')
-        label(for=`car${index}`)
-            div.carusel__item(data-content=game.title)
+label.carusel__arrow.left__arrow
+    img(src='img/left-arrow.svg')
+each game in games
+    label
+        div.carusel__item(data-content=game.title)
+label.carusel__arrow.right__arrow
+    img(src='img/left-arrow.svg')

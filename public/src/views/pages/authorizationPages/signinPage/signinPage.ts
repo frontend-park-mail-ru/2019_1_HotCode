@@ -29,7 +29,7 @@ class SigninPage extends Page {
             this.signinForm.validateUsername();
         });
 
-        this.signinForm.onSubmit(event => {
+        this.signinForm.onSubmit((event) => {
             event.preventDefault();
 
             const username = this.signinForm.usernameField.getValue();

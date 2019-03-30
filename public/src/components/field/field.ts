@@ -13,7 +13,7 @@ class Field extends Component{
     private label: Component;
     private errorField: Component;
 
-    private _virginityField: boolean;
+    private virginityField: boolean;
 
     private showPasswordCheckbox: Checkbox;
 
@@ -33,26 +33,26 @@ class Field extends Component{
         this.errorField = new Component(errorField ||
             this.el.querySelector('.form__error'));
 
-        this._virginityField = true;
+        this.virginityField = true;
 
         if (this.input.el) {
-            this.input.on('focus', () => this._virginityField = false);
+            this.input.on('focus', () => this.virginityField = false);
         }
 
-        if (this.input.el && (<HTMLInputElement>this.input.el).type === 'password') {
+        if (this.input.el && (this.input.el as HTMLInputElement).type === 'password') {
             this.showPasswordCheckbox = new Checkbox(this.el.querySelector('input[type="checkbox"'),
                 () => {
-                    (<HTMLInputElement>this.input.el).type = 'text';
+                    (this.input.el as HTMLInputElement).type = 'text';
                 },
                 () => {
-                    (<HTMLInputElement>this.input.el).type = 'password';
+                    (this.input.el as HTMLInputElement).type = 'password';
                 });
             this.showPasswordCheckbox.onChange();
         }
     }
 
-    get virginityField(): boolean {
-        return this._virginityField;
+    get virginity(): boolean {
+        return this.virginityField;
     }
 
     public onFocus(callback: () => void): void {
@@ -75,19 +75,19 @@ class Field extends Component{
 
     public getValue(): string {
         if (this.input.el) {
-            return (<HTMLInputElement>this.input.el).value;
+            return (this.input.el as HTMLInputElement).value;
         }
     }
 
     public setValue(value: string): void {
         if (this.input.el) {
-            (<HTMLInputElement>this.input.el).value = value;
+            (this.input.el as HTMLInputElement).value = value;
         }
     }
 
     public clearValue(): void {
         if (this.input.el) {
-            (<HTMLInputElement>this.input.el).value = '';
+            (this.input.el as HTMLInputElement).value = '';
         }
     }
 

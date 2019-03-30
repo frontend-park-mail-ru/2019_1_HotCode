@@ -6,15 +6,14 @@ import GameService from "../../../../services/game-service";
 import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
 import Page from '../../page';
-
-const tableTmpl = require('../../../../components/table/table.pug');
+import Table from '../../../../components/table/table';
 
 class LiderboardPage extends Page{
 
     private static template = require('./liderboardPage.pug');
 
     private defaultLimit: number;
-    private liderBoardTable: Component;
+    private liderBoardTable: Table;
     private paginator: Paginator;
 
     private fillTable: {[key: string]: () => void};
@@ -32,26 +31,26 @@ class LiderboardPage extends Page{
         this.paginator = new Paginator(this.parent.el.querySelector('.pagination'), this.defaultLimit);
 
 
-        this.fillTable = EventBus.subscribe(events.fillTable, table => {
-            this.liderBoardTable.el.innerHTML = tableTmpl(table);
+        this.fillTable = EventBus.subscribe(events.fillTable, (table) => {
+            this.liderBoardTable.render(table);
         });
 
 
-        this.liderBoardTable = new Component(this.parent.el.getElementsByTagName('table')[0]);
+        this.liderBoardTable = new Table(this.parent.el.getElementsByTagName('table')[0]);
 
 
         GameService.getScores(1, this.defaultLimit, 0)
-            .then(resp => {
+            .then((resp) => {
 
                 EventBus.publish(events.fillTable, {users: resp, offset: 0});
                 return GameService.getCountUsers(1);
 
             })
-            .then(resp => {
+            .then((resp) => {
 
                 this.paginator.pageCount = Math.floor((resp.count - 1) / this.defaultLimit + 1);
 
-            })
+            });
     }
 
 

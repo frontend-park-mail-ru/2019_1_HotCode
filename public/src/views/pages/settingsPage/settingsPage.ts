@@ -1,14 +1,14 @@
 'use strict';
 
+import Alert from '../../../components/alert/alert';
+import AvatarService from "../../../services/avatar-service";
 import Component from "../../../components/baseComponent/index";
+import EventBus from "../../../modules/event-bus";
 import SettingsForm from "../../../components/form/settingsForm";
+import ValidationError from "../../../components/form/utils/validationError";
 import User from "../../../models/user";
 import UserService from "../../../services/user-service";
-import AvatarService from "../../../services/avatar-service";
-import ValidationError from "../../../components/form/utils/validationError";
-import EventBus from "../../../modules/event-bus";
 import {events} from '../../../modules/utils/events';
-import Alert from '../../../components/alert/alert';
 import Message from '../../../utils/message';
 import Page from '../page';
 
@@ -37,7 +37,7 @@ class SettingsPage extends Page {
                 this.settingsForm.newPasswordField.show();
                 this.settingsForm.repeatNewPasswordField.show();
 
-                return
+                return;
             }
 
             this.settingsForm.newPasswordField.hide();
@@ -53,7 +53,7 @@ class SettingsPage extends Page {
 
         const image = new Component(this.parent.el.querySelector('.form__inputs__right img'));
         if (User.avatar) {
-            (<HTMLImageElement>image.el).src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;
+            (image.el as HTMLImageElement).src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;
         }
 
 
@@ -96,14 +96,13 @@ class SettingsPage extends Page {
             if (this.settingsForm.validate()) {
 
                 this.sendAvatar(avatar)
-                    .then((photo_uuid: string) => {
+                    .then((photoUuid: string) => {
 
                         const newUserData =
-                            SettingsPage.getNewUserObject(username, oldPassword, newPassword, photo_uuid);
+                            SettingsPage.getNewUserObject(username, oldPassword, newPassword, photoUuid);
 
-                        if (Object.keys(newUserData).length == 0) {
-                            throw '';
-                            // Promise.reject('');
+                        if (Object.keys(newUserData).length === 0) {
+                            throw new Error('');
                         }
 
                         return newUserData;
@@ -112,7 +111,7 @@ class SettingsPage extends Page {
 
                         throw Alert.alert(Message.emptyFormError(), true);
                     })
-                    .then(newUser => {
+                    .then((newUser) => {
 
                         return UserService.edit(newUser);
                     })
@@ -157,7 +156,7 @@ class SettingsPage extends Page {
 
             if (avatar) {
                 AvatarService.sendAvatar(avatar)
-                    .then(resp => {
+                    .then((resp) => {
                         if (User.avatar !== resp.photo_uuid) {
                             resolve(resp.photo_uuid);
                         }
@@ -175,14 +174,14 @@ class SettingsPage extends Page {
     }
 
     private static getNewUserObject(username: string,
-                             oldPassword: string,
-                             newPassword: string,
-                             photo_uuid: string): {[key: string]: string} {
+                                    oldPassword: string,
+                                    newPassword: string,
+                                    photoUuid: string): {[key: string]: string} {
 
-        let user: {[key: string]: string} = {};
+        const user: {[key: string]: string} = {};
 
         if (username) {
-            user.username = username
+            user.username = username;
         }
 
         if (oldPassword) {
@@ -190,8 +189,8 @@ class SettingsPage extends Page {
             user.newPassword = newPassword;
         }
 
-        if (photo_uuid) {
-            user.photo_uuid = photo_uuid;
+        if (photoUuid) {
+            user.photo_uuid = photoUuid;
         }
 
         return user;

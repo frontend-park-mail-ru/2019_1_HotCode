@@ -5,7 +5,7 @@ import ValidationError from "./validationError";
 
 class Validation {
 
-    static validateUsername(username: string, isLogin = false): void {
+    public static validateUsername(username: string, isLogin = false): void {
         if (username.length === 0) {
             throw new ValidationError(ValidationError.emptyFieldError());
         }
@@ -20,7 +20,7 @@ class Validation {
         }
     }
 
-    static validateUsernameOnUnique(username: string): Promise<any> {
+    public static validateUsernameOnUnique(username: string): Promise<any> {
         return new Promise((resolve, reject) => {
 
             try {
@@ -31,7 +31,7 @@ class Validation {
             }
 
             UserService.isTaken(username)
-                .then(resp => {
+                .then((resp) => {
 
                     if (resp.used) {
                         reject(new ValidationError(ValidationError.uniqueError()));
@@ -42,7 +42,7 @@ class Validation {
         });
     }
 
-    static validatePassword(password: string): void {
+    public static validatePassword(password: string): void {
         if (password.length === 0) {
             throw new ValidationError(ValidationError.emptyFieldError());
         }
@@ -54,7 +54,7 @@ class Validation {
         }
     }
 
-    static validatePasswordEquality(password: string, passwordRepeat: string): void {
+    public static validatePasswordEquality(password: string, passwordRepeat: string): void {
         try {
             Validation.validatePassword(password);
         } catch (passwordError) {
@@ -67,4 +67,4 @@ class Validation {
     }
 }
 
-export default Validation
+export default Validation;

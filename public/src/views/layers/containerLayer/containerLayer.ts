@@ -15,7 +15,7 @@ class ContainerLayer extends Layer{
         super(parent);
     }
 
-    public render() : void {
+    public render(): void {
         this.renderTmplBesideHTML(ContainerLayer.template);
 
         this.container = new Component(this.parent.el.querySelector('.container'));
