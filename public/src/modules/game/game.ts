@@ -1,5 +1,8 @@
-import { Ball, Game, PlayablePlayer, Player } from './gamePingPong';
 import Tester from './tester';
+import PlayablePlayer from './ping-pong/playablePlayer';
+import Player from './ping-pong/player';
+import Ball from './ping-pong/ball';
+import Game from './ping-pong/game';
 
 export const runCode = (code: string) => {
     const bot = (me: PlayablePlayer, enemy: Player, ball: Ball) => {

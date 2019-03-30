@@ -1,6 +1,6 @@
 'use strict';
 
-interface Game {
+interface IGame {
     getInfo(): any;
 
     getState(): any;
@@ -13,21 +13,22 @@ interface Game {
 }
 
 class Tester {
-    game: Game;
-    ticksCount: number;
-    player1: Function;
-    player2: Function;
 
-    constructor(p1: Function, p2: Function, g: Game, count: number) {
+    private game: IGame;
+    private ticksCount: number;
+    private player1: Function;
+    private player2: Function;
+
+    constructor(p1: Function, p2: Function, g: IGame, count: number) {
         this.player1 = p1;
         this.player2 = p2;
         this.ticksCount = count;
         this.game = g;
     }
 
-    run(): any {
-        let winner = 0; //0 это ничья
-        let ticks = [];
+    public run(): any {
+        let winner = 0; // 0 это ничья
+        const ticks = [];
         for (let tick = 0; tick < this.ticksCount; tick++) {
             const p1Args = this.game.getObjectsP1();
             const p2Args = this.game.getObjectsP2();
@@ -41,17 +42,17 @@ class Tester {
 
             const res = this.game.isDone();
             console.log(res);
-            if (res != 0) {
+            if (res !== 0) {
                 winner = res;
                 break;
             }
         }
 
         return {
-            "info": this.game.getInfo(),
-            "states": ticks,
-            "winner": winner,
-        }
+            info: this.game.getInfo(),
+            states: ticks,
+            winner,
+        };
     }
 }
 
