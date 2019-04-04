@@ -1,13 +1,13 @@
 .pong__background {
   width: 100%;
   height: 100%;
-  background: greenyellow;
+  background: #000;
 }
 
 .pong__player {
   position: absolute;
   transform: translate(-50%, -50%);
-  background: orangered;
+  background: #fff;
 
   transition: all 0s ease 0s;
 }
@@ -16,8 +16,7 @@
   position: absolute;
   transform: translate(-50%, -50%);
 
-  background: orangered;
-  border-radius: 50%;
+  background: #fff;
 
   transition: all 0s ease 0s;
 }

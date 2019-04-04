@@ -2,3 +2,10 @@
   right: 0;
   transform: translate(200%, -50%) rotate(180deg);
 }
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .carousel__arrow_direction_right {
+    right: 50%;
+    transform: translate(50%, -100%) rotate(90deg);
+  }
+}

@@ -5,3 +5,15 @@
 .field:last-child{
   margin-bottom: 0;
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .field {
+    margin-bottom: 3%;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .field {
+    margin-bottom: 3%;
+  }
+}

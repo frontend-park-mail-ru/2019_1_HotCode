@@ -1,3 +1,17 @@
 .container_theme_settings-left {
   margin-right: 6vw;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .container_theme_settings-left {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .container_theme_settings-left {
+    width: 100%;
+    margin-right: 0;
+  }
+}

@@ -3,3 +3,19 @@
   transform-origin: bottom left;
   transform: rotate(16.34deg);
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .modal-content {
+    transform-origin: 50% 50% 0;
+    transform: rotate(0);
+    padding: 6% 0;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .modal-content {
+    transform-origin: 50% 50% 0;
+    transform: rotate(0);
+    padding: 3% 0;
+  }
+}

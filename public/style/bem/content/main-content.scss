@@ -16,3 +16,25 @@
   z-index: 5;
 
 }
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .main-content::before {
+    position: absolute;
+    left: 0;
+    transform: none;
+    bottom: auto;
+    padding: 1.9%;
+
+    background: $backgroundColorBack2;
+    border-radius: 0 0 1.25vh 0;
+    font-size: calc(1em + 0.4vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape)  {
+  .main-content::before {
+    bottom: 1.5vw;
+
+    font-size: calc(1em + 0.4vw);
+  }
+}

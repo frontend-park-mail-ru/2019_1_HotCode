@@ -5,3 +5,27 @@
 .form__buttons__button:last-child {
   margin-left: 0;
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .form__buttons__button {
+    width: 85%;
+    margin-left: 0;
+    margin-bottom: 4%;
+  }
+
+  .form__buttons__button:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .form__buttons__button {
+    width: 85%;
+    margin-left: 0;
+    margin-bottom: 4%;
+  }
+
+  .form__buttons__button:last-child {
+    margin-bottom: 0;
+  }
+}

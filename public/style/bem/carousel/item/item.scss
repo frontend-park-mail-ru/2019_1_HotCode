@@ -4,7 +4,6 @@
   top: 0;
   width: 100%;
   height: 100%;
-  //background-image: url("../../../../img/Data-wing-4_1516196099-e1516208811916.jpg"); TODO картинки
   background-size: contain;
   will-change: transform;
   backface-visibility: hidden;
@@ -12,4 +11,14 @@
 
   animation-duration: 1s;
   transition: .5s ease-in-out 0s, transform 0s ease 0s;
+}
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .carousel__item {
+    border-radius: 0;
+  }
+
+  .carousel__item *{
+    border-radius: 0;
+  }
 }

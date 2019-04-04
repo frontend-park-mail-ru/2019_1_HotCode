@@ -25,3 +25,25 @@
 .field__main__input:focus ~ .field__main__label{
   color: $fontColorYellow;
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .field__main__label {
+    left: $input_padding;
+    font-size: calc(0.9em + 0.5vh);
+  }
+
+  .field__main__input:placeholder-shown:focus ~ .field__main__label{
+    left: $input_padding;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .field__main__label {
+    left: $input_padding;
+    font-size: calc(0.9em + 0.5vw);
+  }
+
+  .field__main__input:placeholder-shown:focus ~ .field__main__label{
+    left: $input_padding;
+  }
+}

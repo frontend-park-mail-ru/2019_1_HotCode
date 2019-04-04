@@ -8,3 +8,19 @@
   flex-direction: row-reverse;
   margin-bottom: 1.5%;
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .field__header {
+    height: calc(1em + .5vh);
+    max-width: none;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .field__header {
+    height: calc(1em + .5vw);
+    max-width: none;
+    width: 100%;
+  }
+}

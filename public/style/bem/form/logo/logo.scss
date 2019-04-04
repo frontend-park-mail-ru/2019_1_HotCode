@@ -6,3 +6,37 @@
   @extend %yellowLogo;
   font-size: 1.8em;
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .form__logo {
+    position: static;
+    left: auto;
+    text-align: center;
+
+    font-size: calc(1.6em + 0.8vh);
+  }
+
+  .container_theme_settings .form__logo {
+    text-align: left;
+    margin-left: 7%;
+
+    font-size: calc(1.6em + 0.3vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .form__logo {
+    position: static;
+    left: auto;
+    text-align: center;
+
+    font-size: calc(1.6em + 0.8vw);
+  }
+
+  .container_theme_settings .form__logo {
+    text-align: left;
+    margin-left: 7%;
+
+    font-size: calc(1.6em + 0.3vh);
+  }
+}

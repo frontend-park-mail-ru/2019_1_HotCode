@@ -17,3 +17,30 @@
   white-space: nowrap;
   z-index: 5;
 }
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .carousel__item_theme_center {
+    left: auto;
+    top: 0;
+  }
+
+  .carousel__item_theme_center::after {
+    left: auto;
+    bottom: 0;
+    right: 0;
+    padding: 1.9%;
+
+    background: $backgroundColorBack2;
+    border-radius: 1.25vh 0 0 0;
+    font-weight: 600;
+    font-size: calc(1em + 0.4vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape)  {
+  .carousel__item_theme_center::after {
+    bottom: -20%;
+
+    font-size: calc(1em + 0.4vh);
+  }
+}

@@ -10,3 +10,23 @@
   border-radius: 15px;
   outline: none;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .avatar__text-content {
+    padding: 1.6vh;
+
+    font-size: calc(0.9em + 0.5vh);
+    background: $backgroundInputColor;
+    border: 0;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .avatar__text-content {
+    padding: 3vh;
+
+    font-size: calc(0.9em + 0.5vh);
+    background: $backgroundInputColor;
+    border: 0;
+  }
+}

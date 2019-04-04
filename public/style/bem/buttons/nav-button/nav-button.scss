@@ -9,3 +9,15 @@
   background: transparent;
   cursor: pointer;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .nav-button {
+    display: block;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .nav-button {
+    display: block;
+  }
+}

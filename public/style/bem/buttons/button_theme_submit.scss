@@ -9,3 +9,39 @@
   transition: .3s ease-in-out;
   filter: drop-shadow($fontColorYellowLight 0 0 10px);
 }
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .container_theme_modal .button_theme_submit {
+    width: 100%;
+    height: calc(1.4em + 1.6vh);
+
+    font-size: calc(0.9em + 0.7vh);
+    border-radius: 8px;
+  }
+
+  .container_theme_settings .button_theme_submit {
+    width: 100%;
+    height: 2.25em;
+
+    font-size: calc(0.9em + 0.5vh);
+    border-radius: 8px;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .container_theme_modal .button_theme_submit {
+    width: 100%;
+    height: calc(1.4em + 1.6vw);
+
+    font-size: calc(0.9em + 0.7vw);
+    border-radius: 8px;
+  }
+
+  .container_theme_settings .button_theme_submit {
+    width: 100%;
+    height: 2.25em;
+
+    font-size: calc(0.9em + 0.5vh);
+    border-radius: 8px;
+  }
+}
