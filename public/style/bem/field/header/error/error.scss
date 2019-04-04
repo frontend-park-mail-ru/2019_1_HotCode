@@ -1,0 +1,7 @@
+.field__header__error {
+  max-width: 70%;
+  font-size: 0.8em;
+
+  word-break: break-word;
+  @extend %error;
+}

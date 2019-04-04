@@ -5,6 +5,7 @@ import Page from '../../page';
 import TestCodeForm from '../../../../components/form/testCodeForm';
 import PingPong from '../../../../components/games/ping-pong/ping-pong';
 import {runCode} from '../../../../modules/game/game';
+import Game from "../../../../models/game";
 
 const defaultCode = `{
     const dx = ball.x - me.x;
@@ -29,14 +30,14 @@ class GamePage extends Page{
         super.render();
         this.renderTmpl(GamePage.template);
 
-        this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.play__code__form'));
+        this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.form_theme_editor'));
 
-        this.testCodeForm.code.setValue(defaultCode);
+        this.testCodeForm.code.setValue(Game.codeExample);
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
 
-        this.pingPong = new PingPong(this.parent.el.querySelector('.play__screen__game'));
+        this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
 
         this.testCodeForm.onSubmit((event) => {
             event.preventDefault();

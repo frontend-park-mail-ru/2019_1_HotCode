@@ -16,7 +16,7 @@ class SigninForm extends Form{
     constructor(el: HTMLElement) {
         super(el);
 
-        const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.form__input'));
+        const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.field'));
 
         this.username = new Field(fields[0]);
         this.password = new Field(fields[1]);

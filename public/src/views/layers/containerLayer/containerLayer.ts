@@ -3,8 +3,6 @@
 import Component from '../../../components/baseComponent/index';
 import Layer from '../layer';
 
-
-
 class ContainerLayer extends Layer{
 
     private static template = require('./containerLayer.pug');
@@ -18,7 +16,7 @@ class ContainerLayer extends Layer{
     public render(): void {
         this.renderTmplBesideHTML(ContainerLayer.template);
 
-        this.container = new Component(this.parent.el.querySelector('.container'));
+        this.container = new Component(this.parent.el.querySelector('.base-container_theme_main'));
     }
 
     public clear() {

@@ -1,0 +1,8 @@
+.form__logo {
+  position: relative;
+  left: -44px;
+  margin-bottom: 4%;
+
+  @extend %yellowLogo;
+  font-size: 1.8em;
+}

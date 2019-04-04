@@ -54,15 +54,19 @@ class Carousel extends Component{
         this.render(items);
     }
 
-    public render(items: Array<{[key: string]: string | number}>): void {
+    public getCenterItem(): Component {
+        return this.centerItem;
+    }
+
+    private render(items: Array<{[key: string]: string | number}>): void {
         this.el.innerHTML = Carousel.template({games: items});
 
-        this.leftArrow = new Component(this.el.querySelector('.left__arrow'));
+        this.leftArrow = new Component(this.el.querySelector('.carousel__arrow_direction_left'));
 
-        this.items = Array.from(this.el.querySelectorAll('.carusel__item'))
+        this.items = Array.from(this.el.querySelectorAll('.carousel__item'))
             .map((item) => new Component(item as HTMLElement));
 
-        this.rightArrow = new Component(this.el.querySelector('.right__arrow'));
+        this.rightArrow = new Component(this.el.querySelector('.carousel__arrow_direction_right'));
 
         this.onArrowsClick();
 
@@ -76,7 +80,7 @@ class Carousel extends Component{
         this.onItems();
     }
 
-    public updateCarousel(): void {
+    private updateCarousel(): void {
 
 
         if (this.centerItemId > 0) {
@@ -114,27 +118,27 @@ class Carousel extends Component{
 
                 if (i < this.centerItemId) {
 
-                    this.items[i].removeClass('center__item');
-                    this.items[i].removeClass('next__item');
-                    this.items[i].addClass('prev__item');
+                    this.items[i].removeClass('carousel__item_theme_center');
+                    this.items[i].removeClass('carousel__item_theme_next');
+                    this.items[i].addClass('carousel__item_theme_prev');
 
-                    this.prevItem = new Component(this.el.querySelector('.prev__item'));
+                    this.prevItem = new Component(this.el.querySelector('.carousel__item_theme_prev'));
 
                 } else if (i > this.centerItemId) {
 
-                    this.items[i].removeClass('prev__item');
-                    this.items[i].removeClass('center__item');
-                    this.items[i].addClass('next__item');
+                    this.items[i].removeClass('carousel__item_theme_prev');
+                    this.items[i].removeClass('carousel__item_theme_center');
+                    this.items[i].addClass('carousel__item_theme_next');
 
-                    this.nextItem = new Component(this.el.querySelector('.next__item'));
+                    this.nextItem = new Component(this.el.querySelector('.carousel__item_theme_next'));
 
                 } else {
 
-                    this.items[i].removeClass('prev__item');
-                    this.items[i].removeClass('next__item');
-                    this.items[i].addClass('center__item');
+                    this.items[i].removeClass('carousel__item_theme_prev');
+                    this.items[i].removeClass('carousel__item_theme_next');
+                    this.items[i].addClass('carousel__item_theme_center');
 
-                    this.centerItem = new Component(this.el.querySelector('.center__item'));
+                    this.centerItem = new Component(this.el.querySelector('.carousel__item_theme_center'));
 
                     this.parallax = new Parallax(this.centerItem, -4, 4);
                     this.parallax.onMouseMove();
@@ -146,22 +150,37 @@ class Carousel extends Component{
             } else {
 
                 this.items[i].el.style.animationName = '';
-                this.items[i].removeClass('prev__item');
-                this.items[i].removeClass('next__item');
-                this.items[i].removeClass('center__item');
+                this.items[i].removeClass('carousel__item_theme_prev');
+                this.items[i].removeClass('carousel__item_theme_next');
+                this.items[i].removeClass('carousel__item_theme_center');
                 this.items[i].hide();
             }
         }
 
     }
 
-    public onArrowsClick(): void {
+    private onArrowsClick(): void {
         this.leftArrow.on('click', this.inLeftCallback);
+
+        window.addEventListener('keydown', (e) => {
+
+            if (this.centerItemId > 0) {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+                    this.inLeftCallback();
+                }
+            }
+
+            if (this.centerItemId < this.countItems - 1) {
+                if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+                    this.inRightCallback();
+                }
+            }
+        });
 
         this.rightArrow.on('click', this.inRightCallback);
     }
 
-    public onItems() {
+    private onItems() {
 
         if (this.onLeftSideClickRemover) {
 
@@ -199,8 +218,8 @@ class Carousel extends Component{
 
     private inLeftCallback = () => {
 
-        this.centerItem.el.style.animationName = 'inright';
-        this.prevItem.el.style.animationName = 'outleft';
+        this.centerItem.el.style.animationName = 'in-right';
+        this.prevItem.el.style.animationName = 'out-left';
 
         this.centerItemId -= 1;
         EventBus.publish(events.chengeStateCarousel);
@@ -208,8 +227,8 @@ class Carousel extends Component{
 
     private inRightCallback = () => {
 
-        this.nextItem.el.style.animationName = 'outright';
-        this.centerItem.el.style.animationName = 'inleft';
+        this.nextItem.el.style.animationName = 'out-right';
+        this.centerItem.el.style.animationName = 'in-left';
 
         this.centerItemId += 1;
         EventBus.publish(events.chengeStateCarousel);

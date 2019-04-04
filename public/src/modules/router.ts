@@ -1,22 +1,19 @@
 import Page from '../views/pages/page';
 import ViewInfo from '../views/viewInfo';
+import {views} from '../views/utils/viewsConf';
 
 class Router {
 
-    private viewsField: ViewInfo[];
+    private views: ViewInfo[];
 
     private preRenderStack: ViewInfo[];
     private postRenderStack: ViewInfo[];
 
-    constructor(views: ViewInfo[] = []) {
-        this.viewsField = views;
+    constructor() {
+        this.views = views;
 
         this.preRenderStack = [];
         this.postRenderStack = [];
-    }
-
-    set views(value: ViewInfo[]) {
-        this.viewsField = value;
     }
 
     public start() {
@@ -30,7 +27,7 @@ class Router {
         console.log('go', path);
         console.log('postStack', this.postRenderStack);
 
-        let newView = this.viewsField.find((view) => view.path === path);
+        let newView = this.views.find((view) => view.path === path);
 
         if (this.postRenderStack.find((view) => view.type === newView.type)) {
 
@@ -68,7 +65,7 @@ class Router {
 
             this.preRenderStack.push(newView);
 
-            defaultView = this.viewsField.find((view) => view.keyName === newView.defaultParent);
+            defaultView = this.views.find((view) => view.keyName === newView.defaultParent);
 
             newView = this.getParent(newView);
 
@@ -108,7 +105,7 @@ class Router {
 
     private getParent(newView: ViewInfo): ViewInfo {
 
-        for (const view of this.viewsField) {
+        for (const view of this.views) {
 
             if (view.childrenView) {
                 const curChild = view.childrenView.find((child) => {

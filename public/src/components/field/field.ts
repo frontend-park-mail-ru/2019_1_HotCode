@@ -25,13 +25,13 @@ class Field extends Component{
         super(el);
 
         this.input = new Component(input ||
-            this.el.getElementsByTagName('input')[0]);
+            this.el.querySelector('.field__main__input'));
 
         this.label = new Component(label ||
-            this.el.querySelector('.form__label'));
+            this.el.querySelector('.field__main__label'));
 
         this.errorField = new Component(errorField ||
-            this.el.querySelector('.form__error'));
+            this.el.querySelector('.field__header__error'));
 
         this.virginityField = true;
 
@@ -40,7 +40,7 @@ class Field extends Component{
         }
 
         if (this.input.el && (this.input.el as HTMLInputElement).type === 'password') {
-            this.showPasswordCheckbox = new Checkbox(this.el.querySelector('input[type="checkbox"'),
+            this.showPasswordCheckbox = new Checkbox(this.el.querySelector('input[type="checkbox"]'),
                 () => {
                     (this.input.el as HTMLInputElement).type = 'text';
                 },

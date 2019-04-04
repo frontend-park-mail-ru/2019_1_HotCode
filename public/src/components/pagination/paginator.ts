@@ -17,7 +17,9 @@ class Paginator extends Component{
     private next: Component;
     private last: Component;
 
-    constructor(el: HTMLElement, limit = 7) {
+    private chengePageCallback: (limit:number, offset: number) => void;
+
+    constructor(el: HTMLElement, limit = 7, chengePageCallback: (limit:number, offset: number) => void) {
         super(el);
 
         this.pageCountField = 0;
@@ -39,30 +41,30 @@ class Paginator extends Component{
         this.last = new Component(this.el.querySelector('.pagination__last'));
 
 
+        this.chengePageCallback = chengePageCallback;
+
         this.onClick();
 
         EventBus.subscribe(events.chengePage, () => {
             const offset = (this.activePageField - 1) * this.limit;
 
-            GameService.getScores(1, this.limit, (this.activePageField - 1) * this.limit)
-                .then((resp) => {
+            this.chengePageCallback(this.limit, offset);
+            // GameService.getScores('pong', this.limit, (this.activePageField - 1) * this.limit)
+            //     .then((resp) => {
+            //
+            //         EventBus.publish(events.fillTable, {users: resp, offset});
+            //         return GameService.getCountUsers('pong');
+            //     })
+            //     .then((resp) => {
+            //
+            //         this.pageCountField = Math.floor((resp.count - 1) / this.limit + 1);
+            //     })
+            //     .catch(() => {
+            //         // console.log(err.message);
+            //     });
 
-                    EventBus.publish(events.fillTable, {users: resp, offset});
-                    return GameService.getCountUsers(1);
-                })
-                .then((resp) => {
-
-                    this.pageCountField = Math.floor((resp.count - 1) / this.limit + 1);
-                })
-                .catch(() => {
-                    // console.log(err.message);
-                });
-
-            this.renderPaginator();
+            // this.renderPaginator();
         });
-
-        this.renderPaginator();
-
     }
 
     get pageCount() {
@@ -71,7 +73,7 @@ class Paginator extends Component{
 
     set pageCount(value) {
         this.pageCountField = value;
-        EventBus.publish(events.chengePage, '');
+        // EventBus.publish(events.chengePage, '');
     }
 
     get activePage() {
@@ -80,10 +82,10 @@ class Paginator extends Component{
 
     set activePage(value) {
         this.activePageField = value;
-        EventBus.publish(events.chengePage, '');
+        // EventBus.publish(events.chengePage, '');
     }
 
-    public onClick(): void {
+    private onClick(): void {
         this.first.on('click', () => {
             this.activePageField = 1;
             EventBus.publish(events.chengePage, '');
@@ -125,7 +127,14 @@ class Paginator extends Component{
         });
     }
 
-    private renderPaginator(): void {
+    public renderPaginator(): void {
+        // if (this.activePageField <= 1 && this.activePageField > this.pageCountField) {
+        //     this.hide();
+        //     return;
+        // } else {
+        //     this.show();
+        // }
+
         if (this.activePageField > 1) {
 
             this.first.show();

@@ -1,0 +1,24 @@
+.field__main__input{
+  max-width: 399px;
+  width: 73vw;
+  height: 2.25em;
+  padding-left: $input_padding;
+  box-sizing: border-box;
+
+  @extend %white;
+  border: 2px solid $fontColorWhite;
+  border-radius: 15px;
+  outline: none;
+  font-size: 0.9em;
+  font-weight: 300;
+  background: rgba(0, 0, 0, 0);
+}
+
+.field__main__input::placeholder{
+  opacity: 0;
+}
+
+.field__main__input:focus{
+  color: $fontColorYellow;
+  border: 2px solid $fontColorYellow;
+}

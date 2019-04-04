@@ -1,0 +1,24 @@
+.container_theme_modal {
+  height: fit-content;
+  z-index: 11;
+  transform-origin: left top;
+  transform: rotate(-16.34deg) translate(-50%, -50%);
+
+  background: linear-gradient(121.54deg,
+          $backgroundColor2 0%,
+          $backgroundColor4 101.11%);
+  border-radius: 15px;
+
+  animation-duration: 1s;
+}
+
+.container_theme_modal::before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+.container_theme_modal::after {
+  content: '';
+  display: block;
+  clear: both;
+}

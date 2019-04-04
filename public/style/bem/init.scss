@@ -1,0 +1,67 @@
+$backgroundColor: rgba(0, 18, 45, 1);  // Темный цвет градиента на фоне
+$backgroundColor2: rgba(0, 51, 102, 1);  // Основной цвет градиента у всплывающего окна
+$backgroundColor3: rgba(0, 106, 106, 0.25);  // Светлый цвет градиента на фоне
+$backgroundColor4: rgba(71, 121, 142, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundColor5: rgba(23, 73, 115, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundInputColor: rgba(42, 93, 126, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundColorBack2: rgba(49, 47, 126, 0.51);  // Цвет фона всплывающего окна
+$backgroundColorBack: rgba(49, 47, 126, 0.86);  // Цвет фона всплывающего окна
+$fontColorWhite: rgba(238, 238, 238, 1);  // Белый
+$fontColorGray: rgba(238, 238, 238, 0.5); // Прозрачный
+$fontColorYellow: rgba(255, 215, 0, 1);  // Желтый
+$fontColorYellowLight: rgba(255, 215, 0, 1);  // Желтый яркий
+$fontColorError: rgba(255, 99, 71, 1); // Оранжевый
+
+$fontFamalyLogo: Jura;
+$fontFamaly: Roboto;
+$fontFamaly2: IBM Plex Mono;
+
+$DefaultFontSize: 22px;
+
+%yellowLogo {
+  font-family: $fontFamalyLogo;
+  font-weight: 500;
+  color: $fontColorYellow;
+}
+
+%yellow {
+  font-family: $fontFamaly;
+  color: $fontColorYellow;
+}
+
+%white {
+  font-family: $fontFamaly2;
+  color: $fontColorWhite;
+}
+
+%error {
+  font-family: $fontFamaly2;
+  color: $fontColorError;
+  text-shadow: 0 0 10px $fontColorError;
+}
+
+%yellowLiteLight {
+  text-shadow:
+          $fontColorYellowLight 0 0 20px,
+          $fontColorYellowLight 0 0 30px,
+          $fontColorYellowLight 0 0 40px,
+          $fontColorYellowLight 0 0 50px,
+          $fontColorYellowLight 0 0 75px;
+}
+
+%yellowStrongLight {
+  text-shadow:
+          #FFF 0 0 15px,
+          $fontColorYellowLight 0 0 20px,
+          $fontColorYellowLight 0 0 30px,
+          $fontColorYellowLight 0 0 40px,
+          $fontColorYellowLight 0 0 50px,
+          $fontColorYellowLight 0 0 75px;
+}
+
+%whiteLiteLight {
+  text-shadow:
+          $fontColorWhite 0 0 20px,
+          $fontColorWhite 0 0 30px,
+          $fontColorWhite 0 0 40px;
+}

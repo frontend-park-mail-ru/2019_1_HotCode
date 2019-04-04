@@ -1,0 +1,15 @@
+.out-left {
+  animation-name: out-left;
+}
+
+@keyframes out-left {
+  0% {
+    transform-origin: left center;
+    transform: rotateY(30deg) scale(0.75);
+  }
+
+  100% {
+    transform-origin: center center;
+    transform: rotateY(0) scale(1);
+  }
+}

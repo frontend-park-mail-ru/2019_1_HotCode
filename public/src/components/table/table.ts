@@ -2,7 +2,6 @@
 
 
 import Component from '../baseComponent/index';
-import Carousel from '../carousel/carousel';
 
 class Table extends Component{
 

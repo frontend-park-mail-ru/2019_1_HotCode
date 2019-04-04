@@ -15,9 +15,9 @@ class PingPong extends Component{
     constructor(el: HTMLElement) {
         super(el);
 
-        this.ball = new GameObject(this.el.querySelector('.ping-pong__ball'));
-        this.player1 = new GameObject(this.el.querySelector('.ping-pong__player1'));
-        this.player2 = new GameObject(this.el.querySelector('.ping-pong__player2'));
+        this.ball = new GameObject(this.el.querySelector('.pong__ball'));
+        this.player1 = new GameObject(this.el.querySelector('.pong__player1'));
+        this.player2 = new GameObject(this.el.querySelector('.pong__player2'));
 
         this.width = +this.el.style.width;
         this.height = +this.el.style.height;

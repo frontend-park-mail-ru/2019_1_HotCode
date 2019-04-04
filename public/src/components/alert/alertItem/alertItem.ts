@@ -32,11 +32,11 @@ class AlertItem extends Component {
 
         if (isError) {
 
-            alertWindow = Component.Create('div', ['alert__error']);
+            alertWindow = Component.Create('div', ['alert__content', 'alert__content_theme_error']);
 
         } else {
 
-            alertWindow = Component.Create('div', ['alert']);
+            alertWindow = Component.Create('div', ['alert__content', 'alert__content_theme_success']);
         }
 
         const uniqueId = AlertItem.getNextUniqueId();

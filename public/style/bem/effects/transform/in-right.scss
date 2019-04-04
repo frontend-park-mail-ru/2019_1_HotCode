@@ -1,0 +1,15 @@
+.in-right {
+  animation-name: in-right;
+}
+
+@keyframes in-right {
+  0% {
+    transform-origin: center center;
+    transform: rotateY(0) scale(1);
+  }
+
+  100% {
+    transform-origin: right center;
+    transform: rotateY(-30deg) scale(0.75);
+  }
+}

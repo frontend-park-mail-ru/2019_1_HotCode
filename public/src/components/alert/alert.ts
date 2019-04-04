@@ -3,14 +3,14 @@ import AlertItem from './alertItem/alertItem';
 
 class Alert extends Component {
     constructor() {
-        const alertContainer = Component.Create('div', ['alert__container']);
+        const alertContainer = Component.Create('div', ['alert', 'alert_direction_top-right']);
         document.body.insertBefore(alertContainer.el, document.body.firstChild);
 
-        super(document.querySelector('.alert__container'));
+        super(document.querySelector('.alert'));
     }
 
     public updateElement(): void {
-        this.el = document.querySelector('.alert__container');
+        this.el = document.querySelector('.alert');
     }
 
     public alert(contentText: string, isError?: boolean): void {

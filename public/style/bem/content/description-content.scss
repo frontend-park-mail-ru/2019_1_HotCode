@@ -1,0 +1,10 @@
+.description-content {
+  margin-top: 4%;
+  width: 90%;
+
+  @extend %white;
+  line-height: 32px;
+  font-weight: 300;
+  font-size: 26px;
+  text-align: justify;
+}

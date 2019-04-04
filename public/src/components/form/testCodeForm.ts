@@ -14,7 +14,7 @@ class TestCodeForm extends Form{
     constructor(el: HTMLElement) {
         super(el);
 
-        this.codeField = new CodeEditor(this.el.querySelector('.play__editor'));
+        this.codeField = new CodeEditor(this.el.querySelector('.play__item__content_theme_editor'));
     }
 
     get code(): CodeEditor {

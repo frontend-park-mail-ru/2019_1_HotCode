@@ -23,7 +23,7 @@ class SigninPage extends Page {
         super.render();
         this.renderTmpl(SigninPage.template, signinFormConfig);
 
-        this.signinForm = new SigninForm(this.parent.el.getElementsByTagName('form')[0]);
+        this.signinForm = new SigninForm(this.parent.el.querySelector('.form_theme_popup'));
 
         this.signinForm.usernameField.onInput(() => {
             this.signinForm.validateUsername();

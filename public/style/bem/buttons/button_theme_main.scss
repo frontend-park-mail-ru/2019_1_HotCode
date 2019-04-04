@@ -1,0 +1,13 @@
+.button_theme_main {
+  display: flex;
+  align-items: center;
+  @extend %white;
+  font-size: 0.9em;
+  border: 2px solid $fontColorWhite;
+  border-radius: 15px;
+}
+
+.button_theme_main:hover {
+  transition: .3s ease-in-out;
+  filter: drop-shadow($fontColorWhite 0 0 10px);
+}

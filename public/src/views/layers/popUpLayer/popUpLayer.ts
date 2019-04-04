@@ -9,7 +9,6 @@ class PopUpLayer extends Layer {
     private static template = require('./popUpLayer.pug');
 
     private popup: Component;
-    private popupAnimateBlock: Component;
 
     constructor(parent: Component) {
         super(parent);
@@ -18,21 +17,13 @@ class PopUpLayer extends Layer {
     public render(): void {
         this.renderTmpl(PopUpLayer.template);
 
-        this.popup = new Component(this.parent.el.querySelector('.modal'));
-        this.popupAnimateBlock = new Component(this.parent.el.querySelector('.modal__vanishin'));
-
-        this.popupAnimateBlock.addClass('magictime');
-
-        const parallax = new Parallax(this.popup, -15, 15);
-        parallax.onMouseMove();
-        parallax.degBackground();
+        this.popup = new Component(this.parent.el.querySelector('.container_theme_modal'));
+        this.popup.el.style.animationName = 'vanish-in';
 
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
-        this.popup = null;
-        this.popupAnimateBlock = null;
         console.log('popup CLEAR');
     }
 }

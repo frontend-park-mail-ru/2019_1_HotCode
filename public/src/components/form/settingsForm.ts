@@ -22,7 +22,7 @@ class SettingsForm extends Form{
     constructor(el: HTMLElement) {
         super(el);
 
-        const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.form__input'));
+        const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.field'));
 
         this.username = new Field(fields[0]);
 
@@ -37,7 +37,7 @@ class SettingsForm extends Form{
 
             if (avatar && avatar.type.startsWith('image/')) {
 
-                const image = new Component(this.el.querySelector('.form__inputs__right img'));
+                const image = new Component(this.el.querySelector('.avatar__image'));
                 (image.el as HTMLImageElement).src = avatar;
 
                 const reader = new FileReader();

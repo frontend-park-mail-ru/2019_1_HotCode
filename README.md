@@ -14,7 +14,7 @@
 
 ## Ссылка на игру
 
-[WarScript](https://war-script.now.sh/dist/)
+[WarScript](https://warscript.now.sh)
 
 ## Ссылка на API
 

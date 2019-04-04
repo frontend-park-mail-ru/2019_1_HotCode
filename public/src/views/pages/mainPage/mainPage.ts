@@ -23,8 +23,9 @@ class MainPage extends Page {
         GameService.getGames()
             .then((resp) => {
 
-                this.mainCarousel = new Carousel(this.parent.el.querySelector('.carusel'), () => {
-                    GameService.getGame(1)
+                this.mainCarousel = new Carousel(this.parent.el.querySelector('.carousel'), () => {
+
+                    GameService.getGame(this.mainCarousel.getCenterItem().el.getAttribute('data-slug'))
                         .then(() => ViewService.goToGameDescriptionView());
                 }, resp);
 

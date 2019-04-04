@@ -22,36 +22,39 @@ class GameMenuLayer extends Layer {
     }
 
     public render(): void {
-        this.renderTmpl(GameMenuLayer.template, {title: Game.name});
+        this.renderTmpl(GameMenuLayer.template, {title: Game.title,
+            backgroundUUID: Game.backgrondUUID,
+            logoUUID: Game.logoUUID,
+        });
 
-        const parallax = new Parallax(new Component(this.parent.el.querySelector('.game__background__img img')),
+        const parallax = new Parallax(new Component(this.parent.el.querySelector('.background_theme_gamemenu-img')),
             100,
             80);
         parallax.onMouseMove();
         parallax.moveBackground();
 
-        this.gameContainer = new Component(this.parent.el.querySelector('.game'));
-        this.gameImageLogo = new Component(this.parent.el.querySelector('.game__right__content'));
-        this.gameContent = new Component(this.parent.el.querySelector('.game__left__content'));
+        this.gameContainer = new Component(this.parent.el.querySelector('.container_theme_game-menu'));
+        this.gameImageLogo = new Component(this.parent.el.querySelector('.game-menu__main__content-right'));
+        this.gameContent = new Component(this.parent.el.querySelector('.game-menu__main__content-left'));
 
         this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
             option0: () => {
-                this.gameContainer.removeClass('game__play');
+                this.gameContainer.removeClass('container_theme_game-play');
                 this.gameImageLogo.show();
-                this.gameContent.removeClass('game__play__content');
+                this.gameContent.removeClass('game-menu__main__content-left_theme_play');
                 ViewService.goToGameDescriptionView();
 
             },
             option1: () => {
-                this.gameContainer.removeClass('game__play');
+                this.gameContainer.removeClass('container_theme_game-play');
                 this.gameImageLogo.show();
-                this.gameContent.removeClass('game__play__content');
+                this.gameContent.removeClass('game-menu__main__content-left_theme_play');
                 ViewService.goToGameLiderBoardView();
             },
             option2: () => {
-                this.gameContainer.addClass('game__play');
+                this.gameContainer.addClass('container_theme_game-play');
                 this.gameImageLogo.hide();
-                this.gameContent.addClass('game__play__content');
+                this.gameContent.addClass('game-menu__main__content-left_theme_play');
                 ViewService.goToGameView();
             },
         });

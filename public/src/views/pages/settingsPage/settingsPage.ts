@@ -28,7 +28,7 @@ class SettingsPage extends Page {
         super.render();
         this.renderTmpl(SettingsPage.template);
 
-        this.settingsForm = new SettingsForm(this.parent.el.getElementsByTagName('form')[0]);
+        this.settingsForm = new SettingsForm(this.parent.el.querySelector('.form_theme_settings'));
 
         this.onOldPassword = EventBus.subscribe(events.onOldPassword, () => {
 
@@ -51,7 +51,7 @@ class SettingsPage extends Page {
 
         this.settingsForm.usernameField.setValue(User.username);
 
-        const image = new Component(this.parent.el.querySelector('.form__inputs__right img'));
+        const image = new Component(this.parent.el.querySelector('.avatar__image'));
         if (User.avatar) {
             (image.el as HTMLImageElement).src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;
         }

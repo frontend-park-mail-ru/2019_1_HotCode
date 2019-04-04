@@ -1,0 +1,19 @@
+.carousel__item_theme_center {
+  left: 0;
+  box-shadow: -60px 0 136px -15px rgba(0,0,0,.67),
+  60px 0 136px -15px rgba(0,0,0,.67),
+  5px 5px 15px 5px transparent;
+}
+
+.carousel__item_theme_center::after {
+  content: '<' attr(data-content) '/>';
+  position: absolute;
+  left: 0;
+  bottom: -15%;
+
+  display: inline-block;
+  @extend %yellowLogo;
+  font-size: calc(1em + 0.6vw);
+  white-space: nowrap;
+  z-index: 5;
+}

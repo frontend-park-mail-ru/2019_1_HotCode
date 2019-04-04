@@ -37,9 +37,9 @@ class BaseLayer extends Layer{
     public render(): void {
         this.renderTmplBesideHTML(BaseLayer.template);
 
-        this.background = new Component(this.parent.el.querySelector('.background'));
+        this.background = new Component(this.parent.el.querySelector('.background_theme_base'));
 
-        this.menuMobile = new Component(this.parent.el.querySelector('nav.nav'));
+        this.menuMobile = new Component(this.parent.el.querySelector('.nav-content'));
 
         this.fullscreenButton = new Checkbox(this.parent.el.querySelector('#full-screen'),
             () => activeFullScreen(),
@@ -81,9 +81,9 @@ class BaseLayer extends Layer{
             },
         });
 
-        this.authorizationSection = new Component(this.parent.el.querySelector('.footer__left__content'));
+        this.authorizationSection = new Component(this.parent.el.querySelector('.footer__container-item'));
 
-        this.footerSection = new Component(this.parent.el.querySelector('footer.container'));
+        this.footerSection = new Component(this.parent.el.querySelector('.footer'));
 
         this.modalWindowContainer = new Component(this.parent.el.querySelector('.modal__window'));
 

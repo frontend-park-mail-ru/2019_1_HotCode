@@ -1,0 +1,11 @@
+.button_theme_submit {
+  @extend %yellow;
+  font-size: 0.9em;
+  border: 2px solid $fontColorYellow;
+  border-radius: 15px;
+}
+
+.button_theme_submit:hover {
+  transition: .3s ease-in-out;
+  filter: drop-shadow($fontColorYellowLight 0 0 10px);
+}

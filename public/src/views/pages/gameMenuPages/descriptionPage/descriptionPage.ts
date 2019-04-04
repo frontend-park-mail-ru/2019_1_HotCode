@@ -2,6 +2,7 @@
 
 import Component from "../../../../components/baseComponent/index";
 import Page from '../../page';
+import Game from "../../../../models/game";
 
 class DescriptionPage extends Page{
 
@@ -13,7 +14,7 @@ class DescriptionPage extends Page{
 
     public render(): void {
         super.render();
-        this.renderTmpl(DescriptionPage.template);
+        this.renderTmpl(DescriptionPage.template, {descripton: Game.description});
     }
 
 

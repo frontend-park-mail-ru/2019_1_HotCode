@@ -1,7 +1,8 @@
-label.carusel__arrow.left__arrow
-    img(src='img/left-arrow.svg')
+label
+    img.carousel__arrow.carousel__arrow_direction_left.pointer(src='img/left-arrow.svg')
 each game in games
     label
-        div.carusel__item(data-content=game.title)
-label.carusel__arrow.right__arrow
-    img(src='img/left-arrow.svg')
+        .carousel__item.pointer(data-content=game.title, data-slug=game.slug)
+            img.carousel__item__image(src=`https://warscript-images.herokuapp.com/photos/${game.background_uuid}`)
+label
+    img.carousel__arrow.carousel__arrow_direction_right.pointer(src='img/left-arrow.svg')

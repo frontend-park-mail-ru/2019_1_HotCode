@@ -8,6 +8,7 @@ import ValidationError from "../../../../components/form/utils/validationError";
 import {signupFormConfig} from '../utils/formConfig';
 import {events} from '../../../../modules/utils/events';
 import Page from '../../page';
+
 class SignupPage extends Page {
 
     private static template = require('../formBasePage.pug');
@@ -22,7 +23,7 @@ class SignupPage extends Page {
         super.render();
         this.renderTmpl(SignupPage.template, signupFormConfig);
 
-        this.signupForm = new SignupForm(this.parent.el.getElementsByTagName('form')[0]);
+        this.signupForm = new SignupForm(this.parent.el.querySelector('.form_theme_popup'));
 
         this.signupForm.usernameField.onInput(() => {
             this.signupForm.validateUsername();

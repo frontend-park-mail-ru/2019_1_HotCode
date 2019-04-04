@@ -1,6 +1,6 @@
 'use strict';
 
-import '../style/index.scss';
+import '../style/bem/style.scss';
 import ViewService from './services/view-service';
 
 ViewService.start();

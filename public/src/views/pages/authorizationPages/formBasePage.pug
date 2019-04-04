@@ -1,20 +1,25 @@
 .form__logo= logotype
-form(action='#', method='post')
+form.form.form_theme_popup(action='#', method='post')
+
     .form__inputs
         each field, index in formFields
-            .form__input
-                .form__input__header
-                    .form__error
-                .form__input__label
-                    input(type=field.type, name=field.name, placeholder=field.placeholder, maxlength='32')
-                    .form__label= field.label
+            .field
+
+                .field__header
+                    .field__header__error
+
+                .field__main
+                    input.field__main__input(type=field.type, name=field.name, placeholder=field.placeholder, maxlength='32')
+                    .field__main__label= field.label
                     if field.type === 'password'
                         input.hidden(id=`show__password${index}` type='checkbox')
-                        label.form__show__password(for=id = `show__password${index}`) &#x1f441;
+                        label.field__main__show-password.pointer(for=id = `show__password${index}`) &#x1f441;
+
     .form__buttons
-        .form__button
-            button(type='submit')= submitButtonName
+        .form__buttons__button
+            button.button.button_theme_submit.pointer(type='submit')= submitButtonName
+
         if otherButtonName
-            .form__button
+            .form__buttons__button
                 label(for=`mod${nextFormNumber}`)
-                    div= otherButtonName
+                    div.button.button_theme_main.pointer= otherButtonName

@@ -1,0 +1,6 @@
+.carousel__item_theme_next {
+  left: 25%;
+  z-index: -1;
+  transform-origin: right center;
+  transform: rotateY(-30deg) scale(0.75);
+}

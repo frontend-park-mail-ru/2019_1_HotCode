@@ -1,0 +1,13 @@
+.background_theme_nav-menu {
+  visibility: hidden;
+}
+
+#showmenu:checked~.background_theme_nav-menu {
+  visibility: visible;
+  width: auto;
+  height: auto;
+
+  z-index: 11;
+  background-color: $backgroundColorBack;
+  backdrop-filter: blur(14px);
+}

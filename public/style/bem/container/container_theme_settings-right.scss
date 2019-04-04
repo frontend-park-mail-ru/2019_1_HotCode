@@ -1,0 +1,25 @@
+.container_theme_settings-right {
+  position: relative;
+  width: 14vw;
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 300px;
+  max-height: 300px;
+  margin-bottom: 7%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 2px solid $fontColorWhite;
+  border-radius: 15px;
+}
+
+.container_theme_settings-right::before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+
+.container_theme_settings-right::after {
+  content: '';
+  display: block;
+  clear: both;
+}
