@@ -50,7 +50,7 @@ class OptionsLayer extends Layer{
 
         this.modalWindows = new Tabbar(this.parent.el.querySelector('.modal__windows'), {
             'mod0': () => {
-                ViewService.goBack();
+                ViewService.goBack(2);
             },
             'mod1': () => {
                 ViewService.goToLoginView();

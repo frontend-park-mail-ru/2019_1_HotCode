@@ -26,11 +26,11 @@ class SettingsForm extends Form{
 
         this.username = new Field(fields[0]);
 
-        this.oldPassword = new Field(fields[1]);
+        this.newPassword = new Field(fields[1]);
 
-        this.newPassword = new Field(fields[2]);
+        this.repeatNewPassword = new Field(fields[2]);
 
-        this.repeatNewPassword = new Field(fields[3]);
+        this.oldPassword = new Field(fields[3]);
 
         this.avatar = new ImageInput(this.el.querySelector('#avatar'), (event) => {
             const avatar = event.target.files[0];
@@ -38,6 +38,7 @@ class SettingsForm extends Form{
             if (avatar && avatar.type.startsWith('image/')) {
 
                 const image = new Component(this.el.querySelector('.avatar__image'));
+                image.show();
                 (image.el as HTMLImageElement).src = avatar;
 
                 const reader = new FileReader();

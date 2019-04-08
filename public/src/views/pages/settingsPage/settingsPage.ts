@@ -11,14 +11,17 @@ import UserService from "../../../services/user-service";
 import {events} from '../../../modules/utils/events';
 import Message from '../../../utils/message';
 import Page from '../page';
+import Button from '../../../components/button/button';
+import ViewService from '../../../services/view-service';
 
 class SettingsPage extends Page {
 
     private static template = require('./settingsPage.pug');
 
     private settingsForm: SettingsForm;
+    private settingsBack: Button;
 
-    private onOldPassword: {[key: string]: () => void};
+    private onNewPassword: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent, 'Settings - WarScript');
@@ -28,34 +31,50 @@ class SettingsPage extends Page {
         super.render();
         this.renderTmpl(SettingsPage.template);
 
+        this.settingsBack = new Button(this.parent.el.querySelector('#settings-back'),
+            () => {
+            history.back();
+        });
+        this.settingsBack.onClick();
+
         this.settingsForm = new SettingsForm(this.parent.el.querySelector('.form_theme_settings'));
 
-        this.onOldPassword = EventBus.subscribe(events.onOldPassword, () => {
+        this.onNewPassword = EventBus.subscribe(events.onNewPassword, () => {
 
-            if (this.settingsForm.oldPasswordField.getValue()) {
+            if (this.settingsForm.newPasswordField.getValue()) {
 
-                this.settingsForm.newPasswordField.show();
                 this.settingsForm.repeatNewPasswordField.show();
+                this.settingsForm.oldPasswordField.show();
 
                 return;
             }
 
-            this.settingsForm.newPasswordField.hide();
             this.settingsForm.repeatNewPasswordField.hide();
+            this.settingsForm.oldPasswordField.hide();
         });
 
         this.settingsForm.resetPasswords();
 
-        EventBus.publish(events.onOldPassword);
+        EventBus.publish(events.onNewPassword);
 
 
         this.settingsForm.usernameField.setValue(User.username);
 
-        const image = new Component(this.parent.el.querySelector('.avatar__image'));
         if (User.avatar) {
-            (image.el as HTMLImageElement).src = "https://warscript-images.herokuapp.com/photos/" + User.avatar;
-        }
 
+            const image = new Component(this.parent.el.querySelector('.avatar__image'));
+            const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
+
+            spiner.show();
+            AvatarService.getAvatar(User.avatar)
+                .then((img) => {
+                    (image.el as HTMLImageElement).src = URL.createObjectURL(img);
+                    image.show();
+                })
+                .finally(() => {
+                    spiner.hide();
+                });
+        }
 
         this.settingsForm.usernameField.onInput(() => {
             this.settingsForm.validateUsername();
@@ -65,11 +84,8 @@ class SettingsPage extends Page {
             this.settingsForm.validateUsernameOnUnique();
         });
 
-        this.settingsForm.oldPasswordField.onInput(() => {
-            EventBus.publish(events.onOldPassword);
-        });
-
         this.settingsForm.newPasswordField.onInput(() => {
+            EventBus.publish(events.onNewPassword);
             this.settingsForm.validateNewPassword();
         });
 
@@ -145,7 +161,7 @@ class SettingsPage extends Page {
 
     public clear(): void {
         this.parent.el.innerHTML = '';
-        this.onOldPassword.unsubscribe();
+        this.onNewPassword.unsubscribe();
         this.settingsForm = null;
         console.log('settings CLEAR');
     }

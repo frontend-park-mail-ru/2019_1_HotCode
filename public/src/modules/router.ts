@@ -92,9 +92,9 @@ class Router {
         console.log('postStack', this.postRenderStack);
     }
 
-    public popStack(): void {
-        this.clear(this.postRenderStack.pop().view);
-        this.clear(this.postRenderStack.pop().view);
+    public popStack(deep: number): void {
+        for (let i = 0; i < deep; i++)
+            this.clear(this.postRenderStack.pop().view);
 
         window.history.pushState(
             null,

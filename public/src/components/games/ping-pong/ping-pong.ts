@@ -1,9 +1,11 @@
 'use strict';
 
-import Component from '../../baseComponent/index';
 import GameObject from '../gameObject';
+import BaseGame from '../baseGame';
+import EventBus from '../../../modules/event-bus';
+import {events} from '../../../modules/utils/events';
 
-class PingPong extends Component{
+class PingPong extends BaseGame{
 
     private player1: GameObject;
     private player2: GameObject;
@@ -11,6 +13,8 @@ class PingPong extends Component{
 
     private width: number;
     private height: number;
+
+    private onPauseRemover: {[key: string]: () => void};
 
     constructor(el: HTMLElement) {
         super(el);
@@ -23,7 +27,17 @@ class PingPong extends Component{
         this.height = +this.el.style.height;
     }
 
-    public async render(states: any) {
+    public async init(states: any) {
+        super.init(states);
+
+        if (this.onPauseRemover) {
+            this.onPauseRemover.unsubscribe();
+        }
+
+        this.onPauseRemover = EventBus.subscribe(events.onPause, () => {
+            this.render(states);
+        });
+
         this.player1.setWidth(`${states.info.racket.w * this.el.clientWidth}px`);
         this.player1.setHeight(`${states.info.racket.h * this.el.clientHeight}px`);
         this.player2.setWidth(`${states.info.racket.w * this.el.clientWidth}px`);
@@ -32,8 +46,23 @@ class PingPong extends Component{
         this.ball.setWidth(`${states.info.ball.diameter * this.el.clientHeight}px`);
         this.ball.setHeight(`${states.info.ball.diameter * this.el.clientHeight}px`);
 
-        for (const state of states.states) {
-            await this.renderState(state);
+        await PingPong.sleep();
+        this.counter = 0;
+        this.render(states);
+
+    }
+
+    public async render(states: any) {
+        for (; this.counter < this.framesCount;) {
+
+            if (this.pauseFlag) {
+                this.pauseFlag = false;
+                break;
+            }
+
+            await this.renderState(states.states[this.counter]);
+            EventBus.publish(events.onChangeProgress);
+            this.counter++;
         }
     }
 

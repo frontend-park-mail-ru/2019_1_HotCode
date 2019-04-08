@@ -12,19 +12,24 @@ mixin field(label, type, name, placeholder, index)
                 label.field__main__show-password.pointer(for=id = `show__password${index}`) &#x1f441;
 
 .container.container_theme_settings
-    .form__logo Settings
+    .form__header
+        input#settings-back.hidden(type='button')
+        label(for='settings-back')
+            img.back-button.pointer(src='img/Back.svg')
+        .form__header__logo Settings
     form.form.form_theme_settings(action='#', method='post')
         .container_theme_settings-left
             .form__inputs
                 +field('Username', 'text', 'username', 'Username', 1)
-                +field('Old Password', 'password', 'oldPassword', 'Password', 2)
-                +field('New Password', 'password', 'newPassword', 'Password', 3)
-                +field('Repeat New Password', 'password', 'repeatNewPassword', 'Password', 4)
+                +field('New Password', 'password', 'newPassword', 'Password', 2)
+                +field('Repeat New Password', 'password', 'repeatNewPassword', 'Password', 3)
+                +field('Old Password', 'password', 'oldPassword', 'Password', 4)
             .form__buttons
                 .form__buttons__button
                     button.button.button_theme_submit.pointer(type='submit') Confirm
         input#avatar.hidden(type='file', name='avatar', accept='image/jpeg,image/png,image/gif')
         label.container_theme_settings-right(for='avatar')
-            .avatar__text-content
+            .avatar__text-content.pointer
                 | Choose avatar
-            img.avatar__image
+            .carousel__item__spinner.carousel__item__spinner_size_s.hidden
+            img.avatar__image.hidden

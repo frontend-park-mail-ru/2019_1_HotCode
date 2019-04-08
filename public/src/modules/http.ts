@@ -58,6 +58,13 @@ class Http {
 
         const request = new Request(uri, init as RequestInit);
 
+        if (avatarBackend && method === 'GET') {
+            return fetch(request)
+                .then((response) => {
+                    return Promise.resolve(response.blob());
+                });
+        }
+
         return fetch(request)
             .then((responce) => {
 
@@ -68,6 +75,7 @@ class Http {
                         return Promise.reject(error ? JSON.parse(error) : error);
                     });
                 }
+
                 return responce.text();
             })
             .then((resp) => {

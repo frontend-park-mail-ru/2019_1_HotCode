@@ -1,0 +1,17 @@
+.play__item__content__walkmen {
+  position: absolute;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 35px;
+  padding: 0 2%;
+  background: $backgroundColorBack2;
+}
+
+.play__item__content_theme_screen:hover .play__item__content__walkmen {
+  bottom: 0;
+}

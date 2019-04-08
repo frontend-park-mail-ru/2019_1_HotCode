@@ -65,6 +65,8 @@
 @import "buttons/button";
 @import "buttons/button_theme_main";
 @import "buttons/button_theme_submit";
+@import "buttons/button_theme_play";
+@import "buttons/options-button/options-button";
 @import "buttons/button_size_s";
 @import "buttons/full-screen-button/full-screen-button";
 @import "buttons/full-screen-button/full-screen-button_direction_top-right";
@@ -75,6 +77,7 @@
 @import "buttons/close-button/close-button";
 @import "buttons/close-button/close-button_theme-alert";
 @import "buttons/close-button/close-button_theme-modal";
+@import "buttons/back-button/back-button";
 
 @import "nav-menu/nav-menu";
 @import "nav-menu/container-item/container-item";
@@ -92,6 +95,8 @@
 @import "carousel/item/item_theme_center";
 @import "carousel/item/item_theme_next";
 @import "carousel/item/image/image";
+@import "carousel/item/spinner/spinner";
+@import "carousel/item/spinner/spinner_size_s";
 @import "carousel/arrow/arrow";
 @import "carousel/arrow/arrow_direction_left";
 @import "carousel/arrow/arrow_direction_right";
@@ -100,6 +105,7 @@
 @import "form/form_theme_popup";
 @import "form/form_theme_settings";
 @import "form/form_theme_editor";
+@import "form/logo/header";
 @import "form/logo/logo";
 @import "form/buttons/buttons";
 @import "form/buttons/button/button";
@@ -140,8 +146,22 @@
 @import "game/item/item_theme_screen";
 @import "game/item/item_theme_rules";
 @import "game/item/item_theme_console";
+@import "game/container-item/container-item";
 @import "game/item/content/content";
 @import "game/item/content/content_theme_editor";
 @import "game/item/content/content_theme_screen";
+@import "game/item/content/content_theme_full-screen";
+@import "game/item/content/content_theme_rules";
+@import "game/item/content/content_theme_console";
+@import "game/item/content/console-item/console-item";
+@import "game/item/content/walkman/walkman";
+@import "game/item/content/walkman/container-item/container-item";
+@import "game/item/content/walkman/item/item";
+@import "game/item/content/walkman/progress-bar/progress-bar";
+@import "game/item/content/walkman/progress-bar/progress";
+@import "game/item/line/horizontal-line/line";
+@import "game/item/line/horizontal-line/outline";
+@import "game/item/line/vertical-line/line";
+@import "game/item/line/vertical-line/outline";
 @import "game/item/header/header";
 @import "game/pong/pong";

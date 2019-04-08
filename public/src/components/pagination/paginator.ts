@@ -17,9 +17,9 @@ class Paginator extends Component{
     private next: Component;
     private last: Component;
 
-    private chengePageCallback: (limit:number, offset: number) => void;
+    private chengePageCallback: (limit: number, offset: number) => void;
 
-    constructor(el: HTMLElement, limit = 7, chengePageCallback: (limit:number, offset: number) => void) {
+    constructor(el: HTMLElement, limit = 7, chengePageCallback: (limit: number, offset: number) => void) {
         super(el);
 
         this.pageCountField = 0;

@@ -59,8 +59,8 @@ class ViewService {
         Router.start();
     }
 
-    public static goBack() {
-        Router.popStack();
+    public static goBack(deep: number) {
+        Router.popStack(deep);
     }
 
     public static goToStartView(): void {

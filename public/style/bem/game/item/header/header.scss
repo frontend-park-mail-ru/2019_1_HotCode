@@ -1,7 +1,34 @@
 .play__item__header {
   display: flex;
   justify-content: space-between;
-  padding: 1%;
+  align-items: center;
   padding-top: 0;
   width: 100%;
+  outline: none;
+}
+
+summary {
+  display: block;
+}
+
+.game__container-item .play__item__header::-webkit-details-marker {
+  display: none;
+}
+
+.game__container-item .play__item__header::before {
+  content: '▸ ' attr(data-name);
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+
+  @extend %white;
+  font-size: 0.8em;
+}
+
+.game__container-item .play__item__header:hover::before {
+  color: $fontColorYellow;
+}
+
+
+.game__container-item details[open] > .play__item__header::before {
+  content: '▾ ' attr(data-name);
 }

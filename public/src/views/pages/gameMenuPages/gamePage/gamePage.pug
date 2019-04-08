@@ -2,19 +2,46 @@
     .play__item.play__item_theme_editor
         form.form.form_theme_editor(action='#', method='post')
             .play__item__header
-                button.button.button_theme_main.button_size_s.pointer(type='button') Settings
+                button.options-button.pointer.color-yellow(type='button') ⚙
                 button.button.button_theme_submit.button_size_s.pointer(type='submit') Start
             .play__item__content.play__item__content_theme_editor
-    .play__item.play__item_theme_screen
-        .play__item__header
-            button.button.button_theme_main.button_size_s.pointer(type='button') Settings
-        .play__item__content.play__item__content_theme_screen
-            include ../../../../components/games/ping-pong/ping-pong
-    .play__item.play__item_theme_rules
-        .play__item__header
-            button.button.button_theme_main.button_size_s.pointer(type='button') Settings
-        .play__item__content.play__item__content_theme_rules
-    .play__item.play__item_theme_console
-        .play__item__header
-            button.button.button_theme_main.button_size_s.pointer(type='button') Settings
-        .play__item__content.play__item__content_theme_console
+
+        .play__item__vertical-line
+            .play__item__vetical-line__outline
+
+    .game__container-item
+
+        details.play__item.play__item_theme_screen
+            summary.play__item__header.pointer(data-name='Game screen')
+                button.options-button.pointer.color-yellow(type='button') ⚙
+            summary.play__item__content.play__item__content_theme_screen
+                include ../../../../components/games/ping-pong/ping-pong
+                .play__item__content__walkmen
+                    .play__item__content__walkmen__container-item
+                        input#pause.hidden(type='checkbox')
+                        label.play__item__content__walkmen__item.walkmen__item_theme_pause.color-yellow.pointer(for='pause') ⏸
+                        input#stop.hidden(type='button')
+                        label.play__item__content__walkmen__item.color-yellow.pointer(for='stop') ⏹
+                    input#full-screen-game.hidden(type='checkbox')
+                    label.play__item__content__walkmen__item.color-yellow.pointer(for='full-screen-game') 🍆
+                    .play__item__content__walkmen__progress-bar.pointer
+                        .play__item__content__walkmen__progress
+            .play__item__horizontal-line
+                .play__item__horizontal-line__outline
+
+        details.play__item.play__item_theme_rules
+            summary.play__item__header.pointer(data-name='Rules')
+                button.options-button.pointer.color-yellow(type='button') ⚙
+            summary.play__item__content.play__item__content_theme_rules
+            .play__item__horizontal-line
+                .play__item__horizontal-line__outline
+
+        details.play__item.play__item_theme_console
+            summary.play__item__header.pointer(data-name='Console')
+                button.options-button.pointer.color-yellow(type='button') ⚙
+            summary.play__item__content.play__item__content_theme_console
+                .play__item__content__console-item Lorem ipsum dolor sit amet,
+                .play__item__content__console-item consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                .play__item__content__console-item ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            .play__item__horizontal-line
+                .play__item__horizontal-line__outline

@@ -2,7 +2,8 @@ label
     img.carousel__arrow.carousel__arrow_direction_left.pointer(src='img/left-arrow.svg')
 each game in games
     label
-        .carousel__item.pointer(data-content=game.title, data-slug=game.slug)
-            img.carousel__item__image(src=`https://warscript-images.herokuapp.com/photos/${game.background_uuid}`)
+        .carousel__item.pointer(data-content=game.title, data-background=game.background_uuid, data-slug=game.slug)
+            .carousel__item__spinner.hidden
+            img.carousel__item__image.hidden
 label
     img.carousel__arrow.carousel__arrow_direction_right.pointer(src='img/left-arrow.svg')

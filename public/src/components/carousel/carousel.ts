@@ -4,6 +4,7 @@ import Component from "../baseComponent/index";
 import EventBus from '../../modules/event-bus';
 import {events} from '../../modules/utils/events';
 import Parallax from '../../modules/parallax';
+import AvatarService from '../../services/avatar-service';
 
 /**
  * Carousel Component for carousel
@@ -67,6 +68,21 @@ class Carousel extends Component{
             .map((item) => new Component(item as HTMLElement));
 
         this.rightArrow = new Component(this.el.querySelector('.carousel__arrow_direction_right'));
+
+        this.items.map((item) => {
+            const image = new Component(item.el.querySelector('.carousel__item__image'));
+            const spiner = new Component(item.el.querySelector('.carousel__item__spinner'));
+
+            spiner.show();
+            AvatarService.getAvatar(item.el.getAttribute('data-background'))
+                .then((background) => {
+                    (image.el as HTMLImageElement).src = URL.createObjectURL(background);
+                    image.show();
+                })
+                .finally(() => {
+                    spiner.hide();
+                });
+        });
 
         this.onArrowsClick();
 
