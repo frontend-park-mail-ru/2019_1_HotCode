@@ -1,0 +1,13 @@
+.pagination__item {
+  @extend %white;
+  display: inline-block;
+  size: 1.1em;
+  margin: 1% 0;
+  margin-right: 0.6%;
+  text-align: center;
+  font-weight: 300;
+}
+
+.pagination__item:last-child {
+  margin-right: 0;
+}

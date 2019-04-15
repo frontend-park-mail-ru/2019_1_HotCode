@@ -40,10 +40,13 @@ const TSLintPlugin = require('tslint-webpack-plugin');
 })();
 
 module.exports = {
-    entry: './public/src/main.ts',
+    entry: {
+        main: './public/src/main.ts',
+        worker: './public/src/worker.ts',
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[contenthash].js'
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -87,7 +90,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin('dist', {} ),
-        new ExtractTextPlugin({filename: 'style.[hash].css'}),
+        new ExtractTextPlugin({filename: 'style.css'}),
         new HtmlWebpackPlugin({
             title: 'WarScript',
             favicon: './favicon.ico',

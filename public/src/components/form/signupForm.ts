@@ -10,86 +10,86 @@ import Validation from "./utils/validation";
  */
 class SignupForm extends Form{
 
-    private _usernameField: Field;
-    private _passwordField: Field;
-    private _passwordRepeatField: Field;
+    private username: Field;
+    private password: Field;
+    private passwordRepeat: Field;
 
     constructor(el: HTMLElement) {
         super(el);
 
-        const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.form__input'));
+        const fields: HTMLElement[] = Array.from(this.el.querySelectorAll('.field'));
 
-        this._usernameField = new Field(fields[0]);
-        this._passwordField = new Field(fields[1]);
-        this._passwordRepeatField = new Field(fields[2]);
+        this.username = new Field(fields[0]);
+        this.password = new Field(fields[1]);
+        this.passwordRepeat = new Field(fields[2]);
     }
 
     get usernameField(): Field {
-        return this._usernameField;
+        return this.username;
     }
 
     get passwordField(): Field {
-        return this._passwordField;
+        return this.password;
     }
 
     get passwordRepeatField(): Field {
-        return this._passwordRepeatField;
+        return this.passwordRepeat;
     }
 
     public validateUsername(): void {
         try {
 
-            Validation.validateUsername(this._usernameField.getValue());
-            this._usernameField.clearError();
+            Validation.validateUsername(this.username.getValue());
+            this.username.clearError();
 
         } catch (usernameError) {
-            this._usernameField.setError(usernameError.errorText);
+            this.username.setError(usernameError.errorText);
         }
     }
 
     public validateUsernameOnUnique(): void {
-        Validation.validateUsernameOnUnique(this._usernameField.getValue())
+        Validation.validateUsernameOnUnique(this.username.getValue())
             .then(() => {
-                this._usernameField.clearError();
+                this.username.clearError();
             })
-            .catch(error => {
-                this._usernameField.setError(error.errorText);
+            .catch((error) => {
+                this.username.setError(error.errorText);
             });
     }
 
     public validatePassword(): void {
         try {
 
-            Validation.validatePassword(this._passwordField.getValue());
+            Validation.validatePassword(this.password.getValue());
 
-            if (!this._passwordField.virginityField &&
-                !this._passwordRepeatField.virginityField) {
+            if (!this.password.virginity &&
+                !this.passwordRepeat.virginity) {
 
-                Validation.validatePasswordEquality(this._passwordField.getValue(),
-                    this._passwordRepeatField.getValue());
+                Validation.validatePasswordEquality(this.password.getValue(),
+                    this.passwordRepeat.getValue());
             }
 
-            this._passwordField.clearError();
+            this.password.clearError();
 
         } catch (passwordError) {
-            this._passwordField.setError(passwordError.errorText);
+            this.password.setError(passwordError.errorText);
         }
     }
 
     public validatePasswordEquality(): void {
         try {
 
-            if (!this._passwordField.virginityField &&
-                !this._passwordRepeatField.virginityField) {
+            if (!this.password.virginity &&
+                !this.passwordRepeat.virginity) {
 
-                Validation.validatePasswordEquality(this._passwordField.getValue(),
-                    this._passwordRepeatField.getValue());
+                Validation.validatePasswordEquality(this.password.getValue(),
+                    this.passwordRepeat.getValue());
             }
 
-            this._passwordField.clearError();
+            this.password.clearError();
 
         } catch (passwordError) {
-            this._passwordField.setError(passwordError.errorText);
+            this.password.setError(passwordError.errorText);
         }
     }
 
@@ -98,9 +98,9 @@ class SignupForm extends Form{
         this.validateUsernameOnUnique();
         this.validatePassword();
 
-        return !this._usernameField.getErrorStatus() &&
-            !this._passwordField.getErrorStatus() &&
-            !this._passwordRepeatField.getErrorStatus();
+        return !this.username.getErrorStatus() &&
+            !this.password.getErrorStatus() &&
+            !this.passwordRepeat.getErrorStatus();
     }
 }
 

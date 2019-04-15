@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Roboto|Titillium+Web|IBM+Plex+Mono:300,500|Roboto:300|Jura:400,500,600&subset=cyrillic');
+
+@import "init";
+@import "reset";
+@import "html";
+@import "body";
+
+@import "options/ishidden";
+@import "options/isactive";
+@import "options/ispointer";
+
+@import "effects/color/color-yellow-hover";
+@import "effects/color/color-white-hover";
+@import "effects/light/light-s-white";
+@import "effects/light/light-l-yellow";
+@import "effects/transform/in-left";
+@import "effects/transform/out-left";
+@import "effects/transform/in-right";
+@import "effects/transform/out-right";
+@import "effects/transform/vanish-in";
+
+@import "container/base-container";
+@import "container/container";
+@import "container/container_theme_start";
+@import "container/container_theme_main";
+@import "container/container_theme_modal";
+@import "container/container_theme_straight";
+@import "container/container_theme_settings";
+@import "container/container_theme_settings-left";
+@import "container/container_theme_settings-right";
+@import "container/container_theme_game-menu";
+@import "container/container_theme_game-play";
+
+@import "background/background";
+@import "background/background_theme_base";
+@import "background/background_theme_nav-menu";
+@import "background/background_theme_popup";
+@import "background/background_theme_gamemenu";
+@import "background/background_theme_gamemenu-img";
+
+@import "logo/logo";
+@import "logo/logo_direction_top-right";
+@import "logo/main/main";
+@import "logo/main/main__theme_start";
+@import "logo/main/main__theme_main";
+@import "logo/postscript/postscript";
+@import "logo/postscript/postscript_theme_start";
+@import "logo/postscript/postscript_theme_main";
+
+@import "content/main-content";
+@import "content/modal-content";
+@import "content/modal-content_theme_straight";
+@import "content/description-content";
+@import "content/game-content";
+@import "content/start-content";
+
+@import "header/header";
+@import "header/header_direction_top-left";
+@import "header/item/item";
+
+@import "footer/footer";
+@import "footer/footer_direction_bottom";
+@import "footer/container-item/container-item.scss";
+@import "footer/container-item/container-item_size_s.scss";
+@import "footer/item/item";
+
+@import "buttons/button";
+@import "buttons/button_theme_main";
+@import "buttons/button_theme_submit";
+@import "buttons/button_theme_play";
+@import "buttons/options-button/options-button";
+@import "buttons/button_size_s";
+@import "buttons/full-screen-button/full-screen-button";
+@import "buttons/full-screen-button/full-screen-button_direction_top-right";
+@import "buttons/full-screen-button/content/content";
+@import "buttons/full-screen-button/content/content_direction_center";
+@import "buttons/nav-button/nav-button";
+@import "buttons/nav-button/line/line";
+@import "buttons/close-button/close-button";
+@import "buttons/close-button/close-button_theme-alert";
+@import "buttons/close-button/close-button_theme-modal";
+@import "buttons/back-button/back-button";
+
+@import "nav-menu/nav-menu";
+@import "nav-menu/container-item/container-item";
+@import "nav-menu/item/item";
+
+@import "alert/alert";
+@import "alert/alert_direction_top-right";
+@import "alert/content/content";
+@import "alert/content/content_theme_success";
+@import "alert/content/content_theme_error";
+
+@import "carousel/carousel";
+@import "carousel/item/item";
+@import "carousel/item/item_theme_prev";
+@import "carousel/item/item_theme_center";
+@import "carousel/item/item_theme_next";
+@import "carousel/item/image/image";
+@import "carousel/item/spinner/spinner";
+@import "carousel/item/spinner/spinner_size_s";
+@import "carousel/arrow/arrow";
+@import "carousel/arrow/arrow_direction_left";
+@import "carousel/arrow/arrow_direction_right";
+
+@import "form/form";
+@import "form/form_theme_popup";
+@import "form/form_theme_settings";
+@import "form/form_theme_editor";
+@import "form/logo/header";
+@import "form/logo/logo";
+@import "form/buttons/buttons";
+@import "form/buttons/button/button";
+
+@import "field/field";
+@import "field/header/header";
+@import "field/header/error/error";
+@import "field/main/main";
+@import "field/main/input/input";
+@import "field/main/label/label";
+@import "field/main/show-password/show-password";
+
+@import "avatar/avatar__text-content";
+@import "avatar/avatar__image";
+
+@import "photoLoader/photoLoader";
+@import "photoLoader/button/button";
+@import "photoLoader/form/form";
+@import "photoLoader/text/text";
+@import "photoLoader/resize/resize";
+@import "photoLoader/resize/button/button";
+@import "photoLoader/resize/image/image";
+@import "photoLoader/resize/frame/frame";
+@import "photoLoader/resize/frame/sliders/sliders";
+@import "photoLoader/footer/footer";
+
+@import "game-menu/header/header";
+@import "game-menu/header/logo/logo";
+@import "game-menu/options/options";
+@import "game-menu/options/container-item/container-item";
+@import "game-menu/options/item/item";
+@import "game-menu/line/line";
+@import "game-menu/main/main";
+@import "game-menu/main/content-left/content-left";
+@import "game-menu/main/content-left/content-left_theme_play";
+@import "game-menu/main/content-right/content-right";
+@import "game-menu/main/content-right/item/item";
+
+@import "table/table";
+@import "table/cell/cell";
+@import "table/types/types";
+@import "table/types/item/item";
+
+@import "pagination/pagination";
+@import "pagination/item/item";
+
+@import "game/item/item";
+@import "game/item/item_theme_editor";
+@import "game/item/item_theme_screen";
+@import "game/item/item_theme_rules";
+@import "game/item/item_theme_console";
+@import "game/container-item/container-item";
+@import "game/item/content/content";
+@import "game/item/content/content_theme_editor";
+@import "game/item/content/content_theme_screen";
+@import "game/item/content/content_theme_full-screen";
+@import "game/item/content/content_theme_rules";
+@import "game/item/content/content_theme_console";
+@import "game/item/content/console-item/console-item";
+@import "game/item/content/walkman/walkman";
+@import "game/item/content/walkman/container-item/container-item";
+@import "game/item/content/walkman/item/item";
+@import "game/item/content/walkman/progress-bar/progress-bar";
+@import "game/item/content/walkman/progress-bar/progress";
+@import "game/item/line/horizontal-line/line";
+@import "game/item/line/horizontal-line/outline";
+@import "game/item/line/vertical-line/line";
+@import "game/item/line/vertical-line/outline";
+@import "game/item/header/header";
+@import "game/pong/pong";

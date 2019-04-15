@@ -1,9 +1,9 @@
-tr
-    th #
-    th Player
-    th Score
+tr.table__row
+    th.table__cell #
+    th.table__cell Player
+    th.table__cell Score
 each user, index in users
-    tr
-        td= index + offset + 1
-        td= user.username
-        td= user.score
+    tr.table__row
+        td.table__cell= index + offset + 1
+        td.table__cell= user.username
+        td.table__cell= user.score

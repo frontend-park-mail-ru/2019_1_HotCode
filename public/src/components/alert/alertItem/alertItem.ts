@@ -5,22 +5,24 @@ class AlertItem extends Component {
 
     private static template = require('./alertItem.pug');
 
-    private _text: string;
-    private _id: number;
+    private static curId: number = 0;
 
-    private _closeButton: Button;
+    private text: string;
+    private id: number;
+
+    private closeButton: Button;
 
     constructor(el: HTMLElement, id: number, text = '') {
         super(el);
 
-        this._id = id;
-        this._text = text;
+        this.id = id;
+        this.text = text;
 
-        this._closeButton = new Button(this.el.querySelector(`#alert${this._id}`), () => {
+        this.closeButton = new Button(this.el.querySelector(`#alert${this.id}`), () => {
             this.closeItem();
         });
 
-        this._closeButton.onClick();
+        this.closeButton.onClick();
     }
 
 
@@ -30,11 +32,11 @@ class AlertItem extends Component {
 
         if (isError) {
 
-            alertWindow = Component.Create('div', ['alert__error']);
+            alertWindow = Component.Create('div', ['alert__content', 'alert__content_theme_error']);
 
         } else {
 
-            alertWindow = Component.Create('div', ['alert']);
+            alertWindow = Component.Create('div', ['alert__content', 'alert__content_theme_success']);
         }
 
         const uniqueId = AlertItem.getNextUniqueId();
@@ -55,9 +57,6 @@ class AlertItem extends Component {
     private closeItem(): void {
         this.hide();
     }
-
-
-    private static curId: number = 0;
 
     private static getNextUniqueId(): number {
         AlertItem.curId += 1;

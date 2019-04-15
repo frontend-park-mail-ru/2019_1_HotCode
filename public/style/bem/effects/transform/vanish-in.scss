@@ -1,0 +1,19 @@
+.vanish-in {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: vanish-in;
+}
+
+@keyframes vanish-in {
+  0% {
+    opacity: 0;
+    transform: scale(2, 2) rotate(-16.34deg) translate(-50%, -50%);
+    filter: blur(90px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1, 1) rotate(-16.34deg) translate(-50%, -50%);
+    filter: blur(0);
+  }
+}

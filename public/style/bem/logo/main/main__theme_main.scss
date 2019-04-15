@@ -1,0 +1,16 @@
+.logo__main_theme_main {
+  font-weight: 500;
+  font-size: 2.4em;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .logo__main_theme_main {
+    font-size: calc(1.5em + 0.4vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .logo__main_theme_main {
+    font-size: calc(1.5em + 0.4vw);
+  }
+}

@@ -24,19 +24,19 @@ class EventBus {
 
                 delete this.subscriptions[eventType][id];
 
-                if(Object.keys(this.subscriptions[eventType]).length === 0) {
+                if (Object.keys(this.subscriptions[eventType]).length === 0) {
                     delete this.subscriptions[eventType];
                 }
-            }
-        }
+            },
+        };
     }
 
     public publish(eventType: string, arg?: any): void {
-        if(!this.subscriptions[eventType])
+        if (!this.subscriptions[eventType])
             return;
 
         (Object.keys(this.subscriptions[eventType]))
-            .forEach(key => this.subscriptions[eventType][+key](arg));
+            .forEach((key) => this.subscriptions[eventType][+key](arg));
     }
 
 
@@ -46,7 +46,7 @@ class EventBus {
         return function getNextUniqueId(): number {
             lastId += 1;
             return lastId;
-        }
+        };
     }
 }
 

@@ -1,0 +1,16 @@
+.carousel{
+  position: relative;
+  width: 100%;
+  perspective: 800px;
+}
+
+.carousel::before {
+  content: '';
+  padding-top: 50%;
+  float: left;
+}
+.carousel::after {
+  content: '';
+  display: block;
+  clear: both;
+}

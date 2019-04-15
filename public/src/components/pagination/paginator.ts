@@ -3,169 +3,178 @@
 import Component from "../baseComponent/index";
 import EventBus from '../../modules/event-bus';
 import GameService from "../../services/game-service";
-import {events} from '../../utils/events';
+import {events} from '../../modules/utils/events';
 
 class Paginator extends Component{
 
-    private _pageCount: number;
-    private _activePage: number;
-    private _limit: number;
+    private pageCountField: number;
+    private activePageField: number;
+    private limit: number;
 
-    private _first: Component;
-    private _prev: Component;
-    private _pages: Component[];
-    private _next: Component;
-    private _last: Component;
+    private first: Component;
+    private prev: Component;
+    private pages: Component[];
+    private next: Component;
+    private last: Component;
 
-    constructor(el: HTMLElement, limit = 7) {
+    private chengePageCallback: (limit: number, offset: number) => void;
+
+    constructor(el: HTMLElement, limit = 7, chengePageCallback: (limit: number, offset: number) => void) {
         super(el);
 
-        this._pageCount = 0;
+        this.pageCountField = 0;
 
-        this._activePage = 1;
+        this.activePageField = 1;
 
-        this._limit = limit;
+        this.limit = limit;
 
 
-        this._first = new Component(this.el.querySelector('.pagination__first'));
+        this.first = new Component(this.el.querySelector('.pagination__first'));
 
-        this._prev = new Component(this.el.querySelector('.pagination__prev'));
+        this.prev = new Component(this.el.querySelector('.pagination__prev'));
 
-        this._pages = Array.from(this.el.querySelectorAll('.pagination__page'))
-            .map(page => new Component(<HTMLElement>page));
+        this.pages = Array.from(this.el.querySelectorAll('.pagination__page'))
+            .map((page) => new Component(page as HTMLElement));
 
-        this._next = new Component(this.el.querySelector('.pagination__next'));
+        this.next = new Component(this.el.querySelector('.pagination__next'));
 
-        this._last = new Component(this.el.querySelector('.pagination__last'));
+        this.last = new Component(this.el.querySelector('.pagination__last'));
 
+
+        this.chengePageCallback = chengePageCallback;
 
         this.onClick();
 
         EventBus.subscribe(events.chengePage, () => {
-            const offset = (this._activePage - 1) * this._limit;
+            const offset = (this.activePageField - 1) * this.limit;
 
-            GameService.getScores(1, this._limit, (this._activePage - 1) * this._limit)
-                .then(resp => {
+            this.chengePageCallback(this.limit, offset);
+            // GameService.getScores('pong', this.limit, (this.activePageField - 1) * this.limit)
+            //     .then((resp) => {
+            //
+            //         EventBus.publish(events.fillTable, {users: resp, offset});
+            //         return GameService.getCountUsers('pong');
+            //     })
+            //     .then((resp) => {
+            //
+            //         this.pageCountField = Math.floor((resp.count - 1) / this.limit + 1);
+            //     })
+            //     .catch(() => {
+            //         // console.log(err.message);
+            //     });
 
-                    EventBus.publish(events.fillTable, {users: resp, offset: offset});
-                    return GameService.getCountUsers(1);
-                })
-                .then(resp => {
-
-                    this._pageCount = Math.floor((resp.count - 1) / this._limit + 1);
-                })
-                .catch(() => {
-                    // console.log(err.message);
-                });
-
-            this.renderPaginator()
+            // this.renderPaginator();
         });
-
-        this.renderPaginator();
-
     }
 
     get pageCount() {
-        return this._pageCount;
+        return this.pageCountField;
     }
 
     set pageCount(value) {
-        this._pageCount = value;
-        EventBus.publish(events.chengePage, '');
+        this.pageCountField = value;
+        // EventBus.publish(events.chengePage, '');
     }
 
     get activePage() {
-        return this._activePage;
+        return this.activePageField;
     }
 
     set activePage(value) {
-        this._activePage = value;
-        EventBus.publish(events.chengePage, '');
+        this.activePageField = value;
+        // EventBus.publish(events.chengePage, '');
     }
 
-    public onClick(): void {
-        this._first.on('click', () => {
-            this._activePage = 1;
+    private onClick(): void {
+        this.first.on('click', () => {
+            this.activePageField = 1;
             EventBus.publish(events.chengePage, '');
         });
 
-        this._prev.on('click', () => {
-            this._activePage -= 1;
+        this.prev.on('click', () => {
+            this.activePageField -= 1;
             EventBus.publish(events.chengePage, '');
         });
 
-        this._next.on('click', () => {
-            this._activePage += 1;
+        this.next.on('click', () => {
+            this.activePageField += 1;
             EventBus.publish(events.chengePage, '');
         });
 
-        this._last.on('click', () => {
-            this._activePage = this._pageCount;
+        this.last.on('click', () => {
+            this.activePageField = this.pageCountField;
             EventBus.publish(events.chengePage, '');
         });
 
-        this._pages.map(page => {
+        this.pages.map((page) => {
             page.on('click', (e) => {
-                this._activePage = +(<HTMLElement>e.target).innerText;
+                this.activePageField = +(e.target as HTMLElement).innerText;
                 EventBus.publish(events.chengePage, '');
-            })
-        })
+            });
+        });
     }
 
     private getAccessPages(): number[] {
-        const border = (this._pages.length - 1) / 2;
+        const border = (this.pages.length - 1) / 2;
         const pages = [];
 
-        for (let i = this._activePage - border; i <= this._activePage + border; i++) {
+        for (let i = this.activePageField - border; i <= this.activePageField + border; i++) {
             pages.push(i);
         }
 
-        return pages.filter(page => {
-            return page >= 1 && page <= this._pageCount;
-        })
+        return pages.filter((page) => {
+            return page >= 1 && page <= this.pageCountField;
+        });
     }
 
-    private renderPaginator(): void {
-        if (this._activePage > 1) {
+    public renderPaginator(): void {
+        // if (this.activePageField <= 1 && this.activePageField > this.pageCountField) {
+        //     this.hide();
+        //     return;
+        // } else {
+        //     this.show();
+        // }
 
-            this._first.show();
-            this._prev.show();
+        if (this.activePageField > 1) {
 
-        } else {
-
-            this._first.hide();
-            this._prev.hide();
-        }
-
-
-        if (this._activePage < this._pageCount) {
-
-            this._next.show();
-            this._last.show();
+            this.first.show();
+            this.prev.show();
 
         } else {
 
-            this._next.hide();
-            this._last.hide();
+            this.first.hide();
+            this.prev.hide();
         }
 
-        let pages = this.getAccessPages();
+
+        if (this.activePageField < this.pageCountField) {
+
+            this.next.show();
+            this.last.show();
+
+        } else {
+
+            this.next.hide();
+            this.last.hide();
+        }
+
+        const pages = this.getAccessPages();
 
         let i = 0;
         for (; i < pages.length; i++) {
 
-            if (pages[i] !== this._activePage) {
-                this._pages[i].disactive();
+            if (pages[i] !== this.activePageField) {
+                this.pages[i].disactive();
             } else {
-                this._pages[i].active();
+                this.pages[i].active();
             }
 
-            this._pages[i].show();
-            this._pages[i].setText(pages[i].toString());
+            this.pages[i].show();
+            this.pages[i].setText(pages[i].toString());
         }
 
-        for (; i < this._pages.length; i++) {
-            this._pages[i].hide();
+        for (; i < this.pages.length; i++) {
+            this.pages[i].hide();
         }
     }
 }

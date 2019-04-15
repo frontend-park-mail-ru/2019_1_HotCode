@@ -1,0 +1,13 @@
+.play__item__content__walkmen__progress-bar {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba($fontColorYellow, 0.5);
+}
+
+.play__item__content_theme_screen:hover .play__item__content__walkmen__progress-bar {
+  height: 6px;
+}

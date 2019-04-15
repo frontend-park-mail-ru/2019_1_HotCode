@@ -1,0 +1,13 @@
+.header {}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .header {
+    display: none;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .header {
+    display: none;
+  }
+}

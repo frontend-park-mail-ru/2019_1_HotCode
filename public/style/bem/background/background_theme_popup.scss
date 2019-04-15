@@ -1,0 +1,8 @@
+.background_theme_popup {
+  width: auto;
+  height: auto;
+
+  z-index: 10;
+  background: $backgroundColorBack;
+  backdrop-filter: blur(14px);
+}

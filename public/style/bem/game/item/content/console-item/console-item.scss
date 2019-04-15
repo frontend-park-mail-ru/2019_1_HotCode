@@ -1,0 +1,4 @@
+.play__item__content__console-item::before {
+  content: 'console:~$ ';
+  color: $fontColorYellow;
+}

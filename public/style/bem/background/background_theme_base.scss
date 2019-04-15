@@ -1,0 +1,10 @@
+.background_theme_base {
+  width: auto;
+  height: auto;
+
+  z-index: -150;
+  background: linear-gradient(230.08deg,
+          $backgroundColor -11.62%,
+          $backgroundColor2 50.77%,
+          $backgroundColor3 160.07%);
+}

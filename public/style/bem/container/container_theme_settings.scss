@@ -1,0 +1,40 @@
+.container_theme_settings {
+  position: absolute;
+  top: 15.23%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+@media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {
+  .container_theme_settings {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .container_theme_settings {
+    position: fixed;
+
+    left: 50%;
+    top: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    padding-top: 9vh;
+    z-index: 1;
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
+
+    background: $backgroundColor5;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .container_theme_settings {
+    top: 0;
+    padding: 5% 0;
+    box-shadow: 0 0 43px 1px rgba(0, 0, 0, 0.71);
+    background: $backgroundColor5;
+  }
+}

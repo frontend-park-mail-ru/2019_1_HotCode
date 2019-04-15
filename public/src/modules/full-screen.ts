@@ -1,4 +1,4 @@
-interface FsDocument extends HTMLDocument {
+interface IFsDocument extends HTMLDocument {
     fullscreenElement?: Element;
     mozFullScreenElement?: Element;
     msFullscreenElement?: Element;
@@ -9,21 +9,24 @@ interface FsDocument extends HTMLDocument {
 }
 
 export function isFullScreen(): boolean {
-    const fsDoc = <FsDocument> document;
+    const fsDoc = document as IFsDocument;
 
-    return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
+    return !!(fsDoc.fullscreenElement ||
+        fsDoc.mozFullScreenElement ||
+        fsDoc.webkitFullscreenElement ||
+        fsDoc.msFullscreenElement);
 }
 
-interface FsDocumentElement extends HTMLElement {
+interface IFsDocumentElement extends HTMLElement {
     msRequestFullscreen?: () => void;
     mozRequestFullScreen?: () => void;
     webkitRequestFullscreen?: () => void;
 }
 
 export function activeFullScreen(): void {
-    const fsDocElem = <FsDocumentElement> document.documentElement;
+    const fsDocElem = document.documentElement as IFsDocumentElement;
 
-    if(!isFullScreen()) {
+    if (!isFullScreen()) {
 
         if (fsDocElem.requestFullscreen) {
             fsDocElem.requestFullscreen();
@@ -48,9 +51,9 @@ export function activeFullScreen(): void {
 }
 
 export function cancselFullScreen(): void {
-    const fsDoc = <FsDocument> document;
+    const fsDoc = document as IFsDocument;
 
-    if(isFullScreen()) {
+    if (isFullScreen()) {
 
         if (fsDoc.exitFullscreen) {
             fsDoc.exitFullscreen();

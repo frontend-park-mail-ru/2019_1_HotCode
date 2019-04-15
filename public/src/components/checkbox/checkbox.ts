@@ -8,32 +8,40 @@ import InputComponent from "../baseComponent/inputComponent";
  */
 class Checkbox extends InputComponent{
 
-    private _callbackOnCancel: (param?: any) => any;
+    private callbackOnCancelField: (param?: any) => any;
 
     constructor(el: HTMLElement,
-                callbackOnCheck = () => {},
-                callbackOnCancel = () => {})
+                callbackOnCheck: () => void,
+                callbackOnCancel: () => void)
     {
+        callbackOnCheck = callbackOnCheck ? callbackOnCheck : () => {
+            return;
+        };
+
+        callbackOnCancel = callbackOnCancel ? callbackOnCancel : () => {
+            return;
+        };
+
         super(el, callbackOnCheck);
-        this._callbackOnCancel = callbackOnCancel;
+        this.callbackOnCancelField = callbackOnCancel;
     }
 
     get callbackOnCancel() {
-        return this._callbackOnCancel;
+        return this.callbackOnCancelField;
     }
 
     set callbackOnCancel(value) {
-        this._callbackOnCancel = value;
+        this.callbackOnCancelField = value;
     }
 
     public onChange(): void {
         this.on('change', (event) => {
 
-            if ((<HTMLInputElement>event.target).checked) {
+            if ((event.target as HTMLInputElement).checked) {
                 return this.callback();
             }
 
-            return this._callbackOnCancel();
+            return this.callbackOnCancelField();
         });
     }
 }

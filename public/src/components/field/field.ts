@@ -1,6 +1,7 @@
 'use strict';
 
 import Component from '../baseComponent/index';
+import Checkbox from '../checkbox/checkbox';
 
 /**
  * Field Component for inputs
@@ -8,11 +9,13 @@ import Component from '../baseComponent/index';
  */
 class Field extends Component{
 
-    private _input: Component;
-    private _label: Component;
-    private _errorField: Component;
+    private input: Component;
+    private label: Component;
+    private errorField: Component;
 
-    private _virginityField: boolean;
+    private virginityField: boolean;
+
+    private showPasswordCheckbox: Checkbox;
 
     constructor(el: HTMLElement,
                 input?: HTMLElement,
@@ -21,59 +24,91 @@ class Field extends Component{
     {
         super(el);
 
-        this._input = new Component(input ||
-            this.el.getElementsByTagName('input')[0]);
+        this.input = new Component(input ||
+            this.el.querySelector('.field__main__input'));
 
-        this._label = new Component(label ||
-            this.el.querySelector('.form__label'));
+        this.label = new Component(label ||
+            this.el.querySelector('.field__main__label'));
 
-        this._errorField = new Component(errorField ||
-            this.el.querySelector('.form__error'));
+        this.errorField = new Component(errorField ||
+            this.el.querySelector('.field__header__error'));
 
-        this._virginityField = true;
+        this.virginityField = true;
 
-        this._input.on('focus', () => this._virginityField = false );
+        if (this.input.el) {
+            this.input.on('focus', () => this.virginityField = false);
+        }
+
+        if (this.input.el && (this.input.el as HTMLInputElement).type === 'password') {
+            this.showPasswordCheckbox = new Checkbox(this.el.querySelector('input[type="checkbox"]'),
+                () => {
+                    (this.input.el as HTMLInputElement).type = 'text';
+                },
+                () => {
+                    (this.input.el as HTMLInputElement).type = 'password';
+                });
+            this.showPasswordCheckbox.onChange();
+        }
     }
 
-    get virginityField(): boolean {
-        return this._virginityField;
+    get virginity(): boolean {
+        return this.virginityField;
     }
 
     public onFocus(callback: () => void): void {
-        this._input.on('focus', callback);
+        if (this.input.el) {
+            this.input.on('focus', callback);
+        }
     }
 
     public onInput(callback: () => void): void {
-        this._input.on('input', callback);
+        if (this.input.el) {
+            this.input.on('input', callback);
+        }
     }
 
     public onBlur(callback: () => void): void {
-        this._input.on('blur', callback);
+        if (this.input.el) {
+            this.input.on('blur', callback);
+        }
     }
 
     public getValue(): string {
-        return (<HTMLInputElement>this._input.el).value;
+        if (this.input.el) {
+            return (this.input.el as HTMLInputElement).value;
+        }
     }
 
     public setValue(value: string): void {
-        (<HTMLInputElement>this._input.el).value = value;
+        if (this.input.el) {
+            (this.input.el as HTMLInputElement).value = value;
+        }
     }
 
     public clearValue(): void {
-        (<HTMLInputElement>this._input.el).value = '';
+        if (this.input.el) {
+            (this.input.el as HTMLInputElement).value = '';
+        }
     }
 
     public setError(errorText: string): void {
-        this._errorField.setText(errorText);
+        if (this.errorField.el) {
+            this.errorField.setText(errorText);
+        }
     }
 
     public clearError(): void {
-        this._errorField.setText('');
+        if (this.errorField.el) {
+            this.errorField.setText('');
+        }
     }
 
     // false - валидное поле; true - ошибка
     public getErrorStatus(): boolean {
-        return !!this._errorField.el.innerText;
+        if (this.errorField.el) {
+            return !!this.errorField.el.innerText;
+        }
+        return false;
     }
 }
 

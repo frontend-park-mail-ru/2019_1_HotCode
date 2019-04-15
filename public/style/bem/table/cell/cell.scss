@@ -1,0 +1,9 @@
+.table__cell {
+  font-weight: 300;
+  padding: 10px 40px;
+  border: 2px solid $fontColorWhite;
+}
+
+.table__cell:first-child {
+  padding: 10px 7px;
+}

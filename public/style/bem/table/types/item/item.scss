@@ -1,0 +1,12 @@
+.table__types__item {
+  margin-right: 3.75%;
+
+  font-family: $fontFamaly2;
+  color: $fontColorGray;
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.table__types__item:last-child {
+  margin-right: 0;
+}

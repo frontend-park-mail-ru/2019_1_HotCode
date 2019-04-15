@@ -1,0 +1,27 @@
+.nav-button__line {
+  display: block;
+  position: absolute;
+  top: 19px;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: $fontColorWhite;
+}
+
+.nav-button__line:before, .nav-button__line:after {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: $fontColorWhite;
+}
+
+.nav-button__line:before {
+  top: -10px;
+}
+
+.nav-button__line:after {
+  bottom: -10px;
+}
