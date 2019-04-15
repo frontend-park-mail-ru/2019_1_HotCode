@@ -1,0 +1,23 @@
+.nav-button {
+  position: fixed;
+  left: 32px;
+  bottom: 32px;
+  display: none;
+  width: 46px;
+  height: 40px;
+  z-index: 12;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .nav-button {
+    display: block;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .nav-button {
+    display: block;
+  }
+}

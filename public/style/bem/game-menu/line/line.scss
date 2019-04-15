@@ -1,0 +1,8 @@
+.game-menu__line {
+  position: relative;
+  left: -9px;
+  height: 0;
+  width: calc(100% + 9px);
+  margin: 16px 0;
+  border-bottom: 2px solid $fontColorWhite;
+}

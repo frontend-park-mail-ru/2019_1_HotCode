@@ -1,36 +1,42 @@
 'use strict';
 
 import Http from '../modules/http';
-import Paths from '../utils/pathConfig';
 import Game from "../models/game";
+import {gamePaths} from './utils/paths';
 
 class GameService {
 
-    static getScores(id: number, limit: number, offset: number): Promise<any> {
+    public static getScores(slug: string, limit: number, offset: number): Promise<any> {
 
-        return Http.Get(`${Paths.paths.game}/${id}/leaderboard?offset=${offset}&limit=${limit}`);
+        return Http.Get(`${gamePaths.getScorePath}/${slug}/leaderboard?offset=${offset}&limit=${limit}`);
     }
 
 
-    static getCountUsers(id: number): Promise<any> {
+    public static getCountUsers(slug: string): Promise<any> {
 
-        return Http.Get(`${Paths.paths.game}/${id}/leaderboard/count`);
+        return Http.Get(`${gamePaths.getCountUsersPath}/${slug}/leaderboard/count`);
     }
 
 
-    static getGames(): Promise<any> {
+    public static getGames(): Promise<any> {
 
-        return Http.Get(Paths.paths.game);
+        return Http.Get(gamePaths.getGamesPath);
     }
 
 
-    static getGame(id: number): Promise<any> {
+    public static getGame(slug: string): Promise<any> {
 
-        return Http.Get(`${Paths.paths.game}/${id}`)
-            .then(resp => {
+        return Http.Get(`${gamePaths.getGamePath}/${slug}`)
+            .then((resp) => {
 
-                Game.id = resp.id;
-                Game.name = resp.title;
+                Game.slug = resp.slug;
+                Game.title = resp.title;
+                Game.backgrondUUID = resp.background_uuid;
+                Game.logoUUID = resp.logo_uuid;
+                Game.description = resp.description;
+                Game.rules = resp.rules;
+                Game.codeExample = resp.code_example;
+
                 return resp;
             });
     }

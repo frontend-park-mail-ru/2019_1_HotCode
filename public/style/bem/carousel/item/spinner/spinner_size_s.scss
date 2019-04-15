@@ -1,0 +1,15 @@
+.carousel__item__spinner_size_s{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 10vw;
+  width: 10vw;
+  margin: -5vw 0 0 -5vw;
+  border: 3px solid transparent;
+  border-top-color: $fontColorYellow;
+  border-bottom-color: $fontColorWhite;
+  border-radius: 50%;
+  z-index: 2;
+  animation: spin 2s linear infinite;
+}

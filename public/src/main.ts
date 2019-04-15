@@ -1,7 +1,22 @@
 'use strict';
 
-import '../style/index.scss';
-import BaseView from './views/baseView/baseView';
+import '../style/bem/style.scss';
+import ViewService from './services/view-service';
 
-const base = new BaseView();
-base.render();
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.register(
+        'worker.js',
+        {scope: '/'},
+    ).then((registration) => {
+
+        console.log('ServiceWorker registration', registration);
+
+    }).catch((err) => {
+
+        console.log('ServiceWorker error: ' + err);
+    });
+}
+
+
+ViewService.start();
+ViewService.goTo(window.location.pathname);

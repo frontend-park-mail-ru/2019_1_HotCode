@@ -1,0 +1,15 @@
+.form_theme_popup { // TODO Убрать этот костыль
+  margin-bottom: 27.22%;
+}
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .form_theme_popup {
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .form_theme_popup {
+    margin-bottom: 0;
+  }
+}

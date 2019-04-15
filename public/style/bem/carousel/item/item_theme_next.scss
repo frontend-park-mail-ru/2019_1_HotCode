@@ -1,0 +1,20 @@
+.carousel__item_theme_next {
+  left: 25%;
+  z-index: -1;
+  transform-origin: right center;
+  transform: rotateY(-30deg) scale(0.75);
+}
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .carousel__item_theme_next {
+    left: auto;
+    top: -25%;
+    transform: rotateX(-30deg) scale(0.75);
+    transform-origin: top center;
+    border-radius: 1.25vh;
+  }
+
+  .carousel__item_theme_next * {
+    border-radius: 1.25vh;
+  }
+}

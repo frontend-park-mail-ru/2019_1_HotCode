@@ -1,0 +1,35 @@
+.photo-loader__resize__frame__sliders {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: gold;
+}
+
+.photo-loader__resize__frame__sliders_direction_left-top {
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  cursor: nw-resize;
+}
+
+.photo-loader__resize__frame__sliders_direction_left-bottom {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+  cursor: sw-resize;
+}
+
+.photo-loader__resize__frame__sliders_direction_right-bottom {
+  right: 0;
+  bottom: 0;
+
+  transform: translate(50%, 50%);
+  cursor: se-resize;
+}
+
+.photo-loader__resize__frame__sliders_direction_right-top {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  cursor: ne-resize;
+}

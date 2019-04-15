@@ -1,0 +1,25 @@
+body {
+  font-family: $fontFamaly;
+  font-size: $DefaultFontSize;
+  color: $fontColorWhite;
+  -webkit-text-size-adjust: none;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  body {
+    font-weight: normal;
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  body {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {
+  body {
+    font-size: 18px;
+  }
+}

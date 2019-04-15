@@ -1,0 +1,19 @@
+.full-screen_button_direction_top-right {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .full-screen_button_direction_top-right {
+    bottom: 0;
+    top: auto;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .full-screen_button_direction_top-right {
+    bottom: 0;
+    top: auto;
+  }
+}

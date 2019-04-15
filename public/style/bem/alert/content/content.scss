@@ -1,0 +1,15 @@
+.alert__content {
+  position: relative;
+  width: 27vw;
+  min-width: 350px;
+  padding: 5% 10% 5% 5%;
+  margin-bottom: 1vw;
+  background: $backgroundColor2;
+  border-radius: 0.7em;
+  font-size: 0.75em;
+  line-height: 1.15;
+}
+
+.alert__content:first-child {
+  margin-bottom: 0;
+}

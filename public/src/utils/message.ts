@@ -2,35 +2,35 @@
 
 class Message {
 
-    private _text: string;
+    private textField: string;
 
-    static accessError(): string {
+    public static accessError(): string {
         return 'You are not authorized. Please login';
     }
 
-    static emptyFormError(): string {
+    public static emptyFormError(): string {
         return 'You have not changed data';
     }
 
-    static fileFormatError(): string {
+    public static fileFormatError(): string {
         return 'Incorrect data transfer format. The following formats are allowed: png, jpg, gif';
     }
 
-    static successfulUpdate(): string {
+    public static successfulUpdate(): string {
         return 'Your data has been successfully updated.';
     }
 
     constructor(text: string) {
-        this._text = text;
+        this.textField = text;
     }
 
     get text() {
-        return this._text;
+        return this.textField;
     }
 
     set text(value) {
-        this._text = value;
+        this.textField = value;
     }
 }
 
-export default Message
+export default Message;

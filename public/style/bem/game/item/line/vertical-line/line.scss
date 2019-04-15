@@ -1,0 +1,13 @@
+.play__item__vertical-line {
+  position: absolute;
+  top: 0;
+  right: -1.5%;
+  height: 100%;
+  width: 0;
+  transform: translateX(50%);
+  border-right: 1.5px solid $fontColorWhite;
+}
+
+.play__item__vertical-line:hover {
+  border-right: 1.5px solid $fontColorYellow;
+}

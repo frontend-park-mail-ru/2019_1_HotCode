@@ -9,12 +9,16 @@ import EventBus from '../../modules/event-bus';
  */
 abstract class InputComponent extends Component{
 
-    private _callback: (param?: any) => any;
+    private callbackField: (param?: any) => any;
 
-    constructor(el: HTMLElement, callback = () => {}) {
+    constructor(el: HTMLElement, callback: () => void) {
         super(el);
 
-        this._callback = callback;
+        callback = callback ? callback : () => {
+            return;
+        };
+
+        this.callbackField = callback;
 
         EventBus.subscribe(`${this.getId()}`, () => {
             this.emit();
@@ -22,15 +26,15 @@ abstract class InputComponent extends Component{
     }
 
     get callback() {
-        return this._callback;
+        return this.callbackField;
     }
 
     set callback(callback) {
-        this._callback = callback;
+        this.callbackField = callback;
     }
 
     public emit(): any {
-        return this._callback();
+        return this.callbackField();
     }
 
     public getId(): string{
@@ -39,12 +43,17 @@ abstract class InputComponent extends Component{
 
     public hideAllReferences(): void {
         Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
-            .map(reference => (new Component(<HTMLElement>reference)).hide());
+            .map((reference) => (new Component(reference as HTMLElement)).hide());
     }
 
     public showAllReferences(): void {
         Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
-            .map(reference => (new Component(<HTMLElement>reference)).show());
+            .map((reference) => (new Component(reference as HTMLElement)).show());
+    }
+
+    public clearAllReferences(): void {
+        Array.from(document.querySelectorAll(`label[for=${this.getId()}]`))
+            .map((reference) => (new Component(reference as HTMLElement)).clear());
     }
 
 }

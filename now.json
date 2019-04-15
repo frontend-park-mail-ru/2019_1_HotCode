@@ -1,8 +1,12 @@
 {
   "name": "warscript",
   "version": 2,
+  "public": false,
   "builds": [
-    { "src": "./dist/**/*", "use": "@now/static" }
+    {
+      "src": "package.json",
+      "use": "@now/static-build"
+    }
   ],
   "alias": ["warscript.now.sh"]
 }

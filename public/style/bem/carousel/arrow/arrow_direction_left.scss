@@ -1,0 +1,11 @@
+.carousel__arrow_direction_left {
+  left: 0;
+}
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .carousel__arrow_direction_left {
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 100%) rotate(-90deg);
+  }
+}

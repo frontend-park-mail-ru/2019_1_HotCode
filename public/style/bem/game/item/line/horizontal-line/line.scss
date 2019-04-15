@@ -1,0 +1,11 @@
+.play__item__horizontal-line {
+  position: relative;
+  height: 0;
+  width: 100%;
+  margin-top: 2%;
+  border-bottom: 1.5px solid $fontColorWhite;
+}
+
+.play__item__horizontal-line:hover {
+  border-bottom: 1.5px solid $fontColorYellow;
+}

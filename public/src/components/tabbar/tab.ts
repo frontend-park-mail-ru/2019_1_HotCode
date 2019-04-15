@@ -2,21 +2,26 @@
 
 import InputComponent from "../baseComponent/inputComponent";
 
-class Tab extends InputComponent{
+class Tab extends InputComponent {
 
-    constructor(el: HTMLElement, callback = () => {}) {
+    constructor(el: HTMLElement, callback?: () => void ) {
+
+        callback = callback ? callback : () => {
+            return;
+        };
+
         super(el, callback);
     }
 
     public isChecked(): boolean {
-        return (<HTMLInputElement>this.el).checked;
+        return (this.el as HTMLInputElement).checked;
     }
 
     public emit(): void {
         super.emit();
 
         if (!this.isChecked()) {
-            (<HTMLInputElement>this.el).checked = true;
+            (this.el as HTMLInputElement).checked = true;
         }
     }
 }

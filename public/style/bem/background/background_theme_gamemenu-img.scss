@@ -1,0 +1,9 @@
+.background_theme_gamemenu-img {
+  width: calc(100% + 200px);
+  height: calc(100% + 160px);
+
+  z-index: -100;
+  filter: blur(14px);
+
+  transition: all 0s ease 0s;
+}

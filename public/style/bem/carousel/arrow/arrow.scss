@@ -1,0 +1,24 @@
+.carousel__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  width: 7.66%;
+  min-width: 35.45px;
+  min-height: 86.05px;
+  transform: translate(-200%, -50%);
+}
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .carousel__arrow {
+    min-width: 0;
+    min-height: 0;
+    top: auto;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape)  {
+  .carousel__arrow {
+    min-width: 0;
+    min-height: 0;
+  }
+}

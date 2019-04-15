@@ -3,24 +3,22 @@ import Tab from './tab';
 
 class Tabbar extends Component {
 
-    private _tabbarContent: Component;
-    private _tabs: Tab[];
+    private tabs: Tab[];
 
     constructor(el: HTMLElement, callbacks: {[key: string]: () => void}) {
         super(el);
 
-        this._tabbarContent = new Component(this.el.querySelector('div'));
+        this.tabs = Array.from(this.el.querySelectorAll('input[type="radio"]'))
+            .map((tab) => new Tab(tab as HTMLElement));
 
-        this._tabs = Array.from(this.el.querySelectorAll('input[type="radio"]')).map(tab => new Tab(<HTMLElement>tab));
-
-        for (let tabId in callbacks) {
+        for (const tabId of Object.keys(callbacks)) {
             this.getTabById(tabId).callback = callbacks[tabId];
         }
     }
 
     public onChange(): void {
         this.on('change', (event) => {
-            if ((<HTMLInputElement>event.target).checked) {
+            if ((event.target as HTMLInputElement).checked) {
 
                 const currentStateOfTabbar = new Component(this.el.querySelector('input:checked'));
 
@@ -30,7 +28,7 @@ class Tabbar extends Component {
     }
 
     private getTabById(id: string): Tab {
-        return this._tabs.filter(tab => tab.getId() === id)[0];
+        return this.tabs.filter((tab) => tab.getId() === id)[0];
     }
 
 }

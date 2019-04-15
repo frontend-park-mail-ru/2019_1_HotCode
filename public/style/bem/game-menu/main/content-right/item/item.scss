@@ -1,0 +1,20 @@
+.game-menu__main__content-right__item{
+  width: 100%;
+  min-width: 360px;
+  min-height: 240px;
+  box-sizing: border-box;
+
+  border: 2px solid #FFD700;
+  border-radius: 15px;
+}
+
+.game-menu__main__content-right__item::before {
+  content: '';
+  padding-top: 50%;
+  float: left;
+}
+.game-menu__main__content-right__item::after {
+  content: '';
+  display: block;
+  clear: both;
+}
