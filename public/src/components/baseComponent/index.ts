@@ -81,6 +81,10 @@ class Component {
         };
     }
 
+    public render(param?: any): any {
+
+    }
+
     public clear(): void {
         this.el.innerHTML = '';
     }

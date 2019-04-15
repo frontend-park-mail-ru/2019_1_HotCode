@@ -59,7 +59,7 @@ class Carousel extends Component{
         return this.centerItem;
     }
 
-    private render(items: Array<{[key: string]: string | number}>): void {
+    public render(items: Array<{[key: string]: string | number}>): void {
         this.el.innerHTML = Carousel.template({games: items});
 
         this.leftArrow = new Component(this.el.querySelector('.carousel__arrow_direction_left'));

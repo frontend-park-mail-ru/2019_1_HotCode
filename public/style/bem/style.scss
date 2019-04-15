@@ -24,6 +24,7 @@
 @import "container/container_theme_start";
 @import "container/container_theme_main";
 @import "container/container_theme_modal";
+@import "container/container_theme_straight";
 @import "container/container_theme_settings";
 @import "container/container_theme_settings-left";
 @import "container/container_theme_settings-right";
@@ -48,6 +49,7 @@
 
 @import "content/main-content";
 @import "content/modal-content";
+@import "content/modal-content_theme_straight";
 @import "content/description-content";
 @import "content/game-content";
 @import "content/start-content";
@@ -120,6 +122,17 @@
 
 @import "avatar/avatar__text-content";
 @import "avatar/avatar__image";
+
+@import "photoLoader/photoLoader";
+@import "photoLoader/button/button";
+@import "photoLoader/form/form";
+@import "photoLoader/text/text";
+@import "photoLoader/resize/resize";
+@import "photoLoader/resize/button/button";
+@import "photoLoader/resize/image/image";
+@import "photoLoader/resize/frame/frame";
+@import "photoLoader/resize/frame/sliders/sliders";
+@import "photoLoader/footer/footer";
 
 @import "game-menu/header/header";
 @import "game-menu/header/logo/logo";

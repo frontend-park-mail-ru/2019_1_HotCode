@@ -6,6 +6,7 @@ import Validation from "./utils/validation";
 import ImageInput from "../imageInput/imageInput";
 import Component from "../baseComponent/index";
 import User from '../../models/user';
+import PhotoLoader from '../photoLoader/photoLoader';
 
 /**
  * SettingsForm Component for SettingsForm
@@ -17,7 +18,7 @@ class SettingsForm extends Form{
     private oldPassword: Field;
     private newPassword: Field;
     private repeatNewPassword: Field;
-    private avatar: ImageInput;
+    private photoLoaderField: PhotoLoader;
 
     constructor(el: HTMLElement) {
         super(el);
@@ -32,24 +33,7 @@ class SettingsForm extends Form{
 
         this.oldPassword = new Field(fields[3]);
 
-        this.avatar = new ImageInput(this.el.querySelector('#avatar'), (event) => {
-            const avatar = event.target.files[0];
-
-            if (avatar && avatar.type.startsWith('image/')) {
-
-                const image = new Component(this.el.querySelector('.avatar__image'));
-                image.show();
-                (image.el as HTMLImageElement).src = avatar;
-
-                const reader = new FileReader();
-                reader.onload = ((aImg) => {
-                    return (e: Event) => {
-                        (aImg as HTMLImageElement).src = (e.target as any).result;
-                    };
-                })(image.el);
-                reader.readAsDataURL(avatar);
-            }
-        });
+        this.photoLoaderField = new PhotoLoader(Component.Create().el);
     }
 
     get usernameField(): Field {
@@ -68,8 +52,8 @@ class SettingsForm extends Form{
         return this.repeatNewPassword;
     }
 
-    get avatarField(): ImageInput {
-        return this.avatar;
+    get photoLoader(): PhotoLoader {
+        return this.photoLoaderField;
     }
 
     public validateUsername(): void {
@@ -113,17 +97,13 @@ class SettingsForm extends Form{
     public validateNewPassword(): void {
         try {
 
-            if (this.oldPassword.getValue()) {
+            Validation.validatePassword(this.newPassword.getValue());
 
-                Validation.validatePassword(this.newPassword.getValue());
+            if (!this.newPassword.virginity &&
+                !this.repeatNewPassword.virginity) {
 
-                if (!this.newPassword.virginity &&
-                    !this.repeatNewPassword.virginity) {
-
-                    Validation.validatePasswordEquality(this.newPassword.getValue(),
-                        this.repeatNewPassword.getValue());
-                }
-
+                Validation.validatePasswordEquality(this.newPassword.getValue(),
+                    this.repeatNewPassword.getValue());
             }
 
             this.newPassword.clearError();
@@ -134,8 +114,7 @@ class SettingsForm extends Form{
 
     public validateNewPasswordEquality(): void {
         try {
-            if (this.oldPassword.getValue() &&
-                !this.newPassword.virginity &&
+            if (!this.newPassword.virginity &&
                 !this.repeatNewPassword.virginity) {
 
                 Validation.validatePasswordEquality(this.newPassword.getValue(),

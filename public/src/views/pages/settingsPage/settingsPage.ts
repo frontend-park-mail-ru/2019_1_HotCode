@@ -12,7 +12,9 @@ import {events} from '../../../modules/utils/events';
 import Message from '../../../utils/message';
 import Page from '../page';
 import Button from '../../../components/button/button';
-import ViewService from '../../../services/view-service';
+import Checkbox from '../../../components/checkbox/checkbox';
+import Modal from '../../../components/modal/modal';
+import PhotoLoader from '../../../components/photoLoader/photoLoader';
 
 class SettingsPage extends Page {
 
@@ -20,6 +22,8 @@ class SettingsPage extends Page {
 
     private settingsForm: SettingsForm;
     private settingsBack: Button;
+    private chooseAvatarButton: Checkbox;
+    private chooseAvatarModal: Modal;
 
     private onNewPassword: {[key: string]: () => void};
 
@@ -38,6 +42,23 @@ class SettingsPage extends Page {
         this.settingsBack.onClick();
 
         this.settingsForm = new SettingsForm(this.parent.el.querySelector('.form_theme_settings'));
+
+        this.chooseAvatarModal = new Modal(
+            this.parent.el.querySelector('.modal__window_theme_settings'),
+            'choose-avatar',
+        );
+
+        this.chooseAvatarModal.content = this.settingsForm.photoLoader;
+
+        this.chooseAvatarButton = new Checkbox(this.parent.el.querySelector('#choose-avatar'),
+                () => {
+                    this.chooseAvatarModal.render();
+                },
+                () => {
+                    this.chooseAvatarModal.clear();
+                },
+            );
+        this.chooseAvatarButton.onChange();
 
         this.onNewPassword = EventBus.subscribe(events.onNewPassword, () => {
 
@@ -93,9 +114,6 @@ class SettingsPage extends Page {
             this.settingsForm.validateNewPasswordEquality();
         });
 
-
-        this.settingsForm.avatarField.onChange();
-
         this.settingsForm.onSubmit((event) => {
             event.preventDefault();
 
@@ -107,7 +125,7 @@ class SettingsPage extends Page {
             const oldPassword = this.settingsForm.oldPasswordField.getValue();
             const newPassword = this.settingsForm.newPasswordField.getValue();
 
-            const avatar: File = this.settingsForm.avatarField.getFile();
+            const avatar: File = this.settingsForm.photoLoader.resultFile;//this.settingsForm.photoLoader.resultFile64 ;
 
             if (this.settingsForm.validate()) {
 
