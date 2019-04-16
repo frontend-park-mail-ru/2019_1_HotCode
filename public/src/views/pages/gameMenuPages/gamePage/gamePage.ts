@@ -81,8 +81,7 @@ class GamePage extends Page{
             this.editorPanel.el.style.width =
                 e.pageX -
                 (this.editorPanel.el.offsetLeft +
-                    shiftX -
-                    this.editorLine.el.offsetWidth / 4) +
+                    shiftX) +
                 'px';
         };
     };
