@@ -125,7 +125,7 @@ class SettingsPage extends Page {
             const oldPassword = this.settingsForm.oldPasswordField.getValue();
             const newPassword = this.settingsForm.newPasswordField.getValue();
 
-            const avatar: File = this.settingsForm.photoLoader.resultFile;//this.settingsForm.photoLoader.resultFile64 ;
+            const avatar: File = this.settingsForm.photoLoader.resultFile;
 
             if (this.settingsForm.validate()) {
 

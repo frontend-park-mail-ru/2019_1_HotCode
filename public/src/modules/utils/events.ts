@@ -7,6 +7,7 @@ export const events = {
     authorized: 'authorized',
     unauthorized: 'unauthorized',
     onNewPassword: 'onNewPassword',
+    onCloseModal: 'onCloseModal',
     closeModal: 'mod0',
     openSignIn: 'mod1',
 };

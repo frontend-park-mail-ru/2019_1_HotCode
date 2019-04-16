@@ -1,12 +1,9 @@
 .photo-loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5em;
-  border: 2px dashed $fontColorWhite;
-  border-radius: 15px;
+  padding: 1em;
+  width: 650px;
 }
 
 .photo-loader_theme_drag {
   border: 2px dashed $fontColorYellow;
+  border-radius: 15px;
 }

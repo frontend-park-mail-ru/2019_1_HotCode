@@ -15,9 +15,9 @@ const staticFiles = [
 self.addEventListener('install', (event: any) => {
     event.waitUntil(
         caches.open('app')
-            .then( cache => {
+            .then( (cache) => {
                 cache.addAll(staticFiles);
-            })
+            }),
     );
     console.log('install', event);
 });

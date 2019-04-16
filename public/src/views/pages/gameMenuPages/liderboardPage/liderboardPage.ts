@@ -27,6 +27,14 @@ class LiderboardPage extends Page{
         super.render();
         this.renderTmpl(LiderboardPage.template);
 
+        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
+        const gameImageLogo = new Component(document.querySelector('.game-menu__main__content-right'));
+        const gameContent = new Component(document.querySelector('.game-menu__main__content-left'));
+
+        gameContainer.removeClass('container_theme_game-play');
+        gameImageLogo.show();
+        gameContent.removeClass('game-menu__main__content-left_theme_play');
+
         this.defaultLimit = 6;
 
         this.paginator = new Paginator(this.parent.el.querySelector('.pagination'),

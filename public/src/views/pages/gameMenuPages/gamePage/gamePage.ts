@@ -7,14 +7,7 @@ import PingPong from '../../../../components/games/ping-pong/ping-pong';
 import {runCode} from '../../../../modules/game/game';
 import Game from "../../../../models/game";
 import Panel from '../../../../components/panel/panel';
-
-const defaultCode = `{
-    const dx = ball.x - me.x;
-    const dy = ball.y - me.y;
-    
-    
-    me.setMoveVector(5, dx, dy);
-}`;
+import {onDragAndDrop} from '../../../../modules/dragAndDrop';
 
 class GamePage extends Page{
 
@@ -35,13 +28,21 @@ class GamePage extends Page{
         super.render();
         this.renderTmpl(GamePage.template);
 
+        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
+        const gameImageLogo = new Component(document.querySelector('.game-menu__main__content-right'));
+        const gameContent = new Component(document.querySelector('.game-menu__main__content-left'));
+
+        gameContainer.addClass('container_theme_game-play');
+        gameImageLogo.hide();
+        gameContent.addClass('game-menu__main__content-left_theme_play');
+
         this.gamePanels = Array.from(this.parent.el.querySelectorAll('.play__item'))
             .map((panel) => new Panel(panel as HTMLElement));
 
         this.editorPanel = new Component(this.parent.el.querySelector('.play__item_theme_editor'));
         this.editorLine = new Component(this.editorPanel.el.querySelector('.play__item__vetical-line__outline'));
 
-        this.onDragNDrop();
+        onDragAndDrop(this.editorLine, this.onMove);
 
         this.rulesContent = new Component(this.parent.el.querySelector('.play__item__content_theme_rules'));
         this.rulesContent.el.innerHTML = Game.rules;
@@ -74,22 +75,16 @@ class GamePage extends Page{
         this.pingPong = null;
     }
 
-    private onDragNDrop(): void {
-        this.editorLine.el.onmousedown = (event) => {
-            document.addEventListener('mousemove', this.onMove);
-
-            document.onmouseup = (e) => {
-                document.removeEventListener('mousemove', this.onMove);
-                document.onmouseup = null;
-            };
+    private onMove = (shiftX: number) => {
+        return (e: MouseEvent): void => {
+            e.preventDefault();
+            this.editorPanel.el.style.width =
+                e.pageX -
+                (this.editorPanel.el.offsetLeft +
+                    shiftX -
+                    this.editorLine.el.offsetWidth / 4) +
+                'px';
         };
-        this.editorLine.el.ondragstart = () => {
-            return false;
-        };
-    }
-
-    private onMove = (e: MouseEvent): void => {
-        this.editorPanel.el.style.width = e.pageX - this.editorPanel.el.offsetLeft + 'px';
     };
 }
 

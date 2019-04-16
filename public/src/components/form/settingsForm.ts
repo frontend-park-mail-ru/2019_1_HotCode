@@ -97,7 +97,9 @@ class SettingsForm extends Form{
     public validateNewPassword(): void {
         try {
 
-            Validation.validatePassword(this.newPassword.getValue());
+            if (this.oldPassword.getValue()) {
+                Validation.validatePassword(this.newPassword.getValue());
+            }
 
             if (!this.newPassword.virginity &&
                 !this.repeatNewPassword.virginity) {
