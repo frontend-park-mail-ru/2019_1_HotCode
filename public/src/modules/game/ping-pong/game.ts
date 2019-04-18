@@ -4,6 +4,315 @@ import Player from './player';
 import Ball from './ball';
 import PlayablePlayer from './playablePlayer';
 
+class point {
+    public x: number;
+    public y: number;
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+    }
+
+}
+
+class line {
+    public beg: point;
+    public end: point;
+    constructor(beg: point, end: point) {
+        this.beg = beg;
+        this.end = end;
+    }
+}
+
+function vMult(ax: number, ay: number, bx: number, by: number): number {
+    return ax * by - bx * ay;
+}
+
+function intersection(l1: line, l2: line): [boolean, number, number] {
+    let intersect = true;
+    let x = 0;
+    let y = 0;
+    let v1 = vMult(l2.end.x - l2.beg.x, l2.end.y - l2.beg.y, l1.beg.x - l2.beg.x, l1.beg.y - l2.beg.y);
+    let v2 = vMult(l2.end.x - l2.beg.x, l2.end.y - l2.beg.y, l1.end.x - l2.beg.x, l1.end.y - l2.beg.y);
+    let v3 = vMult(l1.end.x - l1.beg.x, l1.end.y - l1.beg.y, l2.beg.x - l1.beg.x, l2.beg.y - l1.beg.y);
+    let v4 = vMult(l1.end.x - l1.beg.x, l1.end.y - l1.beg.y, l2.end.x - l1.beg.x, l2.end.y - l1.beg.y);
+
+    intersect = ((v1 * v2) < 0 && (v3 * v4) < 0);
+    if (intersect) {
+        let A1 = l1.end.y - l1.beg.y;
+        let B1 = l1.beg.x - l1.end.x;
+        let C1 = -l1.beg.x * (l1.end.y - l1.beg.y) + l1.beg.y * (l1.end.x - l1.beg.x);
+
+        let A2 = l2.end.y - l2.beg.y;
+        let B2 = l2.beg.x - l2.end.x;
+        let C2 = -l2.beg.x * (l2.end.y - l2.beg.y) + l2.beg.y * (l2.end.x - l2.beg.x);
+
+        let d = (A1 * B2 - B1 * A2);
+        let dx = (-C1 * B2 + B1 * C2);
+        let dy = (-A1 * C2 + C1 * A2);
+        x = (dx / d);
+        y = (dy / d);
+        return [intersect, x, y];
+    }
+    return [intersect, x, y];
+}
+
+const epsilonMove = 0.01;
+
+enum side {
+    none,
+    up,
+    down,
+    right,
+    left,
+}
+
+function collidePlayerBall(player: Player, ball: Ball): [boolean, side, number, number] {
+    let isColliding = false;
+    let collisionSide = side.none;
+    let collisionPointX = 0;
+    let collisionPointY = 0;
+    // translate to player's fixed system
+    ball.vX -= player.vX;
+    ball.vY -= player.vY;
+
+
+
+    let pRight = player.x + player.width / 2;
+    let pLeft = player.x - player.width / 2;
+    let pUp = player.y + player.height / 2;
+    let pDown = player.y - player.height / 2;
+
+    let bRight = ball.x + ball.diameter / 2;
+    let bLeft = ball.x - ball.diameter / 2;
+    let bUp = ball.y + ball.diameter / 2;
+    let bDown = ball.y - ball.diameter / 2;
+
+    let pLeftLine = new line(new point(pLeft, pUp), new point(pLeft, pDown))
+
+    let pRightLine = new line(new point(pRight, pUp), new point(pRight, pDown))
+    let pUpLine = new line(new point(pLeft, pUp), new point(pRight, pUp))
+    let pDownLine = new line(new point(pLeft, pDown), new point(pRight, pDown))
+
+    let bRightDownLine = new line(new point(bRight, bDown), new point(bRight + ball.vX, bDown + ball.vY))
+    let bLeftDownLine = new line(new point(bLeft, bDown), new point(bLeft + ball.vX, bDown + ball.vY))
+    let bRightUpLine = new line(new point(bRight, bUp), new point(bRight + ball.vX, bUp + ball.vY))
+    let bLeftUpLine = new line(new point(bLeft, bUp), new point(bLeft + ball.vX, bUp + ball.vY))
+
+    // collision detection
+    if (bRight <= pLeft) {
+        [isColliding, collisionPointX, collisionPointY] = intersection(pLeftLine, bRightDownLine);
+        if (isColliding) {
+            collisionPointX -= ball.diameter / 2
+            collisionPointY += ball.diameter / 2
+
+            collisionSide = side.left
+
+        }
+        [isColliding, collisionPointX, collisionPointY] = intersection(pLeftLine, bRightUpLine);
+        if (isColliding) {
+            collisionPointX -= ball.diameter / 2
+            collisionPointY -= ball.diameter / 2
+
+            collisionSide = side.left
+
+        }
+    }
+    if (pRight <= bLeft) {
+        [isColliding, collisionPointX, collisionPointY] = intersection(pRightLine, bLeftDownLine);
+        if (isColliding) {
+            collisionPointX += ball.diameter / 2
+            collisionPointY += ball.diameter / 2
+
+            collisionSide = side.right
+
+        }
+        [isColliding, collisionPointX, collisionPointY] = intersection(pRightLine, bLeftUpLine);
+        if (isColliding) {
+            collisionPointX += ball.diameter / 2
+            collisionPointY -= ball.diameter / 2
+
+            collisionSide = side.right
+
+        }
+    }
+
+    if (pUp <= bDown) {
+        [isColliding, collisionPointX, collisionPointY] = intersection(pUpLine, bLeftDownLine);
+        if (isColliding) {
+            collisionPointX += ball.diameter / 2
+            collisionPointY += ball.diameter / 2
+
+            collisionSide = side.up
+
+        }
+        [isColliding, collisionPointX, collisionPointY] = intersection(pUpLine, bRightDownLine);
+        if (isColliding) {
+            collisionPointX -= ball.diameter / 2
+            collisionPointY += ball.diameter / 2
+
+            collisionSide = side.up
+
+        }
+    }
+
+    if (bUp <= pDown) {
+        [isColliding, collisionPointX, collisionPointY] = intersection(pDownLine, bLeftUpLine);
+        if (isColliding) {
+            collisionPointX += ball.diameter / 2
+            collisionPointY -= ball.diameter / 2
+
+            collisionSide = side.down
+
+        }
+        [isColliding, collisionPointX, collisionPointY] = intersection(pDownLine, bRightUpLine);
+        if (isColliding) {
+            collisionPointX -= ball.diameter / 2
+            collisionPointY -= ball.diameter / 2
+
+            collisionSide = side.down
+
+        }
+    }
+
+    ball.vX += player.vX
+    ball.vY += player.vY
+    if (isColliding) {
+        ball.x = collisionPointX
+        ball.y = collisionPointY
+        if (collisionSide == side.right && ball.vX < 0) {
+            ball.vX = -ball.vX
+            ball.x += epsilonMove
+            return [isColliding, collisionSide, collisionPointX, collisionPointY]
+        }
+        if (collisionSide == side.left && ball.vX > 0) {
+            ball.vX = -ball.vX
+            ball.x -= epsilonMove
+            return [isColliding, collisionSide, collisionPointX, collisionPointY]
+        }
+        if (collisionSide == side.up && ball.vY < 0) {
+            ball.vY = -ball.vY
+            ball.y += epsilonMove
+            return [isColliding, collisionSide, collisionPointX, collisionPointY]
+        }
+        if (collisionSide == side.down && ball.vY > 0) {
+            ball.vY = -ball.vY
+            ball.y -= epsilonMove
+            return [isColliding, collisionSide, collisionPointX, collisionPointY]
+        }
+    }
+
+    return [isColliding, collisionSide, collisionPointX, collisionPointY]
+}
+
+
+function movePlayer(player: Player, up: number, down: number, left: number, right: number) {
+    player.x += player.vX
+    player.y += player.vY
+
+    // controls player not to cross bounds
+    // on x && width
+    if (player.x - player.width / 2 < left) {
+        player.x = left + player.width / 2
+    }
+    if (player.x + player.width / 2 > right) {
+        player.x = right - player.width / 2
+    }
+    // on y && height
+    if (player.y - player.height / 2 < down) {
+        player.y = down + player.height / 2
+    }
+    if (player.y + player.height / 2 > up) {
+        player.y = up - player.height / 2
+    }
+}
+
+function movePlayerWithBall(player: Player, ball: Ball, up: number, down: number, left: number, right: number, collSide: side, collPX: number, collPY: number) {
+    player.x += player.vX
+    player.y += player.vY
+    ball.x += player.vX
+    ball.y += player.vY
+
+    // controls player not to cross bounds
+    // on x && width
+    if (player.x - player.width / 2 < left) {
+        player.x = left + player.width / 2
+    }
+    if (player.x + player.width / 2 > right) {
+        player.x = right - player.width / 2
+    }
+    // on y && height
+    if (player.y - player.height / 2 < down) {
+        player.y = down + player.height / 2
+    }
+    if (player.y + player.height / 2 > up) {
+        player.y = up - player.height / 2
+    }
+
+    if (up < ball.y + ball.diameter / 2 && collSide == side.up) {
+        ball.y = up - ball.diameter / 2 - epsilonMove
+        player.y -= ball.y - player.height / 2
+
+        let fullBallV = Math.sqrt(ball.x * ball.x + ball.y + ball.y)
+        ball.vY = 0
+        if (ball.vX < 0) {
+            ball.vX = -fullBallV
+        } else {
+            ball.vX = fullBallV
+        }
+    }
+    if (down > ball.y - ball.diameter / 2 && collSide == side.down) {
+        ball.y = down + ball.diameter / 2 + epsilonMove
+        player.y -= ball.y + player.height / 2
+
+        let fullBallV = Math.sqrt(ball.x * ball.x + ball.y + ball.y)
+        ball.vY = 0
+        if (ball.vX < 0) {
+            ball.vX = -fullBallV
+        } else {
+            ball.vX = fullBallV
+        }
+    }
+
+    if (Math.abs(player.vX) < Math.abs(ball.vX)) {
+        ball.x += ball.vX - player.vX
+    }
+    if (Math.abs(player.vY) < Math.abs(ball.vY)) {
+        ball.y += ball.vY - player.vY
+    }
+}
+
+enum winner {
+    noWinner,
+    p1Win,
+    p2Win,
+}
+
+function moveBall(ball: Ball) {
+    ball.x += ball.vX
+    ball.y += ball.vY
+}
+
+function fixBallPos(ball: Ball, height: number) {
+    if (ball.y - ball.diameter < 0) {
+        ball.y = ball.diameter
+        ball.vY = -ball.vY
+    }
+    if (ball.y + ball.diameter > height) {
+        ball.y = height - ball.diameter
+        ball.vY = -ball.vY
+    }
+}
+
+function winnerCheck(ball: Ball, width: number): number {
+    if (ball.x - ball.diameter < 0) {
+        return winner.p2Win
+    }
+    if (ball.x + ball.diameter > width) {
+        return winner.p1Win
+    }
+    return winner.noWinner
+}
+
 class Game {
     public player1: Player;
     public player2: Player;
@@ -77,213 +386,6 @@ class Game {
         return [new PlayablePlayer(this.player2), Object.assign({}, this.player1), Object.assign({}, this.ball)];
     }
 
-    public intersection(ax1: number,
-                        ay1: number,
-                        ax2: number,
-                        ay2: number,
-                        bx1: number,
-                        by1: number,
-                        bx2: number,
-                        by2: number): boolean {
-
-        const v1 = (bx2 - bx1) * (ay1 - by1) - (by2 - by1) * (ax1 - bx1);
-        const v2 = (bx2 - bx1) * (ay2 - by1) - (by2 - by1) * (ax2 - bx1);
-        const v3 = (ax2 - ax1) * (by1 - ay1) - (ay2 - ay1) * (bx1 - ax1);
-        const v4 = (ax2 - ax1) * (by2 - ay1) - (ay2 - ay1) * (bx2 - ax1);
-        return ((v1 * v2 < 0) && (v3 * v4 < 0)) ||
-            (ax1 === bx1 && ay1 === by1) ||
-            (ax2 === bx2 && ay1 === by1) ||
-            (ax1 === bx1 && ay2 === by2) ||
-            (ax2 === bx2 && ay2 === by2);
-    }
-
-    public collision(p: Player, b: Ball) {
-        const bRelVx = b.vX - p.vX;
-        const bRelVy = b.vY - p.vY;
-
-        const pLeft = p.x - p.width / 2;
-        const pRight = p.x + p.width / 2;
-        const pDown = p.y - p.height / 2;
-        const pUp = p.y + p.height / 2;
-
-        const bLeft = b.x - b.diameter / 2;
-        const bRight = b.x + b.diameter / 2;
-        const bDown = b.y - b.diameter / 2;
-        const bUp = b.y + b.diameter / 2;
-
-
-        if (pRight < bLeft) {
-            const inter =
-                this.intersection(
-                    pDown,
-                    pRight,
-                    pUp,
-                    pRight,
-                    bDown,
-                    bLeft,
-                    bDown + bRelVy,
-                    bLeft + bRelVx,
-                ) ||
-                this.intersection(
-                    pDown,
-                    pRight,
-                    pUp,
-                    pRight,
-                    bUp,
-                    bLeft,
-                    bUp + bRelVy,
-                    bLeft + bRelVx,
-                );
-            if (inter) {
-                const toRatio = Math.abs((bLeft - pRight) / bRelVx);
-                const outRatio = 1 - toRatio;
-                const newSpeed = -b.vX;
-                b.x += toRatio * b.vX + outRatio * newSpeed;
-                b.y += b.vY;
-                b.vX = newSpeed;
-
-                return inter;
-            }
-        }
-
-        if (pLeft > bRight) {
-            //console.log(pDown, pLeft, pUp, pLeft, bDown, bRight, bDown + bRelVy, bRight + bRelVx);
-            //console.log(pDown, pLeft, pUp, pLeft, bUp, bRight, bUp + bRelVy, bRight + bRelVx);
-            //console.log(this.intersection(pDown, pLeft, pUp, pLeft, bDown, bRight, bDown + bRelVy, bRight + bRelVx));
-            //console.log(this.intersection(pDown, pLeft, pUp, pLeft, bUp, bRight, bUp + bRelVy, bRight + bRelVx));
-            const inter =
-                this.intersection(
-                    pDown,
-                    pLeft,
-                    pUp,
-                    pLeft,
-                    bDown,
-                    bRight,
-                    bDown + bRelVy,
-                    bRight + bRelVx,
-                ) ||
-                this.intersection(
-                    pDown,
-                    pLeft,
-                    pUp,
-                    pLeft,
-                    bUp,
-                    bRight,
-                    bUp + bRelVy,
-                    bRight + bRelVx,
-                );
-
-            if (inter) {
-                const toRatio = Math.abs((pLeft - bRight) / bRelVx);
-                const outRatio = 1 - toRatio;
-                const newSpeed = - b.vX;
-                b.x += toRatio * b.vX + outRatio * newSpeed;
-                b.y += b.vY;
-                b.vX = newSpeed;
-                return inter;
-            }
-        }
-
-        if (pUp < bDown) {
-            const inter =
-                this.intersection(
-                    pLeft,
-                    pUp,
-                    pRight,
-                    pUp,
-                    bLeft,
-                    bDown,
-                    bLeft + bRelVx,
-                    bDown + bRelVy,
-                ) ||
-                this.intersection(
-                    pLeft,
-                    pUp,
-                    pRight,
-                    pUp,
-                    bRight,
-                    bDown,
-                    bRight + bRelVx,
-                    bDown + bRelVy,
-                );
-
-            if (inter) {
-                const toRatio = Math.abs((bDown - pUp) / bRelVy);
-                const outRatio = 1 - toRatio;
-                const newSpeed = -b.vY;
-                b.y += toRatio * b.vY - outRatio * newSpeed;
-                b.x += b.vX;
-                b.vY = newSpeed;
-                return inter;
-            }
-        }
-
-        if (pDown > bUp) {
-            const inter =
-                this.intersection(
-                    pLeft,
-                    pDown,
-                    pRight,
-                    pDown,
-                    bLeft,
-                    bUp,
-                    bLeft + bRelVx,
-                    bUp + bRelVy,
-                ) ||
-                this.intersection(
-                    pLeft,
-                    pDown,
-                    pRight,
-                    pDown,
-                    bRight,
-                    bUp,
-                    bRight + bRelVx,
-                    bUp + bRelVy,
-                );
-
-            if (inter) {
-                const toRatio = Math.abs((pDown - bUp) / bRelVy);
-                const outRatio = 1 - toRatio;
-                const newSpeed = - b.vY;
-                b.y += toRatio * b.vY - outRatio * newSpeed;
-                b.x += b.vX;
-                b.vY = newSpeed;
-                return inter;
-            }
-        }
-
-        return false;
-    }
-
-    public ballPossitionCorrection() {
-        if (this.ball.y + this.ball.diameter / 2 > this.fieldHeight) {
-            this.ball.y -= this.ball.y * 2 + this.ball.diameter - this.fieldHeight * 2;
-            this.ball.vY = -this.ball.vY;
-        }
-        if (this.ball.y - this.ball.diameter / 2 < 0) {
-            this.ball.y += this.ball.y * 2 + this.ball.diameter;
-            this.ball.vY = -this.ball.vY;
-        }
-    }
-
-    public playerPossitionCorrection(p: Player, left: number, right: number, bottom: number, top: number) {
-        if (p.x - p.width / 2 < left) {
-            p.x = left + p.width / 2;
-        }
-
-        if (p.x + p.width / 2 > right) {
-            p.x = right - p.width / 2;
-        }
-
-        if (p.y - p.height / 2 < bottom) {
-            p.y = bottom + p.height / 2;
-        }
-
-        if (p.y + p.height / 2 > top) {
-            p.y = top - p.height / 2;
-        }
-    }
-
     public saveObjects(st1: [PlayablePlayer, Player, Ball], st2: [PlayablePlayer, Player, Ball]) {
         const p1 = st1[0];
         const p2 = st2[0];
@@ -295,45 +397,22 @@ class Game {
         this.player2.vX = p2.vX;
         this.player2.vY = p2.vY;
 
-        const coll1 = this.collision(this.player1, this.ball);
-        const coll2 = this.collision(this.player2, this.ball);
+        let [collide1, collSide1, collPX1, collPY1] = collidePlayerBall(this.player1, this.ball)
+        let [collide2, collSide2, collPX2, collPY2] = collidePlayerBall(this.player1, this.ball)
 
-        if (!coll1 && !coll2) {
-            this.ball.x += this.ball.vX;
-            this.ball.y += this.ball.vY;
+        if (collide1) {
+            movePlayerWithBall(this.player1, this.ball, this.fieldHeight, 0, 0, this.fieldWidth / 3, collSide1, collPX1, collPY1)
+            movePlayer(this.player2, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth)
+        } else if (collide2) {
+            movePlayer(this.player1, this.fieldHeight, 0, 0, this.fieldWidth / 3)
+            movePlayerWithBall(this.player2, this.ball, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth, collSide2, collPX2, collPY2)
+        } else {
+            movePlayer(this.player1, this.fieldHeight, 0, 0, this.fieldWidth / 3)
+            movePlayer(this.player2, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth)
+            moveBall(this.ball)
         }
 
-        const ballSpeed = Math.sqrt(this.ball.vX * this.ball.vX + this.ball.vY * this.ball.vY);
-
-        if (ballSpeed > 6) {
-            this.ball.vX *= 6 / ballSpeed;
-            this.ball.vY *= 6 / ballSpeed;
-        }
-
-        this.ballPossitionCorrection();
-
-        if (!coll1) {
-            this.player1.x += this.player1.vX;
-            this.player1.y += this.player1.vY;
-        }
-        if (!coll2) {
-            this.player2.x += this.player2.vX;
-            this.player2.y += this.player2.vY;
-        }
-
-        this.playerPossitionCorrection(
-            this.player1,
-            0,
-            (1 / 3) * this.fieldWidth,
-            0, this.fieldHeight,
-        );
-
-        this.playerPossitionCorrection(
-            this.player2,
-            (2 / 3) * this.fieldWidth,
-            this.fieldWidth,
-            0, this.fieldHeight,
-        );
+        fixBallPos(this.ball, this.fieldHeight)
     }
 
     // Validators
