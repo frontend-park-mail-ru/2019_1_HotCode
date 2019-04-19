@@ -1,5 +1,5 @@
 mixin field(label, type, name, placeholder, index)
-    .field
+    .field.scale-on-hover-s
 
         .field__header
             .field__header__error
@@ -27,9 +27,9 @@ mixin field(label, type, name, placeholder, index)
                 +field('Old Password', 'password', 'oldPassword', 'Password', 4)
             .form__buttons
                 .form__buttons__button
-                    button.button.button_theme_submit.pointer(type='submit') Confirm
+                    button.button.button_theme_submit.scale-on-hover.pointer(type='submit') Confirm
         input#choose-avatar.hidden(type='checkbox')
-        label.container_theme_settings-right.pointer(for='choose-avatar')
+        label.container_theme_settings-right.scale-on-hover-s.pointer(for='choose-avatar')
             .avatar__text-content
                 | Choose avatar
             .carousel__item__spinner.carousel__item__spinner_size_s.hidden

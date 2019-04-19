@@ -18,6 +18,8 @@
 @import "effects/transform/in-right";
 @import "effects/transform/out-right";
 @import "effects/transform/vanish-in";
+@import "effects/transform/scale-on-hover";
+@import "effects/transform/scale-on-hover-s";
 
 @import "container/base-container";
 @import "container/container";
@@ -63,6 +65,7 @@
 @import "footer/container-item/container-item.scss";
 @import "footer/container-item/container-item_size_s.scss";
 @import "footer/item/item";
+@import "footer/item/link";
 
 @import "buttons/button";
 @import "buttons/button_theme_main";

@@ -4,7 +4,7 @@ form.form.form_theme_popup(action='#', method='post')
 
     .form__inputs
         each field, index in formFields
-            .field
+            .field.scale-on-hover-s
 
                 .field__header
                     .field__header__error
@@ -18,9 +18,9 @@ form.form.form_theme_popup(action='#', method='post')
 
     .form__buttons
         .form__buttons__button
-            button.button.button_theme_submit.pointer(type='submit')= submitButtonName
+            button.button.button_theme_submit.scale-on-hover.pointer(type='submit')= submitButtonName
 
         if otherButtonName
             .form__buttons__button
                 label(for=`mod${nextFormNumber}`)
-                    div.button.button_theme_main.pointer= otherButtonName
+                    div.button.button_theme_main.scale-on-hover.pointer= otherButtonName

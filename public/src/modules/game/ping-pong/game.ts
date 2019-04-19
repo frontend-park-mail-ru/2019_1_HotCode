@@ -119,7 +119,6 @@ function collidePlayerBall(player: Player, ball: Ball): [boolean, side, number, 
     }
     if (!isColliding)
         if (pRight <= bLeft) {
-            ////console.log("AFRAID I'M FUCKED UP(");
             [isColliding, collisionPointX, collisionPointY] = intersection(pRightLine, bLeftDownLine);
             if (isColliding) {
                 collisionPointX += ball.diameter / 2
