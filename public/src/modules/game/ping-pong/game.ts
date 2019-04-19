@@ -88,7 +88,6 @@ function collidePlayerBall(player: Player, ball: Ball): [boolean, side, number, 
     let bDown = ball.y - ball.diameter / 2;
 
     let pLeftLine = new line(new point(pLeft, pUp), new point(pLeft, pDown))
-
     let pRightLine = new line(new point(pRight, pUp), new point(pRight, pDown))
     let pUpLine = new line(new point(pLeft, pUp), new point(pRight, pUp))
     let pDownLine = new line(new point(pLeft, pDown), new point(pRight, pDown))
@@ -107,95 +106,108 @@ function collidePlayerBall(player: Player, ball: Ball): [boolean, side, number, 
 
             collisionSide = side.left
 
-        }
-        [isColliding, collisionPointX, collisionPointY] = intersection(pLeftLine, bRightUpLine);
-        if (isColliding) {
-            collisionPointX -= ball.diameter / 2
-            collisionPointY -= ball.diameter / 2
+        } if (!isColliding) {
+            [isColliding, collisionPointX, collisionPointY] = intersection(pLeftLine, bRightUpLine);
+            if (isColliding) {
+                collisionPointX -= ball.diameter / 2
+                collisionPointY -= ball.diameter / 2
 
-            collisionSide = side.left
+                collisionSide = side.left
 
-        }
-    }
-    if (pRight <= bLeft) {
-        [isColliding, collisionPointX, collisionPointY] = intersection(pRightLine, bLeftDownLine);
-        if (isColliding) {
-            collisionPointX += ball.diameter / 2
-            collisionPointY += ball.diameter / 2
-
-            collisionSide = side.right
-
-        }
-        [isColliding, collisionPointX, collisionPointY] = intersection(pRightLine, bLeftUpLine);
-        if (isColliding) {
-            collisionPointX += ball.diameter / 2
-            collisionPointY -= ball.diameter / 2
-
-            collisionSide = side.right
-
+            }
         }
     }
+    if (!isColliding)
+        if (pRight <= bLeft) {
+            ////console.log("AFRAID I'M FUCKED UP(");
+            [isColliding, collisionPointX, collisionPointY] = intersection(pRightLine, bLeftDownLine);
+            if (isColliding) {
+                collisionPointX += ball.diameter / 2
+                collisionPointY += ball.diameter / 2
 
-    if (pUp <= bDown) {
-        [isColliding, collisionPointX, collisionPointY] = intersection(pUpLine, bLeftDownLine);
-        if (isColliding) {
-            collisionPointX += ball.diameter / 2
-            collisionPointY += ball.diameter / 2
+                collisionSide = side.right
 
-            collisionSide = side.up
+            }
+            if (!isColliding) {
+                [isColliding, collisionPointX, collisionPointY] = intersection(pRightLine, bLeftUpLine);
+                if (isColliding) {
+                    collisionPointX += ball.diameter / 2
+                    collisionPointY -= ball.diameter / 2
 
+                    collisionSide = side.right
+
+                }
+            }
         }
-        [isColliding, collisionPointX, collisionPointY] = intersection(pUpLine, bRightDownLine);
-        if (isColliding) {
-            collisionPointX -= ball.diameter / 2
-            collisionPointY += ball.diameter / 2
+    if (!isColliding)
+        if (pUp <= bDown) {
+            [isColliding, collisionPointX, collisionPointY] = intersection(pUpLine, bLeftDownLine);
+            if (isColliding) {
+                collisionPointX += ball.diameter / 2
+                collisionPointY += ball.diameter / 2
 
-            collisionSide = side.up
+                collisionSide = side.up
 
+            } if (!isColliding) {
+                [isColliding, collisionPointX, collisionPointY] = intersection(pUpLine, bRightDownLine);
+                if (isColliding) {
+                    collisionPointX -= ball.diameter / 2
+                    collisionPointY += ball.diameter / 2
+
+                    collisionSide = side.up
+
+                }
+            }
         }
-    }
+    if (!isColliding)
+        if (bUp <= pDown) {
+            [isColliding, collisionPointX, collisionPointY] = intersection(pDownLine, bLeftUpLine);
+            if (isColliding) {
+                collisionPointX += ball.diameter / 2
+                collisionPointY -= ball.diameter / 2
 
-    if (bUp <= pDown) {
-        [isColliding, collisionPointX, collisionPointY] = intersection(pDownLine, bLeftUpLine);
-        if (isColliding) {
-            collisionPointX += ball.diameter / 2
-            collisionPointY -= ball.diameter / 2
+                collisionSide = side.down
 
-            collisionSide = side.down
+            }
+            if (!isColliding) {
+                [isColliding, collisionPointX, collisionPointY] = intersection(pDownLine, bRightUpLine);
+                if (isColliding) {
+                    collisionPointX -= ball.diameter / 2
+                    collisionPointY -= ball.diameter / 2
 
+                    collisionSide = side.down
+
+                }
+            }
         }
-        [isColliding, collisionPointX, collisionPointY] = intersection(pDownLine, bRightUpLine);
-        if (isColliding) {
-            collisionPointX -= ball.diameter / 2
-            collisionPointY -= ball.diameter / 2
 
-            collisionSide = side.down
-
-        }
-    }
 
     ball.vX += player.vX
     ball.vY += player.vY
     if (isColliding) {
         ball.x = collisionPointX
         ball.y = collisionPointY
-        if (collisionSide == side.right && ball.vX < 0) {
-            ball.vX = -ball.vX
+        if (collisionSide == side.right) {
+            if (ball.vX < 0)
+                ball.vX = -ball.vX
             ball.x += epsilonMove
             return [isColliding, collisionSide, collisionPointX, collisionPointY]
         }
-        if (collisionSide == side.left && ball.vX > 0) {
-            ball.vX = -ball.vX
+        if (collisionSide == side.left) {
+            if (ball.vX > 0)
+                ball.vX = -ball.vX
             ball.x -= epsilonMove
             return [isColliding, collisionSide, collisionPointX, collisionPointY]
         }
-        if (collisionSide == side.up && ball.vY < 0) {
-            ball.vY = -ball.vY
+        if (collisionSide == side.up) {
+            if (ball.vY < 0)
+                ball.vY = -ball.vY
             ball.y += epsilonMove
             return [isColliding, collisionSide, collisionPointX, collisionPointY]
         }
-        if (collisionSide == side.down && ball.vY > 0) {
-            ball.vY = -ball.vY
+        if (collisionSide == side.down) {
+            if (ball.vY > 0)
+                ball.vY = -ball.vY
             ball.y -= epsilonMove
             return [isColliding, collisionSide, collisionPointX, collisionPointY]
         }
@@ -250,9 +262,10 @@ function movePlayerWithBall(player: Player, ball: Ball, up: number, down: number
 
     if (up < ball.y + ball.diameter / 2 && collSide == side.up) {
         ball.y = up - ball.diameter / 2 - epsilonMove
-        player.y -= ball.y - player.height / 2
+        player.y = ball.y - ball.diameter / 2 - epsilonMove - player.height / 2
 
-        let fullBallV = Math.sqrt(ball.x * ball.x + ball.y + ball.y)
+        let fullBallV = Math.sqrt(ball.vX * ball.vX + ball.vY * ball.vY)
+        ////console.log(ball.vX, ball.vY, ball.vX * ball.vX, ball.vY * ball.vY, ball.vX * ball.vX + ball.vY * ball.vY)
         ball.vY = 0
         if (ball.vX < 0) {
             ball.vX = -fullBallV
@@ -262,9 +275,9 @@ function movePlayerWithBall(player: Player, ball: Ball, up: number, down: number
     }
     if (down > ball.y - ball.diameter / 2 && collSide == side.down) {
         ball.y = down + ball.diameter / 2 + epsilonMove
-        player.y -= ball.y + player.height / 2
+        player.y = ball.y + ball.diameter / 2 + epsilonMove + player.height / 2
 
-        let fullBallV = Math.sqrt(ball.x * ball.x + ball.y + ball.y)
+        let fullBallV = Math.sqrt(ball.vX * ball.vX + ball.vY * ball.vY)
         ball.vY = 0
         if (ball.vX < 0) {
             ball.vX = -fullBallV
@@ -279,6 +292,7 @@ function movePlayerWithBall(player: Player, ball: Ball, up: number, down: number
     if (Math.abs(player.vY) < Math.abs(ball.vY)) {
         ball.y += ball.vY - player.vY
     }
+    ////console.log(ball, player)
 }
 
 enum winner {
@@ -396,10 +410,31 @@ class Game {
         this.player1.vY = p1.vY;
         this.player2.vX = p2.vX;
         this.player2.vY = p2.vY;
+        if (Math.abs(this.ball.x - 173.48739435875638) < epsilonMove && Math.abs(this.ball.y - 190.6122070010947) < epsilonMove) {
+            k++;
+            ////console.log("ON POSITION")
+        }
+        if (this.ball.x - this.ball.diameter / 2 <= this.player1.x + this.player1.width / 2) {
+            k++;
+            if (k == 2)
+                k++;
+            ////console.log("\n\n\nwidth bitch", this.ball.y - this.ball.diameter / 2 <= this.player1.y + this.player1.height / 2)
 
+        }
+
+        if (k > 0) {
+            ////console.log("ABTER HIT", this.ball, this.player1)
+        }
         let [collide1, collSide1, collPX1, collPY1] = collidePlayerBall(this.player1, this.ball)
-        let [collide2, collSide2, collPX2, collPY2] = collidePlayerBall(this.player1, this.ball)
 
+        let [collide2, collSide2, collPX2, collPY2] = collidePlayerBall(this.player2, this.ball)
+
+        if (k >= 2) {
+            ////console.log("p1 coll", collSide1, collPX1, collPY1)
+        }
+        if (k >= 2) {
+            ////console.log("p2 coll", collSide2, collPX2, collPY2)
+        }
         if (collide1) {
             movePlayerWithBall(this.player1, this.ball, this.fieldHeight, 0, 0, this.fieldWidth / 3, collSide1, collPX1, collPY1)
             movePlayer(this.player2, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth)
@@ -407,12 +442,35 @@ class Game {
             movePlayer(this.player1, this.fieldHeight, 0, 0, this.fieldWidth / 3)
             movePlayerWithBall(this.player2, this.ball, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth, collSide2, collPX2, collPY2)
         } else {
-            movePlayer(this.player1, this.fieldHeight, 0, 0, this.fieldWidth / 3)
-            movePlayer(this.player2, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth)
-            moveBall(this.ball)
+            this.ball.y += this.ball.vY;
+            let prev = this.ball.y
+            fixBallPos(this.ball, this.fieldHeight)
+            if (this.ball.y != prev) {
+                p++;
+                //console.log("AAAAAAAAAAAAAA", p)
+                let [collide1, collSide1, collPX1, collPY1] = collidePlayerBall(this.player1, this.ball)
+                let [collide2, collSide2, collPX2, collPY2] = collidePlayerBall(this.player2, this.ball)
+                if (collide1) {
+                    //console.log("BBBBBBBBBBBBBB", p)
+                    //console.log(this.ball, collSide1)
+                    movePlayerWithBall(this.player1, this.ball, this.fieldHeight, 0, 0, this.fieldWidth / 3, collSide1, collPX1, collPY1)
+                    movePlayer(this.player2, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth)
+                    //console.log(this.ball, collSide1)
+                } else if (collide2) {
+                    //console.log("CCCCCCCCCCCCCC", p)
+                    movePlayer(this.player1, this.fieldHeight, 0, 0, this.fieldWidth / 3)
+                    movePlayerWithBall(this.player2, this.ball, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth, collSide2, collPX2, collPY2)
+                }
+            } else {
+                //console.log("DDDDDDDDDD", p)
+                this.ball.x += this.ball.vX;
+                movePlayer(this.player1, this.fieldHeight, 0, 0, this.fieldWidth / 3)
+                movePlayer(this.player2, this.fieldHeight, 0, this.fieldWidth * 2 / 3, this.fieldWidth)
+            }
         }
 
-        fixBallPos(this.ball, this.fieldHeight)
+        //////console.log("collision?", this.ball, this.player1)
+
     }
 
     // Validators
@@ -423,5 +481,8 @@ class Game {
         }
     }
 }
+
+let k = 0;
+let p = 0;
 
 export default Game;
