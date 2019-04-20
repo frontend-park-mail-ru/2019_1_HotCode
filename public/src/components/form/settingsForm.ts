@@ -97,7 +97,7 @@ class SettingsForm extends Form{
     public validateNewPassword(): void {
         try {
 
-            console.log(this.oldPassword.getValue());
+            console.log(!!this.oldPassword.getValue());
             if (!!this.oldPassword.getValue()) {
                 Validation.validatePassword(this.newPassword.getValue());
             }
