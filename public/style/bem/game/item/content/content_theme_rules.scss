@@ -15,21 +15,20 @@
   font-weight: 300;
 }
 
-.play__item__content_theme_rules h1 {
-  color: $fontColorYellow;
-  text-align: center;
-}
-
 .play__item__content_theme_rules h3 {
   padding-left: 1em;
 }
 
-.play__item__content_theme_rules h4 {
+.play__item__content_theme_rules h3 {
   padding-left: 2em;
 }
 
-.play__item__content_theme_rules p, ul {
+.play__item__content_theme_rules h4 {
   padding-left: 3em;
+}
+
+.play__item__content_theme_rules p, ul {
+  padding-left: 4em;
 }
 
 .play__item__content_theme_rules code {
