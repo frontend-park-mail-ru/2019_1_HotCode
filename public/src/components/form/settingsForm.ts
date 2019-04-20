@@ -7,6 +7,8 @@ import ImageInput from "../imageInput/imageInput";
 import Component from "../baseComponent/index";
 import User from '../../models/user';
 import PhotoLoader from '../photoLoader/photoLoader';
+import EventBus from '../../modules/event-bus';
+import {events} from '../../modules/utils/events';
 
 /**
  * SettingsForm Component for SettingsForm
@@ -97,8 +99,7 @@ class SettingsForm extends Form{
     public validateNewPassword(): void {
         try {
 
-            console.log(!!this.oldPassword.getValue());
-            if (!!this.oldPassword.getValue()) {
+            if (this.oldPassword.getValue()) {
                 Validation.validatePassword(this.newPassword.getValue());
             }
 
@@ -146,6 +147,7 @@ class SettingsForm extends Form{
         this.oldPassword.clearValue();
         this.newPassword.clearValue();
         this.repeatNewPassword.clearValue();
+        EventBus.publish(events.onNewPassword);
     }
 }
 
