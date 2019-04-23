@@ -46,13 +46,13 @@ class GamePage extends Page{
         onDragAndDrop(this.editorLine, this.onMove);
 
         this.rulesContent = new Component(this.parent.el.querySelector('.play__item__content_theme_rules'));
-        // this.rulesContent.el.innerHTML = Game.rules;
+        this.rulesContent.el.innerHTML = Game.rules;
         const rulesContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_rules'));
         rulesContent.decorate();
 
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.form_theme_editor'));
 
-        // this.testCodeForm.code.setValue(Game.codeExample);
+        this.testCodeForm.code.setValue(Game.codeExample);
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
