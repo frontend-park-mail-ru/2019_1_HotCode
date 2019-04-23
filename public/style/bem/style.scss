@@ -4,6 +4,7 @@
 @import "reset";
 @import "html";
 @import "body";
+@import "root";
 
 @import "options/ishidden";
 @import "options/isactive";
@@ -181,3 +182,8 @@
 @import "game/item/line/vertical-line/outline";
 @import "game/item/header/header";
 @import "game/pong/pong";
+
+@import "scrollable/scrollable";
+
+@import "scrollbar/scrollbar-container";
+@import "scrollbar/scrollbar";

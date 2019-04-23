@@ -2,6 +2,7 @@
 
 import Component from '../../../components/baseComponent/index';
 import Layer from '../layer';
+import ScrollableBlock from '../../../components/scrollable/scrollable';
 
 class RootLayer extends Layer {
 
@@ -11,7 +12,8 @@ class RootLayer extends Layer {
     }
 
     public render(): void {
-        return;
+        const rootContent = new ScrollableBlock(this.parent.el, true);
+        rootContent.decorate();
     }
 
     public clear(): void {
