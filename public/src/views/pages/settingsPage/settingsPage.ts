@@ -14,7 +14,6 @@ import Page from '../page';
 import Button from '../../../components/button/button';
 import Checkbox from '../../../components/checkbox/checkbox';
 import Modal from '../../../components/modal/modal';
-import PhotoLoader from '../../../components/photoLoader/photoLoader';
 
 class SettingsPage extends Page {
 
@@ -78,24 +77,29 @@ class SettingsPage extends Page {
 
         EventBus.publish(events.onNewPassword);
 
+        EventBus.subscribe(events.onUsernameChange, () => {
+            this.settingsForm.usernameField.setValue(User.username);
+        });
 
-        this.settingsForm.usernameField.setValue(User.username);
 
-        if (User.avatar) {
+        EventBus.subscribe(events.onAvatarChange, () => {
 
-            const image = new Component(this.parent.el.querySelector('.avatar__image'));
-            const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
+            if (User.avatar) {
 
-            spiner.show();
-            AvatarService.getAvatar(User.avatar)
-                .then((img) => {
-                    (image.el as HTMLImageElement).src = URL.createObjectURL(img);
-                    image.show();
-                })
-                .finally(() => {
-                    spiner.hide();
-                });
-        }
+                const image = new Component(this.parent.el.querySelector('.avatar__image'));
+                const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
+
+                spiner.show();
+                AvatarService.getAvatar(User.avatar)
+                    .then((img) => {
+                        (image.el as HTMLImageElement).src = URL.createObjectURL(img);
+                        image.show();
+                    })
+                    .finally(() => {
+                        spiner.hide();
+                    });
+            }
+        });
 
         this.settingsForm.usernameField.onInput(() => {
             this.settingsForm.validateUsername();

@@ -64,8 +64,15 @@ class UserService {
         return Http.Get(userPaths.mePath)
             .then((resp) => {
 
-                User.username = resp.username;
-                User.avatar = resp.photo_uuid;
+                if (User.username !== resp.username) {
+                    User.username = resp.username;
+                    EventBus.publish(events.onUsernameChange);
+                }
+
+                if (User.avatar !== resp.photo_uuid) {
+                    User.avatar = resp.photo_uuid;
+                    EventBus.publish(events.onAvatarChange);
+                }
                 return resp;
             });
     }

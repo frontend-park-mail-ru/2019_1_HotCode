@@ -1,4 +1,6 @@
 export const events = {
+    onUsernameChange: 'onUsernameChange',
+    onAvatarChange: 'onAvatarChange',
     onPause: 'onPause',
     onChangeProgress: 'onChangeProgress',
     chengeStateCarousel: 'chengeStateCarousel',
