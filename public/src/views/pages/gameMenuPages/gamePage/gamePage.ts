@@ -9,6 +9,8 @@ import Game from "../../../../models/game";
 import Panel from '../../../../components/panel/panel';
 import {onDragAndDrop} from '../../../../modules/dragAndDrop';
 import ScrollableBlock from '../../../../components/scrollable/scrollable';
+import EventBus from '../../../../modules/event-bus';
+import {events} from '../../../../modules/utils/events';
 
 class GamePage extends Page{
 
@@ -20,6 +22,9 @@ class GamePage extends Page{
     private testCodeForm: TestCodeForm;
     private pingPong: PingPong;
     private rulesContent: Component;
+
+    private onRulesChange: {[key: string]: () => void};
+    private onCodeChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent, 'Game - WarScript');
@@ -46,16 +51,27 @@ class GamePage extends Page{
         onDragAndDrop(this.editorLine, this.onMove);
 
         this.rulesContent = new Component(this.parent.el.querySelector('.play__item__content_theme_rules'));
-        this.rulesContent.el.innerHTML = Game.rules;
-        const rulesContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_rules'));
-        rulesContent.decorate();
+
+        this.onRulesChange = EventBus.subscribe(events.onRulesChange, () => {
+
+            this.rulesContent.el.innerHTML = Game.rules;
+            const rulesContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_rules'));
+            rulesContent.decorate();
+        });
+
+        EventBus.publish(events.onRulesChange);
 
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.form_theme_editor'));
 
-        this.testCodeForm.code.setValue(Game.codeExample);
-
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
+
+        this.onCodeChange = EventBus.subscribe(events.onCodeChange, () => {
+
+            this.testCodeForm.code.setValue(Game.codeExample);
+        });
+
+        EventBus.publish(events.onCodeChange);
 
         this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
 
@@ -76,6 +92,8 @@ class GamePage extends Page{
 
     public clear(): void {
         this.parent.el.innerHTML = '';
+        this.onRulesChange.unsubscribe();
+        this.onCodeChange.unsubscribe();
 
         this.testCodeForm = null;
         this.pingPong = null;

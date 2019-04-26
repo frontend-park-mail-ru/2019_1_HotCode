@@ -48,18 +48,6 @@ class LiderboardPage extends Page{
         });
 
         this.getScoresCallback(this.defaultLimit, 0);
-        // GameService.getScores('pong', this.defaultLimit, 0)
-        //     .then((resp) => {
-        //
-        //         EventBus.publish(events.fillTable, {users: resp, offset: 0});
-        //         return GameService.getCountUsers('pong');
-        //
-        //     })
-        //     .then((resp) => {
-        //
-        //         this.paginator.pageCount = Math.floor((resp.count - 1) / this.defaultLimit + 1);
-        //
-        //     });
     }
 
     public clear(): void {

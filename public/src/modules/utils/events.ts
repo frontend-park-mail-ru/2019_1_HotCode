@@ -1,4 +1,10 @@
 export const events = {
+    onDescriptionChange: 'onDescriptionChange',
+    onCodeChange: 'onCodeChange',
+    onRulesChange: 'onRulesChange',
+    onTitleChange: 'onTitleChange',
+    onBackgroundChange: 'onBackgroundChange',
+    onLogoChange: 'onLogoChange',
     onUsernameChange: 'onUsernameChange',
     onAvatarChange: 'onAvatarChange',
     onPause: 'onPause',

@@ -1,5 +1,8 @@
 'use strict';
 
+import EventBus from '../modules/event-bus';
+import {events} from '../modules/utils/events';
+
 class Game {
 
     private titleField: string;
@@ -21,6 +24,7 @@ class Game {
 
     set title(value) {
         this.titleField = value;
+        EventBus.publish(events.onTitleChange);
     }
 
     get slug() {
@@ -37,6 +41,7 @@ class Game {
 
     set backgrondUUID(value: string) {
         this.backgrondUUIDField = value;
+        EventBus.publish(events.onBackgroundChange);
     }
 
     get logoUUID(): string {
@@ -45,6 +50,7 @@ class Game {
 
     set logoUUID(value: string) {
         this.logoUUIDField = value;
+        EventBus.publish(events.onLogoChange);
     }
 
     get description(): string {
@@ -53,6 +59,7 @@ class Game {
 
     set description(value: string) {
         this.descriptionField = value;
+        EventBus.publish(events.onDescriptionChange);
     }
 
     get rules(): string {
@@ -61,6 +68,7 @@ class Game {
 
     set rules(value: string) {
         this.rulesField = value;
+        EventBus.publish(events.onRulesChange);
     }
 
     get codeExample(): string {
@@ -69,6 +77,7 @@ class Game {
 
     set codeExample(value: string) {
         this.codeExampleField = value;
+        EventBus.publish(events.onCodeChange);
     }
 
     public clearData(): void {

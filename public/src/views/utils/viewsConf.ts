@@ -8,7 +8,7 @@ import ViewInfo from '../viewInfo';
 import RootLayer from '../layers/rootLayer/rootLayer';
 import SettingsPage from '../pages/settingsPage/settingsPage';
 import SigninPage from '../pages/authorizationPages/signinPage/signinPage';
-import {viewPaths} from '../../services/utils/paths';
+import {viewPaths, viewRegs} from '../../services/utils/paths';
 import MainPage from '../pages/mainPage/mainPage';
 import SignupPage from '../pages/authorizationPages/signupPage/signupPage';
 import StartPage from '../pages/startPage/startPage';
@@ -71,19 +71,19 @@ export const views = [
         'startPage',
         () => new StartPage(Component.getBy('.base-container_theme_main')),
         'mainContainer',
-        viewPaths.startViewPath,
+        viewRegs.startViewPath,
     ),
     new ViewInfo(
         'mainPage',
         () => new MainPage(Component.getBy('.base-container_theme_main')),
         'mainContainer',
-        viewPaths.mainViewPath,
+        viewRegs.mainViewPath,
     ),
     new ViewInfo(
         'settingsPage',
         () => new SettingsPage(Component.getBy('.base-container_theme_main')),
         'mainContainer',
-        viewPaths.settingsViewPath,
+        viewRegs.settingsViewPath,
     ),
     new ViewInfo(
         'gameMenuLayer',
@@ -100,30 +100,30 @@ export const views = [
         'signinPage',
         () => new SigninPage(Component.getBy('.modal-content')),
         'modalWindow',
-        viewPaths.loginViewPath,
+        viewRegs.loginViewPath,
     ),
     new ViewInfo(
         'signupPage',
         () => new SignupPage(Component.getBy('.modal-content')),
         'modalWindow',
-        viewPaths.signupViewPath,
+        viewRegs.signupViewPath,
     ),
     new ViewInfo(
         'descriptionPage',
         () => new DescriptionPage(Component.getBy('.game-menu__content')),
         'gameContainer',
-        viewPaths.descriptionViewPath,
+        viewRegs.descriptionViewPath,
     ),
     new ViewInfo(
         'liderboardPage',
         () => new LiderboardPage(Component.getBy('.game-menu__content')),
         'gameContainer',
-        viewPaths.liderboardViewPath,
+        viewRegs.liderboardViewPath,
     ),
     new ViewInfo(
         'gamePage',
         () => new GamePage(Component.getBy('.game-menu__content')),
         'gameContainer',
-        viewPaths.gameViewPath,
+        viewRegs.gameViewPath,
     ),
 ];

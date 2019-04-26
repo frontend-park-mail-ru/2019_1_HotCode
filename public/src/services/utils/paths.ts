@@ -27,7 +27,18 @@ export const viewPaths = {
     loginViewPath: '/login',
     signupViewPath: '/signup',
     settingsViewPath: '/settings',
-    descriptionViewPath: '/game',
-    liderboardViewPath: '/game/liderboard',
-    gameViewPath: '/game/game',
+    descriptionViewPath: '/SLUG',
+    liderboardViewPath: '/SLUG/liderboard',
+    gameViewPath: '/SLUG/game',
+};
+
+export const viewRegs = {
+    startViewPath: /^\/hello$/i,
+    mainViewPath: /^\/$/i,
+    loginViewPath: /^\/login$/i,
+    signupViewPath: /^\/signup$/i,
+    settingsViewPath: /^\/settings$/i,
+    descriptionViewPath: /^\/([\d\w-_]+)$/i,
+    liderboardViewPath: /^\/([\d\w-_]+)\/liderboard$/i,
+    gameViewPath: /^\/([\d\w-_]+)\/game$/i,
 };

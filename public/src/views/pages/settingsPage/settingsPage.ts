@@ -25,6 +25,8 @@ class SettingsPage extends Page {
     private chooseAvatarModal: Modal;
 
     private onNewPassword: {[key: string]: () => void};
+    private onUsernameChange: {[key: string]: () => void};
+    private onAvatarChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent, 'Settings - WarScript');
@@ -77,12 +79,13 @@ class SettingsPage extends Page {
 
         EventBus.publish(events.onNewPassword);
 
-        EventBus.subscribe(events.onUsernameChange, () => {
+        this.onUsernameChange = EventBus.subscribe(events.onUsernameChange, () => {
             this.settingsForm.usernameField.setValue(User.username);
         });
+        EventBus.publish(events.onUsernameChange);
 
 
-        EventBus.subscribe(events.onAvatarChange, () => {
+        this.onAvatarChange = EventBus.subscribe(events.onAvatarChange, () => {
 
             if (User.avatar) {
 
@@ -100,6 +103,7 @@ class SettingsPage extends Page {
                     });
             }
         });
+        EventBus.publish(events.onAvatarChange);
 
         this.settingsForm.usernameField.onInput(() => {
             this.settingsForm.validateUsername();
@@ -184,6 +188,8 @@ class SettingsPage extends Page {
     public clear(): void {
         this.parent.el.innerHTML = '';
         this.onNewPassword.unsubscribe();
+        this.onUsernameChange.unsubscribe();
+        this.onAvatarChange.unsubscribe();
         this.settingsForm = null;
         console.log('settings CLEAR');
     }

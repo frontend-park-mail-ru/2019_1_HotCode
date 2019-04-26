@@ -55,11 +55,6 @@ class Validation {
     }
 
     public static validatePasswordEquality(password: string, passwordRepeat: string): void {
-        try {
-            Validation.validatePassword(password);
-        } catch (passwordError) {
-            throw passwordError;
-        }
 
         if (password !== passwordRepeat) {
             throw new ValidationError(ValidationError.passwordEqualityError());

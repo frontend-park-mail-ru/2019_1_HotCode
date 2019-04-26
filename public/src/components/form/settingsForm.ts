@@ -99,7 +99,6 @@ class SettingsForm extends Form{
     public validateNewPassword(): void {
         try {
 
-            console.log(`<${this.oldPassword.getValue()}>`);
             if (this.oldPassword.getValue().length > 0) {
                 Validation.validatePassword(this.newPassword.getValue());
             }
@@ -113,6 +112,7 @@ class SettingsForm extends Form{
 
             this.newPassword.clearError();
         } catch (passwordError) {
+
             this.newPassword.setError(passwordError.errorText);
         }
     }

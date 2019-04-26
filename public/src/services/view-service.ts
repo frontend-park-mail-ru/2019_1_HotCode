@@ -1,58 +1,62 @@
 'use strict';
 
 import Router from '../modules/router';
-import {viewPaths} from './utils/paths';
+import {viewPaths, viewRegs} from './utils/paths';
 
 class ViewService {
 
     public static goTo(path: string): void {
 
-        switch (path) {
+        if (path.match(viewRegs.startViewPath)) {
 
-            case viewPaths.startViewPath: {
-                ViewService.goToStartView();
-                break;
-            }
-
-            case viewPaths.mainViewPath: {
-                ViewService.goToMainView();
-                break;
-            }
-
-            case viewPaths.loginViewPath: {
-                ViewService.goToLoginView();
-                break;
-            }
-
-            case viewPaths.signupViewPath: {
-                ViewService.goToSignupView();
-                break;
-            }
-
-            case viewPaths.settingsViewPath: {
-                ViewService.goToSettingsView();
-                break;
-            }
-
-            case viewPaths.descriptionViewPath: {
-                ViewService.goToGameDescriptionView();
-                break;
-            }
-
-            case viewPaths.liderboardViewPath: {
-                ViewService.goToGameLiderBoardView();
-                break;
-            }
-
-            case viewPaths.gameViewPath: {
-                ViewService.goToGameView();
-                break;
-            }
-
-            default: {
-                ViewService.goToNotFoundView();
-            }
+            ViewService.goToStartView();
+            return;
         }
+
+        if (path.match(viewRegs.mainViewPath)) {
+
+            ViewService.goToMainView();
+            return;
+        }
+
+        if (path.match(viewRegs.loginViewPath)) {
+
+            ViewService.goToLoginView();
+            return;
+        }
+
+        if (path.match(viewRegs.signupViewPath)) {
+
+            ViewService.goToSignupView();
+            return;
+        }
+
+        if (path.match(viewRegs.settingsViewPath)) {
+
+            ViewService.goToSettingsView();
+            return;
+        }
+
+        if (path.match(viewRegs.descriptionViewPath)) {
+
+            ViewService.goToGameDescriptionView(path.match(viewRegs.descriptionViewPath)[1]);
+            return;
+        }
+
+        if (path.match(viewRegs.liderboardViewPath)) {
+
+            ViewService.goToGameLiderBoardView(path.match(viewRegs.liderboardViewPath)[1]);
+            return;
+        }
+
+        if (path.match(viewRegs.gameViewPath)) {
+
+            ViewService.goToGameView(path.match(viewRegs.gameViewPath)[1]);
+            return;
+        }
+
+        ViewService.goToNotFoundView();
+
     }
 
     public static start(): void {
@@ -83,16 +87,16 @@ class ViewService {
         Router.go(viewPaths.settingsViewPath);
     }
 
-    public static goToGameDescriptionView(): void {
-        Router.go(viewPaths.descriptionViewPath);
+    public static goToGameDescriptionView(slug: string): void {
+        Router.go(viewPaths.descriptionViewPath.replace('SLUG', slug), false, slug);
     }
 
-    public static goToGameLiderBoardView(): void {
-        Router.go(viewPaths.liderboardViewPath);
+    public static goToGameLiderBoardView(slug: string): void {
+        Router.go(viewPaths.liderboardViewPath.replace('SLUG', slug), false, slug);
     }
 
-    public static goToGameView(): void {
-        Router.go(viewPaths.gameViewPath);
+    public static goToGameView(slug: string): void {
+        Router.go(viewPaths.gameViewPath.replace('SLUG', slug), false, slug);
     }
 
     public static goToNotFoundView(): void {

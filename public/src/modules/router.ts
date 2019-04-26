@@ -23,11 +23,11 @@ class Router {
         };
     }
 
-    public go(path: string, isPopState = false) {
+    public go(path: string, isPopState = false, slug?: string) {
         console.log('go', path);
         console.log('postStack', this.postRenderStack);
 
-        let newView = this.views.find((view) => view.path === path);
+        let newView = this.views.find((view) => path.match(view.path) !== null);
 
         if (this.postRenderStack.find((view) => view.type === newView.type)) {
 
@@ -77,7 +77,7 @@ class Router {
 
 
         while (this.preRenderStack.length !== 0) {
-            this.draw(this.preRenderStack.pop());
+            this.draw(this.preRenderStack.pop(), slug);
         }
 
         if (!isPopState) {
@@ -99,7 +99,8 @@ class Router {
         window.history.pushState(
             null,
             (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
-            this.postRenderStack[this.postRenderStack.length - 1].path,
+            // this.postRenderStack[this.postRenderStack.length - 1].path,
+            'I\'m router',
         );
     }
 
@@ -120,9 +121,9 @@ class Router {
         }
     }
 
-    private draw(view: ViewInfo): void {
+    private draw(view: ViewInfo, slug: string): void {
         view.createView();
-        view.view.render();
+        view.view.render(slug);
         console.log('RENDER', view.keyName);
         this.postRenderStack.push(view);
     }

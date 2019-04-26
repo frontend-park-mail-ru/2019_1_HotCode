@@ -66,12 +66,10 @@ class UserService {
 
                 if (User.username !== resp.username) {
                     User.username = resp.username;
-                    EventBus.publish(events.onUsernameChange);
                 }
 
                 if (User.avatar !== resp.photo_uuid) {
                     User.avatar = resp.photo_uuid;
-                    EventBus.publish(events.onAvatarChange);
                 }
                 return resp;
             });
