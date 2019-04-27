@@ -4,7 +4,6 @@ import Component from '../../../components/baseComponent/index';
 import Button from "../../../components/button/button";
 import Checkbox from "../../../components/checkbox/checkbox";
 import {activeFullScreen, cancselFullScreen} from "../../../modules/full-screen";
-import Parallax from '../../../modules/parallax';
 import Layer from '../layer';
 import ViewService from '../../../services/view-service';
 import Tabbar from '../../../components/tabbar/tabbar';

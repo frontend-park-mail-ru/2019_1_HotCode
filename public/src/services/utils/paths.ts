@@ -21,6 +21,10 @@ export const gamePaths = {
     getCountUsersPath: '/games',
 };
 
+export const chatPaths = {
+    sendMessagePath: '/chat/connect',
+};
+
 export const viewPaths = {
     startViewPath: '/hello',
     mainViewPath: '/',

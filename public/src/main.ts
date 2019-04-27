@@ -2,6 +2,7 @@
 
 import '../style/bem/style.scss';
 import ViewService from './services/view-service';
+import ChatBlock from './components/chatBlock/chatBlock';
 
 // if (navigator.serviceWorker) {
 //     navigator.serviceWorker.register(
@@ -17,17 +18,8 @@ import ViewService from './services/view-service';
 //     });
 // }
 
-const str = "/game/pong";
-const param = "?limit=2&offset=1";
-
-console.log( str.match( /^\/game\/([\d\w-_]+)$/i ) );
-const reg = str.match( /^\/game\/([\d\w-_]+)$/i );
-console.log(reg[1]);
-console.log( param.match( /offset=([\d]+)/i ) );
-console.log( param.match( /limit=([\d]+)/i ) );
-// console.log( str.match( /\/game\//i ) );
-console.log(window.location.pathname);
-
+const chat = new ChatBlock();
+chat.render();
 
 ViewService.start();
 ViewService.goTo(window.location.pathname);
