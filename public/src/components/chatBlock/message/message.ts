@@ -72,7 +72,6 @@ class Message extends Component{
         this.editMessage = new Component(this.el.querySelector('.chat__main__message__options__item_theme_edit'));
 
         this.editMessage.on('click', () => {
-            console.log('edit');
             EventBus.publish(events.onEditMessage, this);
         });
 

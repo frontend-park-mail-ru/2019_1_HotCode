@@ -85,28 +85,29 @@ class ChatBlock extends Component {
 
         EventBus.subscribe(events.onEditMessage, (message) => {
             this.sendText.el.focus();
-            const remover = this.sendForm.on('submit', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const value = (this.sendText.el as HTMLInputElement).value;
-
-                if (value) {
-
-                    message.text = value;
-
-                    (this.sendText.el as HTMLInputElement).value = '';
-                }
-
-            });
+            // const remover = this.sendForm.on('submit', (e) => {
+            //     e.preventDefault();
+            //     e.stopPropagation();
+            //
+            //     const value = (this.sendText.el as HTMLInputElement).value;
+            //
+            //     if (value) {
+            //
+            //         message.text = value;
+            //
+            //         (this.sendText.el as HTMLInputElement).value = '';
+            //     }
+            //
+            // });
         });
     }
 
     private showMessage(data: any) {
-        const author = data.author ? data.author.username : 'Anonist:~$ ';
+        const author = data.author ? data.author.username : 'X@k3P:~$ ';
         const message = data.payload.message;
         const messageElem = Message.postMessage(author, message);
         this.messageBlock.append(messageElem);
+        messageElem.el.scrollIntoView(false);
     }
 
     private loadMessages(data: any) {
@@ -114,7 +115,7 @@ class ChatBlock extends Component {
             .reverse()
             .map((item: any) => {
 
-                const author = item.author ? item.author : 'Anonist:~$ ';
+                const author = item.author ? item.author : 'X@k3P:~$ ';
                 const message = item.message;
                 const messageElem = Message.postMessage(author, message);
                 this.messageBlock.append(messageElem);
