@@ -16,6 +16,9 @@ class ChatBlock extends Component {
 
     private ws: WebSock;
 
+    private onAuthorizedRemover: {[key: string]: () => void};
+    private onUnauthorizedRemover: {[key: string]: () => void};
+
     private static template = require('./chatBlock.pug');
 
     constructor() {
@@ -23,20 +26,32 @@ class ChatBlock extends Component {
         document.body.insertBefore(alertContainer.el, document.body.firstChild);
 
         super(document.querySelector('.chat'));
-
-        EventBus.subscribe(events.authorized, () => {
-            this.clear();
-            this.render();
-        });
-
-        EventBus.subscribe(events.unauthorized, () => {
-            this.clear();
-            this.render();
-        });
     }
 
     public render(): void {
         this.el.innerHTML = ChatBlock.template();
+
+        this.onAuthorizedRemover = EventBus.subscribe(events.authorized, () => {
+            if (this.ws) {
+                this.ws.close();
+            }
+            this.ws = null;
+
+            this.ws = ChatService.sendMessage();
+            // this.clear();
+            // this.render();
+        });
+
+        this.onUnauthorizedRemover = EventBus.subscribe(events.unauthorized, () => {
+            if (this.ws) {
+                this.ws.close();
+            }
+            this.ws = null;
+
+            this.ws = ChatService.sendMessage();
+            // this.clear();
+            // this.render();
+        });
 
         const messageBlockContent = new ScrollableBlock(this.el.querySelector('.chat__main'));
         messageBlockContent.decorate();
@@ -125,6 +140,8 @@ class ChatBlock extends Component {
 
     public clear(): void {
         super.clear();
+        this.onAuthorizedRemover.unsubscribe();
+        this.onUnauthorizedRemover.unsubscribe();
 
         if (this.ws) {
             this.ws.close();
