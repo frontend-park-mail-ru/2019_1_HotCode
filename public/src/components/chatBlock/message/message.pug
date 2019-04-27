@@ -1,5 +1,5 @@
 .chat__main__message__header
     .chat__main__message__header__author= author
     input.hidden(id=`messageSettings${id}` type='checkbox')
-    .chat__main__message__header__settings.pointer.color-yellow ⚙
+    label.chat__main__message__header__settings.pointer.color-yellow(for=`messageSettings${id}`) ⚙
 .chat__main__message__text= text
