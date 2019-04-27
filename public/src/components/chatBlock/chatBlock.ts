@@ -126,6 +126,7 @@ class ChatBlock extends Component {
                 const message = item.message;
                 const messageElem = Message.postMessage(author, message);
                 this.messageBlock.append(messageElem);
+                messageElem.el.scrollIntoView(false);
             });
     }
 
