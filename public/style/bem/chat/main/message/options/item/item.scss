@@ -1,7 +1,15 @@
 .chat__main__message__options__item {
+  display: flex;
+  align-items: center;
   width: 100%;
-  height: 40px;
+  height: 35px;
   border-top: 1px solid $fontColorWhite;
+  padding: 0 1em;
+
+  @extend %white;
+  font-size: 0.7em;
+}
+
+.chat__main__message__options__item:last-child {
   border-bottom: 1px solid $fontColorWhite;
-  padding: 0.2em 1em;
 }

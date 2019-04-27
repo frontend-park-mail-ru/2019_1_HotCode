@@ -2,8 +2,8 @@
   position: absolute;
   right: 0;
   width: 175px;
-  height: 150px;
   padding: 0.5em 0;
-  background: purple;
+  background: $backgroundColorBack2;
+  border-radius: 10px;
   z-index: 5;
 }

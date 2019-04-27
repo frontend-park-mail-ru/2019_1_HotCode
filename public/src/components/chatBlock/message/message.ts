@@ -2,6 +2,8 @@
 
 import Component from '../../baseComponent/index';
 import Checkbox from '../../checkbox/checkbox';
+import EventBus from '../../../modules/event-bus';
+import {events} from '../../../modules/utils/events';
 
 class Message extends Component{
 
@@ -11,6 +13,9 @@ class Message extends Component{
 
     private settingsButton: Checkbox;
     private optionsMenu: Component;
+
+    private deleteMessage: Component;
+    private editMessage: Component;
 
     private id: number;
     private author: string;
@@ -47,13 +52,27 @@ class Message extends Component{
     public render(): void {
         this.optionsMenu = new Component(this.el.querySelector('.chat__main__message__options'));
 
+
+        this.deleteMessage = new Component(this.el.querySelector('.chat__main__message__options__item_theme_delete'));
+
+        this.deleteMessage.on('click', () => {
+            this.clear();
+        });
+
+
+        this.editMessage = new Component(this.el.querySelector('.chat__main__message__options__item_theme_edit'));
+
+        this.editMessage.on('click', () => {
+            console.log('edit');
+            EventBus.publish(events.onEditMessage)
+        });
+
+
         this.settingsButton = new Checkbox(this.el.querySelector(`#messageSettings${this.id}`),
             () => {
-                console.log('open');
                 this.optionsMenu.show();
             },
             () => {
-                console.log('close');
                 this.optionsMenu.hide();
             },
         );
@@ -63,6 +82,15 @@ class Message extends Component{
     private static getNextUniqueId(): number {
         Message.curId += 1;
         return Message.curId;
+    }
+
+    public clear(): void {
+        super.clear();
+
+        this.settingsButton = null;
+        this.optionsMenu = null;
+        this.deleteMessage = null;
+        this.editMessage = null;
     }
 }
 

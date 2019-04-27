@@ -3,7 +3,7 @@
     input.hidden(id=`messageSettings${id}` type='checkbox')
     label.chat__main__message__header__settings.pointer.color-yellow(for=`messageSettings${id}`) ⚙
 .chat__main__message__options.hidden
-    .chat__main__message__options__item Delete message
-    .chat__main__message__options__item Edit message
-    .chat__main__message__options__item Forward
+    .chat__main__message__options__item.chat__main__message__options__item_theme_delete.pointer.color-yellow Delete message
+    .chat__main__message__options__item.chat__main__message__options__item_theme_edit.pointer.color-yellow Edit message
+    .chat__main__message__options__item.pointer.color-yellow Forward
 .chat__main__message__text= text

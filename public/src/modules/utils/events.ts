@@ -1,4 +1,5 @@
 export const events = {
+    onEditMessage: 'onEditMessage',
     onDescriptionChange: 'onDescriptionChange',
     onCodeChange: 'onCodeChange',
     onRulesChange: 'onRulesChange',

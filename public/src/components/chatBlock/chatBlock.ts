@@ -5,6 +5,8 @@ import ChatService from '../../services/chat-service';
 import Message from './message/message';
 import ScrollableBlock from '../scrollable/scrollable';
 import WebSock from '../../modules/webSocket';
+import EventBus from '../../modules/event-bus';
+import {events} from '../../modules/utils/events';
 
 class ChatBlock extends Component {
 
@@ -21,6 +23,11 @@ class ChatBlock extends Component {
         document.body.insertBefore(alertContainer.el, document.body.firstChild);
 
         super(document.querySelector('.chat'));
+
+        EventBus.subscribe(events.authorized, () => {
+            this.clear();
+            this.render();
+        });
     }
 
     public render(): void {
@@ -74,7 +81,9 @@ class ChatBlock extends Component {
     public clear(): void {
         super.clear();
 
-        this.ws.close();
+        if (this.ws) {
+            this.ws.close();
+        }
         this.ws = null;
     }
 }
