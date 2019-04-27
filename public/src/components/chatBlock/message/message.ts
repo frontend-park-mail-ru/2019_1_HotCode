@@ -1,23 +1,33 @@
 'use strict';
 
 import Component from '../../baseComponent/index';
+import Checkbox from '../../checkbox/checkbox';
 
 class Message extends Component{
 
     private static template = require('./message.pug');
 
+    private static curId: number = 0;
+
+    private settingsButton: Checkbox;
+
+    private id: number;
     private author: string;
     private text: string;
 
     constructor(
         el: HTMLElement,
+        id: number,
         author: string,
         text: string,
     ) {
         super(el);
 
+        this.id = id;
         this.author = author;
         this.text = text;
+
+        this.render();
     }
 
     public static postMessage(
@@ -27,11 +37,28 @@ class Message extends Component{
 
         const newMessage = Component.Create('div', ['chat__main__message']);
 
-        newMessage.el.innerHTML = Message.template({author, text});
+        const uniqueId = Message.getNextUniqueId();
+        newMessage.el.innerHTML = Message.template({id: uniqueId, author, text});
 
-        return new Message(newMessage.el, author, text);
+        return new Message(newMessage.el, uniqueId, author, text);
     }
 
+    public render(): void {
+        this.settingsButton = new Checkbox(this.el.querySelector(`#messageSettings${this.id}`),
+            () => {
+                console.log('open');
+            },
+            () => {
+                console.log('close');
+            },
+        );
+        this.settingsButton.onChange();
+    }
+
+    private static getNextUniqueId(): number {
+        Message.curId += 1;
+        return Message.curId;
+    }
 }
 
 export default Message;
