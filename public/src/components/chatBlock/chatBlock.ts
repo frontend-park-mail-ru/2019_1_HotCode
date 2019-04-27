@@ -105,6 +105,7 @@ class ChatBlock extends Component {
 
                     (this.sendText.el as HTMLInputElement).value = '';
                 }
+
             });
         });
     }
@@ -118,6 +119,7 @@ class ChatBlock extends Component {
 
     private loadMessages(data: any) {
         data.payload.messages
+            .reverse()
             .map((item: any) => {
 
                 const author = item.author ? item.author : 'Anonist:~$ ';
