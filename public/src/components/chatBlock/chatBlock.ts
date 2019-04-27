@@ -28,6 +28,11 @@ class ChatBlock extends Component {
             this.clear();
             this.render();
         });
+
+        EventBus.subscribe(events.unauthorized, () => {
+            this.clear();
+            this.render();
+        });
     }
 
     public render(): void {
@@ -45,10 +50,29 @@ class ChatBlock extends Component {
         this.ws = ChatService.sendMessage();
         this.ws.open(
             (resp) => {
-                this.showMessage(resp);
+                if (resp.type === 'message') {
+                    this.showMessage(resp);
+                    return;
+                }
+
+                if (resp.type === 'messages') {
+                    this.loadMessages(resp);
+                    return;
+                }
             },
             () => {},
             );
+
+        this.ws.send(
+            {
+                type: 'messages',
+                chat_id: 1,
+                payload: {
+                    limit: 10,
+                    offset: 0,
+                },
+            }
+        );
 
         this.sendForm.on('submit', (e) => {
             e.preventDefault();
@@ -69,6 +93,31 @@ class ChatBlock extends Component {
                 (this.sendText.el as HTMLInputElement).value = '';
             }
         });
+
+        EventBus.subscribe(events.onEditMessage, () => {
+            this.sendText.el.focus();
+
+            this.sendForm.on('submit', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const value = (this.sendText.el as HTMLInputElement).value;
+
+                if (value) {
+                    this.ws.send(
+                        {
+                            type: 'message',
+                            chat_id: 1,
+                            payload: {
+                                message: value,
+                            },
+                        }
+                    );
+
+                    (this.sendText.el as HTMLInputElement).value = '';
+                }
+            });
+        });
     }
 
     private showMessage(data: any) {
@@ -76,6 +125,17 @@ class ChatBlock extends Component {
         const message = data.payload.message;
         const messageElem = Message.postMessage(author, message);
         this.messageBlock.append(messageElem);
+    }
+
+    private loadMessages(data: any) {
+        data.payload.messages
+            .map((item: any) => {
+
+                const author = 'Anonist:~$ ';
+                const message = item.message;
+                const messageElem = Message.postMessage(author, message);
+                this.messageBlock.append(messageElem);
+            });
     }
 
     public clear(): void {

@@ -64,7 +64,7 @@ class Message extends Component{
 
         this.editMessage.on('click', () => {
             console.log('edit');
-            EventBus.publish(events.onEditMessage)
+            EventBus.publish(events.onEditMessage);
         });
 
 
