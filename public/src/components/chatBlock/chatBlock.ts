@@ -83,9 +83,8 @@ class ChatBlock extends Component {
             }
         });
 
-        EventBus.subscribe(events.onEditMessage, () => {
+        EventBus.subscribe(events.onEditMessage, (message) => {
             this.sendText.el.focus();
-
             const remover = this.sendForm.on('submit', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -93,15 +92,8 @@ class ChatBlock extends Component {
                 const value = (this.sendText.el as HTMLInputElement).value;
 
                 if (value) {
-                    this.ws.send(
-                        {
-                            type: 'message',
-                            chat_id: 1,
-                            payload: {
-                                message: value,
-                            },
-                        }
-                    );
+
+                    message.text = value;
 
                     (this.sendText.el as HTMLInputElement).value = '';
                 }
@@ -126,8 +118,8 @@ class ChatBlock extends Component {
                 const message = item.message;
                 const messageElem = Message.postMessage(author, message);
                 this.messageBlock.append(messageElem);
-                messageElem.el.scrollIntoView(false);
             });
+        this.messageBlock.el.lastElementChild.scrollIntoView(false);
     }
 
     public clear(): void {

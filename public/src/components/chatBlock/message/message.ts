@@ -19,7 +19,7 @@ class Message extends Component{
 
     private id: number;
     private author: string;
-    private text: string;
+    private textField: string;
 
     constructor(
         el: HTMLElement,
@@ -31,9 +31,18 @@ class Message extends Component{
 
         this.id = id;
         this.author = author;
-        this.text = text;
+        this.textField = text;
 
         this.render();
+    }
+
+
+    get text(): string {
+        return this.textField;
+    }
+
+    set text(value: string) {
+        this.textField = value;
     }
 
     public static postMessage(
@@ -64,7 +73,7 @@ class Message extends Component{
 
         this.editMessage.on('click', () => {
             console.log('edit');
-            EventBus.publish(events.onEditMessage);
+            EventBus.publish(events.onEditMessage, this);
         });
 
 
