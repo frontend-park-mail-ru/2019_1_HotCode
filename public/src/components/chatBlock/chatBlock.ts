@@ -35,7 +35,7 @@ class ChatBlock extends Component {
         const ws = ChatService.sendMessage();
         ws.open(
             (resp) => {
-                this.showMessage(resp.payload.message);
+                this.showMessage(resp.payload);
             },
             () => {},
             );
@@ -54,8 +54,10 @@ class ChatBlock extends Component {
         });
     }
 
-    private showMessage(message: string) {
-        const messageElem = Message.postMessage('Anonist:~$ ', message);
+    private showMessage(data: any) {
+        const author = data.author ? data.author : 'Anonist:~$ ';
+        const message = data.message;
+        const messageElem = Message.postMessage(author, message);
         this.messageBlock.append(messageElem);
     }
 }
