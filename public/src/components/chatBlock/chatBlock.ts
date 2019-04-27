@@ -23,10 +23,10 @@ class ChatBlock extends Component {
     public render(): void {
         this.el.innerHTML = ChatBlock.template();
 
-        this.messageBlock = new Component(this.el.querySelector('.chat__main'));
+        const messageBlockContent = new ScrollableBlock(this.el.querySelector('.chat__main'));
+        messageBlockContent.decorate();
 
-        // const messageBlockContent = new ScrollableBlock(this.el.querySelector('.chat__main'));
-        // messageBlockContent.decorate();
+        this.messageBlock = new Component(this.el.querySelector('.scrollable__content'));
 
         this.sendText = new Component(this.el.querySelector('.chat__input'));
 
