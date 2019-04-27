@@ -16,9 +16,7 @@ class WebSock {
     }
 
     public send(data: any) {
-        console.log(data);
         data = JSON.stringify(data);
-        console.log(data);
 
         this.wsField.send(data);
     }
@@ -36,12 +34,17 @@ class WebSock {
 
             this.wsField.onclose = (event) => {
                 if (event.wasClean) {
-                    onMessage();
+                    onError();
                 } else {
                     onError(event.reason);
                 }
             };
         }
+    }
+
+    public close(): void {
+        this.wsField.onmessage = null;
+        this.wsField.close();
     }
 }
 

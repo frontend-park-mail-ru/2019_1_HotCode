@@ -99,12 +99,19 @@
 @import "chat/chat_direction_bottom-right";
 @import "chat/chat-container";
 @import "chat/header/header";
+@import "chat/header/rooms/rooms";
+@import "chat/header/rooms/room/room";
+@import "chat/header/rooms/room/nameroom/nameroom";
+@import "chat/header/rooms/room/close/close";
 @import "chat/main/main";
 @import "chat/main/message/message";
 @import "chat/main/message/header/header";
 @import "chat/main/message/header/author/author";
+@import "chat/main/message/header/settings/settings";
 @import "chat/main/message/text/text";
 @import "chat/field/field";
+@import "chat/field/input/input";
+@import "chat/field/button/button";
 
 @import "carousel/carousel";
 @import "carousel/item/item";
@@ -122,6 +129,7 @@
 @import "form/form_theme_popup";
 @import "form/form_theme_settings";
 @import "form/form_theme_editor";
+@import "form/form_theme_chat";
 @import "form/logo/header";
 @import "form/logo/logo";
 @import "form/buttons/buttons";

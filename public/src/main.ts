@@ -18,8 +18,5 @@ import ChatBlock from './components/chatBlock/chatBlock';
 //     });
 // }
 
-const chat = new ChatBlock();
-chat.render();
-
 ViewService.start();
 ViewService.goTo(window.location.pathname);

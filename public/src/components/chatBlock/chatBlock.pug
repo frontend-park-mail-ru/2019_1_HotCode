@@ -1,7 +1,16 @@
 .chat__chat-container
     .chat__header
+        .chat__header__rooms
+            .chat__header__rooms__room
+                .chat__header__rooms__room__nameroom.pointer.color-yellow global
+                .chat__header__rooms__room__close.pointer.color-yellow &times;
+            .chat__header__rooms__room
+                .chat__header__rooms__room__nameroom.pointer.color-yellow local
+                .chat__header__rooms__room__close.pointer.color-yellow &times;
+        .chat__header__add.pointer.color-yellow +
     .chat__main
     .chat__field
         form.form_theme_chat(action='#')
-            input.chat__input(type='text')
-            input.chat__button(type='submit', value='Отправить')
+            textarea.chat__field__input
+            input.chat__field__button.color-yellow.pointer(type='submit', value='🍍')
+input#chatroom0.hidden(type='radio', name='chatroom')

@@ -1,0 +1,14 @@
+.chat__field__button {
+  position: absolute;
+  right: 14px;
+  height: 2vw;
+  width: 2vw;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: transparent;
+  outline: none;
+  border: 0;
+  color: $fontColorWhite;
+  font-size: 1.1em;
+}

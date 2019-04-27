@@ -4,12 +4,15 @@ import Component from '../baseComponent/index';
 import ChatService from '../../services/chat-service';
 import Message from './message/message';
 import ScrollableBlock from '../scrollable/scrollable';
+import WebSock from '../../modules/webSocket';
 
 class ChatBlock extends Component {
 
     private messageBlock: Component;
     private sendText: Component;
     private sendForm: Component;
+
+    private ws: WebSock;
 
     private static template = require('./chatBlock.pug');
 
@@ -28,12 +31,12 @@ class ChatBlock extends Component {
 
         this.messageBlock = new Component(this.el.querySelector('.scrollable__content'));
 
-        this.sendText = new Component(this.el.querySelector('.chat__input'));
+        this.sendText = new Component(this.el.querySelector('.chat__field__input'));
 
         this.sendForm = new Component(this.el.querySelector('.form_theme_chat'));
 
-        const ws = ChatService.sendMessage();
-        ws.open(
+        this.ws = ChatService.sendMessage();
+        this.ws.open(
             (resp) => {
                 this.showMessage(resp.payload);
             },
@@ -43,14 +46,20 @@ class ChatBlock extends Component {
         this.sendForm.on('submit', (e) => {
             e.preventDefault();
 
-            ws.send(
-                {
-                    type: 'message',
-                    payload: {
-                        message: (this.sendText.el as HTMLInputElement).value,
-                    },
-                }
-            );
+            const value = (this.sendText.el as HTMLInputElement).value;
+
+            if (value) {
+                this.ws.send(
+                    {
+                        type: 'message',
+                        payload: {
+                            message: value,
+                        },
+                    }
+                );
+
+                (this.sendText.el as HTMLInputElement).value = '';
+            }
         });
     }
 
@@ -59,6 +68,13 @@ class ChatBlock extends Component {
         const message = data.message;
         const messageElem = Message.postMessage(author, message);
         this.messageBlock.append(messageElem);
+    }
+
+    public clear(): void {
+        super.clear();
+
+        this.ws.close();
+        this.ws = null;
     }
 }
 
