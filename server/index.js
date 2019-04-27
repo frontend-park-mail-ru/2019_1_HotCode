@@ -15,9 +15,8 @@ app.ws('/chat/connect', (ws) => {
     console.log('WebSocket');
 
     ws.on('message', (message) => {
-        const request = JSON.parse(message);
 
-        ws.send(request.payload.message);
+        ws.send(message);
     });
 
     ws.on('close', () => {

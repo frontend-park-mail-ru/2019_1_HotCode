@@ -1,2 +1,7 @@
 .chat__main__message {
+  margin-bottom: 0.4em;
+}
+
+.chat__main__message:last-child {
+  margin-bottom: 0;
 }

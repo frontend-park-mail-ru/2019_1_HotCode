@@ -31,7 +31,7 @@ class WebSock {
         this.wsField.onopen = () => {
 
             this.wsField.onmessage = (event) => {
-                onMessage(event.data);
+                onMessage(JSON.parse(event.data));
             };
 
             this.wsField.onclose = (event) => {

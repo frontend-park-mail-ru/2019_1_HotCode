@@ -3,6 +3,7 @@
 import Component from '../baseComponent/index';
 import ChatService from '../../services/chat-service';
 import Message from './message/message';
+import ScrollableBlock from '../scrollable/scrollable';
 
 class ChatBlock extends Component {
 
@@ -24,6 +25,9 @@ class ChatBlock extends Component {
 
         this.messageBlock = new Component(this.el.querySelector('.chat__main'));
 
+        // const messageBlockContent = new ScrollableBlock(this.el.querySelector('.chat__main'));
+        // messageBlockContent.decorate();
+
         this.sendText = new Component(this.el.querySelector('.chat__input'));
 
         this.sendForm = new Component(this.el.querySelector('.form_theme_chat'));
@@ -31,7 +35,7 @@ class ChatBlock extends Component {
         const ws = ChatService.sendMessage();
         ws.open(
             (resp) => {
-                this.showMessage(resp);
+                this.showMessage(resp.payload.message);
             },
             () => {},
             );
