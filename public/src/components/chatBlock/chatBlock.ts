@@ -2,10 +2,11 @@
 
 import Component from '../baseComponent/index';
 import ChatService from '../../services/chat-service';
+import Message from './message/message';
 
 class ChatBlock extends Component {
 
-    private answerText: Component;
+    private messageBlock: Component;
     private sendText: Component;
     private sendForm: Component;
 
@@ -21,7 +22,7 @@ class ChatBlock extends Component {
     public render(): void {
         this.el.innerHTML = ChatBlock.template();
 
-        this.answerText = new Component(this.el.querySelector('.chat__answer'));
+        this.messageBlock = new Component(this.el.querySelector('.chat__main'));
 
         this.sendText = new Component(this.el.querySelector('.chat__input'));
 
@@ -50,9 +51,8 @@ class ChatBlock extends Component {
     }
 
     private showMessage(message: string) {
-        const messageElem = document.createElement('div');
-        messageElem.innerText = message;
-        this.answerText.append(new Component(messageElem));
+        const messageElem = Message.postMessage('Anonist:~$ ', message);
+        this.messageBlock.append(messageElem);
     }
 }
 

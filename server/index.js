@@ -17,7 +17,7 @@ app.ws('/chat/connect', (ws) => {
     ws.on('message', (message) => {
         const request = JSON.parse(message);
 
-        ws.send(`Anonist:~$ ${request.payload.message}`)
+        ws.send(request.payload.message);
     });
 
     ws.on('close', () => {

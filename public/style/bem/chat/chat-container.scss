@@ -1,0 +1,14 @@
+.chat__chat-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 23vw;
+  height: 57vh;
+
+  overflow: hidden;
+
+  border: 1px solid $fontColorWhite;
+  border-radius: 15px;
+  background: $backgroundColorBack2;
+}

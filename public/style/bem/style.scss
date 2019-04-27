@@ -97,6 +97,14 @@
 
 @import "chat/chat";
 @import "chat/chat_direction_bottom-right";
+@import "chat/chat-container";
+@import "chat/header/header";
+@import "chat/main/main";
+@import "chat/main/message/message";
+@import "chat/main/message/header/header";
+@import "chat/main/message/header/author/author";
+@import "chat/main/message/text/text";
+@import "chat/field/field";
 
 @import "carousel/carousel";
 @import "carousel/item/item";
