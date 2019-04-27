@@ -10,6 +10,7 @@ class Message extends Component{
     private static curId: number = 0;
 
     private settingsButton: Checkbox;
+    private optionsMenu: Component;
 
     private id: number;
     private author: string;
@@ -44,12 +45,16 @@ class Message extends Component{
     }
 
     public render(): void {
+        this.optionsMenu = new Component(this.el.querySelector('.chat__main__message__options'));
+
         this.settingsButton = new Checkbox(this.el.querySelector(`#messageSettings${this.id}`),
             () => {
                 console.log('open');
+                this.optionsMenu.show();
             },
             () => {
                 console.log('close');
+                this.optionsMenu.hide();
             },
         );
         this.settingsButton.onChange();

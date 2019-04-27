@@ -38,7 +38,7 @@ class ChatBlock extends Component {
         this.ws = ChatService.sendMessage();
         this.ws.open(
             (resp) => {
-                this.showMessage(resp.payload);
+                this.showMessage(resp);
             },
             () => {},
             );
@@ -52,6 +52,7 @@ class ChatBlock extends Component {
                 this.ws.send(
                     {
                         type: 'message',
+                        chat_id: 1,
                         payload: {
                             message: value,
                         },
@@ -64,8 +65,8 @@ class ChatBlock extends Component {
     }
 
     private showMessage(data: any) {
-        const author = data.author ? data.author : 'Anonist:~$ ';
-        const message = data.message;
+        const author = data.author ? data.author.username : 'Anonist:~$ ';
+        const message = data.payload.message;
         const messageElem = Message.postMessage(author, message);
         this.messageBlock.append(messageElem);
     }
