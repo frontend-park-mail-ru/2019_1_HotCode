@@ -28,6 +28,17 @@ class WebSock {
 
         this.wsField.onopen = () => {
 
+            this.send(
+                {
+                    type: 'messages',
+                    chat_id: 1,
+                    payload: {
+                        limit: 1000,
+                        offset: 0,
+                    },
+                }
+            );
+
             this.wsField.onmessage = (event) => {
                 onMessage(JSON.parse(event.data));
             };

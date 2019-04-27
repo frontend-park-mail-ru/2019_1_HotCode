@@ -63,17 +63,6 @@ class ChatBlock extends Component {
             () => {},
             );
 
-        this.ws.send(
-            {
-                type: 'messages',
-                chat_id: 1,
-                payload: {
-                    limit: 10,
-                    offset: 0,
-                },
-            }
-        );
-
         this.sendForm.on('submit', (e) => {
             e.preventDefault();
 
@@ -97,7 +86,7 @@ class ChatBlock extends Component {
         EventBus.subscribe(events.onEditMessage, () => {
             this.sendText.el.focus();
 
-            this.sendForm.on('submit', (e) => {
+            const remover = this.sendForm.on('submit', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -131,7 +120,7 @@ class ChatBlock extends Component {
         data.payload.messages
             .map((item: any) => {
 
-                const author = 'Anonist:~$ ';
+                const author = item.author ? item.author : 'Anonist:~$ ';
                 const message = item.message;
                 const messageElem = Message.postMessage(author, message);
                 this.messageBlock.append(messageElem);
