@@ -5,7 +5,8 @@ class ViewInfo {
     private keyNameField: string;
     private viewConstructorField: () => IRenderable;
     private typeField: string;
-    private pathField: RegExp;
+    private regField: RegExp;
+    private pathField: string;
     private childrenViewField: string[];
     private defaultParentField: string;
 
@@ -14,14 +15,14 @@ class ViewInfo {
     constructor(keyName: string,
                 viewConstructor: () => IRenderable,
                 type: string,
-                path?: RegExp,
+                reg?: RegExp,
                 childrenView?: string[],
                 defaultView?: string) {
 
         this.keyNameField = keyName;
         this.viewConstructorField = viewConstructor;
         this.typeField = type;
-        this.pathField = path;
+        this.regField = reg;
         this.childrenViewField = childrenView;
         this.defaultParentField = defaultView;
     }
@@ -39,8 +40,16 @@ class ViewInfo {
         return this.typeField;
     }
 
-    get path(): RegExp {
+    get reg(): RegExp {
+        return this.regField;
+    }
+
+    get path(): string {
         return this.pathField;
+    }
+
+    set path(value: string) {
+        this.pathField = value;
     }
 
     get childrenView(): string[] {

@@ -1,16 +1,10 @@
 'use strict';
 
-import serverNames from './utils/serverNames';
-
 class WebSock {
-
-    private static server: string = serverNames.WSbackend;
 
     private wsField: WebSocket;
 
-    constructor(path: string) {
-
-        const uri = WebSock.server + path;
+    constructor(uri: string) {
 
         this.wsField = new WebSocket(uri);
     }

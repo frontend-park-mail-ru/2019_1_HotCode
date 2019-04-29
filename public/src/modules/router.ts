@@ -27,7 +27,14 @@ class Router {
         console.log('go', path);
         console.log('postStack', this.postRenderStack);
 
-        let newView = this.views.find((view) => path.match(view.path) !== null);
+        let newView = this.views.find((view) => path.match(view.reg) !== null);
+        newView.path = path;
+
+        if (this.postRenderStack.length > 0 &&
+            path === this.postRenderStack[this.postRenderStack.length - 1].path) {
+
+            isPopState = true;
+        }
 
         if (this.postRenderStack.find((view) => view.type === newView.type)) {
 
@@ -99,8 +106,7 @@ class Router {
         window.history.pushState(
             null,
             (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
-            // this.postRenderStack[this.postRenderStack.length - 1].path,
-            'I\'m router',
+            this.postRenderStack[this.postRenderStack.length - 1].path,
         );
     }
 

@@ -65,6 +65,7 @@ class SettingsForm extends Form{
             this.username.clearError();
 
         } catch (usernameError) {
+
             this.username.setError(usernameError.text);
         }
     }
@@ -101,16 +102,17 @@ class SettingsForm extends Form{
 
             if (this.oldPassword.getValue().length > 0) {
                 Validation.validatePassword(this.newPassword.getValue());
-            }
 
-            if (!this.newPassword.virginity &&
-                !this.repeatNewPassword.virginity) {
+                if (!this.newPassword.virginity &&
+                    !this.repeatNewPassword.virginity) {
 
-                Validation.validatePasswordEquality(this.newPassword.getValue(),
-                    this.repeatNewPassword.getValue());
+                    Validation.validatePasswordEquality(this.newPassword.getValue(),
+                        this.repeatNewPassword.getValue());
+                }
             }
 
             this.newPassword.clearError();
+
         } catch (passwordError) {
 
             this.newPassword.setError(passwordError.errorText);
@@ -119,7 +121,8 @@ class SettingsForm extends Form{
 
     public validateNewPasswordEquality(): void {
         try {
-            if (!this.newPassword.virginity &&
+            if (this.oldPassword.getValue() &&
+                !this.newPassword.virginity &&
                 !this.repeatNewPassword.virginity) {
 
                 Validation.validatePasswordEquality(this.newPassword.getValue(),

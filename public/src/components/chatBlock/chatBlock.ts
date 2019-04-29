@@ -38,8 +38,6 @@ class ChatBlock extends Component {
             this.ws = null;
 
             this.ws = ChatService.sendMessage();
-            // this.clear();
-            // this.render();
         });
 
         this.onUnauthorizedRemover = EventBus.subscribe(events.unauthorized, () => {
@@ -49,8 +47,6 @@ class ChatBlock extends Component {
             this.ws = null;
 
             this.ws = ChatService.sendMessage();
-            // this.clear();
-            // this.render();
         });
 
         const messageBlockContent = new ScrollableBlock(this.el.querySelector('.chat__main'));
