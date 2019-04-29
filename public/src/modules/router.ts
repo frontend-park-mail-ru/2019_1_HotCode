@@ -100,9 +100,11 @@ class Router {
     }
 
     public popStack(deep: number): void {
+
         for (let i = 0; i < deep; i++)
             this.clear(this.postRenderStack.pop().view);
 
+        (this.postRenderStack[this.postRenderStack.length - 1].view as Page).setTitle();
         window.history.pushState(
             null,
             (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,

@@ -20,8 +20,12 @@ abstract class Page extends Layer{
         this.titleField = value || this.titleField;
     }
 
-    public render(): void {
+    public setTitle(): void {
         document.title = this.title;
+    }
+
+    public render(): void {
+        this.setTitle();
     }
 }
 
