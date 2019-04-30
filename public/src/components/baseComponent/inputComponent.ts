@@ -20,8 +20,8 @@ abstract class InputComponent extends Component{
 
         this.callbackField = callback;
 
-        EventBus.subscribe(`${this.getId()}`, () => {
-            this.emit();
+        EventBus.subscribe(`${this.getId()}`, (param?: any) => {
+            this.emit(param);
         });
     }
 
@@ -33,8 +33,8 @@ abstract class InputComponent extends Component{
         this.callbackField = callback;
     }
 
-    public emit(): any {
-        return this.callbackField();
+    public emit(param?: any): any {
+        return this.callbackField(param);
     }
 
     public getId(): string{

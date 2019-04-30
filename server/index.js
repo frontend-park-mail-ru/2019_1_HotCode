@@ -2,40 +2,27 @@
 
 const fallback = require('express-history-api-fallback');
 const express = require('express');
-const ws = require('express-ws');
 const path = require('path');
 const proxy = require('express-http-proxy');
 const morgan = require('morgan');
 
 const app = express();
 
-ws(app);
-
-app.ws('/chat/connect', (ws) => {
-    console.log('WebSocket');
-
-    ws.on('message', (message) => {
-
-        ws.send(message);
-    });
-
-    ws.on('close', () => {
-        console.log('Close');
-    });
-});
-
-const port = process.env.PORT || 8000;
 const rootDir = path.resolve(__dirname, '..', 'dist');
+
+console.log(rootDir);
 
 app.use(morgan('dev'));
 app.use(express.static(rootDir));
 
-app.use(fallback('index.html', {root: rootDir}));
+app.use(fallback('./index.html', {root: rootDir}));
 
-app.use('*', proxy('https://warscript.now.sh/', {
+app.use('*', proxy('http://war-script.herokuapp.com/', {
     proxyReqPathResolver: function (req) {
         return req.originalUrl;
     }
 }));
+
+const port = process.env.PORT || 8000;
 
 app.listen(port);

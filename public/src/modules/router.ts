@@ -48,6 +48,7 @@ class Router {
         }
 
         let defaultView = null;
+        let defaultPath = null;
         while (newView) {
 
             if (this.postRenderStack.find((view) => view.keyName === newView.keyName)) {
@@ -67,12 +68,18 @@ class Router {
             }
 
             if (defaultView) {
+                console.log('Oops', defaultPath);
+                defaultView.path = defaultPath;
                 this.preRenderStack.push(defaultView);
             }
 
             this.preRenderStack.push(newView);
 
             defaultView = this.views.find((view) => view.keyName === newView.defaultParent);
+
+            if (defaultView) {
+                defaultPath = newView.defaultPath;
+            }
 
             newView = this.getParent(newView);
 
@@ -130,6 +137,8 @@ class Router {
     }
 
     private draw(view: ViewInfo, slug: string): void {
+        console.log(view.defaultPath);
+        console.log(view.path);
         view.createView();
         view.view.render(slug);
         console.log('RENDER', view.keyName);

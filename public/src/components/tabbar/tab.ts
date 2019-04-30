@@ -17,8 +17,11 @@ class Tab extends InputComponent {
         return (this.el as HTMLInputElement).checked;
     }
 
-    public emit(): void {
-        super.emit();
+    public emit(onlyCheck = false): void {
+
+        if (!onlyCheck) {
+            super.emit();
+        }
 
         if (!this.isChecked()) {
             (this.el as HTMLInputElement).checked = true;

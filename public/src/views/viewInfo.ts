@@ -9,6 +9,7 @@ class ViewInfo {
     private pathField: string;
     private childrenViewField: string[];
     private defaultParentField: string;
+    private defaultPathField: string;
 
     private viewField: IRenderable;
 
@@ -17,7 +18,9 @@ class ViewInfo {
                 type: string,
                 reg?: RegExp,
                 childrenView?: string[],
-                defaultView?: string) {
+                defaultView?: string,
+                defaultPath?: string,
+                ) {
 
         this.keyNameField = keyName;
         this.viewConstructorField = viewConstructor;
@@ -25,6 +28,7 @@ class ViewInfo {
         this.regField = reg;
         this.childrenViewField = childrenView;
         this.defaultParentField = defaultView;
+        this.defaultPathField = defaultPath;
     }
 
 
@@ -58,6 +62,10 @@ class ViewInfo {
 
     get defaultParent(): string {
         return this.defaultParentField;
+    }
+
+    get defaultPath(): string {
+        return this.defaultPathField;
     }
 
     get view(): IRenderable {

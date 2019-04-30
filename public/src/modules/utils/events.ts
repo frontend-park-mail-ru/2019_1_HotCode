@@ -19,4 +19,5 @@ export const events = {
     onCloseModal: 'onCloseModal',
     closeModal: 'mod0',
     openSignIn: 'mod1',
+    openSignUp: 'mod2',
 };

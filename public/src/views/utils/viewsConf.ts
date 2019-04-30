@@ -66,6 +66,7 @@ export const views = [
             'signupPage',
         ],
         'mainPage',
+        '/'
     ),
     new ViewInfo(
         'startPage',
