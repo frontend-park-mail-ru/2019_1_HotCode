@@ -29,6 +29,7 @@ class Router {
 
         let newView = this.views.find((view) => path.match(view.reg) !== null);
         newView.path = path;
+        newView.slug = slug;
 
         if (this.postRenderStack.length > 0 &&
             path === this.postRenderStack[this.postRenderStack.length - 1].path) {
@@ -112,7 +113,7 @@ class Router {
 
         (this.postRenderStack[this.postRenderStack.length - 1].view as Page).setTitle();
         window.history.pushState(
-            null,
+            {slug: this.postRenderStack[this.postRenderStack.length - 1].slug},
             (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
             this.postRenderStack[this.postRenderStack.length - 1].path,
         );

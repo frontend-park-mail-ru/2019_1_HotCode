@@ -7,6 +7,7 @@ class ViewInfo {
     private typeField: string;
     private regField: RegExp;
     private pathField: string;
+    private slugField: string;
     private childrenViewField: string[];
     private defaultParentField: string;
     private defaultPathField: string;
@@ -54,6 +55,14 @@ class ViewInfo {
 
     set path(value: string) {
         this.pathField = value;
+    }
+
+    get slug(): string {
+        return this.slugField;
+    }
+
+    set slug(value: string) {
+        this.slugField = value;
     }
 
     get childrenView(): string[] {
