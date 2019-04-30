@@ -41,13 +41,13 @@ class GameMenuLayer extends Layer {
         this.onBackgroundChange = EventBus.subscribe(events.onBackgroundChange, () => {
 
             (new Component(this.parent.el.querySelector('.background_theme_gamemenu-img'))
-                .el as HTMLImageElement).src = `https://warscript-images.herokuapp.com/photos/${Game.backgrondUUID}`;
+                .el as HTMLImageElement).src = `http://warscript-images.herokuapp.com/photos/${Game.backgrondUUID}`;
         });
 
         this.onLogoChange = EventBus.subscribe(events.onLogoChange, () => {
 
             (new Component(this.parent.el.querySelector('.game-menu__main__content-right__item'))
-                .el as HTMLImageElement).src = `https://warscript-images.herokuapp.com/photos/${Game.logoUUID}`;
+                .el as HTMLImageElement).src = `http://warscript-images.herokuapp.com/photos/${Game.logoUUID}`;
         });
 
         const parallax = new Parallax(new Component(this.parent.el.querySelector('.background_theme_gamemenu-img')),

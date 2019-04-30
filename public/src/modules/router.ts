@@ -68,7 +68,6 @@ class Router {
             }
 
             if (defaultView) {
-                console.log('Oops', defaultPath);
                 defaultView.path = defaultPath;
                 this.preRenderStack.push(defaultView);
             }
@@ -137,8 +136,6 @@ class Router {
     }
 
     private draw(view: ViewInfo, slug: string): void {
-        console.log(view.defaultPath);
-        console.log(view.path);
         view.createView();
         view.view.render(slug);
         console.log('RENDER', view.keyName);
