@@ -19,9 +19,7 @@ class Router {
     public start() {
         window.onpopstate = (event) => {
             console.log('popState');
-            console.log('state', event.state);
-            console.log(window.location.pathname);
-            this.go(window.location.pathname, true);
+            this.go(window.location.pathname, true, event.state.slug);
         };
     }
 
