@@ -19,6 +19,7 @@ class Router {
     public start() {
         window.onpopstate = (event) => {
             console.log('popState');
+            console.log('state', event.state);
             console.log(window.location.pathname);
             this.go(window.location.pathname, true);
         };
@@ -97,7 +98,7 @@ class Router {
         if (!isPopState) {
 
             window.history.pushState(
-                null,
+                {slug},
                 (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
                 path,
             );
