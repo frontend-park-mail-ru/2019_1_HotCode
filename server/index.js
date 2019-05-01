@@ -15,12 +15,6 @@ app.use(express.static(rootDir));
 
 app.use(fallback('./index.html', {root: rootDir}));
 
-// app.use('*', proxy('http://war-script.herokuapp.com/', {
-//     proxyReqPathResolver: function (req) {
-//         return req.originalUrl;
-//     }
-// }));
-
 const port = process.env.PORT || 8000;
 
 app.listen(port);
