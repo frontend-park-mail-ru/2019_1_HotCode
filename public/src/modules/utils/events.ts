@@ -16,7 +16,7 @@ export const events = {
     authorized: 'authorized',
     unauthorized: 'unauthorized',
     onNewPassword: 'onNewPassword',
-    onCloseModal: 'onCloseModal',
+    onCloseModal: 'onClose_choose-avatar', // Важно
     closeModal: 'mod0',
     openSignIn: 'mod1',
     openSignUp: 'mod2',

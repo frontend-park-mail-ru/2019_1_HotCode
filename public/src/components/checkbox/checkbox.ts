@@ -27,7 +27,7 @@ class Checkbox extends InputComponent{
         super(el, callbackOnCheck);
         this.callbackOnCancelField = callbackOnCancel;
 
-        EventBus.subscribe(events.onCloseModal, () => {
+        EventBus.subscribe(`onClose_${this.getId()}`, () => {
 
             this.emitCancel();
         });
