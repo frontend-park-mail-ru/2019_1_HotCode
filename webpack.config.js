@@ -46,7 +46,9 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: "/",
+
     },
     module: {
         rules: [
@@ -54,14 +56,14 @@ module.exports = {
                 test: /\.tsx?$/,
                 enforce: 'pre',
                 exclude: /node_modules/,
-                use: ['ts-loader', 'tslint-loader']
+                use: ['ts-loader', 'tslint-loader'],
             },
             {
                 test: /.pug$/,
                 use: {
                     loader: 'pug-loader',
-                    query: {}
-                }
+                    query: {},
+                },
             },
             {
                 test: /\.scss$/,
@@ -90,7 +92,10 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin('dist', {} ),
-        new ExtractTextPlugin({filename: 'style.css'}),
+        new ExtractTextPlugin({
+            filename: 'style.css',
+            publicPath: '/',
+        }),
         new HtmlWebpackPlugin({
             title: 'WarScript',
             favicon: './favicon.ico',
