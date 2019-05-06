@@ -2,6 +2,9 @@
 
 import Component from '../baseComponent/index';
 import ImageInput from '../imageInput/imageInput';
+import EventBus from '../../modules/event-bus';
+import {events} from '../../modules/utils/events';
+import {onDragAndDrop} from '../../modules/dragAndDrop';
 
 class PhotoLoader extends Component{
 
@@ -15,20 +18,17 @@ class PhotoLoader extends Component{
     private content: Component;
     private dragText: Component;
     private sliderNE: Component;
+    private sliderNW: Component;
+    private sliderSE: Component;
+    private sliderSW: Component;
     private cropButton: Component;
     private resultImage: Component;
 
-    private resultFile64Field: string;
     private resultFileField: File;
 
     constructor(el: HTMLElement) {
         super(el);
     }
-
-    get resultFile64(): string {
-        return this.resultFile64Field;
-    }
-
 
     get resultFile(): File {
         return this.resultFileField;
@@ -65,8 +65,18 @@ class PhotoLoader extends Component{
 
         this.content = new Component(this.el.querySelector('.photo-loader'));
         this.dragText = new Component(this.el.querySelector('.photo-loader__content'));
+
         this.sliderNE = new Component(
             this.el.querySelector('.photo-loader__resize__frame__sliders_direction_right-top'),
+        );
+        this.sliderNW = new Component(
+            this.el.querySelector('.photo-loader__resize__frame__sliders_direction_left-top'),
+        );
+        this.sliderSE = new Component(
+            this.el.querySelector('.photo-loader__resize__frame__sliders_direction_right-bottom'),
+        );
+        this.sliderSW = new Component(
+            this.el.querySelector('.photo-loader__resize__frame__sliders_direction_left-bottom'),
         );
 
         this.cropButton = new Component(this.el.querySelector('.button_theme_photo-loader'));
@@ -122,32 +132,14 @@ class PhotoLoader extends Component{
                 return (e: Event) => {
 
                     (aImg as HTMLImageElement).src = (e.target as any).result;
-                    aImg.onload = () => {
-                        (aImg as HTMLImageElement).src = this.resizeImage(
-                            aImg as HTMLImageElement,
-                            aImg.offsetWidth,
-                            aImg.offsetHeight,
-                        );
-                    };
                 };
             })(this.loadImage.el);
             reader.readAsDataURL(file);
         }
-        this.resultFileField = this.loadPhotoButton.getFile();
 
         this.frame.el.style.width = 25 + '%';
         this.frame.el.style.left = 50 + '%';
         this.frame.el.style.top = 50 + '%';
-    };
-
-    private resizeImage = (image: HTMLImageElement, newWidth: number, newHeight: number) => {
-        const canvas = document.createElement('canvas');
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-        const ctx = canvas.getContext('2d');
-
-        ctx.drawImage(image, 0, 0, newWidth, newHeight);
-        return canvas.toDataURL('image/jpeg');
     };
 
     private onDragFrame(): void {
@@ -204,66 +196,105 @@ class PhotoLoader extends Component{
         };
     }
 
-    private onDragSliders(): void {
-        const parent = new Component(document.querySelector('.container_theme_modal')); // TODO убрать этот костыль
-
-        this.sliderNE.on('mousedown', (mouseEvent: MouseEvent) => {
-            mouseEvent.preventDefault();
-            mouseEvent.stopPropagation();
-            const coords = this.getCoords(this.sliderNE.el);
-            const shiftX = mouseEvent.pageX - coords.left;
-
-            const moveAt = (e: MouseEvent) => {
-                e.preventDefault();
-                this.frame.el.style.width =
-                    e.pageX -
-                    (this.containerOfImage.el.offsetLeft +
-                        parent.el.offsetLeft -
-                        parent.el.offsetWidth / 2 +
-                        this.frame.el.offsetLeft -
-                        this.frame.el.offsetWidth / 2 +
-                        shiftX) +
-                    'px';
-            };
-
-            document.addEventListener('mousemove', moveAt);
-
-            document.onmouseup = () => {
-                document.removeEventListener('mousemove', moveAt);
-                document.onmouseup = null;
-            };
-
-        });
-        this.sliderNE.el.ondragstart = () => {
-            return false;
-        };
-    }
-
     private getCoords = (elem: HTMLElement) => {
         const box = elem.getBoundingClientRect();
         return {
-            top: box.top + pageYOffset + elem.offsetWidth / 2,
-            left: box.left + pageXOffset + elem.offsetHeight / 2,
+            top: box.top + pageYOffset + elem.offsetHeight / 2,
+            left: box.left + pageXOffset + elem.offsetWidth / 2,
         };
     };
+
+    private onDragSliders(): void {
+        const parent = new Component(document.querySelector('.container_theme_modal')); // TODO убрать этот костыль
+
+        const moveAtInLeft = (target: Component) => {
+            return (shiftX: number) => {
+                return (e: MouseEvent) => {
+                    e.preventDefault();
+                    this.frame.el.style.width =
+                        2 *
+                        (this.frame.el.offsetLeft -
+                            (e.pageX -
+                                (this.containerOfImage.el.offsetLeft +
+                                    parent.el.offsetLeft -
+                                    parent.el.offsetWidth / 2 +
+                                    shiftX -
+                                    target.el.offsetWidth / 2))) +
+                        'px';
+                };
+            };
+        };
+
+        const moveAtInRight = (target: Component) => {
+            return (shiftX: number) => {
+                return (e: MouseEvent) => {
+                    e.preventDefault();
+                    this.frame.el.style.width =
+                        e.pageX -
+                        (this.containerOfImage.el.offsetLeft +
+                            parent.el.offsetLeft -
+                            parent.el.offsetWidth / 2 +
+                            this.frame.el.offsetLeft -
+                            this.frame.el.offsetWidth / 2 +
+                            shiftX -
+                            target.el.offsetWidth / 2) +
+                        'px';
+                };
+            };
+        };
+
+        [this.sliderNE, this.sliderSE].map((slider) => {
+            onDragAndDrop(slider, moveAtInRight(slider));
+        });
+
+        [this.sliderNW, this.sliderSW].map((slider) => {
+            onDragAndDrop(slider, moveAtInLeft(slider));
+        });
+    }
 
     private onCropImage(): void {
 
         this.cropButton.on('click', () => {
 
             this.resultImage.show();
-            this.resultFile64Field = this.cropImage(
+            const base64 = this.cropImage(
                 this.loadImage.el as HTMLImageElement,
                 this.frame.el.offsetLeft - this.frame.el.offsetWidth / 2,
                 this.frame.el.offsetTop - this.frame.el.offsetHeight / 2,
                 this.frame.el.offsetWidth,
                 this.frame.el.offsetHeight,
             );
-            (this.resultImage.el as HTMLImageElement).src = this.resultFile64Field;
+            (this.resultImage.el as HTMLImageElement).src = base64;
+            this.resultFileField = this.dataURItoFile(base64, 'avatar.jpg');
+            EventBus.publish(events.onCloseModal); // TODO Костыль
         });
     }
 
-    private cropImage = (image: HTMLImageElement, x: number, y: number, newWidth: number, newHeight: number) => {
+    private dataURItoFile(dataURI: string, filename: string): File {
+        const arr = dataURI.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type: mime});
+    }
+
+    private cropImage = (
+        image: HTMLImageElement,
+        x: number,
+        y: number,
+        newWidth: number,
+        newHeight: number,
+    ): string => {
+
+        newWidth = newWidth * image.naturalWidth / image.width;
+        newHeight = newHeight * image.naturalHeight / image.height;
+        x = x * image.naturalWidth / image.width;
+        y = y * image.naturalHeight / image.height;
+
         const canvas = document.createElement('canvas');
         canvas.width = newWidth;
         canvas.height = newHeight;

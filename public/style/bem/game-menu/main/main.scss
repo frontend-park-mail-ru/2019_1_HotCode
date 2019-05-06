@@ -1,7 +1,15 @@
 .game-menu__main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  align-content: flex-start;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__main {
+    margin-top: 8%;
+
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__main {
+
+  }
 }

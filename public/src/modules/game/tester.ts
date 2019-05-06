@@ -38,10 +38,10 @@ class Tester {
 
             this.game.saveObjects(p1Args, p2Args);
             ticks.push(this.game.getState());
-            console.log(this.game.getState());
+            //console.log(this.game.getState());
 
             const res = this.game.isDone();
-            console.log(res);
+            //console.log(res);
             if (res !== 0) {
                 winner = res;
                 break;

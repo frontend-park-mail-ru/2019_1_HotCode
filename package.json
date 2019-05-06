@@ -31,6 +31,7 @@
     "express": "^4.16.4",
     "express-history-api-fallback": "^2.2.1",
     "express-http-proxy": "^1.5.1",
+    "express-ws": "^4.0.0",
     "imagemin": "^6.1.0",
     "imagemin-giflossy": "^5.1.10",
     "imagemin-mozjpeg": "^8.0.0",

@@ -6,3 +6,15 @@
   margin: 16px 0;
   border-bottom: 2px solid $fontColorWhite;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__line {
+    display: none;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__line {
+
+  }
+}

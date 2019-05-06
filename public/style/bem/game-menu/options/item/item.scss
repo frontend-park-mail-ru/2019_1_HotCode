@@ -1,5 +1,18 @@
 .game-menu__options__item {
   @extend %white;
+  display: inline-block;
   font-weight: 300;
   font-size: 26px;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__options__item {
+    font-size: calc(1.15em + 0.1vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__options__item {
+
+  }
 }

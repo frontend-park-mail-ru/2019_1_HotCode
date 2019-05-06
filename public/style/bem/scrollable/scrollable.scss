@@ -1,0 +1,15 @@
+.scrollable__wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollable__area {
+  position: absolute;
+  height: 100%;
+  padding-right: 12.5px;
+  overflow-y: auto;
+}
+
+.scrollable__area::-webkit-scrollbar {
+  width: 0;
+}

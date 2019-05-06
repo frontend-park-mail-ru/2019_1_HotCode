@@ -4,6 +4,7 @@
 @import "reset";
 @import "html";
 @import "body";
+@import "root";
 
 @import "options/ishidden";
 @import "options/isactive";
@@ -18,6 +19,8 @@
 @import "effects/transform/in-right";
 @import "effects/transform/out-right";
 @import "effects/transform/vanish-in";
+@import "effects/transform/scale-on-hover";
+@import "effects/transform/scale-on-hover-s";
 
 @import "container/base-container";
 @import "container/container";
@@ -63,6 +66,7 @@
 @import "footer/container-item/container-item.scss";
 @import "footer/container-item/container-item_size_s.scss";
 @import "footer/item/item";
+@import "footer/item/link";
 
 @import "buttons/button";
 @import "buttons/button_theme_main";
@@ -91,6 +95,26 @@
 @import "alert/content/content_theme_success";
 @import "alert/content/content_theme_error";
 
+@import "chat/chat";
+@import "chat/chat_direction_bottom-right";
+@import "chat/chat-container";
+@import "chat/header/header";
+@import "chat/header/rooms/rooms";
+@import "chat/header/rooms/room/room";
+@import "chat/header/rooms/room/nameroom/nameroom";
+@import "chat/header/rooms/room/close/close";
+@import "chat/main/main";
+@import "chat/main/message/message";
+@import "chat/main/message/header/header";
+@import "chat/main/message/header/author/author";
+@import "chat/main/message/header/settings/settings";
+@import "chat/main/message/text/text";
+@import "chat/main/message/options/options";
+@import "chat/main/message/options/item/item";
+@import "chat/field/field";
+@import "chat/field/input/input";
+@import "chat/field/button/button";
+
 @import "carousel/carousel";
 @import "carousel/item/item";
 @import "carousel/item/item_theme_prev";
@@ -107,6 +131,7 @@
 @import "form/form_theme_popup";
 @import "form/form_theme_settings";
 @import "form/form_theme_editor";
+@import "form/form_theme_chat";
 @import "form/logo/header";
 @import "form/logo/logo";
 @import "form/buttons/buttons";
@@ -134,6 +159,9 @@
 @import "photoLoader/resize/frame/sliders/sliders";
 @import "photoLoader/footer/footer";
 
+@import "game-menu/content/left";
+@import "game-menu/content/left_theme_play";
+@import "game-menu/content/right";
 @import "game-menu/header/header";
 @import "game-menu/header/logo/logo";
 @import "game-menu/options/options";
@@ -141,12 +169,10 @@
 @import "game-menu/options/item/item";
 @import "game-menu/line/line";
 @import "game-menu/main/main";
-@import "game-menu/main/content-left/content-left";
-@import "game-menu/main/content-left/content-left_theme_play";
-@import "game-menu/main/content-right/content-right";
 @import "game-menu/main/content-right/item/item";
 
 @import "table/table";
+@import "table/container/container";
 @import "table/cell/cell";
 @import "table/types/types";
 @import "table/types/item/item";
@@ -178,3 +204,8 @@
 @import "game/item/line/vertical-line/outline";
 @import "game/item/header/header";
 @import "game/pong/pong";
+
+@import "scrollable/scrollable";
+
+@import "scrollbar/scrollbar-container";
+@import "scrollbar/scrollbar";

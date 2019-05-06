@@ -1,4 +1,15 @@
 export const events = {
+    onEditMessage: 'onEditMessage',
+    onDescriptionChange: 'onDescriptionChange',
+    onSlugChange: 'onSlugChange',
+    onSlug2Change: 'onSlug2Change',
+    onCodeChange: 'onCodeChange',
+    onRulesChange: 'onRulesChange',
+    onTitleChange: 'onTitleChange',
+    onBackgroundChange: 'onBackgroundChange',
+    onLogoChange: 'onLogoChange',
+    onUsernameChange: 'onUsernameChange',
+    onAvatarChange: 'onAvatarChange',
     onPause: 'onPause',
     onChangeProgress: 'onChangeProgress',
     chengeStateCarousel: 'chengeStateCarousel',
@@ -7,6 +18,8 @@ export const events = {
     authorized: 'authorized',
     unauthorized: 'unauthorized',
     onNewPassword: 'onNewPassword',
+    onCloseModal: 'onClose_choose-avatar', // Важно
     closeModal: 'mod0',
     openSignIn: 'mod1',
+    openSignUp: 'mod2',
 };

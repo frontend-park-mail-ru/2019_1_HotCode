@@ -1,5 +1,8 @@
 'use strict';
 
+import {events} from '../modules/utils/events';
+import EventBus from '../modules/event-bus';
+
 class User {
 
     private usernameField: string;
@@ -20,6 +23,7 @@ class User {
 
     set username(value) {
         this.usernameField = value;
+        EventBus.publish(events.onUsernameChange);
     }
 
     get id() {
@@ -44,6 +48,7 @@ class User {
 
     set avatar(value) {
         this.avatarField = value;
+        EventBus.publish(events.onAvatarChange);
     }
 
     public setData(username: string, id = '', active = false): void {

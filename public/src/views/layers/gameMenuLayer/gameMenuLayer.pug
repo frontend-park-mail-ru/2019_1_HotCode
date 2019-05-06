@@ -1,24 +1,24 @@
-img.background.background_theme_gamemenu-img(src=`https://warscript-images.herokuapp.com/photos/${backgroundUUID}`)
+img.background.background_theme_gamemenu-img(src='')
 .background.background_theme_gamemenu
 
 .container.container_theme_game-menu
-    .game-menu__header
-        .game-menu__header__logo= title
-        label(for='option2')
-            div.button.button_theme_main.button_theme_play.pointer Play
-    .game-menu__options
-        .game-menu__options__container-item
-            label.game-menu__options__item.pointer.color-yellow(for='option0') Description
-        .game-menu__options__container-item
-            label.game-menu__options__item.pointer.color-yellow(for='option1') LeaderBoard
-        .game-menu__options__container-item
-            label.game-menu__options__item.pointer.color-yellow(for='option2') Game
-    .game-menu__main
-        .game-menu__main__content-left
+    .game-menu__content-left
+        .game-menu__header
+            .game-menu__header__logo= title
+            label(for='option2')
+                div.button.button_theme_main.button_theme_play.pointer Play
+        .game-menu__options
+            .game-menu__options__container-item
+                label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option0') Description
+            .game-menu__options__container-item
+                label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option1') LeaderBoard
+            .game-menu__options__container-item
+                label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option2') Game
+        .game-menu__main
             .game-menu__line
             .game-menu__content
-        .game-menu__main__content-right
-            img.game-menu__main__content-right__item(src=`https://warscript-images.herokuapp.com/photos/${logoUUID}`)
+    .game-menu__content-right
+        img.game-menu__main__content-right__item(src='')
 .options__check
     input#option0.hidden(type='radio', name='options')
     input#option1.hidden(type='radio', name='options')

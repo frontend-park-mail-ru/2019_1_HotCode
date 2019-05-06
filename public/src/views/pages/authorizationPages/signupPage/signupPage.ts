@@ -23,6 +23,8 @@ class SignupPage extends Page {
         super.render();
         this.renderTmpl(SignupPage.template, signupFormConfig);
 
+        EventBus.publish(events.openSignUp, true);
+
         this.signupForm = new SignupForm(this.parent.el.querySelector('.form_theme_popup'));
 
         this.signupForm.usernameField.onInput(() => {
@@ -66,6 +68,7 @@ class SignupPage extends Page {
     public clear(): void {
         this.parent.el.innerHTML = '';
         this.signupForm = null;
+        EventBus.publish(events.closeModal, true);
         console.log('signup CLEAR');
     }
 }

@@ -19,20 +19,29 @@ class Router {
     public start() {
         window.onpopstate = (event) => {
             console.log('popState');
-            this.go(window.location.pathname, true);
+            this.go(window.location.pathname, true, event.state.slug);
         };
     }
 
-    public go(path: string, isPopState = false) {
+    public go(path: string, isPopState = false, slug?: string) {
         console.log('go', path);
         console.log('postStack', this.postRenderStack);
 
-        let newView = this.views.find((view) => view.path === path);
+        let newView = this.views.find((view) => path.match(view.reg) !== null);
+        newView.path = path;
+        newView.slug = slug;
+
+        if (this.postRenderStack.length > 0 &&
+            path === this.postRenderStack[this.postRenderStack.length - 1].path) {
+
+            isPopState = true;
+        }
 
         if (this.postRenderStack.find((view) => view.type === newView.type)) {
 
             this.postRenderStack
                 .slice(this.postRenderStack.findIndex((view) => view.type === newView.type))
+                .reverse()
                 .map((view) => this.clear(view.view));
 
             this.postRenderStack =
@@ -41,6 +50,7 @@ class Router {
         }
 
         let defaultView = null;
+        let defaultPath = null;
         while (newView) {
 
             if (this.postRenderStack.find((view) => view.keyName === newView.keyName)) {
@@ -49,6 +59,7 @@ class Router {
 
                     this.postRenderStack
                         .slice(this.postRenderStack.findIndex((view) => view.keyName === newView.keyName) + 1)
+                        .reverse()
                         .map((view) => this.clear(view.view));
 
                     this.postRenderStack =
@@ -60,12 +71,17 @@ class Router {
             }
 
             if (defaultView) {
+                defaultView.path = defaultPath;
                 this.preRenderStack.push(defaultView);
             }
 
             this.preRenderStack.push(newView);
 
             defaultView = this.views.find((view) => view.keyName === newView.defaultParent);
+
+            if (defaultView) {
+                defaultPath = newView.defaultPath;
+            }
 
             newView = this.getParent(newView);
 
@@ -77,13 +93,13 @@ class Router {
 
 
         while (this.preRenderStack.length !== 0) {
-            this.draw(this.preRenderStack.pop());
+            this.draw(this.preRenderStack.pop(), slug);
         }
 
         if (!isPopState) {
 
             window.history.pushState(
-                null,
+                {slug},
                 (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
                 path,
             );
@@ -93,11 +109,13 @@ class Router {
     }
 
     public popStack(deep: number): void {
+
         for (let i = 0; i < deep; i++)
             this.clear(this.postRenderStack.pop().view);
 
+        (this.postRenderStack[this.postRenderStack.length - 1].view as Page).setTitle();
         window.history.pushState(
-            null,
+            {slug: this.postRenderStack[this.postRenderStack.length - 1].slug},
             (this.postRenderStack[this.postRenderStack.length - 1].view as Page).title,
             this.postRenderStack[this.postRenderStack.length - 1].path,
         );
@@ -120,9 +138,9 @@ class Router {
         }
     }
 
-    private draw(view: ViewInfo): void {
+    private draw(view: ViewInfo, slug: string): void {
         view.createView();
-        view.view.render();
+        view.view.render(slug);
         console.log('RENDER', view.keyName);
         this.postRenderStack.push(view);
     }

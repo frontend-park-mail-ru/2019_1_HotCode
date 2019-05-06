@@ -1,7 +1,7 @@
 .photo-loader__resize {
   position: relative;
-  display: inline-block;
-  height: 340px;
+  display: grid;
+  width: 100%;
   margin: 2% 0;
   overflow: hidden;
 }

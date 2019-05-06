@@ -4,3 +4,19 @@
   grid-template-columns: 1fr 1fr 1fr;
   width: 51%;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__options {
+    position: absolute;
+    top: 0.5em;
+    min-width: auto;
+    width: 100%;
+    padding: 0 0 0 4%;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__options {
+
+  }
+}

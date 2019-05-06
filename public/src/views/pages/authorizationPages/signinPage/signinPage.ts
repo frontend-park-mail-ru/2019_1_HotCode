@@ -23,6 +23,8 @@ class SigninPage extends Page {
         super.render();
         this.renderTmpl(SigninPage.template, signinFormConfig);
 
+        EventBus.publish(events.openSignIn, true);
+
         this.signinForm = new SigninForm(this.parent.el.querySelector('.form_theme_popup'));
 
         this.signinForm.usernameField.onInput(() => {
@@ -39,7 +41,7 @@ class SigninPage extends Page {
 
                 UserService.auth(username, password)
                     .then(() => {
-                        EventBus.publish(events.closeModal, '');
+                        EventBus.publish(events.closeModal);
                     })
                     .catch((err) => {
 
@@ -58,6 +60,7 @@ class SigninPage extends Page {
     public clear(): void {
         this.parent.el.innerHTML = '';
         this.signinForm = null;
+        EventBus.publish(events.closeModal, true);
         console.log('login CLEAR');
     }
 }

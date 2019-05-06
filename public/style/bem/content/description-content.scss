@@ -8,3 +8,20 @@
   font-size: 26px;
   text-align: justify;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .description-content {
+    width: 100%;
+    padding: 6%;
+    margin-top: 0;
+
+    line-height: 1.5em;
+    font-size: calc(0.9em + 0.4vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .description-content {
+
+  }
+}

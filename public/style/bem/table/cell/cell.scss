@@ -7,3 +7,15 @@
 .table__cell:first-child {
   padding: 10px 7px;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .table__cell {
+    border: 1px solid $fontColorWhite;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .table__cell {
+
+  }
+}

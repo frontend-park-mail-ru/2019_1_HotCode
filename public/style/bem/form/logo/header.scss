@@ -10,12 +10,12 @@
   .form__header {
     position: static;
     left: auto;
-    text-align: center;
+    margin-left: 7%;
   }
 
   .container_theme_settings .form__header {
     text-align: left;
-    margin-left: 7%;
+    margin-left: calc(10px + 2%);
   }
 }
 
@@ -23,7 +23,7 @@
   .form__header {
     position: static;
     left: auto;
-    text-align: center;
+    margin-left: calc(10px + 2%);
   }
 
   .container_theme_settings .form__header {

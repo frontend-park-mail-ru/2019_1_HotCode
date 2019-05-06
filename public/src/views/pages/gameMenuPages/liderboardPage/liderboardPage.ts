@@ -18,9 +18,10 @@ class LiderboardPage extends Page{
     private paginator: Paginator;
 
     private fillTable: {[key: string]: () => void};
+    private onSlugChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
-        super(parent, 'LiderBoard - Game - WarScript');
+        super(parent, 'LeaderBoard - Game - WarScript');
     }
 
     public render(): void {
@@ -29,35 +30,31 @@ class LiderboardPage extends Page{
 
         this.defaultLimit = 6;
 
-        this.paginator = new Paginator(this.parent.el.querySelector('.pagination'),
-            this.defaultLimit,
-            this.getScoresCallback);
+        this.onSlugChange = EventBus.subscribe(events.onSlugChange, () => {
 
-        this.liderBoardTable = new Table(this.parent.el.querySelector('.table'));
+            this.paginator = new Paginator(this.parent.el.querySelector('.pagination'),
+                this.defaultLimit,
+                this.getScoresCallback);
 
-        this.fillTable = EventBus.subscribe(events.fillTable, (table) => {
-            this.liderBoardTable.render(table);
+            this.liderBoardTable = new Table(this.parent.el.querySelector('.table'));
+
+            this.fillTable = EventBus.subscribe(events.fillTable, (table) => {
+                this.liderBoardTable.render(table);
+            });
+
+            this.getScoresCallback(this.defaultLimit, 0);
         });
 
-        this.getScoresCallback(this.defaultLimit, 0);
-        // GameService.getScores('pong', this.defaultLimit, 0)
-        //     .then((resp) => {
-        //
-        //         EventBus.publish(events.fillTable, {users: resp, offset: 0});
-        //         return GameService.getCountUsers('pong');
-        //
-        //     })
-        //     .then((resp) => {
-        //
-        //         this.paginator.pageCount = Math.floor((resp.count - 1) / this.defaultLimit + 1);
-        //
-        //     });
+        if (Game.slug) {
+            EventBus.publish(events.onSlugChange);
+        }
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
 
         this.fillTable.unsubscribe();
+        this.onSlugChange.unsubscribe();
         this.paginator = null;
         this.liderBoardTable = null;
     }
