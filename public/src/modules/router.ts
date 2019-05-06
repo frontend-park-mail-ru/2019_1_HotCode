@@ -41,6 +41,7 @@ class Router {
 
             this.postRenderStack
                 .slice(this.postRenderStack.findIndex((view) => view.type === newView.type))
+                .reverse()
                 .map((view) => this.clear(view.view));
 
             this.postRenderStack =
@@ -58,6 +59,7 @@ class Router {
 
                     this.postRenderStack
                         .slice(this.postRenderStack.findIndex((view) => view.keyName === newView.keyName) + 1)
+                        .reverse()
                         .map((view) => this.clear(view.view));
 
                     this.postRenderStack =

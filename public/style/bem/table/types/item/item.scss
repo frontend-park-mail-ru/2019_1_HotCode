@@ -10,3 +10,15 @@
 .table__types__item:last-child {
   margin-right: 0;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .table__types__item {
+    font-size: calc(1.15em + .1vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .table__types__item {
+
+  }
+}

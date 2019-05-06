@@ -7,3 +7,16 @@
   font-family: $fontFamaly2;
   color: $fontColorYellow;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .button_theme_play {
+    font-size: calc(1.3em + 0.4vh);
+    border-radius: 10px;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .button_theme_play {
+
+  }
+}

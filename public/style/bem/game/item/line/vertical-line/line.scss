@@ -11,3 +11,14 @@
 .play__item__vertical-line:hover {
   border-right: 1.5px solid $fontColorYellow;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .play__item__vertical-line {
+    display: none;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .play__item__vertical-line {
+  }
+}

@@ -9,7 +9,8 @@ import ViewService from '../../../services/view-service';
 import GameService from '../../../services/game-service';
 import EventBus from '../../../modules/event-bus';
 import {events} from '../../../modules/utils/events';
-import DescriptionPage from '../../pages/gameMenuPages/descriptionPage/descriptionPage';
+import AvatarService from '../../../services/avatar-service';
+import User from '../../../models/user';
 
 class GameMenuLayer extends Layer {
 
@@ -20,6 +21,7 @@ class GameMenuLayer extends Layer {
     private onTitleChange: {[key: string]: () => void};
     private onBackgroundChange: {[key: string]: () => void};
     private onLogoChange: {[key: string]: () => void};
+    private onSlugChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent);
@@ -40,14 +42,22 @@ class GameMenuLayer extends Layer {
 
         this.onBackgroundChange = EventBus.subscribe(events.onBackgroundChange, () => {
 
-            (new Component(this.parent.el.querySelector('.background_theme_gamemenu-img'))
-                .el as HTMLImageElement).src = `http://warscript-images.herokuapp.com/photos/${Game.backgrondUUID}`;
+            const backgroundImage = new Component(this.parent.el.querySelector('.background_theme_gamemenu-img'));
+
+            AvatarService.getAvatar(Game.backgrondUUID)
+                .then((img) => {
+                    (backgroundImage.el as HTMLImageElement).src = URL.createObjectURL(img);
+                });
         });
 
         this.onLogoChange = EventBus.subscribe(events.onLogoChange, () => {
 
-            (new Component(this.parent.el.querySelector('.game-menu__main__content-right__item'))
-                .el as HTMLImageElement).src = `http://warscript-images.herokuapp.com/photos/${Game.logoUUID}`;
+            const logoImage = new Component(this.parent.el.querySelector('.game-menu__main__content-right__item'));
+
+            AvatarService.getAvatar(Game.logoUUID)
+                .then((img) => {
+                    (logoImage.el as HTMLImageElement).src = URL.createObjectURL(img);
+                });
         });
 
         const parallax = new Parallax(new Component(this.parent.el.querySelector('.background_theme_gamemenu-img')),
@@ -56,19 +66,21 @@ class GameMenuLayer extends Layer {
         parallax.onMouseMove();
         parallax.moveBackground();
 
-        this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
-            option0: () => {
-                ViewService.goToGameDescriptionView(Game.slug);
-            },
-            option1: () => {
-                ViewService.goToGameLiderBoardView(Game.slug);
-            },
-            option2: () => {
-                ViewService.goToGameView(Game.slug);
-            },
-        });
+        this.onSlugChange = EventBus.subscribe(events.onSlug2Change, () => {
+            this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
+                option0: () => {
+                    ViewService.goToGameDescriptionView(Game.slug);
+                },
+                option1: () => {
+                    ViewService.goToGameLiderBoardView(Game.slug);
+                },
+                option2: () => {
+                    ViewService.goToGameView(Game.slug);
+                },
+            });
 
-        this.optionsTabbar.onChange();
+            this.optionsTabbar.onChange();
+        });
 
         GameService.getGame(slug);
     }
@@ -78,6 +90,7 @@ class GameMenuLayer extends Layer {
         this.onTitleChange.unsubscribe();
         this.onBackgroundChange.unsubscribe();
         this.onLogoChange.unsubscribe();
+        this.onSlugChange.unsubscribe();
 
         this.optionsTabbar = null;
     }

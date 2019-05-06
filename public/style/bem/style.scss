@@ -159,6 +159,9 @@
 @import "photoLoader/resize/frame/sliders/sliders";
 @import "photoLoader/footer/footer";
 
+@import "game-menu/content/left";
+@import "game-menu/content/left_theme_play";
+@import "game-menu/content/right";
 @import "game-menu/header/header";
 @import "game-menu/header/logo/logo";
 @import "game-menu/options/options";
@@ -166,12 +169,10 @@
 @import "game-menu/options/item/item";
 @import "game-menu/line/line";
 @import "game-menu/main/main";
-@import "game-menu/main/content-left/content-left";
-@import "game-menu/main/content-left/content-left_theme_play";
-@import "game-menu/main/content-right/content-right";
 @import "game-menu/main/content-right/item/item";
 
 @import "table/table";
+@import "table/container/container";
 @import "table/cell/cell";
 @import "table/types/types";
 @import "table/types/item/item";

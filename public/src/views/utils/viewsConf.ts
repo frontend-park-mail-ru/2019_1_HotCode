@@ -27,7 +27,7 @@ export const views = [
     ),
     new ViewInfo(
         'containerLayer',
-        () => new ContainerLayer(Component.getBy('.scrollable__content')),
+        () => new ContainerLayer(Component.getBy('.root')),
         'container',
         null,
         [

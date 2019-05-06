@@ -33,6 +33,7 @@ class Game {
 
     set slug(value) {
         this.slugField = value;
+        EventBus.publish(events.onSlugChange);
     }
 
     get backgrondUUID(): string {

@@ -2,3 +2,15 @@
   margin-top: 4%;
   font-size: 1.3em;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .logo__postscript_theme_start {
+    font-size: calc(1em + 0.4vh);
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .logo__postscript_theme_start {
+    font-size: calc(1em + 0.4vw);
+  }
+}

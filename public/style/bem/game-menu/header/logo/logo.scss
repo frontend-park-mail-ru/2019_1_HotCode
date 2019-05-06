@@ -7,3 +7,16 @@
   font-size: 47px;
   text-indent: -2px;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__header__logo {
+    font-size: calc(1.8em + 0.9vh);
+    text-indent: 0;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__header__logo {
+
+  }
+}

@@ -35,12 +35,18 @@ class GamePage extends Page{
         this.renderTmpl(GamePage.template);
 
         const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__main__content-right'));
-        const gameContent = new Component(document.querySelector('.game-menu__main__content-left'));
+        const gameImageLogo = new Component(document.querySelector('.game-menu__content-right'));
+        const gameContent = new Component(document.querySelector('.game-menu__content-left'));
+        const gameHeader = new Component(document.querySelector('.game-menu__header'));
+        const gameOptions = new Component(document.querySelector('.game-menu__options'));
+        const gamePlayButton = new Component(document.querySelector('.button_theme_play'));
 
         gameContainer.addClass('container_theme_game-play');
         gameImageLogo.hide();
-        gameContent.addClass('game-menu__main__content-left_theme_play');
+        gameContent.addClass('game-menu__content-left_theme_play');
+        gameHeader.el.style.top = 3.5 + 'em';
+        gameOptions.el.style.top = 4.5 + 'em';
+        gamePlayButton.hide();
 
         this.gamePanels = Array.from(this.parent.el.querySelectorAll('.play__item'))
             .map((panel) => new Panel(panel as HTMLElement));
@@ -59,7 +65,11 @@ class GamePage extends Page{
             rulesContent.decorate();
         });
 
-        EventBus.publish(events.onRulesChange);
+        if (Game.rules) {
+
+            EventBus.publish(events.onRulesChange);
+        }
+
 
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.form_theme_editor'));
 
@@ -68,10 +78,14 @@ class GamePage extends Page{
 
         this.onCodeChange = EventBus.subscribe(events.onCodeChange, () => {
 
-            this.testCodeForm.code.setValue(Game.codeExample);
+                this.testCodeForm.code.setValue(Game.codeExample);
         });
 
-        EventBus.publish(events.onCodeChange);
+        if (Game.codeExample) {
+
+            EventBus.publish(events.onCodeChange);
+        }
+
 
         this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
 
@@ -97,6 +111,20 @@ class GamePage extends Page{
 
         this.testCodeForm = null;
         this.pingPong = null;
+
+        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
+        const gameImageLogo = new Component(document.querySelector('.game-menu__content-right'));
+        const gameContent = new Component(document.querySelector('.game-menu__content-left'));
+        const gameHeader = new Component(document.querySelector('.game-menu__header'));
+        const gameOptions = new Component(document.querySelector('.game-menu__options'));
+        const gamePlayButton = new Component(document.querySelector('.button_theme_play'));
+
+        gameContainer.removeClass('container_theme_game-play');
+        gameImageLogo.show();
+        gameContent.removeClass('game-menu__content-left_theme_play');
+        gameHeader.el.style.top = '';
+        gameOptions.el.style.top = '';
+        gamePlayButton.show();
     }
 
     private onMove = (shiftX: number) => {

@@ -3,3 +3,9 @@
   height: 100%;
   border-radius: 1.25vw;
 }
+
+@media only screen and (max-width : 1024px) and (orientation: portrait) {
+  .carousel__item__image {
+    border-radius: 0;
+  }
+}

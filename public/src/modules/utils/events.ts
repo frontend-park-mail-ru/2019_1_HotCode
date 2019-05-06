@@ -1,6 +1,8 @@
 export const events = {
     onEditMessage: 'onEditMessage',
     onDescriptionChange: 'onDescriptionChange',
+    onSlugChange: 'onSlugChange',
+    onSlug2Change: 'onSlug2Change',
     onCodeChange: 'onCodeChange',
     onRulesChange: 'onRulesChange',
     onTitleChange: 'onTitleChange',

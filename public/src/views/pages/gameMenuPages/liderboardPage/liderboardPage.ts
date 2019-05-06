@@ -18,42 +18,43 @@ class LiderboardPage extends Page{
     private paginator: Paginator;
 
     private fillTable: {[key: string]: () => void};
+    private onSlugChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
-        super(parent, 'LiderBoard - Game - WarScript');
+        super(parent, 'LeaderBoard - Game - WarScript');
     }
 
     public render(): void {
         super.render();
         this.renderTmpl(LiderboardPage.template);
 
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__main__content-right'));
-        const gameContent = new Component(document.querySelector('.game-menu__main__content-left'));
-
-        gameContainer.removeClass('container_theme_game-play');
-        gameImageLogo.show();
-        gameContent.removeClass('game-menu__main__content-left_theme_play');
-
         this.defaultLimit = 6;
 
-        this.paginator = new Paginator(this.parent.el.querySelector('.pagination'),
-            this.defaultLimit,
-            this.getScoresCallback);
+        this.onSlugChange = EventBus.subscribe(events.onSlugChange, () => {
 
-        this.liderBoardTable = new Table(this.parent.el.querySelector('.table'));
+            this.paginator = new Paginator(this.parent.el.querySelector('.pagination'),
+                this.defaultLimit,
+                this.getScoresCallback);
 
-        this.fillTable = EventBus.subscribe(events.fillTable, (table) => {
-            this.liderBoardTable.render(table);
+            this.liderBoardTable = new Table(this.parent.el.querySelector('.table'));
+
+            this.fillTable = EventBus.subscribe(events.fillTable, (table) => {
+                this.liderBoardTable.render(table);
+            });
+
+            this.getScoresCallback(this.defaultLimit, 0);
         });
 
-        this.getScoresCallback(this.defaultLimit, 0);
+        if (Game.slug) {
+            EventBus.publish(events.onSlugChange);
+        }
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
 
         this.fillTable.unsubscribe();
+        this.onSlugChange.unsubscribe();
         this.paginator = null;
         this.liderBoardTable = null;
     }

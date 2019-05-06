@@ -4,6 +4,8 @@ import Http from '../modules/http';
 import Game from "../models/game";
 import {gamePaths} from './utils/paths';
 import serverNames from '../modules/utils/serverNames';
+import EventBus from '../modules/event-bus';
+import {events} from '../modules/utils/events';
 
 class GameService {
 
@@ -43,6 +45,8 @@ class GameService {
                 Game.description = resp.description;
                 Game.rules = resp.rules;
                 Game.codeExample = resp.code_example;
+
+                EventBus.publish(events.onSlug2Change);
 
                 return resp;
             });

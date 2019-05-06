@@ -1,16 +1,16 @@
-.pagination {
-  margin-top: 3%;
-  text-align: right;
+.game-menu__content-right {
+  margin-bottom: 2%;
 }
 
 @media only screen and (max-width : 480px) and (orientation: portrait) {
-  .pagination {
-    text-align: center;
+  .game-menu__content-right {
+    width: 100%;
+    margin-bottom: 0;
   }
 }
 
 @media only screen and (max-width : 900px) and (orientation: landscape) {
-  .pagination {
+  .game-menu__content-right {
 
   }
 }

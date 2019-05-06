@@ -12,8 +12,6 @@ class RootLayer extends Layer {
     }
 
     public render(): void {
-        const rootContent = new ScrollableBlock(this.parent.el, true);
-        rootContent.decorate();
     }
 
     public clear(): void {

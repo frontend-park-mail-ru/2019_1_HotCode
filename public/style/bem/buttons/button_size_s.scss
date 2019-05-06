@@ -5,3 +5,14 @@
   border-radius: 8px;
   font-family: $fontFamaly2;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .button_size_s {
+    border-radius: 6px;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .button_size_s {
+  }
+}

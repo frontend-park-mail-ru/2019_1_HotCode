@@ -27,21 +27,14 @@ class DescriptionPage extends Page{
                 .setText(Game.description);
         });
 
-        EventBus.publish(events.onDescriptionChange);
-
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__main__content-right'));
-        const gameContent = new Component(document.querySelector('.game-menu__main__content-left'));
-
-        gameContainer.removeClass('container_theme_game-play');
-        gameImageLogo.show();
-        gameContent.removeClass('game-menu__main__content-left_theme_play');
+        if (Game.description) {
+            EventBus.publish(events.onDescriptionChange);
+        }
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
         this.onDescriptionChange.unsubscribe();
-
     }
 }
 
