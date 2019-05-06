@@ -1,6 +1,8 @@
 'use strict';
 
 import InputComponent from "../baseComponent/inputComponent";
+import {events} from '../../modules/utils/events';
+import EventBus from '../../modules/event-bus';
 
 /**
  * Checkbox Component for checkbox
@@ -24,6 +26,11 @@ class Checkbox extends InputComponent{
 
         super(el, callbackOnCheck);
         this.callbackOnCancelField = callbackOnCancel;
+
+        EventBus.subscribe(`onClose_${this.getId()}`, () => {
+
+            this.emitCancel();
+        });
     }
 
     get callbackOnCancel() {
@@ -32,6 +39,26 @@ class Checkbox extends InputComponent{
 
     set callbackOnCancel(value) {
         this.callbackOnCancelField = value;
+    }
+
+    public isChecked(): boolean {
+        return (this.el as HTMLInputElement).checked;
+    }
+
+    public emitCheck(): void {
+        super.emit();
+
+        if (!this.isChecked()) {
+            (this.el as HTMLInputElement).checked = true;
+        }
+    }
+
+    public emitCancel(): void {
+        this.callbackOnCancel();
+
+        if (this.isChecked()) {
+            (this.el as HTMLInputElement).checked = false;
+        }
     }
 
     public onChange(): void {

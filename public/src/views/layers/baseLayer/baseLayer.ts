@@ -4,7 +4,6 @@ import Component from '../../../components/baseComponent/index';
 import Button from "../../../components/button/button";
 import Checkbox from "../../../components/checkbox/checkbox";
 import {activeFullScreen, cancselFullScreen} from "../../../modules/full-screen";
-import Parallax from '../../../modules/parallax';
 import Layer from '../layer';
 import ViewService from '../../../services/view-service';
 import Tabbar from '../../../components/tabbar/tabbar';
@@ -13,6 +12,7 @@ import Message from '../../../utils/message';
 import {events} from '../../../modules/utils/events';
 import UserService from '../../../services/user-service';
 import EventBus from '../../../modules/event-bus';
+import ChatBlock from '../../../components/chatBlock/chatBlock';
 
 class BaseLayer extends Layer{
 
@@ -25,6 +25,7 @@ class BaseLayer extends Layer{
 
     private profileButton: Button;
     private signoutButton: Button;
+    private chatButton: Checkbox;
     private modalWindows: Tabbar;
     private authorizationSection: Component;
     private footerSection: Component;
@@ -68,6 +69,17 @@ class BaseLayer extends Layer{
                     Alert.alert(Message.accessError(), true);
                 });
         });
+
+
+        const chat = new ChatBlock();
+        this.chatButton = new Checkbox(this.parent.el.querySelector('#chat'),
+            () => {
+                chat.render();
+            },
+            () => {
+                chat.clear();
+            },
+        );
 
         this.modalWindows = new Tabbar(this.parent.el.querySelector('.modal__windows'), {
             mod0: () => {
@@ -134,6 +146,7 @@ class BaseLayer extends Layer{
         this.logoButton.onClick();
         this.profileButton.onClick();
         this.signoutButton.onClick();
+        this.chatButton.onChange();
         this.modalWindows.onChange();
 
         EventBus.subscribe(events.authorized, () => {

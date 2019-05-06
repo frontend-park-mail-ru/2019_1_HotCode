@@ -14,7 +14,6 @@ import Page from '../page';
 import Button from '../../../components/button/button';
 import Checkbox from '../../../components/checkbox/checkbox';
 import Modal from '../../../components/modal/modal';
-import PhotoLoader from '../../../components/photoLoader/photoLoader';
 
 class SettingsPage extends Page {
 
@@ -26,6 +25,8 @@ class SettingsPage extends Page {
     private chooseAvatarModal: Modal;
 
     private onNewPassword: {[key: string]: () => void};
+    private onUsernameChange: {[key: string]: () => void};
+    private onAvatarChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent, 'Settings - WarScript');
@@ -78,24 +79,31 @@ class SettingsPage extends Page {
 
         EventBus.publish(events.onNewPassword);
 
+        this.onUsernameChange = EventBus.subscribe(events.onUsernameChange, () => {
+            this.settingsForm.usernameField.setValue(User.username);
+        });
+        EventBus.publish(events.onUsernameChange);
 
-        this.settingsForm.usernameField.setValue(User.username);
 
-        if (User.avatar) {
+        this.onAvatarChange = EventBus.subscribe(events.onAvatarChange, () => {
 
-            const image = new Component(this.parent.el.querySelector('.avatar__image'));
-            const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
+            if (User.avatar) {
 
-            spiner.show();
-            AvatarService.getAvatar(User.avatar)
-                .then((img) => {
-                    (image.el as HTMLImageElement).src = URL.createObjectURL(img);
-                    image.show();
-                })
-                .finally(() => {
-                    spiner.hide();
-                });
-        }
+                const image = new Component(this.parent.el.querySelector('.avatar__image'));
+                const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
+
+                spiner.show();
+                AvatarService.getAvatar(User.avatar)
+                    .then((img) => {
+                        (image.el as HTMLImageElement).src = URL.createObjectURL(img);
+                        image.show();
+                    })
+                    .finally(() => {
+                        spiner.hide();
+                    });
+            }
+        });
+        EventBus.publish(events.onAvatarChange);
 
         this.settingsForm.usernameField.onInput(() => {
             this.settingsForm.validateUsername();
@@ -125,7 +133,7 @@ class SettingsPage extends Page {
             const oldPassword = this.settingsForm.oldPasswordField.getValue();
             const newPassword = this.settingsForm.newPasswordField.getValue();
 
-            const avatar: File = this.settingsForm.photoLoader.resultFile;//this.settingsForm.photoLoader.resultFile64 ;
+            const avatar: File = this.settingsForm.photoLoader.resultFile;
 
             if (this.settingsForm.validate()) {
 
@@ -180,6 +188,8 @@ class SettingsPage extends Page {
     public clear(): void {
         this.parent.el.innerHTML = '';
         this.onNewPassword.unsubscribe();
+        this.onUsernameChange.unsubscribe();
+        this.onAvatarChange.unsubscribe();
         this.settingsForm = null;
         console.log('settings CLEAR');
     }

@@ -1,3 +1,15 @@
 .table__types {
   display: flex;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .table__types {
+    padding: 0 4%;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .table__types {
+
+  }
+}

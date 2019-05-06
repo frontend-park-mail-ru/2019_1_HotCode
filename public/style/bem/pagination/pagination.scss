@@ -2,3 +2,15 @@
   margin-top: 3%;
   text-align: right;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .pagination {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .pagination {
+
+  }
+}

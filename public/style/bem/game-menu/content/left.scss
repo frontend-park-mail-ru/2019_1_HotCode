@@ -1,0 +1,20 @@
+.game-menu__content-left {
+  display: flex;
+  flex-direction: column;
+  min-width: 715px;
+  width: 48%;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__content-left {
+    position: relative;
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__content-left {
+
+  }
+}

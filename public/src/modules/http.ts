@@ -4,31 +4,27 @@ import serverNames from './utils/serverNames';
 
 class Http {
 
-    private static server: string = serverNames.backend;
-    private static avatatServer: string = serverNames.avatarBackend;
-
-    public static Get(path: string, avatarBackend = false, body = ''): Promise<any> {
-        return Http.request('GET', path, body, avatarBackend);
+    public static Get(uri: string, isImage = false, body = ''): Promise<any> {
+        return Http.request('GET', uri, body, isImage);
     }
 
-    public static Delete(path: string): Promise<any> {
-        return Http.request('DELETE', path);
+    public static Delete(uri: string): Promise<any> {
+        return Http.request('DELETE', uri);
     }
 
-    public static Post(path: string, body: any, avatarBackend = false): Promise<any> {
-        return Http.request('POST', path, body, avatarBackend);
+    public static Post(uri: string, body: any, isImage = false): Promise<any> {
+        return Http.request('POST', uri, body, isImage);
     }
 
-    public static Put(path: string, body: any): Promise<any> {
-        return Http.request('PUT', path, body);
+    public static Put(uri: string, body: any): Promise<any> {
+        return Http.request('PUT', uri, body);
     }
 
-    private static request(method: string, path: string, body?: any, avatarBackend?: boolean): Promise<any> {
-        const back = avatarBackend ? Http.avatatServer : Http.server;
+    private static request(method: string, uri: string, body?: any, isImage?: boolean): Promise<any> {
 
         const headers = new Headers();
 
-        if (!avatarBackend) {
+        if (!isImage) {
 
             if (method === 'PUT' ||
                 method === 'POST') {
@@ -37,7 +33,7 @@ class Http {
             }
         }
 
-        if (body && !avatarBackend) {
+        if (body && !isImage) {
             body = JSON.stringify(body);
         }
 
@@ -45,8 +41,6 @@ class Http {
             method !== 'POST') {
             body = undefined;
         }
-
-        const uri = back + path;
 
         const init = {
             method,
@@ -58,7 +52,7 @@ class Http {
 
         const request = new Request(uri, init as RequestInit);
 
-        if (avatarBackend && method === 'GET') {
+        if (isImage && method === 'GET') {
             return fetch(request)
                 .then((response) => {
                     return Promise.resolve(response.blob());

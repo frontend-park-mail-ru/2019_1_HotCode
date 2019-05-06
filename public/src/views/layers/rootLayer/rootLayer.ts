@@ -2,6 +2,7 @@
 
 import Component from '../../../components/baseComponent/index';
 import Layer from '../layer';
+import ScrollableBlock from '../../../components/scrollable/scrollable';
 
 class RootLayer extends Layer {
 
@@ -11,7 +12,6 @@ class RootLayer extends Layer {
     }
 
     public render(): void {
-        return;
     }
 
     public clear(): void {

@@ -2,6 +2,25 @@
   position: absolute;
   top: 20%;
   left: 9%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap-reverse;
   width: 81.25%;
   transform: translate(0, 0);
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .container_theme_game-menu {
+    left: 0;
+    top: 0;
+    width: 100%;
+
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .container_theme_game-menu {
+
+  }
 }

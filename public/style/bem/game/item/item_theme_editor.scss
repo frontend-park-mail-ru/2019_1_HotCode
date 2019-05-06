@@ -4,3 +4,14 @@
   grid-area: code;
   transition: all 0s ease 0s;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .play__item_theme_editor {
+    margin-right: 0;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .play__item_theme_editor {
+  }
+}

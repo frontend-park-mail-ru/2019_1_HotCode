@@ -5,3 +5,14 @@
   transform: translateX(-50%);
   cursor: col-resize;
 }
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .play__item__vetical-line__outline {
+    display: none;
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .play__item__vetical-line__outline {
+  }
+}

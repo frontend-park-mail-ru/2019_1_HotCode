@@ -2,10 +2,10 @@
 
 input#full-screen.hidden(type='checkbox')
 label.full-screen-button.full-screen_button_direction_top-right.pointer(for='full-screen')
-    img.full-screen__content.full-screen__content_direction_center(src='img/full-screen.svg')
+    img.full-screen__content.full-screen__content_direction_center(src='/img/full-screen.svg')
 
 input#logo.hidden(type='button')
-label.logo.logo_direction_top-right.pointer(for='logo')
+label.logo.logo_theme_main.logo_direction_top-right.pointer(for='logo')
     .logo__main.logo__main_theme_main.light-l-yellow [ WarScript ]
     .logo__postscript.logo__postscript_theme_main by HotCode
 
@@ -17,7 +17,7 @@ label.logo.logo_direction_top-right.pointer(for='logo')
     .nav-menu
 
 input#profile.hidden(type='button')
-label.header.header_direction_top-left.header__item.pointer.light-s-white.hidden(for='profile') {User Data}
+label.header.header_direction_top-left.header__item.light-s-white.scale-on-hover.pointer.hidden(for='profile') {User Data}
 
 .modal__window
 
@@ -29,11 +29,12 @@ label.header.header_direction_top-left.header__item.pointer.light-s-white.hidden
 .base-container.footer.footer_direction_bottom
     .footer__container-item.footer__container-item_size_s.hidden
         .footer__item
-            label.footer__item__link.light-s-white.pointer(for='mod1') Sign in
+            label.footer__item__link.light-s-white.scale-on-hover.pointer(for='mod1') Sign in
         .footer__item
-            label.footer__item__link.light-s-white.pointer(for='mod2') Sign up
+            label.footer__item__link.light-s-white.scale-on-hover.pointer(for='mod2') Sign up
     input#signout.hidden(type='button')
     .footer__item
-        label.footer__item__link.light-s-white.pointer.hidden(for='signout') Log out
+        label.footer__item__link.light-s-white.pointer.scale-on-hover.hidden(for='signout') Log out
+    input#chat.hidden(type='checkbox')
     .footer__item
-        label.footer__item__link.light-s-white.pointer About us
+        label.footer__item__link.light-s-white.scale-on-hover.pointer(for='chat') Chat

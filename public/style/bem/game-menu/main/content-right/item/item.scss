@@ -8,13 +8,21 @@
   border-radius: 15px;
 }
 
-.game-menu__main__content-right__item::before {
-  content: '';
-  padding-top: 50%;
-  float: left;
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__main__content-right__item {
+    display: block;
+    width: 100vw;
+    z-index: -5;
+
+    min-width: auto;
+    border: 0;
+    border-radius: 0;
+
+  }
 }
-.game-menu__main__content-right__item::after {
-  content: '';
-  display: block;
-  clear: both;
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__main__content-right__item {
+
+  }
 }

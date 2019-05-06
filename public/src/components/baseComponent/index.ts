@@ -81,6 +81,30 @@ class Component {
         };
     }
 
+    public top(): any {
+        let element = this.el;
+        let resultTop = 0;
+
+        while (element) {
+            resultTop += (element.offsetTop - element.scrollTop + element.clientTop);
+            element = element.offsetParent as HTMLElement;
+        }
+
+        return resultTop;
+    }
+
+    public left(): number {
+        let element = this.el;
+        let resultLeft = 0;
+
+        while (element) {
+            resultLeft += (element.offsetLeft - element.scrollLeft + element.clientLeft);
+            element = element.offsetParent as HTMLElement;
+        }
+
+        return resultLeft;
+    }
+
     public render(param?: any): any {
 
     }

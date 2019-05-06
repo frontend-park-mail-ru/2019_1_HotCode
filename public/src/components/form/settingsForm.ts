@@ -7,6 +7,8 @@ import ImageInput from "../imageInput/imageInput";
 import Component from "../baseComponent/index";
 import User from '../../models/user';
 import PhotoLoader from '../photoLoader/photoLoader';
+import EventBus from '../../modules/event-bus';
+import {events} from '../../modules/utils/events';
 
 /**
  * SettingsForm Component for SettingsForm
@@ -63,6 +65,7 @@ class SettingsForm extends Form{
             this.username.clearError();
 
         } catch (usernameError) {
+
             this.username.setError(usernameError.text);
         }
     }
@@ -97,24 +100,29 @@ class SettingsForm extends Form{
     public validateNewPassword(): void {
         try {
 
-            Validation.validatePassword(this.newPassword.getValue());
+            if (this.oldPassword.getValue().length > 0) {
+                Validation.validatePassword(this.newPassword.getValue());
 
-            if (!this.newPassword.virginity &&
-                !this.repeatNewPassword.virginity) {
+                if (!this.newPassword.virginity &&
+                    !this.repeatNewPassword.virginity) {
 
-                Validation.validatePasswordEquality(this.newPassword.getValue(),
-                    this.repeatNewPassword.getValue());
+                    Validation.validatePasswordEquality(this.newPassword.getValue(),
+                        this.repeatNewPassword.getValue());
+                }
             }
 
             this.newPassword.clearError();
+
         } catch (passwordError) {
+
             this.newPassword.setError(passwordError.errorText);
         }
     }
 
     public validateNewPasswordEquality(): void {
         try {
-            if (!this.newPassword.virginity &&
+            if (this.oldPassword.getValue() &&
+                !this.newPassword.virginity &&
                 !this.repeatNewPassword.virginity) {
 
                 Validation.validatePasswordEquality(this.newPassword.getValue(),
@@ -143,6 +151,7 @@ class SettingsForm extends Form{
         this.oldPassword.clearValue();
         this.newPassword.clearValue();
         this.repeatNewPassword.clearValue();
+        EventBus.publish(events.onNewPassword);
     }
 }
 
