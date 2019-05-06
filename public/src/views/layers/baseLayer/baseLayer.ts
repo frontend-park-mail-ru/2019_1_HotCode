@@ -151,6 +151,9 @@ class BaseLayer extends Layer{
 
         EventBus.subscribe(events.authorized, () => {
             this.authorizationSection.hide();
+            this.modalWindows.tabs.map((tab) => {
+                tab.hideAllReferences();
+            });
             this.profileButton.showAllReferences();
             this.signoutButton.showAllReferences();
         });
@@ -158,6 +161,9 @@ class BaseLayer extends Layer{
         EventBus.subscribe(events.unauthorized, () => {
             this.profileButton.hideAllReferences();
             this.signoutButton.hideAllReferences();
+            this.modalWindows.tabs.map((tab) => {
+                tab.showAllReferences();
+            });
             this.authorizationSection.show();
         });
     }

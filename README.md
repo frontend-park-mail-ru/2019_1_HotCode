@@ -18,7 +18,7 @@
 
 ## Ссылка на API
 
-[WarScript API](http://apidoc.warscript.tech/)
+[WarScript API](http://89.208.198.192/)
 
 ## Репозиторий бекенда
  

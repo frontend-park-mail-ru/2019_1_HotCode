@@ -15,6 +15,13 @@ label.logo.logo_theme_main.logo_direction_top-right.pointer(for='logo')
         span.nav-button__line
     label.background.background_theme_nav-menu(for='showmenu')
     .nav-menu
+        .nav-menu__container-item
+            label.nav-menu__item.pointer.hidden(for='profile') Profile
+            label.nav-menu__item.pointer.hidden(for='mod1') Sign in
+            label.nav-menu__item.pointer.hidden(for='mod2') Sign up
+        .nav-menu__container-item
+            label.nav-menu__item.pointer.hidden(for='signout') Log out
+            label.nav-menu__item.pointer(for='chat') Chat
 
 input#profile.hidden(type='button')
 label.header.header_direction_top-left.header__item.light-s-white.scale-on-hover.pointer.hidden(for='profile') {User Data}
