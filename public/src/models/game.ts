@@ -12,6 +12,7 @@ class Game {
     private descriptionField: string;
     private rulesField: string;
     private codeExampleField: string;
+    private botCodeField: string;
 
     constructor() {
         this.titleField = '';
@@ -79,6 +80,15 @@ class Game {
     set codeExample(value: string) {
         this.codeExampleField = value;
         EventBus.publish(events.onCodeChange);
+    }
+
+    get botCode(): string {
+        return this.botCodeField;
+    }
+
+    set botCode(value: string) {
+        this.botCodeField = value;
+        EventBus.publish(events.onBotCodeChange);
     }
 
     public clearData(): void {

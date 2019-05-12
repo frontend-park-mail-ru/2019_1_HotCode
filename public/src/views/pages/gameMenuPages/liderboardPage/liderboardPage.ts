@@ -8,6 +8,9 @@ import {events} from '../../../../modules/utils/events';
 import Page from '../../page';
 import Table from '../../../../components/table/table';
 import Game from "../../../../models/game";
+import BotsService from '../../../../services/bots-service';
+import WebSock from '../../../../modules/webSocket';
+import BotsWsService from '../../../../services/botsWs-service';
 
 class LiderboardPage extends Page{
 
@@ -16,6 +19,8 @@ class LiderboardPage extends Page{
     private defaultLimit: number;
     private liderBoardTable: Table;
     private paginator: Paginator;
+
+    private ws: WebSock;
 
     private fillTable: {[key: string]: () => void};
     private onSlugChange: {[key: string]: () => void};
@@ -32,9 +37,9 @@ class LiderboardPage extends Page{
 
         this.onSlugChange = EventBus.subscribe(events.onSlugChange, () => {
 
-            this.paginator = new Paginator(this.parent.el.querySelector('.pagination'),
-                this.defaultLimit,
-                this.getScoresCallback);
+            // this.paginator = new Paginator(this.parent.el.querySelector('.pagination'),
+            //     this.defaultLimit,
+            //     this.getScoresCallback);
 
             this.liderBoardTable = new Table(this.parent.el.querySelector('.table'));
 
@@ -42,7 +47,9 @@ class LiderboardPage extends Page{
                 this.liderBoardTable.render(table);
             });
 
-            this.getScoresCallback(this.defaultLimit, 0);
+            // this.getScoresCallback(this.defaultLimit, 0);
+            this.getScoresCallback();
+
         });
 
         if (Game.slug) {
@@ -57,22 +64,61 @@ class LiderboardPage extends Page{
         this.onSlugChange.unsubscribe();
         this.paginator = null;
         this.liderBoardTable = null;
+
+        if (this.ws) {
+            this.ws.close();
+        }
+        this.ws = null;
     }
 
-    private getScoresCallback = (limit: number, offset: number): void => {
+    // private getScoresCallback = (limit: number, offset: number): void => {
+    //
+    //     GameService.getScores(Game.slug, limit, offset)
+    //         .then((resp) => {
+    //
+    //             EventBus.publish(events.fillTable, {users: resp, offset});
+    //             return GameService.getCountUsers(Game.slug);
+    //
+    //         })
+    //         .then((resp) => {
+    //
+    //             this.paginator.pageCount = Math.floor((resp.count - 1) / limit + 1);
+    //             this.paginator.renderPaginator();
+    //
+    //         })
+    //         .catch(() => {
+    //             // console.log(err.message);
+    //         });
+    // }
 
-        GameService.getScores(Game.slug, limit, offset)
+    private getScoresCallback = (): void => {
+
+        BotsService.getBots(Game.slug)
             .then((resp) => {
 
-                EventBus.publish(events.fillTable, {users: resp, offset});
-                return GameService.getCountUsers(Game.slug);
+                EventBus.publish(events.fillTable, {users: resp, offset: 0});
 
             })
-            .then((resp) => {
+            .then(() => {
 
-                this.paginator.pageCount = Math.floor((resp.count - 1) / limit + 1);
-                this.paginator.renderPaginator();
-
+                this.ws = BotsWsService.updateBots();
+                this.ws.open(
+                    () => {},
+                    (resp) => {
+                        if (resp.type === 'match') {
+                            this.liderBoardTable.updateScore(
+                                resp.body.bot1_id,
+                                resp.body.new_score1,
+                            );
+                            this.liderBoardTable.updateScore(
+                                resp.body.bot2_id,
+                                resp.body.new_score2,
+                            );
+                            return;
+                        }
+                    },
+                    () => {},
+                )
             })
             .catch(() => {
                 // console.log(err.message);

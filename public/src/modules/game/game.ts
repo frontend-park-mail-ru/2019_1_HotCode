@@ -11,7 +11,7 @@ export const runCode = (code: string) => {
 
 
         me.setMoveVector(5, dx, dy);
-};
+    };
 
     const p1 = new Function("me", "enemy", "ball", code);
     const g = new Game(250, 500);

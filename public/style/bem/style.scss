@@ -159,17 +159,17 @@
 @import "photoLoader/resize/frame/sliders/sliders";
 @import "photoLoader/footer/footer";
 
-@import "game-menu/content/left";
-@import "game-menu/content/left_theme_play";
-@import "game-menu/content/right";
-@import "game-menu/header/header";
-@import "game-menu/header/logo/logo";
-@import "game-menu/options/options";
-@import "game-menu/options/container-item/container-item";
-@import "game-menu/options/item/item";
-@import "game-menu/line/line";
-@import "game-menu/main/main";
-@import "game-menu/main/content-right/item/item";
+@import "game-menu/content/left/left";
+@import "game-menu/content/left/left_theme_play";
+@import "game-menu/content/right/right";
+@import "game-menu/content/left/header/header";
+@import "game-menu/content/left/header/logo/logo";
+@import "game-menu/content/left/options/options";
+@import "game-menu/content/left/options/container-item/container-item";
+@import "game-menu/content/left/options/item/item";
+@import "game-menu/content/left/line/line";
+@import "game-menu/content/left/content/content";
+@import "game-menu/content/right/item/item";
 
 @import "table/table";
 @import "table/container/container";
@@ -203,7 +203,10 @@
 @import "game/item/line/vertical-line/line";
 @import "game/item/line/vertical-line/outline";
 @import "game/item/header/header";
+@import "game/item/header/container/container";
 @import "game/pong/pong";
+
+@import "match/match";
 
 @import "scrollable/scrollable";
 

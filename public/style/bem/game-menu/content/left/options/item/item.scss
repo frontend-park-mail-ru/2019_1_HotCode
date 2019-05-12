@@ -1,8 +1,13 @@
 .game-menu__options__item {
   @extend %white;
   display: inline-block;
+  margin-right: 1em;
   font-weight: 300;
   font-size: 26px;
+}
+
+.game-menu__options__item:last-child {
+  margin-right: 0;
 }
 
 @media only screen and (max-width : 480px) and (orientation: portrait) {

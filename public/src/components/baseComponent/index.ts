@@ -61,6 +61,10 @@ class Component {
         this.elField.classList.remove('active');
     }
 
+    public getText(): string {
+        return this.elField.textContent;
+    }
+
     public setText(text: string): void {
         this.elField.textContent = text;
     }

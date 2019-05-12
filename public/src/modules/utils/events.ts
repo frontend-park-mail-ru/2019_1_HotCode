@@ -4,6 +4,7 @@ export const events = {
     onSlugChange: 'onSlugChange',
     onSlug2Change: 'onSlug2Change',
     onCodeChange: 'onCodeChange',
+    onBotCodeChange: 'onBotCodeChange',
     onRulesChange: 'onRulesChange',
     onTitleChange: 'onTitleChange',
     onBackgroundChange: 'onBackgroundChange',

@@ -49,6 +49,21 @@ class ViewService {
             return;
         }
 
+        if (path.match(viewRegs.matchesViewPath)) {
+
+            ViewService.goToGameMatchesView(path.match(viewRegs.matchesViewPath)[1]);
+            return;
+        }
+
+        if (path.match(viewRegs.matchViewPath)) {
+
+            ViewService.goToGameMatchView(
+                path.match(viewRegs.matchViewPath)[1],
+                path.match(viewRegs.matchViewPath)[2],
+            );
+            return;
+        }
+
         if (path.match(viewRegs.gameViewPath)) {
 
             ViewService.goToGameView(path.match(viewRegs.gameViewPath)[1]);
@@ -88,15 +103,30 @@ class ViewService {
     }
 
     public static goToGameDescriptionView(slug: string): void {
-        Router.go(viewPaths.descriptionViewPath.replace('SLUG', slug), false, slug);
+        Router.go(viewPaths.descriptionViewPath.replace('SLUG', slug), false, [slug]);
     }
 
     public static goToGameLiderBoardView(slug: string): void {
-        Router.go(viewPaths.liderboardViewPath.replace('SLUG', slug), false, slug);
+        Router.go(viewPaths.liderboardViewPath.replace('SLUG', slug), false, [slug]);
+    }
+
+    public static goToGameMatchesView(slug: string): void {
+        Router.go(viewPaths.matchesViewPath.replace('SLUG', slug), false, [slug]);
+    }
+
+    public static goToGameMatchView(slug: string, id: string): void {
+        Router.go(
+            viewPaths.matchViewPath.replace('SLUG', slug).replace('ID', id),
+            false,
+            [
+                slug,
+                id,
+            ],
+        );
     }
 
     public static goToGameView(slug: string): void {
-        Router.go(viewPaths.gameViewPath.replace('SLUG', slug), false, slug);
+        Router.go(viewPaths.gameViewPath.replace('SLUG', slug), false, [slug]);
     }
 
     public static goToNotFoundView(): void {

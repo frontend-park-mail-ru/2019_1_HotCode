@@ -1,0 +1,43 @@
+.match {
+  position: relative;
+  display: grid;
+  grid-template-columns: 35% 1fr 40%;
+  width: 50vw;
+  min-width: 90%;
+  padding: 0.35em 0;
+  margin-top: 0.4em;
+
+  background: $backgroundColorBack3;
+}
+
+.match__item {
+  font-size: 0.9em;
+  font-weight: 300;
+  @extend %white;
+}
+
+.match__item_theme_name {
+
+}
+
+.match__item__username {
+  margin-left: 2.6em;
+}
+
+.match__item__avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 34px;
+  background: pink;
+}
+
+.match__item_theme_result {
+
+}
+
+.match__item_theme_date {
+  margin-right: 0.6em;
+  text-align: right;
+}

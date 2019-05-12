@@ -1,0 +1,12 @@
+.play__item__header__container {
+  display: flex;
+
+}
+
+.play__item__header__container > * {
+  margin-right: 1em;
+}
+
+.play__item__header__container > *:last-child {
+  margin-right: 0;
+}

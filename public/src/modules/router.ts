@@ -23,7 +23,7 @@ class Router {
         };
     }
 
-    public go(path: string, isPopState = false, slug?: string) {
+    public go(path: string, isPopState = false, slug?: string[]) {
         console.log('go', path);
         console.log('postStack', this.postRenderStack);
 
@@ -138,7 +138,7 @@ class Router {
         }
     }
 
-    private draw(view: ViewInfo, slug: string): void {
+    private draw(view: ViewInfo, slug: string[]): void {
         view.createView();
         view.view.render(slug);
         console.log('RENDER', view.keyName);

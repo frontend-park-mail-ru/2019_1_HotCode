@@ -27,7 +27,7 @@ class GameMenuLayer extends Layer {
         super(parent);
     }
 
-    public render(slug: string): void {
+    public render(param: string[]): void {
         this.renderTmpl(GameMenuLayer.template, {
             title: Game.title,
             backgroundUUID: Game.backgrondUUID,
@@ -52,7 +52,7 @@ class GameMenuLayer extends Layer {
 
         this.onLogoChange = EventBus.subscribe(events.onLogoChange, () => {
 
-            const logoImage = new Component(this.parent.el.querySelector('.game-menu__main__content-right__item'));
+            const logoImage = new Component(this.parent.el.querySelector('.game-menu__right__item'));
 
             AvatarService.getAvatar(Game.logoUUID)
                 .then((img) => {
@@ -75,6 +75,9 @@ class GameMenuLayer extends Layer {
                     ViewService.goToGameLiderBoardView(Game.slug);
                 },
                 option2: () => {
+                    ViewService.goToGameMatchesView(Game.slug);
+                },
+                option3: () => {
                     ViewService.goToGameView(Game.slug);
                 },
             });
@@ -82,7 +85,7 @@ class GameMenuLayer extends Layer {
             this.optionsTabbar.onChange();
         });
 
-        GameService.getGame(slug);
+        GameService.getGame(param[0]);
     }
 
     public clear(): void {

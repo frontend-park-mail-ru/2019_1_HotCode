@@ -14,6 +14,8 @@ import SignupPage from '../pages/authorizationPages/signupPage/signupPage';
 import StartPage from '../pages/startPage/startPage';
 import GameMenuLayer from '../layers/gameMenuLayer/gameMenuLayer';
 import GamePage from '../pages/gameMenuPages/gamePage/gamePage';
+import MatchesPage from '../pages/gameMenuPages/matchesPage/matchesPage';
+import MatchPage from '../pages/gameMenuPages/matchPage/matchPage';
 
 export const views = [
     new ViewInfo(
@@ -94,6 +96,8 @@ export const views = [
         [
             'descriptionPage',
             'liderboardPage',
+            'matchesPage',
+            'matchPage',
             'gamePage',
         ],
     ),
@@ -120,6 +124,18 @@ export const views = [
         () => new LiderboardPage(Component.getBy('.game-menu__content')),
         'gameContainer',
         viewRegs.liderboardViewPath,
+    ),
+    new ViewInfo(
+        'matchesPage',
+        () => new MatchesPage(Component.getBy('.game-menu__content')),
+        'gameContainer',
+        viewRegs.matchesViewPath,
+    ),
+    new ViewInfo(
+        'matchPage',
+        () => new MatchPage(Component.getBy('.game-menu__content')),
+        'gameContainer',
+        viewRegs.matchViewPath,
     ),
     new ViewInfo(
         'gamePage',

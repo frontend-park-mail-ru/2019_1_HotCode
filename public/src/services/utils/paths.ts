@@ -25,6 +25,15 @@ export const chatPaths = {
     sendMessagePath: '/chat/connect',
 };
 
+export const botsPaths = {
+    getBotsPath: '/bots',
+    sendBotsPath: '/bots',
+};
+
+export const botsWSPaths = {
+    updateBotsPath: '/bots/verification',
+};
+
 export const viewPaths = {
     startViewPath: '/hello',
     mainViewPath: '/',
@@ -33,6 +42,8 @@ export const viewPaths = {
     settingsViewPath: '/settings',
     descriptionViewPath: '/SLUG',
     liderboardViewPath: '/SLUG/liderboard',
+    matchesViewPath: '/SLUG/matches',
+    matchViewPath: '/SLUG/matches/ID',
     gameViewPath: '/SLUG/game',
 };
 
@@ -44,5 +55,7 @@ export const viewRegs = {
     settingsViewPath: /^\/settings$/i,
     descriptionViewPath: /^\/([\d\w-_]+)$/i,
     liderboardViewPath: /^\/([\d\w-_]+)\/liderboard$/i,
+    matchesViewPath: /^\/([\d\w-_]+)\/matches$/i,
+    matchViewPath: /^\/([\d\w-_]+)\/matches\/([\d]+)$/i,
     gameViewPath: /^\/([\d\w-_]+)\/game$/i,
 };

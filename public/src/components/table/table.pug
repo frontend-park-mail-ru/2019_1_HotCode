@@ -3,7 +3,7 @@ tr.table__row
     th.table__cell Player
     th.table__cell Score
 each user, index in users
-    tr.table__row
-        td.table__cell= index + offset + 1
-        td.table__cell= user.username
-        td.table__cell= user.score
+    tr.table__row.table__row_theme_data(data-id= user.id)
+        td.table__cell.table__cell_theme_number= index + offset + 1
+        td.table__cell.table__cell_theme_username= user.author.username
+        td.table__cell.table__cell_theme_score= user.score

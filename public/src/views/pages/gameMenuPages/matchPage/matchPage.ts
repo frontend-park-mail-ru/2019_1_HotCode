@@ -2,41 +2,31 @@
 
 import Component from "../../../../components/baseComponent/index";
 import Page from '../../page';
-import TestCodeForm from '../../../../components/form/testCodeForm';
-import PingPong from '../../../../components/games/ping-pong/ping-pong';
-import {runCode} from '../../../../modules/game/game';
 import Game from "../../../../models/game";
-import Panel from '../../../../components/panel/panel';
-import {onDragAndDrop} from '../../../../modules/dragAndDrop';
-import ScrollableBlock from '../../../../components/scrollable/scrollable';
 import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
-import Button from '../../../../components/button/button';
-import BotsService from '../../../../services/bots-service';
+import Panel from '../../../../components/panel/panel';
+import {onDragAndDrop} from '../../../../modules/dragAndDrop';
+import TestCodeForm from '../../../../components/form/testCodeForm';
 
-class GamePage extends Page{
 
-    private static template = require('./gamePage.pug');
+class MatchPage extends Page{
+
+    private static template = require('./matchPage.pug');
 
     private gamePanels: Panel[];
     private editorPanel: Component;
     private editorLine: Component;
     private testCodeForm: TestCodeForm;
-    private testCodeButton: Button;
-    private pingPong: PingPong;
-    private rulesContent: Component;
-
-    private onRulesChange: {[key: string]: () => void};
-    private onCodeChange: {[key: string]: () => void};
-    private onBotCodeChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
-        super(parent, 'Game - WarScript');
+        super(parent, 'Match - Game - WarScript');
     }
 
-    public render(): void {
+    public render(param: string[]): void {
+
         super.render();
-        this.renderTmpl(GamePage.template);
+        this.renderTmpl(MatchPage.template);
 
         const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
         const gameImageLogo = new Component(document.querySelector('.game-menu__right'));
@@ -60,82 +50,14 @@ class GamePage extends Page{
 
         onDragAndDrop(this.editorLine, this.onMove);
 
-        this.rulesContent = new Component(this.parent.el.querySelector('.play__item__content_theme_rules'));
-
-        this.onRulesChange = EventBus.subscribe(events.onRulesChange, () => {
-
-            this.rulesContent.el.innerHTML = Game.rules;
-            const rulesContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_rules'));
-            rulesContent.decorate();
-        });
-
-        if (Game.rules) {
-
-            EventBus.publish(events.onRulesChange);
-        }
-
-
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.form_theme_editor'));
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
-
-        this.onCodeChange = EventBus.subscribe(events.onCodeChange, () => {
-
-                this.testCodeForm.code.setValue(Game.codeExample);
-        });
-
-        if (Game.codeExample) {
-
-            EventBus.publish(events.onCodeChange);
-        }
-
-        this.onBotCodeChange = EventBus.subscribe(events.onBotCodeChange, () => {
-            console.log(Game.botCode);
-        });
-
-        if (Game.botCode) {
-            EventBus.publish(events.onBotCodeChange);
-        }
-
-        this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
-
-        const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
-        consoleContent.decorate();
-
-
-        this.testCodeButton = new Button(this.parent.el.querySelector('#testCode'), () => {
-            event.preventDefault();
-
-            const code = this.testCodeForm.code.getValue();
-
-            this.pingPong.init(runCode(code));
-        });
-        this.testCodeButton.onClick();
-
-
-        this.testCodeForm.onSubmit((event) => {
-            event.preventDefault();
-
-            const code = this.testCodeForm.code.getValue();
-
-            if (this.testCodeForm.validate()) {
-
-                BotsService.sendBots(Game.slug, code);
-                // this.pingPong.init(runCode(code));
-            }
-        });
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
-        this.onRulesChange.unsubscribe();
-        this.onCodeChange.unsubscribe();
-        this.onBotCodeChange.unsubscribe();
-
-        this.testCodeForm = null;
-        this.testCodeButton = null;
-        this.pingPong = null;
 
         const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
         const gameImageLogo = new Component(document.querySelector('.game-menu__right'));
@@ -164,4 +86,4 @@ class GamePage extends Page{
     };
 }
 
-export default GamePage;
+export default MatchPage;

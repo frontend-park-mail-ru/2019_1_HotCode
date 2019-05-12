@@ -1,13 +1,8 @@
 .content.game-content
     .play__item.play__item_theme_editor
-        form.form.form_theme_editor(action='#', method='post')
+        .form.form_theme_editor
             .play__item__header
                 button.options-button.pointer.color-yellow(type='button') ⚙
-                .play__item__header__container
-                    input#testCode.hidden(type='button')
-                    label(for='testCode')
-                        div.button.button_theme_main.button_size_s.pointer Test
-                    button.button.button_theme_submit.button_size_s.pointer(type='submit') Start
             .play__item__content.play__item__content_theme_editor
 
         .play__item__vertical-line
@@ -33,12 +28,6 @@
             .play__item__horizontal-line
                 .play__item__horizontal-line__outline
 
-        details.play__item.play__item_theme_rules(open=true)
-            summary.play__item__header.pointer(data-name='Rules')
-                button.options-button.pointer.color-yellow(type='button') ⚙
-            summary.play__item__content.play__item__content_theme_rules
-            .play__item__horizontal-line
-                .play__item__horizontal-line__outline
 
         details.play__item.play__item_theme_console(open=true)
             summary.play__item__header.pointer(data-name='Console')

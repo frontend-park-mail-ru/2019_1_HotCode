@@ -1,0 +1,10 @@
+mixin match(username, result, date, id)
+    .match.pointer.scale-on-hover-s(data-id= id)
+        .match__item.match__item_theme_name
+            .match__item__avatar
+            .match__item__username= username
+        .match__item.match__item_theme_result= result
+        .match__item.match__item_theme_date= date
+
+each match in matches
+    +match(match.username, match.result, match.date, match.id)
