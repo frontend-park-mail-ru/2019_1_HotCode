@@ -19,8 +19,8 @@ class GamePage extends Page{
     private static template = require('./gamePage.pug');
 
     private gamePanels: Panel[];
-    private editorPanel: Component;
-    private editorLine: Component;
+    private leftPanel: Component;
+    private verticalLine: Component;
     private testCodeForm: TestCodeForm;
     private testCodeButton: Button;
     private pingPong: PingPong;
@@ -55,10 +55,10 @@ class GamePage extends Page{
         this.gamePanels = Array.from(this.parent.el.querySelectorAll('.play__item'))
             .map((panel) => new Panel(panel as HTMLElement));
 
-        this.editorPanel = new Component(this.parent.el.querySelector('.play__item_theme_editor'));
-        this.editorLine = new Component(this.editorPanel.el.querySelector('.play__item__vetical-line__outline'));
+        this.leftPanel = new Component(this.parent.el.querySelector('.game__container-item_theme_left'));
+        this.verticalLine = new Component(this.leftPanel.el.querySelector('.play__item__vetical-line__outline'));
 
-        onDragAndDrop(this.editorLine, this.onMove);
+        onDragAndDrop(this.verticalLine, this.onMove);
 
         this.rulesContent = new Component(this.parent.el.querySelector('.play__item__content_theme_rules'));
 
@@ -91,7 +91,15 @@ class GamePage extends Page{
         }
 
         this.onBotCodeChange = EventBus.subscribe(events.onBotCodeChange, () => {
-            console.log(Game.botCode);
+
+            this.testCodeButton = new Button(this.parent.el.querySelector('#testCode'), () => {
+                event.preventDefault();
+
+                const code = this.testCodeForm.code.getValue();
+
+                this.pingPong.init(runCode(code, Game.botCode));
+            });
+            this.testCodeButton.onClick();
         });
 
         if (Game.botCode) {
@@ -102,17 +110,6 @@ class GamePage extends Page{
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
-
-
-        this.testCodeButton = new Button(this.parent.el.querySelector('#testCode'), () => {
-            event.preventDefault();
-
-            const code = this.testCodeForm.code.getValue();
-
-            this.pingPong.init(runCode(code));
-        });
-        this.testCodeButton.onClick();
-
 
         this.testCodeForm.onSubmit((event) => {
             event.preventDefault();
@@ -155,10 +152,11 @@ class GamePage extends Page{
     private onMove = (shiftX: number) => {
         return (e: MouseEvent): void => {
             e.preventDefault();
-            this.editorPanel.el.style.width =
+            this.leftPanel.el.style.width =
                 e.pageX -
-                (this.editorPanel.el.offsetLeft +
+                (this.leftPanel.el.offsetLeft +
                     shiftX) +
+                this.verticalLine.el.offsetWidth / 2 +
                 'px';
         };
     };

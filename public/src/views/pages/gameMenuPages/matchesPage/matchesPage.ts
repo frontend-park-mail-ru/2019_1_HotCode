@@ -6,31 +6,20 @@ import Game from "../../../../models/game";
 import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
 import ViewService from '../../../../services/view-service';
-
-const data = [
-    {
-        id: 3,
-        username: 'Test_user_2',
-        result: 'Processing...',
-        date: '6 Apr 2019, 19:45:39',
-    },
-    {
-        id: 2,
-        username: 'Test_user_2',
-        result: 'Win',
-        date: '5 Apr 2019, 19:45:39',
-    },
-    {
-        id: 1,
-        username: 'Test_user_1',
-        result: 'Defeat',
-        date: '20 Dec 2018, 19:45:39',
-    },
-];
+import BotsService from '../../../../services/bots-service';
+import MatchShort from '../../../../components/matchShort/matchShort';
+import Button from '../../../../components/button/button';
 
 class MatchesPage extends Page{
 
     private static template = require('./matchesPage.pug');
+
+    private matchTable: Component;
+    private moreButton: Button;
+
+    private lastMatchId: number;
+
+    private onSlugChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent, 'Matches - Game - WarScript');
@@ -39,24 +28,61 @@ class MatchesPage extends Page{
     public render(): void {
 
         super.render();
-        this.renderTmpl(MatchesPage.template, {matches: data});
+        this.renderTmpl(MatchesPage.template);
 
-        const matches = Array.from(this.parent.el.querySelectorAll('.match'))
-            .map((match) => {
+        this.matchTable = new Component(this.parent.el.querySelector('.matches-content'));
 
-                const matchComponent = new Component(match as HTMLElement);
-                matchComponent.on('click', (e) => {
+        this.moreButton = new Button(this.parent.el.querySelector('#moreMatches'),
+            () => {
 
-                    ViewService.goToGameMatchView(
-                        Game.slug,
-                        matchComponent.el.getAttribute('data-id')
-                    );
+                BotsService.getMoreMatches(Game.slug, this.lastMatchId, 10)
+                    .then((resp) => {
+
+                        this.fillTable(resp);
+                    })
+            }
+        );
+
+        this.onSlugChange = EventBus.subscribe(events.onSlugChange, () => {
+
+            BotsService.getMatches(Game.slug)
+                .then((resp) => {
+
+                    this.fillTable(resp);
+
+                    this.moreButton.onClick();
                 });
-            });
+        });
+
+        if (Game.slug) {
+            EventBus.publish(events.onSlugChange);
+        }
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
+        this.matchTable = null;
+        this.onSlugChange.unsubscribe();
+    }
+
+
+    private fillTable(data: any[]): void {
+
+        data.map((match: any) => {
+
+            this.matchTable.append(
+                MatchShort.CreateMatch(
+                    match.id,
+                    match.author_1,
+                    match.author_2,
+                    match.result,
+                    match.diff1,
+                    match.diff2,
+                )
+            );
+
+            this.lastMatchId = match.id;
+        });
     }
 }
 

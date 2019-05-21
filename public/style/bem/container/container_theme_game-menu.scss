@@ -1,25 +1,29 @@
 .container_theme_game-menu {
-  position: absolute;
-  top: 20%;
-  left: 9%;
+  top: 0;
+  left: 0;
+  bottom: 0;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: wrap-reverse;
-  width: 81.25%;
-  transform: translate(0, 0);
+  height: 100vh;
+  width: 20vw;
+  min-width: 325px;
+  transform: none;
+  z-index: 5;
 }
 
-@media only screen and (max-width : 480px) and (orientation: portrait) {
-  .container_theme_game-menu {
-    left: 0;
-    top: 0;
-    width: 100%;
-
-  }
-}
-
-@media only screen and (max-width : 900px) and (orientation: landscape) {
-  .container_theme_game-menu {
-
-  }
-}
+//@media only screen and (max-width : 480px) and (orientation: portrait) {
+//  .container_theme_game-menu {
+//    left: 0;
+//    top: 0;
+//    width: 100%;
+//
+//  }
+//}
+//
+//@media only screen and (max-width : 900px) and (orientation: landscape) {
+//  .container_theme_game-menu {
+//
+//  }
+//}

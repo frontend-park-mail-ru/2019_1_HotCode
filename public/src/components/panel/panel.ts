@@ -26,8 +26,10 @@ class Panel extends Component{
 
             this.content.el.style.height =
                 e.pageY -
-                (this.content.el.offsetTop +
+                (this.el.offsetTop +
+                 this.content.el.offsetTop +
                     shiftY ) +
+                this.line.el.offsetHeight / 2 +
                 'px';
         };
     };

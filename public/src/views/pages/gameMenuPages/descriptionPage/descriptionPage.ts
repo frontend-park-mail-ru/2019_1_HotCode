@@ -19,12 +19,12 @@ class DescriptionPage extends Page{
     public render(): void {
 
         super.render();
-        this.renderTmpl(DescriptionPage.template, {descripton: Game.description});
+        this.renderTmpl(DescriptionPage.template);
 
         this.onDescriptionChange = EventBus.subscribe(events.onDescriptionChange, () => {
 
             new Component(this.parent.el.querySelector('.description-content'))
-                .setText(Game.description);
+                .setTextAnim(Game.description, 7);
         });
 
         if (Game.description) {

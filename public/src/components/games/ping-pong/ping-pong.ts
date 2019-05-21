@@ -2,11 +2,15 @@
 
 import GameObject from '../gameObject';
 import BaseGame from '../baseGame';
+import Match from '../../../models/match';
 import EventBus from '../../../modules/event-bus';
 import {events} from '../../../modules/utils/events';
+import Component from '../../baseComponent/index';
 
 class PingPong extends BaseGame{
 
+    private player1Text: Component;
+    private player2Text: Component;
     private player1: GameObject;
     private player2: GameObject;
     private ball: GameObject;
@@ -22,6 +26,16 @@ class PingPong extends BaseGame{
         this.ball = new GameObject(this.el.querySelector('.pong__ball'));
         this.player1 = new GameObject(this.el.querySelector('.pong__player1'));
         this.player2 = new GameObject(this.el.querySelector('.pong__player2'));
+        this.player1Text = new Component(this.el.querySelector('.pong__player1__text'));
+        this.player2Text = new Component(this.el.querySelector('.pong__player2__text'));
+
+        if (Match.user1 && Match.user1.username) {
+            this.player1Text.setText(Match.user1.username);
+        }
+
+        if (Match.user2 && Match.user2.username) {
+            this.player2Text.setText(Match.user2.username);
+        }
 
         this.width = +this.el.style.width;
         this.height = +this.el.style.height;

@@ -1,11 +1,16 @@
 .play__item__horizontal-line {
-  position: relative;
-  height: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
   width: 100%;
   margin-top: 2%;
-  border-bottom: 1.5px solid $fontColorWhite;
+  background: $fontColorWhite;
+
+  z-index: 5;
 }
 
 .play__item__horizontal-line:hover {
-  border-bottom: 1.5px solid $fontColorYellow;
+  background: $fontColorYellow;
 }

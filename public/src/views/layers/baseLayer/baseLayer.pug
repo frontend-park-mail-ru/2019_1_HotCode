@@ -1,12 +1,10 @@
 .background.background_theme_base
 
-input#full-screen.hidden(type='checkbox')
-label.full-screen-button.full-screen_button_direction_top-right.pointer(for='full-screen')
-    img.full-screen__content.full-screen__content_direction_center(src='/img/full-screen.svg')
+.options
 
 input#logo.hidden(type='button')
 label.logo.logo_theme_main.logo_direction_top-right.pointer(for='logo')
-    .logo__main.logo__main_theme_main.light-l-yellow [ WarScript ]
+    .logo__main.logo__main_theme_main [ WarScript ]
     .logo__postscript.logo__postscript_theme_main by HotCode
 
 .content.nav-content
@@ -24,7 +22,7 @@ label.logo.logo_theme_main.logo_direction_top-right.pointer(for='logo')
             label.nav-menu__item.pointer(for='chat') Chat
 
 input#profile.hidden(type='button')
-label.header.header_direction_top-left.header__item.light-s-white.scale-on-hover.pointer.hidden(for='profile') {User Data}
+label.header.header_direction_top-left.header__item.link2.pointer.hidden(for='profile') {User Data}
 
 .modal__window
 
@@ -36,12 +34,12 @@ label.header.header_direction_top-left.header__item.light-s-white.scale-on-hover
 .base-container.footer.footer_direction_bottom
     .footer__container-item.footer__container-item_size_s.hidden
         .footer__item
-            label.footer__item__link.light-s-white.scale-on-hover.pointer(for='mod1') Sign in
+            label.footer__item__link.link2.pointer(for='mod1') Sign in
         .footer__item
-            label.footer__item__link.light-s-white.scale-on-hover.pointer(for='mod2') Sign up
+            label.footer__item__link.link2.pointer(for='mod2') Sign up
     input#signout.hidden(type='button')
     .footer__item
-        label.footer__item__link.light-s-white.pointer.scale-on-hover.hidden(for='signout') Log out
+        label.footer__item__link.link2.pointer.hidden(for='signout') Log out
     input#chat.hidden(type='checkbox')
     .footer__item
-        label.footer__item__link.light-s-white.scale-on-hover.pointer(for='chat') Chat
+        label.footer__item__link.link2.pointer(for='chat') Chat

@@ -1,24 +1,42 @@
 img.background.background_theme_gamemenu-img(src='')
 .background.background_theme_gamemenu
 
+//.container.container_theme_game-menu
+//    .game-menu__left
+//        .game-menu__header
+//            .game-menu__header__logo= title
+//            label(for='option3')
+//                div.button.button_theme_main.button_theme_play.pointer Play
+//        .game-menu__options
+//            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option0') Description
+//            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option1') LeaderBoard
+//            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option2') Matches
+//            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option3') Game
+//        .game-menu__main
+//            .game-menu__line
+//            .game-menu__content
+//    .game-menu__right
+//        img.game-menu__right__item(src='')
+
 .container.container_theme_game-menu
-    .game-menu__left
-        .game-menu__header
-            .game-menu__header__logo= title
-            label(for='option3')
-                div.button.button_theme_main.button_theme_play.pointer Play
-        .game-menu__options
-            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option0') Description
-            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option1') LeaderBoard
-            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option2') Matches
-            label.game-menu__options__item.pointer.color-yellow.scale-on-hover-s(for='option3') Game
-        .game-menu__main
-            .game-menu__line
-            .game-menu__content
-    .game-menu__right
-        img.game-menu__right__item(src='')
+    .menu__item.menu__item_theme_logo
+        .menu__item__logo
+            img.menu__item__img(src='../../../../img/bf7a6a24-1a2f-46ea-9278-edb1e713320a.png', alt='')
+    .menu__item.menu__item_theme_title
+        .menu__item__title DATA WING
+    .menu__item.menu__item_theme_options
+        label.menu__item__option.pointer.link(for='option0') Game
+        label.menu__item__option.pointer.link(for='option1') Description
+        label.menu__item__option.pointer.link(for='option2') Leaderboard
+        label.menu__item__option.pointer.link(for='option3') Matches
+    .menu__item.menu__item_theme_back
+        .menu__item__back.pointer.link Back
+input#gameMenuNavBar(type='checkbox')
+.game-menu__content
+
 .options__check
     input#option0.hidden(type='radio', name='options')
     input#option1.hidden(type='radio', name='options')
     input#option2.hidden(type='radio', name='options')
     input#option3.hidden(type='radio', name='options')
+    input#option4.hidden(type='radio', name='options')

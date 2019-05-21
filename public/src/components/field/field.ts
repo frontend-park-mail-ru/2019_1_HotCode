@@ -31,20 +31,44 @@ class Field extends Component{
             this.el.querySelector('.field__main__label'));
 
         this.errorField = new Component(errorField ||
-            this.el.querySelector('.field__header__error'));
+            this.el.querySelector('.field__main__error'));
 
         this.virginityField = true;
 
+
+        this.crapLabel();
+
+
         if (this.input.el) {
-            this.input.on('focus', () => this.virginityField = false);
+            this.input.on('focus', () => {
+
+                this.elField.classList.add('filled');
+                this.placeholderAnimationIn(true);
+
+                this.virginityField = false
+            });
+
+            this.input.on('blur', () => {
+
+                if(!this.getValue().length) {
+
+                    this.elField.classList.remove('filled');
+                    this.placeholderAnimationIn(false);
+                }
+            });
         }
 
         if (this.input.el && (this.input.el as HTMLInputElement).type === 'password') {
+
             this.showPasswordCheckbox = new Checkbox(this.el.querySelector('input[type="checkbox"]'),
                 () => {
+
+                    this.openEye();
                     (this.input.el as HTMLInputElement).type = 'text';
                 },
                 () => {
+
+                    this.closeEye();
                     (this.input.el as HTMLInputElement).type = 'password';
                 });
             this.showPasswordCheckbox.onChange();
@@ -93,22 +117,81 @@ class Field extends Component{
 
     public setError(errorText: string): void {
         if (this.errorField.el) {
-            this.errorField.setText(errorText);
+            this.errorField.setTextAnim(errorText);
         }
     }
 
     public clearError(): void {
         if (this.errorField.el) {
-            this.errorField.setText('');
+            this.errorField.el.innerHTML = '';
         }
     }
 
     // false - валидное поле; true - ошибка
     public getErrorStatus(): boolean {
         if (this.errorField.el) {
-            return !!this.errorField.el.innerText;
+            return !!this.errorField.el.innerHTML;
         }
         return false;
+    }
+
+    private crapLabel(): void {
+        const placeholder = this.label.el.querySelector('.field__main__label__text');
+
+        let value = placeholder.textContent,
+            html = '';
+        for(let w of value){
+            if(w === ' ') w = '&nbsp;';
+            html += `<span class="field__main__label__text__letter">${w}</span>`;
+        }
+        placeholder.innerHTML = html;
+    }
+
+    private placeholderAnimationIn(action: boolean){
+
+        let letters = Array.from(this.elField.querySelectorAll('.field__main__label__text__letter'))
+            .map((item) => item as HTMLElement);
+
+        if(!action) letters = letters.reverse();
+
+        letters.forEach((el, i) => {
+            setTimeout(() => {
+                let contains = this.elField.classList.contains('filled');
+
+                if( (action && !contains) || (!action && contains)) return;
+
+                if (action) {
+
+                    el.classList.add('field__main__label__text__letter_theme_active');
+                    return;
+
+                }
+
+                el.classList.remove('field__main__label__text__letter_theme_active');
+            }, (50 * i));
+        });
+    }
+
+    private openEye(): void {
+
+        const center = new Component(this.el.querySelector('.eye-icon__center'));
+        const top = new Component(this.el.querySelector('.eye-icon__top'));
+
+        center.removeClass('eye-icon__center_theme_close');
+        top.removeClass('eye-icon__top_theme_close');
+        center.addClass('eye-icon__center_theme_open');
+        top.addClass('eye-icon__top_theme_open');
+    }
+
+    private closeEye(): void {
+
+        const center = new Component(this.el.querySelector('.eye-icon__center'));
+        const top = new Component(this.el.querySelector('.eye-icon__top'));
+
+        center.removeClass('eye-icon__center_theme_open');
+        top.removeClass('eye-icon__top_theme_open');
+        center.addClass('eye-icon__center_theme_close');
+        top.addClass('eye-icon__top_theme_close');
     }
 }
 

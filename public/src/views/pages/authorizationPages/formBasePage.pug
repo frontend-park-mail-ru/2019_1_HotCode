@@ -1,26 +1,26 @@
-.form__header
-    .form__header__logo= logotype
-form.form.form_theme_popup(action='#', method='post')
-
-    .form__inputs
+.modal__content
+    label.modal__content__close.pointer(for='mod0')
+        svg.close-icon(viewbox='0 0 33 33', fill='none', xmlns='http://www.w3.org/2000/svg')
+            path.close-icon_vec(d='M31.9092 2.21177L29.7878 0.0904541L15.9993 13.879L2.21076 0.0904541L0.0893555 2.21177L13.8779 16.0004L0.0893555 29.7889L2.21068 31.9103L15.9993 18.1217L29.7878 31.9103L31.9092 29.7889L18.1206 16.0004L31.9092 2.21177Z')
+    .modal__content__shadow
+    form.form.form_theme_popup(action='#', method='post')
         each field, index in formFields
-            .field.scale-on-hover-s
-
-                .field__header
-                    .field__header__error
-
+            .field
                 .field__main
-                    input.field__main__input(type=field.type, name=field.name, placeholder=field.placeholder, maxlength='32')
-                    .field__main__label= field.label
+                    input.field__main__input(type=field.type, name=field.name, maxlength='32')
+                    .field__main__label
+                        span.field__main__label__text= field.label
+                    .field__main__error
                     if field.type === 'password'
                         input.hidden(id=`show__password${index}` type='checkbox')
-                        label.field__main__show-password.pointer(for=`show__password${index}`) &#x1f441;
+                        label.field__main__eye.pointer(for=`show__password${index}`)
+                            svg.eye-icon(viewbox='0 0 128 80', fill='none', xmlns='http://www.w3.org/2000/svg')
+                                path.eye-icon__center(d='M64 24C50.742 24 40 34.742 40 48C40 61.258 50.742 72 64 72C77.258 72 88 61.258 88 48C88 34.742 77.258 24 64 24ZM64 64C55.18 64 48 56.82 48 48C48 39.18 55.18 32 64 32V48H80C80 56.82 72.82 64 64 64Z')
+                                path.eye-icon__border(d='M120.836 58.203C123.383 54.984 125.813 51.625 128 48C113.367 23.75 90.195 8.00002 64 8.00001C37.813 8.00001 14.633 23.75 -6.99382e-06 48C2.18799 51.625 4.61699 54.984 7.16399 58.203C7.16399 58.203 7.92899 59.43 9.49199 61C11.055 62.563 12.359 64.328 12.359 64.328C14.398 66.484 16.554 68.461 18.757 70.359C18.757 70.359 19.5 71 21.5 72.5C23.2696 73.8273 25.164 75.257 25.164 75.257C27.539 76.913 29.984 78.398 32.492 79.749C32.492 79.749 34 80.5 36 81.5C38 82.5 39.859 83.178 39.859 83.178C42.515 84.233 45.226 85.131 48 85.834C48 85.834 50 86.5 52 87C54 87.5 56 87.398 56 87.398C58.641 87.726 61.289 88 64 88C66.711 88 69.359 87.727 72 87.398C72 87.398 74.5 87 76.5 86.5C78.5 86 80 85.836 80 85.836C82.773 85.133 85.484 84.242 88.141 83.18C88.141 83.18 90.368 82.078 92.5 81.5C94.5 80.353 95.508 79.759 95.508 79.759C98.016 78.4 100.461 76.923 102.836 75.267C102.836 75.267 104.086 74.109 106 73C108 71.5 109.243 70.361 109.243 70.361C111.446 68.463 113.602 66.486 115.641 64.33C115.641 64.33 117.149 62.8014 118.5 61C120 59 120.836 58.203 120.836 58.203ZM64 80C42.922 80 23.281 68.406 9.49199 48C23.281 27.594 42.922 16 64 16C85.078 16 104.719 27.594 118.508 48C104.719 68.406 85.078 80 64 80Z')
+                                path.eye-icon__top(d='M7.164 37.797C4.617 41.016 2.187 44.375 0 48L9.492 48C23.281 27.594 42.922 16 64 16C85.078 16 104.719 27.594 118.508 48L128 48C125.812 44.375 123.383 41.016 120.836 37.797L123.399 35.234C124.962 33.664 124.962 31.14 123.399 29.57C121.836 28.007 119.305 28.007 117.743 29.57L115.641 31.672C113.602 29.516 111.446 27.539 109.243 25.641L111.86 21.11C112.962 19.196 112.305 16.751 110.391 15.649C108.477 14.54 106.032 15.196 104.93 17.11L102.836 20.743C100.461 19.087 98.016 17.602 95.508 16.251L97.055 10.462C97.625 8.321 96.36 6.134 94.227 5.564C92.094 4.986 89.899 6.25199 89.329 8.39199L88.141 12.822C85.485 11.767 82.774 10.869 80 10.166L80 4C80 1.789 78.211 -4.35269e-06 76 -4.54598e-06C73.789 -4.73928e-06 72 1.789 72 4L72 8.60199C69.359 8.27399 66.711 7.99999 64 7.99999C61.289 7.99999 58.641 8.27299 56 8.60199L56 3.99999C56 1.78899 54.211 -6.45084e-06 52 -6.64413e-06C49.789 -6.83742e-06 48 1.78899 48 3.99999L48 10.164C45.227 10.867 42.516 11.758 39.859 12.82L38.671 8.38999C38.101 6.24899 35.905 4.98399 33.773 5.56199C31.64 6.13199 30.375 8.31999 30.945 10.46L32.492 16.241C29.984 17.6 27.539 19.077 25.164 20.733L23.07 17.108C21.968 15.194 19.523 14.538 17.609 15.647C15.695 16.749 15.039 19.194 16.14 21.108L18.757 25.639C16.554 27.537 14.398 29.514 12.359 31.67L10.257 29.568C8.69401 28.005 6.163 28.005 4.601 29.568C3.038 31.138 3.038 33.662 4.601 35.232L7.164 37.797Z')
+        button.button__theme_modal.pointer(type='submit') Submit
+    .modal__info
+        .modal__info__logo= logotype
 
-    .form__buttons
-        .form__buttons__button
-            button.button.button_theme_submit.scale-on-hover.pointer(type='submit')= submitButtonName
-
-        if otherButtonName
-            .form__buttons__button
-                label(for=`mod${nextFormNumber}`)
-                    div.button.button_theme_main.scale-on-hover.pointer= otherButtonName
+        label.modal__info__link(for=`mod${nextFormNumber}`)
+            span.modal__info__link__text.pointer.link= otherButtonName

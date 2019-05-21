@@ -28,6 +28,9 @@ export const chatPaths = {
 export const botsPaths = {
     getBotsPath: '/bots',
     sendBotsPath: '/bots',
+    getMatchesPath: '/matches',
+    getMoreMatchesPath: '/matches',
+    getMatchPath: '/matches',
 };
 
 export const botsWSPaths = {

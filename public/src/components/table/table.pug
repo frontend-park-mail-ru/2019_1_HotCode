@@ -1,9 +1,8 @@
-tr.table__row
-    th.table__cell #
-    th.table__cell Player
-    th.table__cell Score
-each user, index in users
-    tr.table__row.table__row_theme_data(data-id= user.id)
-        td.table__cell.table__cell_theme_number= index + offset + 1
-        td.table__cell.table__cell_theme_username= user.author.username
-        td.table__cell.table__cell_theme_score= user.score
+.match.match_theme_header.match_theme_row
+    .match__item.match__item_theme_position #
+    .match__item.match__item_theme_name.match__item_theme_1
+        .match__item__avatar.match__item__avatar_theme_row
+            img.hidden
+        .match__item__username Player (Bot ID)
+    .match__item.match__item_theme_score Score
+.content.matches-content

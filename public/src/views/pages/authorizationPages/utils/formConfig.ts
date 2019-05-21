@@ -1,5 +1,5 @@
 export const signinFormConfig = {
-    logotype: 'Sign In',
+    logotype: 'Login',
     formFields: [
         {
             label: 'Username',
@@ -15,12 +15,12 @@ export const signinFormConfig = {
         },
     ],
     submitButtonName: 'Login',
-    otherButtonName: 'Sign up',
+    otherButtonName: '> Create account',
     nextFormNumber: 2,
 };
 
 export const signupFormConfig = {
-    logotype: 'Sign Up',
+    logotype: 'Sign up',
     formFields: [
         {
             label: 'Username',
@@ -42,6 +42,6 @@ export const signupFormConfig = {
         },
     ],
     submitButtonName: 'Create',
-    otherButtonName: 'Login',
+    otherButtonName: '> You have account? Enter',
     nextFormNumber: 1,
 };

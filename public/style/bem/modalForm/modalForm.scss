@@ -1,0 +1,80 @@
+.modal__info {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 87%;
+  padding: 14%;
+  background: $backgroundLeftColor;
+  z-index: -5;
+}
+
+.modal__info__logo {
+  font-family: $fontFamalyLogo;
+  font-weight: 700;
+  font-size: 2.8em;
+
+  color: $fontColorYellow;
+}
+
+.modal__info__link {
+  @extend %white;
+  font-weight: 300;
+}
+
+.modal__content {
+  position: relative;
+  background: $backgroundColor2;
+  width: fit-content;
+  padding: 2.2em;
+  z-index: -4;
+}
+
+.modal__content__close {
+  position: absolute;
+  right: 4%;
+  top: 4%;
+}
+
+.modal__content__shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
+  z-index: -4;
+}
+
+.button__theme_modal {
+  height: 2.25em;
+  padding: 0 1em;
+  margin-top: 24%;
+  outline: none;
+  background: none;
+  border: 1px solid $fontColorYellow;
+  font-family: $fontFamaly2;
+  font-size: 1.1em;
+  color: $fontColorYellow;
+  float: right;
+}
+
+@keyframes letterCreate {
+  0%{
+    transform: translate(0,-1em);
+    color: $fontColorBag;
+    opacity: 0;
+  }
+  25%{
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100%{
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}

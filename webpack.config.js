@@ -74,7 +74,7 @@ module.exports = {
                     })
             },
             {
-                test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+                test: /\.(png|jpg|gif|svg)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -84,7 +84,14 @@ module.exports = {
                         },
                     },
                 ],
-            }
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'font/[name].[ext]',
+                },
+            },
         ]
     },
     resolve: {

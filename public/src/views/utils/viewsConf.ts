@@ -103,13 +103,13 @@ export const views = [
     ),
     new ViewInfo(
         'signinPage',
-        () => new SigninPage(Component.getBy('.modal-content')),
+        () => new SigninPage(Component.getBy('.container_theme_modal')),
         'modalWindow',
         viewRegs.loginViewPath,
     ),
     new ViewInfo(
         'signupPage',
-        () => new SignupPage(Component.getBy('.modal-content')),
+        () => new SignupPage(Component.getBy('.container_theme_modal')),
         'modalWindow',
         viewRegs.signupViewPath,
     ),

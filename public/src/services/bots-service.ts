@@ -1,7 +1,7 @@
 'use strict';
 
 import Http from '../modules/http';
-import Game from "../models/game";
+import Match from "../models/match";
 import {botsPaths, gamePaths} from './utils/paths';
 import serverNames from '../modules/utils/serverNames';
 import EventBus from '../modules/event-bus';
@@ -26,6 +26,42 @@ class BotsService {
             `${BotsService.server}${botsPaths.sendBotsPath}`,
             body,
         );
+    }
+
+    public static getMatches(slug: string): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getMatchesPath}?game_slug=${slug}`,
+        );
+    }
+
+    public static getMoreMatches(slug: string, since: number, limit: number): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getMoreMatchesPath}?game_slug=${slug}&since=${since}&limit=${limit}`,
+        );
+    }
+
+    public static getMatch(id: string): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getMatchPath}/${id}`,
+        ).then((resp) => {
+
+            Match.code = resp.code;
+            Match.replay = resp.replay;
+            Match.result = resp.result;
+            Match.date = resp.timestamp;
+            Match.id = resp.id;
+            Match.diff1 = resp.diff1;
+            Match.diff2 = resp.diff2;
+            Match.user1 = resp.author_1;
+            Match.user2 = resp.author_2;
+
+            EventBus.publish(events.onMatchLoad);
+
+            return resp;
+        });
     }
 
 }

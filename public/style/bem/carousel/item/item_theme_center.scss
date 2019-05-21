@@ -12,8 +12,10 @@
   bottom: -15%;
 
   display: inline-block;
-  @extend %yellowLogo;
-  font-size: calc(1em + 0.6vw);
+  font-family: $fontFamalyLogo;
+  font-weight: 500;
+  color: $fontColorYellow;
+  font-size: 1.3em;
   white-space: nowrap;
   z-index: 5;
 }

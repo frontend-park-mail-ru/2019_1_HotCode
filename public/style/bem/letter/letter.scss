@@ -1,0 +1,17 @@
+.letter {
+  display: inline-block;
+  transform: translate(0,-2em);
+  opacity: 0;
+}
+
+.letter_theme_normal {
+  animation: letterCreate 0.25s ease forwards;
+}
+
+.letter_theme_slow {
+  animation: letterCreate 1s ease forwards;
+}
+
+.letter_theme_fast {
+  animation: letterCreate 0.1s ease forwards;
+}

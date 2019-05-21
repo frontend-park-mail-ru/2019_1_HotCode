@@ -11,12 +11,14 @@ import EventBus from '../../../modules/event-bus';
 import {events} from '../../../modules/utils/events';
 import AvatarService from '../../../services/avatar-service';
 import User from '../../../models/user';
+import Checkbox from '../../../components/checkbox/checkbox';
 
 class GameMenuLayer extends Layer {
 
     private static template = require('./gameMenuLayer.pug');
 
     private optionsTabbar: Tabbar;
+    private navMenuButton: Checkbox;
 
     private onTitleChange: {[key: string]: () => void};
     private onBackgroundChange: {[key: string]: () => void};
@@ -28,15 +30,52 @@ class GameMenuLayer extends Layer {
     }
 
     public render(param: string[]): void {
-        this.renderTmpl(GameMenuLayer.template, {
-            title: Game.title,
-            backgroundUUID: Game.backgrondUUID,
-            logoUUID: Game.logoUUID,
-        });
+        this.renderTmpl(GameMenuLayer.template);
+
+        const logoPanel = new Component(this.parent.el.querySelector('.menu__item_theme_logo'));
+        const titlePanel = new Component(this.parent.el.querySelector('.menu__item_theme_title'));
+        const optionsPanel = new Component(this.parent.el.querySelector('.menu__item_theme_options'));
+        const backPanel = new Component(this.parent.el.querySelector('.menu__item_theme_back'));
+        const footer = new Component(document.querySelector('.footer'));
+        const header = new Component(document.querySelector('.header'));
+
+        this.navMenuButton = new Checkbox(this.parent.el.querySelector('#gameMenuNavBar'),
+            () => {
+
+                logoPanel.el.style.transform = 'translateX(0)';
+                titlePanel.el.style.transform = 'translateX(0)';
+                optionsPanel.el.style.transform = 'translateX(0)';
+                backPanel.el.style.transform = 'translateX(0)';
+
+                logoPanel.el.style.animation = 'hideMenu 1.2s ease 0.6s forwards';
+                titlePanel.el.style.animation = 'hideMenu 1.1s ease 0.3s forwards';
+                optionsPanel.el.style.animation = 'hideMenu 1s ease forwards';
+                backPanel.el.style.animation = 'hideMenu 1.1s ease 0.3s forwards';
+
+                header.el.style.left = '';
+                footer.el.style.paddingLeft = '';
+            },
+            () => {
+
+                logoPanel.el.style.transform = 'translateX(-180%)';
+                titlePanel.el.style.transform = 'translateX(-180%)';
+                optionsPanel.el.style.transform = 'translateX(-180%)';
+                backPanel.el.style.transform = 'translateX(-180%)';
+                logoPanel.el.style.animation = 'showMenu 1.2s ease forwards';
+                titlePanel.el.style.animation = 'showMenu 1.1s ease 0.3s forwards';
+                optionsPanel.el.style.animation = 'showMenu 1s ease 0.6s forwards';
+                backPanel.el.style.animation = 'showMenu 1.1s ease 0.3s forwards';
+
+                header.el.style.left = 'calc(21vw + 4.34%)';
+                footer.el.style.paddingLeft = 'calc(21vw + 4.34%)';
+            });
+        this.navMenuButton.onChange();
+
+        this.navMenuButton.emitCancel();
 
         this.onTitleChange = EventBus.subscribe(events.onTitleChange, () => {
 
-            new Component(this.parent.el.querySelector('.game-menu__header__logo'))
+            new Component(this.parent.el.querySelector('.menu__item__title'))
                 .setText(Game.title);
         });
 
@@ -52,7 +91,7 @@ class GameMenuLayer extends Layer {
 
         this.onLogoChange = EventBus.subscribe(events.onLogoChange, () => {
 
-            const logoImage = new Component(this.parent.el.querySelector('.game-menu__right__item'));
+            const logoImage = new Component(this.parent.el.querySelector('.menu__item__img'));
 
             AvatarService.getAvatar(Game.logoUUID)
                 .then((img) => {
@@ -80,12 +119,15 @@ class GameMenuLayer extends Layer {
                 option3: () => {
                     ViewService.goToGameView(Game.slug);
                 },
+                option4: () => {
+                    return;
+                },
             });
 
             this.optionsTabbar.onChange();
         });
 
-        GameService.getGame(param[0]);
+        // GameService.getGame(param[0]);
     }
 
     public clear(): void {
@@ -95,7 +137,13 @@ class GameMenuLayer extends Layer {
         this.onLogoChange.unsubscribe();
         this.onSlugChange.unsubscribe();
 
+        const footer = new Component(document.querySelector('.footer'));
+        const header = new Component(document.querySelector('.header'));
+        header.el.style.left = '';
+        footer.el.style.paddingLeft = '';
+
         this.optionsTabbar = null;
+        this.navMenuButton = null;
     }
 }
 

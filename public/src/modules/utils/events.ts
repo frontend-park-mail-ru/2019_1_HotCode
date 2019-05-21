@@ -1,4 +1,5 @@
 export const events = {
+    onMatchLoad: 'onMatchLoad',
     onEditMessage: 'onEditMessage',
     onDescriptionChange: 'onDescriptionChange',
     onSlugChange: 'onSlugChange',
@@ -20,6 +21,7 @@ export const events = {
     unauthorized: 'unauthorized',
     onNewPassword: 'onNewPassword',
     onCloseModal: 'onClose_choose-avatar', // Важно
+    onClickOnNotTab: 'option4',
     closeModal: 'mod0',
     openSignIn: 'mod1',
     openSignUp: 'mod2',

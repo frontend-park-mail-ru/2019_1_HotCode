@@ -1,13 +1,38 @@
+.matches-content {
+  width: 50vw;
+  min-width: 90%;
+}
+
+.match__more-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .match {
   position: relative;
   display: grid;
-  grid-template-columns: 35% 1fr 40%;
-  width: 50vw;
-  min-width: 90%;
+  grid-template-columns: 35% 1fr 1fr 35%;
+  width: 100%;
   padding: 0.35em 0;
   margin-top: 0.4em;
 
   background: $backgroundColorBack3;
+}
+
+.match_theme_row {
+  grid-template-columns: 8% 50% 1fr;
+}
+
+.match__item_theme_score {
+  margin-right: 2.6em;
+  text-align: right;
+}
+
+.match_theme_header {
+  width: 50vw;
+  min-width: 90%;
+
+  background: transparent;
 }
 
 .match__item {
@@ -16,21 +41,44 @@
   @extend %white;
 }
 
-.match__item_theme_name {
-
-}
-
-.match__item__username {
-  margin-left: 2.6em;
+.match__item_theme_position {
+  margin-left: 0.6em;
 }
 
 .match__item__avatar {
   position: absolute;
   top: 0;
-  left: 0;
   height: 100%;
-  width: 34px;
-  background: pink;
+  width: 0;
+}
+
+.match__item__avatar > img {
+  height: 100%;
+}
+
+.match__item_theme_1 > .match__item__username {
+  margin-left: 2.6em;
+}
+
+.match__item_theme_1 > .match__item__avatar {
+  left: 0;
+}
+
+.match__item_theme_1 > .match__item__avatar_theme_row {
+  left: 8%;
+}
+
+.match__item_theme_2 > .match__item__username {
+  margin-right: 2.6em;
+  text-align: right;
+}
+
+.match__item_theme_2 > .match__item__avatar {
+  right: 0;
+}
+
+.match__item_theme_2 > .match__item__avatar > img {
+  transform: translate(-100%);
 }
 
 .match__item_theme_result {
@@ -40,4 +88,16 @@
 .match__item_theme_date {
   margin-right: 0.6em;
   text-align: right;
+}
+
+.match__item_theme_diff-2 {
+  text-align: right;
+}
+
+.match__item_theme_win {
+  color: $fontColorWin;
+}
+
+.match__item_theme_los {
+  color: $fontColorLose;
 }

@@ -96,7 +96,7 @@ class LiderboardPage extends Page{
         BotsService.getBots(Game.slug)
             .then((resp) => {
 
-                EventBus.publish(events.fillTable, {users: resp, offset: 0});
+                EventBus.publish(events.fillTable, resp);
 
             })
             .then(() => {

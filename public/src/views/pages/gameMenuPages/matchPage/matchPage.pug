@@ -1,9 +1,32 @@
 .content.game-content
-    .play__item.play__item_theme_editor
-        .form.form_theme_editor
-            .play__item__header
-                button.options-button.pointer.color-yellow(type='button') ⚙
-            .play__item__content.play__item__content_theme_editor
+
+    .game__container-item_theme_left
+
+        .match-info
+            .match-info__id
+            .match-info__draw.hidden Draw
+            .match-info__user.match-info__user_theme_1
+                img.match-info__user__avatar.hidden
+                .match-info__user__username
+                .match-info__user__result
+                .match-info__user__score
+            .match-info__vs Vs
+            .match-info__user.match-info__user_theme_2
+                img.match-info__user__avatar.hidden
+                .match-info__user__username
+                .match-info__user__result
+                .match-info__user__score
+            .match-info__date
+
+        .play__item.play__item_theme_editor
+            form.form.form_theme_editor(action='#', method='post')
+                .play__item__header
+                    button.options-button.pointer.color-yellow(type='button') ⚙
+                    .play__item__header__container
+                        input#testCode.hidden(type='button')
+                        label(for='testCode')
+                            div.button.button_theme_main.button_size_s.button_theme_replay.pointer.hidden Replay
+                .play__item__content.play__item__content_theme_editor
 
         .play__item__vertical-line
             .play__item__vetical-line__outline
