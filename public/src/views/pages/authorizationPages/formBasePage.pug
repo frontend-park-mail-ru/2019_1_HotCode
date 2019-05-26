@@ -7,7 +7,7 @@
         each field, index in formFields
             .field
                 .field__main
-                    input.field__main__input(type=field.type, name=field.name, maxlength='32')
+                    input.field__main__input(type=field.type, name=field.name, maxlength='32', autocomplete=field.autocomplite)
                     .field__main__label
                         span.field__main__label__text= field.label
                     .field__main__error

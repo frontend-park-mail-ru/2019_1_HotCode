@@ -118,6 +118,11 @@
   transition: all 0.5s ease 0.05s;
 }
 
+.play__item__content__walkmen__item .full-icon {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 .full-icon_1,
 .full-icon_2,
 .full-icon_3,
@@ -157,8 +162,8 @@
 
 .close-icon {
   display: block;
-  width: 15px;
-  height: 15px;
+  width: 1em;
+  height: 1em;
   transition: all 0.3s ease 0.05s;
 }
 
@@ -180,8 +185,8 @@
 
 .play-icon {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 0.8em;
+  height: 0.8em;
   transition: all 0.5s ease 0.05s;
 }
 
@@ -200,8 +205,8 @@
 
 .next-icon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 1.3em;
+  height: 1.3em;
   transition: all 0.5s ease 0.05s;
 }
 
@@ -216,7 +221,6 @@
 .next-icon:hover .next-icon_3 {
   fill: $fontColorYellow;
 }
-
 
 .next-icon:hover .next-icon_2 {
   transform: translateX(5px);
@@ -302,5 +306,39 @@
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+.hide-menu-icon {
+  display: block;
+  width: 12px;
+  height: 42px;
+}
+
+.hide-menu-icon_path {
+  fill: $fontColorWhite;
+  transform-origin: center center;
+}
+
+.hide-menu-icon:hover .hide-menu-icon_path {
+  fill: $fontColorYellow;
+}
+
+@keyframes hideMenuRotate {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+@keyframes showMenuRotate {
+  from {
+    transform: rotateY(180deg);
+  }
+  to {
+    transform: rotateY(0);
   }
 }

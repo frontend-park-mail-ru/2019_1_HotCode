@@ -40,7 +40,8 @@ class AlertItem extends Component {
         }
 
         const uniqueId = AlertItem.getNextUniqueId();
-        alertWindow.el.innerHTML = AlertItem.template({text: contentText, id: uniqueId});
+        alertWindow.el.innerHTML = AlertItem.template({id: uniqueId});
+        new Component(alertWindow.el.querySelector('.alert__content__text')).setTextAnim(contentText);
 
         return new AlertItem(alertWindow.el, uniqueId, contentText);
     }
@@ -55,7 +56,7 @@ class AlertItem extends Component {
     }
 
     private closeItem(): void {
-        this.hide();
+        this.el.parentElement.removeChild(this.el);
     }
 
     private static getNextUniqueId(): number {

@@ -5,6 +5,11 @@ import ImageInput from '../imageInput/imageInput';
 import EventBus from '../../modules/event-bus';
 import {events} from '../../modules/utils/events';
 import {onDragAndDrop} from '../../modules/dragAndDrop';
+import User from '../../models/user';
+import AvatarService from '../../services/avatar-service';
+import Alert from '../alert/alert';
+import Message from '../../utils/message';
+import UserService from '../../services/user-service';
 
 class PhotoLoader extends Component{
 
@@ -22,7 +27,7 @@ class PhotoLoader extends Component{
     private sliderSE: Component;
     private sliderSW: Component;
     private cropButton: Component;
-    private resultImage: Component;
+    // private resultImage: Component;
 
     private resultFileField: File;
 
@@ -80,7 +85,7 @@ class PhotoLoader extends Component{
         );
 
         this.cropButton = new Component(this.el.querySelector('.button_theme_photo-loader'));
-        this.resultImage = new Component(document.querySelector('.avatar__image'));
+        // this.resultImage = new Component(document.querySelector('.menu__item__img'));
     }
 
     private onDragAndDrop(): void {
@@ -143,7 +148,7 @@ class PhotoLoader extends Component{
     };
 
     private onDragFrame(): void {
-        const parent = new Component(document.querySelector('.container_theme_modal')); // TODO убрать этот костыль
+        const parent = new Component(document.querySelector('.container_theme_straight')); // TODO убрать этот костыль
 
         this.frame.on('mousedown', (mouseEvent: MouseEvent) => {
             mouseEvent.preventDefault();
@@ -205,7 +210,7 @@ class PhotoLoader extends Component{
     };
 
     private onDragSliders(): void {
-        const parent = new Component(document.querySelector('.container_theme_modal')); // TODO убрать этот костыль
+        const parent = new Component(document.querySelector('.container_theme_straight')); // TODO убрать этот костыль
 
         const moveAtInLeft = (target: Component) => {
             return (shiftX: number) => {
@@ -256,7 +261,7 @@ class PhotoLoader extends Component{
 
         this.cropButton.on('click', () => {
 
-            this.resultImage.show();
+            // this.resultImage.show();
             const base64 = this.cropImage(
                 this.loadImage.el as HTMLImageElement,
                 this.frame.el.offsetLeft - this.frame.el.offsetWidth / 2,
@@ -264,9 +269,10 @@ class PhotoLoader extends Component{
                 this.frame.el.offsetWidth,
                 this.frame.el.offsetHeight,
             );
-            (this.resultImage.el as HTMLImageElement).src = base64;
+            // (this.resultImage.el as HTMLImageElement).src = base64;
             this.resultFileField = this.dataURItoFile(base64, 'avatar.jpg');
-            EventBus.publish(events.onCloseModal); // TODO Костыль
+
+            this.submitImage();
         });
     }
 
@@ -303,6 +309,41 @@ class PhotoLoader extends Component{
         ctx.drawImage(image, 0, 0, newWidth, newHeight);
         ctx.drawImage(image, x, y, newWidth, newHeight, 0, 0, newWidth, newHeight);
         return canvas.toDataURL('image/jpeg');
+    };
+
+
+    private submitImage = () => {
+        AvatarService.sendAvatar(this.resultFileField)
+            .then((resp) => {
+                if (User.avatar !== resp.photo_uuid) {
+                    return resp.photo_uuid;
+                }
+                return '';
+            })
+            .catch(() => {
+                Alert.alert(Message.fileFormatError(), true);
+            })
+            .then((photoUuid: string) => {
+
+                const newUserData = {photo_uuid: photoUuid};
+
+                return UserService.edit(newUserData);
+            })
+            .then(() => {
+
+                Alert.alert(Message.successfulUpdate());
+                UserService.me();
+                EventBus.publish(events.onCloseModal); // TODO Костыль
+            })
+            .catch((err) => {
+
+                if (err && err.message) {
+
+                    Alert.alert(Message.accessError(), true);
+                    EventBus.publish(events.openSignIn, '');
+
+                }
+            });
     };
 }
 

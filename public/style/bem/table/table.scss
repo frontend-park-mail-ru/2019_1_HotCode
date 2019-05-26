@@ -1,17 +1,20 @@
 .table {
-  margin-top: 4%;
+  position: absolute;
+  width: 100%;
+  top: 30%;
+  padding: 0 5%;
 }
 
-@media only screen and (max-width : 480px) and (orientation: portrait) {
-  .table {
-    width: 100%;
-    min-width: auto;
-    font-size: calc(0.9em + .3vh);
-  }
-}
-
-@media only screen and (max-width : 900px) and (orientation: landscape) {
-  .table {
-
-  }
-}
+//@media only screen and (max-width : 480px) and (orientation: portrait) {
+//  .table {
+//    width: 100%;
+//    min-width: auto;
+//    font-size: calc(0.9em + .3vh);
+//  }
+//}
+//
+//@media only screen and (max-width : 900px) and (orientation: landscape) {
+//  .table {
+//
+//  }
+//}

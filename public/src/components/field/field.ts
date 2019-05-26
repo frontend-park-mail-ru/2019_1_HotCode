@@ -42,7 +42,7 @@ class Field extends Component{
         if (this.input.el) {
             this.input.on('focus', () => {
 
-                this.elField.classList.add('filled');
+                this.elField.classList.add('field_theme_filled');
                 this.placeholderAnimationIn(true);
 
                 this.virginityField = false
@@ -52,7 +52,7 @@ class Field extends Component{
 
                 if(!this.getValue().length) {
 
-                    this.elField.classList.remove('filled');
+                    this.elField.classList.remove('field_theme_filled');
                     this.placeholderAnimationIn(false);
                 }
             });
@@ -105,6 +105,8 @@ class Field extends Component{
 
     public setValue(value: string): void {
         if (this.input.el) {
+            this.elField.classList.add('field_theme_filled');
+            this.placeholderAnimationIn(true);
             (this.input.el as HTMLInputElement).value = value;
         }
     }
@@ -112,6 +114,8 @@ class Field extends Component{
     public clearValue(): void {
         if (this.input.el) {
             (this.input.el as HTMLInputElement).value = '';
+            this.elField.classList.remove('field_theme_filled');
+            this.placeholderAnimationIn(false);
         }
     }
 
@@ -156,7 +160,7 @@ class Field extends Component{
 
         letters.forEach((el, i) => {
             setTimeout(() => {
-                let contains = this.elField.classList.contains('filled');
+                let contains = this.elField.classList.contains('field_theme_filled');
 
                 if( (action && !contains) || (!action && contains)) return;
 

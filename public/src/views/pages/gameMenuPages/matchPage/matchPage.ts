@@ -40,6 +40,8 @@ class MatchPage extends Page{
         super.render();
         this.renderTmpl(MatchPage.template);
 
+        EventBus.publish(events.onHideMenu);
+
         BotsService.getMatch(param[1]);
 
         this.onMatchLoad = EventBus.subscribe(events.onMatchLoad, () => {
@@ -52,17 +54,8 @@ class MatchPage extends Page{
             EventBus.publish(events.onMatchLoad);
         }
 
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__right'));
-        const gameContent = new Component(document.querySelector('.game-menu__left'));
-        const gameHeader = new Component(document.querySelector('.game-menu__header'));
-        const gameOptions = new Component(document.querySelector('.game-menu__options'));
-
-        gameContainer.addClass('container_theme_game-play');
-        gameImageLogo.hide();
-        gameContent.addClass('game-menu__left_theme_play');
-        gameHeader.el.style.top = 3.5 + 'em';
-        gameOptions.el.style.top = 4.5 + 'em';
+        const rightPanel = new ScrollableBlock(this.parent.el.querySelector('.game__container-item'));
+        rightPanel.decorate();
 
         this.gamePanels = Array.from(this.parent.el.querySelectorAll('.play__item'))
             .map((panel) => new Panel(panel as HTMLElement));
@@ -76,6 +69,7 @@ class MatchPage extends Page{
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
+        new Component(this.parent.el.querySelector('.ace_editor')).el.style.fontSize = '1em';
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
@@ -94,18 +88,6 @@ class MatchPage extends Page{
         this.testCodeButtonComponent = null;
         this.pingPong = null;
         this.testCodeForm = null;
-
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__right'));
-        const gameContent = new Component(document.querySelector('.game-menu__left'));
-        const gameHeader = new Component(document.querySelector('.game-menu__header'));
-        const gameOptions = new Component(document.querySelector('.game-menu__options'));
-
-        gameContainer.removeClass('container_theme_game-play');
-        gameImageLogo.show();
-        gameContent.removeClass('game-menu__left_theme_play');
-        gameHeader.el.style.top = '';
-        gameOptions.el.style.top = '';
     }
 
     private renderMatchInfo() {

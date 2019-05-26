@@ -1,4 +1,6 @@
 .play__item__content__walkmen__item {
+  display: flex;
+  align-items: center;
   @extend %white;
   font-size: 1.4em;
   margin-right: 0.7em;

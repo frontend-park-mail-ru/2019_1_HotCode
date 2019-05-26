@@ -8,15 +8,23 @@
 }
 
 .menu__item_theme_logo {
-  background: $backgroundColor2;
+  position: relative;
+  background: $backgroundLogoPanel;
   padding: 10% 0;
   width: 100%;
 
   z-index: 15;
-  //animation: showMenu 1.5s ease forwards;
+}
+
+.button_theme_hide-menu {
+  position: absolute;
+  left: 104%;
+  top: 9%;
+  pointer-events: auto;
 }
 
 .menu__item__logo {
+  position: relative;
   width: 85%;
 }
 
@@ -32,6 +40,16 @@
   clear: both;
 }
 
+.menu__item__logo_theme_avatar {
+  width: 67%;
+}
+
+.menu__item__logo_theme_avatar::before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+
 .menu__item__img {
   display: block;
   width: 100%;
@@ -39,15 +57,22 @@
 }
 
 .menu__item_theme_title {
-  background: $backgroundLeftColor;
-  padding: 0.8em 0;
+  position: relative;
+  background: $backgroundColor2;
   width: 90%;
 
   z-index: 10;
-  //animation: showMenu 1.5s ease 0.3s forwards;
 }
 
 .menu__item__title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  overflow-x: hidden;
+  line-height: 1.5em;
+  text-align: center;
 
   @extend %white;
   font-size: 2em;
@@ -55,13 +80,12 @@
 
 .menu__item_theme_options {
   justify-content: space-around;
-  background: $backgroundLeftColor;
+  background: $backgroundMenuPanel;
   padding: 1em 0;
   height: 100%;
   width: 80%;
 
   z-index: 5;
-  //animation: showMenu 1.5s ease 0.6s forwards;
 }
 
 .menu__item__option {
@@ -73,12 +97,10 @@
 
 
 .menu__item_theme_back {
-  background: $backgroundLeftColor;
-  padding: 2em 0;
+  background: $backgroundColor2;
   width: 90%;
 
   z-index: 15;
-  //animation: showMenu 1.5s ease 0.3s forwards;
 }
 
 .menu__item__back {
@@ -101,22 +123,10 @@
   font-size: 16px;
 }
 
-#gameMenuNavBar {
-  position: fixed;
-  z-index: 7;
-}
-
-#gameMenuNavBar:checked ~ .game-menu__content {
+#menuNavBar:checked ~ .game-menu__content {
   padding-left: 0;
 }
 
-//.menu__item_theme_show {
-//
-//}
-//
-//.menu__item_theme_show {
-//
-//}
 
 @keyframes showMenu {
   from {
@@ -134,4 +144,25 @@
   to {
     transform: translateX(-100%);
   }
+}
+
+
+
+
+.menu__item__logo__edit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 1.5em;
+
+  font-size: 0.9em;
+  font-weight: 300;
+  @extend %white;
+  background: $backgroundColorBack2;
 }

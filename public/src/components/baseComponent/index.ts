@@ -55,10 +55,14 @@ class Component {
 
     public active(): void {
         this.elField.classList.add('active');
+        this.elField.classList.remove('link');
+        this.elField.classList.remove('pointer');
     }
 
     public disactive(): void {
         this.elField.classList.remove('active');
+        this.elField.classList.add('link');
+        this.elField.classList.add('pointer');
     }
 
     public getText(): string {
@@ -142,10 +146,6 @@ class Component {
                 if (speed < 1) {
 
                     letter.classList.add('letter_theme_slow');
-
-                } else if (speed > 1) {
-
-                    letter.classList.add('letter_theme_fast');
 
                 } else {
 

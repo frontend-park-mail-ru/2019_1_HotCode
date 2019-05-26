@@ -20,17 +20,17 @@ class MainPage extends Page {
         super.render();
         this.renderTmpl(MainPage.template);
 
-        // GameService.getGames()
-        //     .then((resp) => {
-        //
-        //         this.mainCarousel = new Carousel(this.parent.el.querySelector('.carousel'), () => {
-        //
-        //             ViewService.goToGameDescriptionView(
-        //                 this.mainCarousel.getCenterItem().el.getAttribute('data-slug'),
-        //             );
-        //         }, resp);
-        //
-        //     });
+        GameService.getGames()
+            .then((resp) => {
+
+                this.mainCarousel = new Carousel(this.parent.el.querySelector('.carousel'), () => {
+
+                    ViewService.goToGameDescriptionView(
+                        this.mainCarousel.getCenterItem().el.getAttribute('data-slug'),
+                    );
+                }, resp);
+
+            });
     }
 
     public clear(): void {

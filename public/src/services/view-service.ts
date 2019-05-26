@@ -31,9 +31,21 @@ class ViewService {
             return;
         }
 
-        if (path.match(viewRegs.settingsViewPath)) {
+        // if (path.match(viewRegs.settingsViewPath)) {
+        //
+        //     ViewService.goToSettingsView();
+        //     return;
+        // }
 
-            ViewService.goToSettingsView();
+        if (path.match(viewRegs.profileViewPath)) {
+
+            ViewService.goToProfileView();
+            return;
+        }
+
+        if (path.match(viewRegs.userBotsViewPath)) {
+
+            ViewService.goToUserBotsView();
             return;
         }
 
@@ -98,8 +110,16 @@ class ViewService {
         Router.go(viewPaths.signupViewPath);
     }
 
-    public static goToSettingsView(): void {
-        Router.go(viewPaths.settingsViewPath);
+    // public static goToSettingsView(): void {
+    //     Router.go(viewPaths.settingsViewPath);
+    // }
+
+    public static goToProfileView(): void {
+        Router.go(viewPaths.profileViewPath);
+    }
+
+    public static goToUserBotsView(): void {
+        Router.go(viewPaths.userBotsViewPath);
     }
 
     public static goToGameDescriptionView(slug: string): void {

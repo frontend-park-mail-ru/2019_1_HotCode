@@ -11,6 +11,7 @@
 @import "options/ispointer";
 @import "options/islink";
 @import "options/islink2";
+@import "options/isdisable";
 
 @import "letter/letter";
 
@@ -173,6 +174,8 @@
 
 @import "menu/menu";
 @import "menu/description";
+@import "menu/leaderboard";
+@import "menu/profile";
 
 @import "game-menu/content/left/left";
 @import "game-menu/content/left/left_theme_play";
@@ -187,7 +190,6 @@
 @import "game-menu/content/right/item/item";
 
 @import "table/table";
-@import "table/container/container";
 @import "table/cell/cell";
 @import "table/types/types";
 @import "table/types/item/item";

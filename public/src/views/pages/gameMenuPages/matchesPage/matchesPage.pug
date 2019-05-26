@@ -1,11 +1,15 @@
-.match.match_theme_header
-    .match__item.match__item_theme_name.match__item_theme_1
-        .match__item__username Player #1
-    .match__item.match__item_theme_diff-1 Score
-    .match__item.match__item_theme_diff-2 Score
-    .match__item.match__item_theme_name.match__item_theme_2
-        .match__item__username Player #2
-.content.matches-content
-input#moreMatches.hidden(type='button')
-label.match__more-button(for='moreMatches')
-    .button.button_theme_main.scale-on-hover.pointer More matches
+.leaderboard
+    .leaderboard__header Matches
+    .table
+        .match.match_theme_header
+            .match__item.match__item_theme_name.match__item_theme_1
+                .match__item__username Player #1
+            .match__item.match__item_theme_diff-1 Score
+            .match__item.match__item_theme_diff-2 Score
+            .match__item.match__item_theme_name.match__item_theme_2
+                .match__item__username Player #2
+        .content.matches-content
+            .content.part-matches-content
+            .match.match_theme_load-more
+                input#moreMatches.hidden(type='button')
+                label.match__item.match__item_theme_load.link.pointer(for='moreMatches') Load more

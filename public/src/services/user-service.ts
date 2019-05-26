@@ -67,6 +67,10 @@ class UserService {
         return Http.Get(UserService.server + userPaths.mePath)
             .then((resp) => {
 
+                if (User.id !== resp.id) {
+                    User.id = resp.id
+                }
+
                 if (User.username !== resp.username) {
                     User.username = resp.username;
                 }
@@ -74,6 +78,11 @@ class UserService {
                 if (User.avatar !== resp.photo_uuid) {
                     User.avatar = resp.photo_uuid;
                 }
+
+                if (User.key !== resp.vk_secret) {
+                    User.key = resp.vk_secret;
+                }
+
                 return resp;
             });
     }

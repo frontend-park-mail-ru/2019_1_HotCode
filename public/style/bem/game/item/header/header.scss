@@ -17,11 +17,10 @@ summary {
 
 .game__container-item .play__item__header::before {
   content: '▸ ' attr(data-name);
-  padding-right: 0.5em;
-  padding-left: 0.5em;
+  padding: 0.3em 0.5em;
 
   @extend %white;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .game__container-item .play__item__header:hover::before {

@@ -8,25 +8,58 @@ class ScrollableBlock extends Component{
 
     private isRoot: boolean;
 
+    private scrolableField: Component;
+    private contentField: Component;
+    private onEndScrollFunc: () => Promise<any>;
+
+    private isEndOfScroll: boolean;
+
     constructor(el: HTMLElement, isRoot = false) {
         super(el);
 
         this.isRoot = isRoot;
+        this.isEndOfScroll = false;
+    }
+
+
+    get scrolable(): Component {
+        return this.scrolableField;
+    }
+
+    set scrolable(value: Component) {
+        this.scrolableField = value;
+    }
+
+    get content(): Component {
+        return this.contentField;
+    }
+
+    set content(value: Component) {
+        this.contentField = value;
+    }
+
+    get onEndScroll(): () => Promise<any> {
+        return this.onEndScrollFunc;
+    }
+
+    set onEndScroll(value: () => Promise<any>) {
+        this.onEndScrollFunc = value;
+        this.checkOnEnd();
     }
 
     public decorate(): void {
-        const scrolable = Component.Create('div', ['scrollable__area']);
-        const content = Component.Create('div', ['scrollable__content']);
+        this.scrolableField = Component.Create('div', ['scrollable__area']);
+        this.contentField = Component.Create('div', ['scrollable__content']);
 
         this.addClass('scrollable__wrapper');
         Array.from(this.el.children).map((child) => {
-            content.append(new Component(child as HTMLElement));
+            this.contentField.append(new Component(child as HTMLElement));
         });
-        scrolable.append(content);
+        this.scrolableField.append(this.contentField);
         this.clear();
-        this.append(scrolable);
+        this.append(this.scrolableField);
 
-        const scrolableStyle = window.getComputedStyle(scrolable.el);
+        const scrolableStyle = window.getComputedStyle(this.scrolableField.el);
 
         const scrolablePadding =
             parseFloat(scrolableStyle.paddingLeft) +
@@ -36,9 +69,9 @@ class ScrollableBlock extends Component{
             parseFloat(scrolableStyle.borderLeftWidth) +
             parseFloat(scrolableStyle.borderRightWidth);
 
-        const scrollbarWidth = scrolable.el.offsetWidth - (scrolable.el.clientWidth) + 1;
+        const scrollbarWidth = this.scrolableField.el.offsetWidth - (this.scrolableField.el.clientWidth) + 1;
 
-        scrolable.el.style.width = `calc(100% + ${scrollbarWidth}px)`;
+        this.scrolableField.el.style.width = `calc(100% + ${scrollbarWidth}px)`;
 
 
         if (!this.isRoot) {
@@ -48,18 +81,31 @@ class ScrollableBlock extends Component{
             scrollbarContainer.append(scrollbar);
             this.append(scrollbarContainer);
 
-            scrollbar.el.style.height = (scrolable.el.clientHeight /*- 32*/) * 100 / content.el.clientHeight + '%';
+            scrollbar.el.style.height = (this.scrolableField.el.clientHeight /*- 32*/) *
+                100 / this.contentField.el.clientHeight + '%';
+
+            if (this.onEndScroll) {
+
+                this.checkOnEnd();
+            }
 
             let timer: Timer = null;
 
-            scrolable.el.onscroll = () => {
+            this.scrolableField.el.onscroll = () => {
                 clearTimeout(timer);
                 scrollbarContainer.addClass('scrollbar-container_theme_visible');
 
-                const scrollTop = scrolable.el.scrollTop;
+                const scrollTop = this.scrolableField.el.scrollTop;
 
-                scrollbar.el.style.height = (scrolable.el.clientHeight /*- 32*/) * 100 / content.el.clientHeight + '%';
-                scrollbar.el.style.top = scrollTop * 100 / content.el.clientHeight + '%';
+
+                scrollbar.el.style.height = (this.scrolableField.el.clientHeight /*- 32*/) *
+                    100 / this.contentField.el.clientHeight + '%';
+                scrollbar.el.style.top = scrollTop * 100 / this.contentField.el.clientHeight + '%';
+
+                if (this.onEndScroll) {
+
+                    this.checkOnEnd();
+                }
 
                 timer = setTimeout(() => {
 
@@ -67,14 +113,14 @@ class ScrollableBlock extends Component{
                 }, 500);
             };
 
-            scrolable.on('keydown', (e: KeyboardEvent) => {
+            this.scrolableField.on('keydown', (e: KeyboardEvent) => {
 
                 if (e.key === 'ArrowDown') {
-                    scrolable.el.scrollBy(0, 10);
+                    this.scrolableField.el.scrollBy(0, 10);
                 }
 
                 if (e.key === 'ArrowUp') {
-                    scrolable.el.scrollBy(0, -10);
+                    this.scrolableField.el.scrollBy(0, -10);
                 }
             });
 
@@ -92,10 +138,10 @@ class ScrollableBlock extends Component{
 
                     if (newY >= minY && newY <= maxY) {
 
-                        scrolable.el.scrollTo(
+                        this.scrolableField.el.scrollTo(
                             0,
                             scrollbar.el.offsetTop *
-                                content.el.clientHeight /
+                            this.contentField.el.clientHeight /
                                 scrollbarContainer.el.offsetHeight,
                         );
                         scrollbar.el.style.top = newY + 'px';
@@ -114,6 +160,24 @@ class ScrollableBlock extends Component{
                 });
         }
 
+    }
+
+    private checkOnEnd(): void {
+        if (this.onEndScroll &&
+            !this.isEndOfScroll &&
+            this.scrolableField.el.scrollHeight -
+            this.scrolableField.el.clientHeight -
+            this.scrolableField.el.scrollTop < 30) {
+
+            this.isEndOfScroll = true;
+
+            this.onEndScroll()
+                .then(() => {
+
+                    this.isEndOfScroll = false;
+                    this.checkOnEnd();
+                });
+        }
     }
 }
 

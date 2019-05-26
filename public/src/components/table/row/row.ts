@@ -68,7 +68,7 @@ class Row extends Component{
 
         const newRow = Component.Create(
             'div',
-            ['match', 'match_theme_row'],
+            ['match', 'match_theme_content', 'match_theme_row'],
         );
 
         const username = author ? author.username : '';

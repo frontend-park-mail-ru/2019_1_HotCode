@@ -12,6 +12,7 @@ import {events} from '../../../modules/utils/events';
 import AvatarService from '../../../services/avatar-service';
 import User from '../../../models/user';
 import Checkbox from '../../../components/checkbox/checkbox';
+import Button from '../../../components/button/button';
 
 class GameMenuLayer extends Layer {
 
@@ -19,11 +20,13 @@ class GameMenuLayer extends Layer {
 
     private optionsTabbar: Tabbar;
     private navMenuButton: Checkbox;
+    private backButton: Button;
 
     private onTitleChange: {[key: string]: () => void};
     private onBackgroundChange: {[key: string]: () => void};
     private onLogoChange: {[key: string]: () => void};
     private onSlugChange: {[key: string]: () => void};
+    private hideMenu: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent);
@@ -32,20 +35,27 @@ class GameMenuLayer extends Layer {
     public render(param: string[]): void {
         this.renderTmpl(GameMenuLayer.template);
 
+        EventBus.publish(events.onStopGenerateSqures);
+
+        const navMenu = new Component(this.parent.el.querySelector('.container_theme_game-menu'));
         const logoPanel = new Component(this.parent.el.querySelector('.menu__item_theme_logo'));
         const titlePanel = new Component(this.parent.el.querySelector('.menu__item_theme_title'));
         const optionsPanel = new Component(this.parent.el.querySelector('.menu__item_theme_options'));
         const backPanel = new Component(this.parent.el.querySelector('.menu__item_theme_back'));
+        const menuAnimHide = new Component(this.parent.el.querySelector('#menuHide'));
+        const menuAnimShow = new Component(this.parent.el.querySelector('#menuShow'));
         const footer = new Component(document.querySelector('.footer'));
         const header = new Component(document.querySelector('.header'));
 
-        this.navMenuButton = new Checkbox(this.parent.el.querySelector('#gameMenuNavBar'),
+        this.navMenuButton = new Checkbox(this.parent.el.querySelector('#menuNavBar'),
             () => {
 
                 logoPanel.el.style.transform = 'translateX(0)';
                 titlePanel.el.style.transform = 'translateX(0)';
                 optionsPanel.el.style.transform = 'translateX(0)';
                 backPanel.el.style.transform = 'translateX(0)';
+
+                navMenu.el.style.pointerEvents = 'none';
 
                 logoPanel.el.style.animation = 'hideMenu 1.2s ease 0.6s forwards';
                 titlePanel.el.style.animation = 'hideMenu 1.1s ease 0.3s forwards';
@@ -54,6 +64,7 @@ class GameMenuLayer extends Layer {
 
                 header.el.style.left = '';
                 footer.el.style.paddingLeft = '';
+                (menuAnimHide.el as any).beginElement();
             },
             () => {
 
@@ -61,15 +72,27 @@ class GameMenuLayer extends Layer {
                 titlePanel.el.style.transform = 'translateX(-180%)';
                 optionsPanel.el.style.transform = 'translateX(-180%)';
                 backPanel.el.style.transform = 'translateX(-180%)';
+
+                navMenu.el.style.pointerEvents = 'auto';
+
                 logoPanel.el.style.animation = 'showMenu 1.2s ease forwards';
                 titlePanel.el.style.animation = 'showMenu 1.1s ease 0.3s forwards';
                 optionsPanel.el.style.animation = 'showMenu 1s ease 0.6s forwards';
                 backPanel.el.style.animation = 'showMenu 1.1s ease 0.3s forwards';
 
-                header.el.style.left = 'calc(21vw + 4.34%)';
-                footer.el.style.paddingLeft = 'calc(21vw + 4.34%)';
+                header.el.style.left = 'calc(2.5vw + 325px + 4.34%)';
+                footer.el.style.paddingLeft = 'calc(2.5vw + 325px + 4.34%)';
+                (menuAnimShow.el as any).beginElement();
             });
         this.navMenuButton.onChange();
+
+        this.hideMenu = EventBus.subscribe(events.onHideMenu, () => {
+
+            if (!this.navMenuButton.isChecked()) {
+
+                this.navMenuButton.emitCheck();
+            }
+        });
 
         this.navMenuButton.emitCancel();
 
@@ -108,16 +131,16 @@ class GameMenuLayer extends Layer {
         this.onSlugChange = EventBus.subscribe(events.onSlug2Change, () => {
             this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
                 option0: () => {
-                    ViewService.goToGameDescriptionView(Game.slug);
+                    ViewService.goToGameView(Game.slug);
                 },
                 option1: () => {
-                    ViewService.goToGameLiderBoardView(Game.slug);
+                    ViewService.goToGameDescriptionView(Game.slug);
                 },
                 option2: () => {
-                    ViewService.goToGameMatchesView(Game.slug);
+                    ViewService.goToGameLiderBoardView(Game.slug);
                 },
                 option3: () => {
-                    ViewService.goToGameView(Game.slug);
+                    ViewService.goToGameMatchesView(Game.slug);
                 },
                 option4: () => {
                     return;
@@ -127,11 +150,21 @@ class GameMenuLayer extends Layer {
             this.optionsTabbar.onChange();
         });
 
-        // GameService.getGame(param[0]);
+        this.backButton = new Button(this.parent.el.querySelector('#menuBackButton'),
+            () => {
+            ViewService.goToMainView();
+        });
+        this.backButton.onClick();
+
+        GameService.getGame(param[0]);
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
+
+        EventBus.publish(events.onContinueGenerateSqures);
+
+        this.hideMenu.unsubscribe();
         this.onTitleChange.unsubscribe();
         this.onBackgroundChange.unsubscribe();
         this.onLogoChange.unsubscribe();
@@ -144,6 +177,7 @@ class GameMenuLayer extends Layer {
 
         this.optionsTabbar = null;
         this.navMenuButton = null;
+        this.backButton = null;
     }
 }
 

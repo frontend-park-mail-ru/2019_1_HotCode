@@ -2,10 +2,8 @@
   top: 0;
   left: 0;
   bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: minmax(250px, 18vw) 4em auto 5em;
   height: 100vh;
   width: 20vw;
   min-width: 325px;

@@ -63,7 +63,7 @@ class MatchShort extends Component{
 
         const newMatch = Component.Create(
             'div',
-            ['match', 'pointer', 'scale-on-hover-s'],
+            ['match', 'match_theme_content', 'pointer'],
         );
 
         newMatch.el.setAttribute('data-id', id.toString());
@@ -99,57 +99,31 @@ class MatchShort extends Component{
             );
         });
 
-        this.on('mouseenter', () => {
-
-            if (this.el.previousElementSibling) {
-
-                this.el.previousElementSibling.classList.add('scale-xs');
-            }
-
-            if (this.el.nextElementSibling) {
-
-                this.el.nextElementSibling.classList.add('scale-xs');
-            }
-        });
-
-        this.on('mouseleave', () => {
-
-            if (this.el.previousElementSibling) {
-
-                this.el.previousElementSibling.classList.remove('scale-xs');
-            }
-
-            if (this.el.nextElementSibling) {
-
-                this.el.nextElementSibling.classList.remove('scale-xs');
-            }
-        });
-
         this.avatar1Component = new Component(
             this.el.querySelector('.match__item_theme_1 > .match__item__avatar > img')
         );
 
-        if (this.uuid1) {
-
-            AvatarService.getAvatar(this.uuid1)
-                .then((img) => {
-                    (this.avatar1Component.el as HTMLImageElement).src = URL.createObjectURL(img);
-                    this.avatar1Component.show();
-                });
-        }
+        // if (this.uuid1) {
+        //
+        //     AvatarService.getAvatar(this.uuid1)
+        //         .then((img) => {
+        //             (this.avatar1Component.el as HTMLImageElement).src = URL.createObjectURL(img);
+        //             this.avatar1Component.show();
+        //         });
+        // }
 
         this.avatar2Component = new Component(
             this.el.querySelector('.match__item_theme_2 > .match__item__avatar > img')
         );
 
-        if (this.uuid2) {
-
-            AvatarService.getAvatar(this.uuid2)
-                .then((img) => {
-                    (this.avatar2Component.el as HTMLImageElement).src = URL.createObjectURL(img);
-                    this.avatar2Component.show();
-                });
-        }
+        // if (this.uuid2) {
+        //
+        //     AvatarService.getAvatar(this.uuid2)
+        //         .then((img) => {
+        //             (this.avatar2Component.el as HTMLImageElement).src = URL.createObjectURL(img);
+        //             this.avatar2Component.show();
+        //         });
+        // }
 
         this.username1Component = new Component(
             this.el.querySelector('.match__item_theme_1 > .match__item__username')

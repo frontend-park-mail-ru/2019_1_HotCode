@@ -3,7 +3,6 @@
 import Component from '../../../components/baseComponent/index';
 import Button from "../../../components/button/button";
 import Checkbox from "../../../components/checkbox/checkbox";
-import {activeFullScreen, cancselFullScreen} from "../../../modules/full-screen";
 import Layer from '../layer';
 import ViewService from '../../../services/view-service';
 import Tabbar from '../../../components/tabbar/tabbar';
@@ -14,16 +13,19 @@ import UserService from '../../../services/user-service';
 import EventBus from '../../../modules/event-bus';
 import ChatBlock from '../../../components/chatBlock/chatBlock';
 import OptionsMenu from '../../../components/optionsMenu/optionsMenu';
+import WebSock from '../../../modules/webSocket';
+import NotifyService from '../../../services/notify-service';
 
 class BaseLayer extends Layer{
 
     private static template = require('./baseLayer.pug');
+    private static stopGenSquares: boolean;
 
-    private fullscreenButton: Checkbox;
     private optionsMenu: OptionsMenu;
     private logoButton: Button;
-    private background: Component;
     private menuMobile: Component;
+
+    private ws: WebSock;
 
     private profileButton: Button;
     private signoutButton: Button;
@@ -32,17 +34,33 @@ class BaseLayer extends Layer{
     private authorizationSection: Component;
     private footerSection: Component;
     private modalWindowContainer: Component;
+    private containerOfRandomSquares: Component;
 
     constructor(parent: Component) {
         super(parent);
+
+        BaseLayer.stopGenSquares = false;
     }
 
     public render(): void {
         this.renderTmplBesideHTML(BaseLayer.template);
 
-        this.background = new Component(this.parent.el.querySelector('.background_theme_base'));
-
         this.generateRandomEvents();
+        this.generateSqures();
+
+        this.containerOfRandomSquares = new Component(this.parent.el.querySelector('.random-elements_squares'));
+
+        EventBus.subscribe(events.onStopGenerateSqures, () => {
+
+            this.containerOfRandomSquares.hide();
+            BaseLayer.stopGenSquares = true;
+        });
+        EventBus.subscribe(events.onContinueGenerateSqures, () => {
+
+            this.containerOfRandomSquares.show();
+            BaseLayer.stopGenSquares = false;
+            this.generateSqures();
+        });
 
         this.menuMobile = new Component(this.parent.el.querySelector('.nav-content'));
 
@@ -55,7 +73,7 @@ class BaseLayer extends Layer{
         this.profileButton = new Button(this.parent.el.querySelector('#profile'), () => {
             UserService.me()
                 .then(() => {
-                    ViewService.goToSettingsView();
+                    ViewService.goToProfileView();
                 })
                 .catch(() => {
                     EventBus.publish(events.openSignIn, '');
@@ -102,7 +120,7 @@ class BaseLayer extends Layer{
 
         this.on();
 
-        Promise.resolve()//UserService.me()
+        UserService.me()
             .then(() => {
                 EventBus.publish(events.authorized, '');
             })
@@ -114,9 +132,6 @@ class BaseLayer extends Layer{
     }
 
     public clear() {
-        this.background.clear();
-        this.background = null;
-
         this.menuMobile.clear();
         this.menuMobile = null;
 
@@ -139,6 +154,14 @@ class BaseLayer extends Layer{
 
         this.optionsMenu.clear();
         this.optionsMenu = null;
+
+        this.containerOfRandomSquares.clear();
+        this.containerOfRandomSquares = null;
+
+        if (this.ws) {
+            this.ws.close();
+        }
+        this.ws = null;
     }
 
     private on(): void {
@@ -156,6 +179,13 @@ class BaseLayer extends Layer{
             });
             this.profileButton.showAllReferences();
             this.signoutButton.showAllReferences();
+
+            if (this.ws) {
+                this.ws.close();
+            }
+            this.ws = null;
+
+            this.getNotify();
         });
 
         EventBus.subscribe(events.unauthorized, () => {
@@ -168,14 +198,34 @@ class BaseLayer extends Layer{
         });
     }
 
-    private generateRandomEvents(): void {
+    private getNotify = () => {
 
-        const randomElements = Component.Create('div', ['random-elements']);
+        this.ws = NotifyService.getNotify();
+        this.ws.open(
+            () => {},
+            (resp) => {
+                if (resp.type === 'match') {
+
+                    console.log('Match');
+                    console.log(resp.body);
+                }
+
+                if (resp.type === 'verify') {
+
+                    console.log('Verify');
+                    console.log(resp.body);
+                }
+            },
+            () => {},
+        );
+    };
+
+    private generateSqures(): void {
+
+        const randomElements = new Component(this.parent.el.querySelector('.random-elements_squares'));
 
         let minWidth = 3;
-        let maxWidth = 8;
-        let minLeft = 0;
-        let maxLeft = 100;
+        let maxWidth = 6;
         let minRight = 0;
         let maxRight = 100;
         let minTop = 0;
@@ -185,7 +235,7 @@ class BaseLayer extends Layer{
         let minZIndex = -140;
         let maxZIndex = -15;
 
-        for (let i = 0; i < 35; i++) {
+        for (let i = 0; i < 20; i++) {
 
             const square = Component.Create('div', ['fly-square']);
 
@@ -194,7 +244,7 @@ class BaseLayer extends Layer{
             const width = Math.random() * (maxWidth - minWidth) + minWidth;
             const duration =
                 (((width - minWidth) * 100 / (maxWidth - minWidth)) *
-                (maxDuration - minDuration) / 100 + minDuration) *
+                    (maxDuration - minDuration) / 100 + minDuration) *
                 (right + 50) / 150;
             const zIndex =
                 ((width - minWidth) * 100 / (maxWidth - minWidth)) *
@@ -226,8 +276,8 @@ class BaseLayer extends Layer{
         }
 
 
-        let minTime = 300;
-        let maxTime = 650;
+        let minTime = 500;
+        let maxTime = 1000;
 
         let timeoutSquare = Math.random() * (maxTime - minTime) + minTime;
 
@@ -269,13 +319,22 @@ class BaseLayer extends Layer{
                 square.el.parentNode.removeChild(square.el);
             });
 
-            timerId = setTimeout(generateSquare, timeoutSquare);
-        }, timeoutSquare);
+            if(!BaseLayer.stopGenSquares) {
 
-        minLeft = 5;
-        maxLeft = 95;
-        minTop = 5;
-        maxTop = 95;
+                timerId = setTimeout(generateSquare, timeoutSquare);
+            }
+        }, timeoutSquare);
+    }
+
+    private generateRandomEvents(): void {
+
+        const randomElements = new Component(this.parent.el.querySelector('.random-elements'));
+
+        let minLeft = 5;
+        let maxLeft = 95;
+        let minTop = 5;
+        let maxTop = 95;
+
         let minTime2 = 1000;
         let maxTime2 = 2000;
 
@@ -349,8 +408,6 @@ class BaseLayer extends Layer{
             }, timeoutOnDelete);
             timerLine = setTimeout(spawnLine, timeout2);
         }, timeout2);
-
-        document.body.appendChild(randomElements.el);
     }
 
     private adv(): void {

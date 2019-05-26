@@ -1,13 +1,15 @@
 .button_theme_submit {
-  @extend %yellow;
+  font-family: $fontFamaly2;
   font-size: 0.9em;
-  border: 2px solid $fontColorYellow;
-  border-radius: 15px;
+  font-weight: 300;
+  color: $fontColorYellow;
+  border: 1px solid $fontColorYellow;
 }
 
-.button_theme_submit:hover {
-  transition: .3s ease-in-out;
-  filter: drop-shadow($fontColorYellowLight 0 0 10px);
+.button_theme_disable-submit {
+  color: $fontColorYellowLight;
+  border: 1px solid $fontColorYellowLight;
+  cursor: auto !important;
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {

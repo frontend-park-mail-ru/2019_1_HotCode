@@ -25,6 +25,7 @@ class GamePage extends Page{
     private testCodeButton: Button;
     private pingPong: PingPong;
     private rulesContent: Component;
+    private choiseButton: Component;
 
     private onRulesChange: {[key: string]: () => void};
     private onCodeChange: {[key: string]: () => void};
@@ -38,19 +39,18 @@ class GamePage extends Page{
         super.render();
         this.renderTmpl(GamePage.template);
 
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__right'));
-        const gameContent = new Component(document.querySelector('.game-menu__left'));
-        const gameHeader = new Component(document.querySelector('.game-menu__header'));
-        const gameOptions = new Component(document.querySelector('.game-menu__options'));
-        const gamePlayButton = new Component(document.querySelector('.button_theme_play'));
+        this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_game'));
 
-        gameContainer.addClass('container_theme_game-play');
-        gameImageLogo.hide();
-        gameContent.addClass('game-menu__left_theme_play');
-        gameHeader.el.style.top = 3.5 + 'em';
-        gameOptions.el.style.top = 4.5 + 'em';
-        gamePlayButton.hide();
+        EventBus.subscribe(events.onSlug2Change, () => {
+            EventBus.publish(events.onOpenGame, true);
+        });
+
+        this.choiseButton.active();
+
+        EventBus.publish(events.onHideMenu);
+
+        const rightPanel = new ScrollableBlock(this.parent.el.querySelector('.game__container-item'));
+        rightPanel.decorate();
 
         this.gamePanels = Array.from(this.parent.el.querySelectorAll('.play__item'))
             .map((panel) => new Panel(panel as HTMLElement));
@@ -79,6 +79,7 @@ class GamePage extends Page{
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
+        new Component(this.parent.el.querySelector('.ace_editor')).el.style.fontSize = '1em';
 
         this.onCodeChange = EventBus.subscribe(events.onCodeChange, () => {
 
@@ -111,6 +112,8 @@ class GamePage extends Page{
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
 
+        const submitButton = new Component(this.parent.el.querySelector('.button_theme_submit'));
+
         this.testCodeForm.onSubmit((event) => {
             event.preventDefault();
 
@@ -118,14 +121,22 @@ class GamePage extends Page{
 
             if (this.testCodeForm.validate()) {
 
-                BotsService.sendBots(Game.slug, code);
-                // this.pingPong.init(runCode(code));
+                (submitButton.el as HTMLInputElement).disabled = true;
+                submitButton.addClass('button_theme_disable-submit');
+                BotsService.sendBots(Game.slug, code)
+                    .finally(() => {
+                        (submitButton.el as HTMLInputElement).disabled = false;
+                        submitButton.removeClass('button_theme_disable-submit');
+                    });
             }
         });
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
+
+        this.choiseButton.disactive();
+
         this.onRulesChange.unsubscribe();
         this.onCodeChange.unsubscribe();
         this.onBotCodeChange.unsubscribe();
@@ -133,20 +144,6 @@ class GamePage extends Page{
         this.testCodeForm = null;
         this.testCodeButton = null;
         this.pingPong = null;
-
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__right'));
-        const gameContent = new Component(document.querySelector('.game-menu__left'));
-        const gameHeader = new Component(document.querySelector('.game-menu__header'));
-        const gameOptions = new Component(document.querySelector('.game-menu__options'));
-        const gamePlayButton = new Component(document.querySelector('.button_theme_play'));
-
-        gameContainer.removeClass('container_theme_game-play');
-        gameImageLogo.show();
-        gameContent.removeClass('game-menu__left_theme_play');
-        gameHeader.el.style.top = '';
-        gameOptions.el.style.top = '';
-        gamePlayButton.show();
     }
 
     private onMove = (shiftX: number) => {

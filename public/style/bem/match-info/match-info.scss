@@ -12,7 +12,7 @@
   top: 3%;
 
   @extend %white;
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-weight: 300;
 }
 
@@ -23,7 +23,8 @@
 
 .match-info__user {
   position: relative;
-  width: 16%;
+  width: 14%;
+  max-width: 140px;
   box-shadow: 0 0 0 6px $fontColorWhite;
   background: $fontColorWhite;
 }
@@ -51,7 +52,7 @@
   max-width: 126%;
 
   @extend %white;
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: 300;
 
   word-wrap: break-word;
@@ -62,7 +63,7 @@
   display: none;
 
   @extend %white;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: 300;
   text-transform: uppercase;
 }
@@ -71,7 +72,7 @@
   position: absolute;
 
   @extend %white;
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: 300;
   white-space: nowrap;
 }
@@ -118,7 +119,7 @@
   padding: 0 6%;
 
   font-family: $fontFamaly2;
-  font-size: 2em;
+  font-size: 2.2em;
   font-weight: 300;
 
   color: $fontColorYellow;
@@ -131,7 +132,7 @@
   transform: translateX(-50%);
 
   @extend %white;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: 300;
   text-transform: uppercase;
 }
@@ -180,7 +181,7 @@
   bottom: 3%;
 
   @extend %white;
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-weight: 300;
 }
 
