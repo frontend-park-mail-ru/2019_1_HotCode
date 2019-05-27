@@ -1,0 +1,28 @@
+.game-menu__right__item{
+  width: 100%;
+  min-width: 360px;
+  min-height: 240px;
+  box-sizing: border-box;
+
+  border: 2px solid #FFD700;
+  border-radius: 15px;
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__right__item {
+    display: block;
+    width: 100vw;
+    z-index: -5;
+
+    min-width: auto;
+    border: 0;
+    border-radius: 0;
+
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__right__item {
+
+  }
+}

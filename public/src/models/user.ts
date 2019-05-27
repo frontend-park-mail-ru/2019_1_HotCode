@@ -9,12 +9,14 @@ class User {
     private idField: string;
     private activeField: boolean;
     private avatarField: string;
+    private keyField: string;
 
     constructor() {
         this.usernameField = '';
         this.idField = '';
         this.activeField = false;
         this.avatarField = '';
+        this.keyField = '';
     }
 
     get username() {
@@ -32,6 +34,7 @@ class User {
 
     set id(value) {
         this.idField = value;
+        EventBus.publish(events.onUserIDChange);
     }
 
     get active() {
@@ -49,6 +52,15 @@ class User {
     set avatar(value) {
         this.avatarField = value;
         EventBus.publish(events.onAvatarChange);
+    }
+
+    get key(): string {
+        return this.keyField;
+    }
+
+    set key(value: string) {
+        this.keyField = value;
+        EventBus.publish(events.onVkKeyChange);
     }
 
     public setData(username: string, id = '', active = false): void {

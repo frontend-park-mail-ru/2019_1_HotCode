@@ -1,0 +1,19 @@
+.leaderboard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.leaderboard__header {
+  position: absolute;
+  top: 16%;
+  padding: 0 5%;
+  font-family: $fontFamaly2;
+  font-weight: 300;
+  font-size: 2.3em;
+  line-height: 161.8%;
+
+  color: $fontColorYellow;
+}

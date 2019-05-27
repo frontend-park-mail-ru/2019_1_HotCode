@@ -1,61 +1,49 @@
-.field__main__input{
-  max-width: 399px;
-  width: 73vw;
+.field__main__input {
+  width: 100%;
   height: 2.25em;
-  padding-left: $input_padding;
-  box-sizing: border-box;
-
-  @extend %white;
-  border: 2px solid $fontColorWhite;
-  border-radius: 15px;
   outline: none;
+  background: none;
+  border: 1px solid #eee;
+  padding-left: 1em;
+  padding-right: 2em;
+  box-sizing: border-box;
   font-size: 0.9em;
-  font-weight: 300;
-  background: rgba(0, 0, 0, 0);
+  @extend %white;
 }
 
-.field__main__input::placeholder{
-  opacity: 0;
-}
-
-.field__main__input:focus{
-  color: $fontColorYellow;
-  border: 2px solid $fontColorYellow;
-}
-
-@media only screen and (max-width: 480px) and (orientation: portrait) {
-  .field__main__input{
-    max-width: none;
-    width: 100%;
-    height: calc(2.25em + 0.5vh);
-
-    border: 0;
-    border-radius: 0;
-    font-size: calc(0.9em + 0.5vh);
-    font-weight: 300;
-    background: $backgroundInputColor;
-  }
-
-  .field__main__input:focus{
-    border: 0;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.25);
-  }
-}
-
-@media only screen and (max-width : 900px) and (orientation: landscape) {
-  .field__main__input{
-    max-width: none;
-    width: 100%;
-    height: calc(2.25em + 0.5vw);
-
-    border: 0;
-    border-radius: 0;
-    font-size: calc(0.9em + 0.5vw);
-    background: $backgroundInputColor;
-  }
-
-  .field__main__input:focus{
-    border: 0;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.25);
-  }
-}
+//@media only screen and (max-width: 480px) and (orientation: portrait) {
+//  .field__main__input{
+//    max-width: none;
+//    width: 100%;
+//    height: calc(2.25em + 0.5vh);
+//
+//    border: 0;
+//    border-radius: 0;
+//    font-size: calc(0.9em + 0.5vh);
+//    font-weight: 300;
+//    background: $backgroundInputColor;
+//  }
+//
+//  .field__main__input:focus{
+//    border: 0;
+//    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.25);
+//  }
+//}
+//
+//@media only screen and (max-width : 900px) and (orientation: landscape) {
+//  .field__main__input{
+//    max-width: none;
+//    width: 100%;
+//    height: calc(2.25em + 0.5vw);
+//
+//    border: 0;
+//    border-radius: 0;
+//    font-size: calc(0.9em + 0.5vw);
+//    background: $backgroundInputColor;
+//  }
+//
+//  .field__main__input:focus{
+//    border: 0;
+//    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.25);
+//  }
+//}

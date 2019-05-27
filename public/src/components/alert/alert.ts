@@ -9,14 +9,22 @@ class Alert extends Component {
         super(document.querySelector('.alert'));
     }
 
-    public updateElement(): void {
-        this.el = document.querySelector('.alert');
-    }
-
     public alert(contentText: string, isError?: boolean): void {
+
         const alertWindow = AlertItem.create(contentText, isError);
         this.append(alertWindow);
-        alertWindow.setTimeoutToClose(3);
+        alertWindow.setTimeoutToClose(5);
+    }
+
+    public notify(
+        contentText: string,
+        linkText: string,
+        callbackOnClick: () => void
+    ): void {
+
+        const alertWindow = AlertItem.createNotify(contentText, linkText, callbackOnClick);
+        this.append(alertWindow);
+        alertWindow.setTimeoutToClose(8);
     }
 }
 

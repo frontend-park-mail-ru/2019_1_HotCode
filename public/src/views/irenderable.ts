@@ -1,7 +1,7 @@
 
 interface IRenderable {
 
-    render(slug?: string): void;
+    render(slug?: string[]): void;
 
     clear(): void;
 

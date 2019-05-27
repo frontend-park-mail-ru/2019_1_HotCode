@@ -18,7 +18,7 @@ class PopUpLayer extends Layer {
         this.renderTmpl(PopUpLayer.template);
 
         this.popup = new Component(this.parent.el.querySelector('.container_theme_modal'));
-        this.popup.el.style.animationName = 'vanish-in';
+        // this.popup.el.style.animationName = 'vanish-in';
 
     }
 

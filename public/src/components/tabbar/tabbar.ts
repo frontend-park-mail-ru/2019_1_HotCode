@@ -3,17 +3,22 @@ import Tab from './tab';
 
 class Tabbar extends Component {
 
-    private tabs: Tab[];
+    private tabsField: Tab[];
 
     constructor(el: HTMLElement, callbacks: {[key: string]: () => void}) {
         super(el);
 
-        this.tabs = Array.from(this.el.querySelectorAll('input[type="radio"]'))
+        this.tabsField = Array.from(this.el.querySelectorAll('input[type="radio"]'))
             .map((tab) => new Tab(tab as HTMLElement));
 
         for (const tabId of Object.keys(callbacks)) {
             this.getTabById(tabId).callback = callbacks[tabId];
         }
+    }
+
+
+    get tabs(): Tab[] {
+        return this.tabsField;
     }
 
     public onChange(): void {
@@ -28,7 +33,7 @@ class Tabbar extends Component {
     }
 
     private getTabById(id: string): Tab {
-        return this.tabs.filter((tab) => tab.getId() === id)[0];
+        return this.tabsField.filter((tab) => tab.getId() === id)[0];
     }
 
 }

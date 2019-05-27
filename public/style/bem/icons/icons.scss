@@ -1,0 +1,344 @@
+.gear-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  transition: all 0.5s ease 0.05s;
+}
+
+.gear-icon__path {
+  fill: $fontColorWhite;
+}
+
+.gear-icon:hover .gear-icon__path {
+
+  fill: $fontColorYellow;
+}
+
+.gear-icon_theme_rotate {
+
+  transform-origin: center center;
+  transform: rotate(90deg);
+}
+
+.gear-icon__path_theme_rotate {
+
+  fill: $fontColorYellow;
+}
+
+
+.eye-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  transition: all 0.5s ease 0.05s;
+}
+
+.eye-icon__center,
+.eye-icon__border,
+.eye-icon__top {
+  fill: $fontColorWhite;
+  transform-origin: 50% 60%;
+}
+
+.eye-icon:hover .eye-icon__center,
+.eye-icon:hover .eye-icon__border,
+.eye-icon:hover .eye-icon__top {
+  fill: $fontColorYellow;
+}
+
+.eye-icon__top {
+  transform: rotateX(180deg);
+}
+
+.eye-icon__center {
+  opacity: 0;
+}
+
+.eye-icon__top_theme_open {
+  animation: openEyeTop 0.5s ease forwards;
+}
+
+.eye-icon__top_theme_close {
+  animation: closeEyeTop 0.5s ease forwards;
+}
+
+.eye-icon__center_theme_open {
+  animation: openEyeCenter 0.5s ease forwards;
+}
+
+.eye-icon__center_theme_close {
+  animation: closeEyeCenter 0.5s ease forwards;
+}
+
+@keyframes openEyeTop {
+  from {
+    transform: rotateX(180deg);
+  }
+
+  to {
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes openEyeCenter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes closeEyeTop {
+  from {
+    transform: rotateX(0deg);
+  }
+
+  to {
+    transform: rotateX(180deg);
+  }
+}
+
+@keyframes closeEyeCenter {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+
+.full-icon {
+  display: block;
+  width: 0.9em;
+  height: 0.9em;
+  transition: all 0.5s ease 0.05s;
+}
+
+.play__item__content__walkmen__item .full-icon {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.full-icon_1,
+.full-icon_2,
+.full-icon_3,
+.full-icon_4 {
+  fill: $fontColorWhite;
+}
+
+.full-icon:hover .full-icon_1,
+.full-icon:hover .full-icon_2,
+.full-icon:hover .full-icon_3,
+.full-icon:hover .full-icon_4 {
+  fill: $fontColorYellow;
+}
+
+.full-icon_1_theme_anim {
+  transform-origin: 20% 20%;
+  transform: rotate(180deg);
+}
+
+.full-icon_2_theme_anim {
+  transform-origin: 80% 20%;
+  transform: rotate(180deg);
+}
+
+.full-icon_3_theme_anim {
+  transform-origin: 80% 80%;
+  transform: rotate(180deg);
+}
+
+.full-icon_4_theme_anim {
+  transform-origin: 20% 80%;
+  transform: rotate(180deg);
+}
+
+
+
+
+.close-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  transition: all 0.3s ease 0.05s;
+}
+
+.close-icon_vec {
+  transition: all 0.3s ease 0.05s;
+  fill: $fontColorWhite;
+}
+
+.close-icon:hover .close-icon_vec {
+  fill: $fontColorYellow;
+}
+
+.close-icon:hover {
+  transform-origin: 50% 50%;
+  transform: rotate(15deg);
+}
+
+
+
+.play-icon {
+  display: block;
+  width: 0.8em;
+  height: 0.8em;
+  transition: all 0.5s ease 0.05s;
+}
+
+.play-icon_1,
+.play-icon_2 {
+  fill: $fontColorWhite;
+  transition: all 0s ease 0s;
+}
+
+.play-icon:hover .play-icon_1,
+.play-icon:hover .play-icon_2 {
+  fill: $fontColorYellow;
+}
+
+
+
+.next-icon {
+  display: block;
+  width: 1.3em;
+  height: 1.3em;
+  transition: all 0.5s ease 0.05s;
+}
+
+.next-icon_1,
+.next-icon_2,
+.next-icon_3 {
+  fill: $fontColorWhite;
+}
+
+.next-icon:hover .next-icon_1,
+.next-icon:hover .next-icon_2,
+.next-icon:hover .next-icon_3 {
+  fill: $fontColorYellow;
+}
+
+.next-icon:hover .next-icon_2 {
+  transform: translateX(5px);
+}
+
+.next-icon:hover .next-icon_3 {
+  transform: translateX(10px);
+}
+
+
+.music-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  transition: all 0.5s ease 0.05s;
+}
+
+.music-icon_path {
+  fill: $fontColorWhite;
+  transition: all 0.3s ease 0.05s;
+}
+
+#music-icon_line {
+  stroke: $fontColorWhite;
+  stroke-width: 2.5px;
+  transition: all 0.3s ease 0.05s;
+}
+
+.music-icon:hover .music-icon_path {
+  fill: $fontColorYellow;
+
+}
+
+.music-icon:hover #music-icon_line {
+  stroke: $fontColorYellow;
+}
+
+
+.sound-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  transition: all 0.5s ease 0.05s;
+}
+
+.sound-icon_main,
+.sound-icon_line1,
+.sound-icon_line2 {
+  fill: $fontColorWhite;
+  transition: all 0s ease 0s;
+}
+
+.sound-icon:hover .sound-icon_main,
+.sound-icon:hover .sound-icon_line1,
+.sound-icon:hover .sound-icon_line2 {
+  fill: $fontColorYellow;
+}
+
+
+
+.send-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  transition: all 0.5s ease 0.05s;
+}
+
+.send-icon_path {
+  fill: $fontColorWhite;
+  transition: all 0.5s ease 0.05s;
+  transform-origin: 100% 100%;
+}
+
+.link:hover .send-icon_path {
+  fill: $fontColorYellow;
+  animation: rotate 0.8s;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.hide-menu-icon {
+  display: block;
+  width: 12px;
+  height: 42px;
+}
+
+.hide-menu-icon_path {
+  fill: $fontColorWhite;
+  transform-origin: center center;
+}
+
+.hide-menu-icon:hover .hide-menu-icon_path {
+  fill: $fontColorYellow;
+}
+
+@keyframes hideMenuRotate {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+@keyframes showMenuRotate {
+  from {
+    transform: rotateY(180deg);
+  }
+  to {
+    transform: rotateY(0);
+  }
+}

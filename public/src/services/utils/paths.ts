@@ -5,6 +5,7 @@ export const userPaths = {
 
     signupPath: '/users',
     editPath: '/users',
+    getUserPath: '/users',
 
     takenPath: '/users/used',
 };
@@ -25,14 +26,33 @@ export const chatPaths = {
     sendMessagePath: '/chat/connect',
 };
 
+export const botsPaths = {
+    getBotsPath: '/bots',
+    sendBotsPath: '/bots',
+    getMatchesPath: '/matches',
+    getMoreMatchesPath: '/matches',
+    getMatchPath: '/matches',
+};
+
+export const botsWSPaths = {
+    updateBotsPath: '/bots/verification',
+};
+
+export const notifyWSPaths = {
+    getNotifyPath: '/connect',
+};
+
 export const viewPaths = {
     startViewPath: '/hello',
     mainViewPath: '/',
     loginViewPath: '/login',
     signupViewPath: '/signup',
-    settingsViewPath: '/settings',
+    profileViewPath: '/profile/ID',
+    userBotsViewPath: '/profile/ID/bots',
     descriptionViewPath: '/SLUG',
-    liderboardViewPath: '/SLUG/liderboard',
+    liderboardViewPath: '/SLUG/leaderboard',
+    matchesViewPath: '/SLUG/matches',
+    matchViewPath: '/SLUG/matches/ID',
     gameViewPath: '/SLUG/game',
 };
 
@@ -41,8 +61,11 @@ export const viewRegs = {
     mainViewPath: /^\/$/i,
     loginViewPath: /^\/login$/i,
     signupViewPath: /^\/signup$/i,
-    settingsViewPath: /^\/settings$/i,
+    profileViewPath: /^\/profile\/([\d\w-_]+)$/i,
+    userBotsViewPath: /^\/profile\/([\d\w-_]+)\/bots$/i,
     descriptionViewPath: /^\/([\d\w-_]+)$/i,
-    liderboardViewPath: /^\/([\d\w-_]+)\/liderboard$/i,
+    liderboardViewPath: /^\/([\d\w-_]+)\/leaderboard$/i,
+    matchesViewPath: /^\/([\d\w-_]+)\/matches$/i,
+    matchViewPath: /^\/([\d\w-_]+)\/matches\/([\d]+)$/i,
     gameViewPath: /^\/([\d\w-_]+)\/game$/i,
 };

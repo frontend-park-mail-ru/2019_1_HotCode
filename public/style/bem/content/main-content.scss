@@ -11,7 +11,8 @@
 
   display: inline-block;
   @extend %white;
-  font-size: calc(1em + 0.6vw);
+  font-size: 1.3em;
+  font-weight: 300;
   white-space: nowrap;
   z-index: 5;
 

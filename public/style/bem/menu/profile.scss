@@ -1,0 +1,136 @@
+.profile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: -50;
+}
+
+.profile__item_theme_username {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  padding: 2.4em;
+  padding-top: 6em;
+  transform: translateX(-67%);
+  width: 37vw;
+  height: 23vh;
+  background: $backgroundMenuPanel;
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
+  z-index: -15;
+}
+
+.profile__item_theme_password {
+  position: absolute;
+  top: 20%;
+  left: 70%;
+  padding: 2.4em;
+  padding-top: 6em;
+  width: 30vw;
+  height: 43vh;
+  background: $backgroundLogoPanel;
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
+  z-index: 5;
+}
+
+.profile__item_theme_key {
+  position: absolute;
+  top: 120%;
+  left: -20%;
+  padding: 2.4em;
+  padding-top: 4.5em;
+  width: 37vw;
+  height: 35vh;
+  background: $backgroundColor2;
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
+  z-index: -15;
+}
+
+.button_theme_profile {
+  position: absolute;
+  left: 113%;
+  top: 238%;
+  height: 2.5em;
+  padding: 0 1em;
+  outline: none;
+  background: none;
+  border: 1px solid $fontColorYellow;
+  font-family: $fontFamaly2;
+  font-size: 1.3em;
+  font-weight: 300;
+  color: $fontColorYellow;
+}
+
+.field_theme_profile {
+  margin-top: 3.5em;
+}
+
+.field_theme_profile:first-child {
+  margin-top: 0;
+}
+
+.profile__item_theme_username .field {
+  min-width: auto;
+  width: 64%;
+}
+
+.profile__item_theme_password .field {
+  min-width: auto;
+  width: 84%;
+}
+
+.field_theme_profile .field__main__input {
+  border: 0;
+  border-bottom: 1px solid $fontColorWhite;
+  font-weight: 300;
+}
+
+.field_theme_profile .field__main__label__text {
+  font-size: 1.1em;
+  font-weight: 300;
+}
+
+
+.profile__item__header {
+  @extend %white;
+  font-size: 1.1em;
+  font-weight: 300;
+}
+
+.profile__item__content {
+  padding-left: 1em;
+  margin-top: 1.8em;
+}
+
+.profile__item__content__key {
+  @extend %white;
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+.profile__item__buttons {
+  display: flex;
+  padding-left: 1em;
+  margin-top: 1em;
+}
+
+.profile__item__buttons > * {
+  margin-right: 1em;
+}
+
+.profile__item__buttons > *:last-child {
+  margin-right: 0;
+}
+
+.profile__item__info {
+  width: 70%;
+  margin-top: 2.5em;
+  font-family: $fontFamaly2;
+  color: $fontColorGray;
+  font-size: 0.9em;
+  font-weight: 300;
+  line-height: 1.5em;
+}
+
+.profile__item__info > a {
+  text-decoration: underline;
+}

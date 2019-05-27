@@ -12,6 +12,7 @@ class Game {
     private descriptionField: string;
     private rulesField: string;
     private codeExampleField: string;
+    private botCodeField: string;
 
     constructor() {
         this.titleField = '';
@@ -81,9 +82,24 @@ class Game {
         EventBus.publish(events.onCodeChange);
     }
 
+    get botCode(): string {
+        return this.botCodeField;
+    }
+
+    set botCode(value: string) {
+        this.botCodeField = value;
+        EventBus.publish(events.onBotCodeChange);
+    }
+
     public clearData(): void {
         this.titleField = '';
         this.slugField = '';
+        this.backgrondUUIDField = '';
+        this.logoUUIDField = '';
+        this.descriptionField = '';
+        this.rulesField = '';
+        this.codeExampleField = '';
+        this.botCodeField = '';
     }
 }
 

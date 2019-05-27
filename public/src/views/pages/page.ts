@@ -24,7 +24,7 @@ abstract class Page extends Layer{
         document.title = this.title;
     }
 
-    public render(): void {
+    public render(slug?: string[]): void {
         this.setTitle();
     }
 }

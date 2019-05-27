@@ -3,13 +3,7 @@
   align-items: center;
   @extend %white;
   font-size: 0.9em;
-  border: 2px solid $fontColorWhite;
-  border-radius: 15px;
-}
-
-.button_theme_main:hover {
-  transition: .3s ease-in-out;
-  filter: drop-shadow($fontColorWhite 0 0 10px);
+  border: 1px solid $fontColorWhite;
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {

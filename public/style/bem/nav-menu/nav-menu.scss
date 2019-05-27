@@ -28,3 +28,9 @@
 #showmenu:checked~.nav-menu {
   transform: translateX(0);
 }
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .nav-menu {
+    padding: 10% 0;
+  }
+}

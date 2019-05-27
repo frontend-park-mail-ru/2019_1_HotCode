@@ -32,7 +32,7 @@ class OptionsLayer extends Layer{
         this.profileButton = new Button(this.parent.el.querySelector('#profile'), () => {
             UserService.me()
                 .then(() => {
-                    ViewService.goToSettingsView();
+                    ViewService.goToProfileView();
                 })
                 .catch(() => {
                     EventBus.publish(events.openSignIn, '');
