@@ -5,6 +5,7 @@ export const userPaths = {
 
     signupPath: '/users',
     editPath: '/users',
+    getUserPath: '/users',
 
     takenPath: '/users/used',
 };
@@ -46,9 +47,8 @@ export const viewPaths = {
     mainViewPath: '/',
     loginViewPath: '/login',
     signupViewPath: '/signup',
-    // settingsViewPath: '/settings',
-    profileViewPath: '/me',
-    userBotsViewPath: '/me/bots',
+    profileViewPath: '/profile/ID',
+    userBotsViewPath: '/profile/ID/bots',
     descriptionViewPath: '/SLUG',
     liderboardViewPath: '/SLUG/leaderboard',
     matchesViewPath: '/SLUG/matches',
@@ -61,9 +61,8 @@ export const viewRegs = {
     mainViewPath: /^\/$/i,
     loginViewPath: /^\/login$/i,
     signupViewPath: /^\/signup$/i,
-    // settingsViewPath: /^\/settings$/i,
-    profileViewPath: /^\/me$/i,
-    userBotsViewPath: /^\/me\/bots$/i,
+    profileViewPath: /^\/profile\/([\d\w-_]+)$/i,
+    userBotsViewPath: /^\/profile\/([\d\w-_]+)\/bots$/i,
     descriptionViewPath: /^\/([\d\w-_]+)$/i,
     liderboardViewPath: /^\/([\d\w-_]+)\/leaderboard$/i,
     matchesViewPath: /^\/([\d\w-_]+)\/matches$/i,

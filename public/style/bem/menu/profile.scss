@@ -15,6 +15,7 @@
   width: 37vw;
   height: 23vh;
   background: $backgroundMenuPanel;
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
   z-index: -15;
 }
 
@@ -40,6 +41,7 @@
   width: 37vw;
   height: 35vh;
   background: $backgroundColor2;
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
   z-index: -15;
 }
 

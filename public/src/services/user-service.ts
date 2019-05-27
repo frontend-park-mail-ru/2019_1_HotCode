@@ -5,6 +5,7 @@ import EventBus from '../modules/event-bus';
 import Http from '../modules/http';
 import {userPaths} from './utils/paths';
 import User from '../models/user';
+import AnotherUser from '../models/anotherUser';
 import serverNames from '../modules/utils/serverNames';
 
 class UserService {
@@ -61,6 +62,26 @@ class UserService {
         return Http.Put(UserService.server + userPaths.editPath, user);
     }
 
+    public static getUser(id: string): Promise<any> {
+
+        return Http.Get(`${UserService.server}${userPaths.getUserPath}/${id}`)
+            .then((resp) => {
+
+                if (AnotherUser.id !== resp.id) {
+                    AnotherUser.id = resp.id
+                }
+
+                if (AnotherUser.username !== resp.username) {
+                    AnotherUser.username = resp.username;
+                }
+
+                if (AnotherUser.avatar !== resp.photo_uuid) {
+                    AnotherUser.avatar = resp.photo_uuid;
+                }
+
+                return resp;
+            });
+    }
 
     public static me(): Promise<any> {
 

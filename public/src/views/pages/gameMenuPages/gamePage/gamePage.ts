@@ -13,6 +13,8 @@ import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
 import Button from '../../../../components/button/button';
 import BotsService from '../../../../services/bots-service';
+import Alert from '../../../../components/alert/alert';
+import Message from '../../../../utils/message';
 
 class GamePage extends Page{
 
@@ -124,6 +126,15 @@ class GamePage extends Page{
                 (submitButton.el as HTMLInputElement).disabled = true;
                 submitButton.addClass('button_theme_disable-submit');
                 BotsService.sendBots(Game.slug, code)
+                    .then(() => {
+                        Alert.alert(Message.successfulSendBot());
+                        return;
+                    })
+                    .catch(() => {
+                        EventBus.publish(events.openSignIn, '');
+                        Alert.alert(Message.accessError(), true);
+                        return;
+                    })
                     .finally(() => {
                         (submitButton.el as HTMLInputElement).disabled = false;
                         submitButton.removeClass('button_theme_disable-submit');

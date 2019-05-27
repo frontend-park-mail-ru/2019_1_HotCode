@@ -3,6 +3,7 @@
 import Component from "../../../components/baseComponent/index";
 import Tabbar from "../../../components/tabbar/tabbar";
 import User from "../../../models/user";
+import AnotherUser from "../../../models/anotherUser";
 import Layer from '../layer';
 import ViewService from '../../../services/view-service';
 import EventBus from '../../../modules/event-bus';
@@ -25,6 +26,8 @@ class ProfileMenuLayer extends Layer {
     private chooseAvatarModal: Modal;
     private avatarLoader: PhotoLoader;
 
+    private isMe: boolean;
+
     private onUsernameChange: {[key: string]: () => void};
     private onAvatarChange: {[key: string]: () => void};
     private onUserIDChange: {[key: string]: () => void};
@@ -35,7 +38,9 @@ class ProfileMenuLayer extends Layer {
     }
 
     public render(param: string[]): void {
-        this.renderTmpl(ProfileMenuLayer.template);
+        this.isMe = param[0] === 'me';
+
+        this.renderTmpl(ProfileMenuLayer.template, {isMe: this.isMe});
 
         const navMenu = new Component(this.parent.el.querySelector('.container_theme_game-menu'));
         const logoPanel = new Component(this.parent.el.querySelector('.menu__item_theme_logo'));
@@ -96,24 +101,26 @@ class ProfileMenuLayer extends Layer {
 
         this.navMenuButton.emitCancel();
 
-        this.chooseAvatarModal = new Modal(
-            this.parent.el.querySelector('.modal__window_theme_settings'),
-            'choose-avatar',
-        );
+        if (this.isMe) {
 
-        this.avatarLoader = new PhotoLoader(Component.Create().el);
-        this.chooseAvatarModal.content = this.avatarLoader;
+            this.chooseAvatarModal = new Modal(
+                this.parent.el.querySelector('.modal__window_theme_settings'),
+                'choose-avatar',
+            );
 
-        this.chooseAvatarButton = new Checkbox(this.parent.el.querySelector('#choose-avatar'),
-            () => {
-                this.chooseAvatarModal.render();
-            },
-            () => {
-                this.chooseAvatarModal.clear();
-            },
-        );
-        this.chooseAvatarButton.onChange();
+            this.avatarLoader = new PhotoLoader(Component.Create().el);
+            this.chooseAvatarModal.content = this.avatarLoader;
 
+            this.chooseAvatarButton = new Checkbox(this.parent.el.querySelector('#choose-avatar'),
+                () => {
+                    this.chooseAvatarModal.render();
+                },
+                () => {
+                    this.chooseAvatarModal.clear();
+                },
+            );
+            this.chooseAvatarButton.onChange();
+        }
 
         this.onUsernameChange = EventBus.subscribe(events.onUsernameChange, () => {
 
@@ -200,7 +207,14 @@ class ProfileMenuLayer extends Layer {
 
         this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
             profileOption0: () => {
-                ViewService.goToProfileView();
+                if (this.isMe) {
+
+                    ViewService.goToProfileView();
+
+                } else {
+
+                    return;
+                }
             },
             profileOption1: () => {
                 ViewService.goToUserBotsView();

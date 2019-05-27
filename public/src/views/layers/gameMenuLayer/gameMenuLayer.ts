@@ -175,6 +175,8 @@ class GameMenuLayer extends Layer {
         header.el.style.left = '';
         footer.el.style.paddingLeft = '';
 
+        Game.clearData();
+
         this.optionsTabbar = null;
         this.navMenuButton = null;
         this.backButton = null;

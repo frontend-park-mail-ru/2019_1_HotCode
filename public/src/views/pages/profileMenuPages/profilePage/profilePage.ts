@@ -3,6 +3,7 @@
 import Component from "../../../../components/baseComponent/index";
 import Page from '../../page';
 import User from "../../../../models/user";
+import AnotherUser from "../../../../models/anotherUser";
 import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
 import SettingsForm from '../../../../components/form/settingsForm';
@@ -12,6 +13,7 @@ import Alert from '../../../../components/alert/alert';
 import UserService from '../../../../services/user-service';
 import Message from '../../../../utils/message';
 import Button from '../../../../components/button/button';
+import ViewService from '../../../../services/view-service';
 
 class ProfilePage extends Page{
 
@@ -31,7 +33,6 @@ class ProfilePage extends Page{
     }
 
     public render(): void {
-
         super.render();
         this.renderTmpl(ProfilePage.template);
 
@@ -115,6 +116,7 @@ class ProfilePage extends Page{
 
             if (Object.keys(newUserData).length === 0) {
                 Alert.alert(Message.emptyFormError(), true);
+                return;
             }
 
             if (this.profileForm.validate()) {

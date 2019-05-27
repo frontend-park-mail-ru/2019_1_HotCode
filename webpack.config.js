@@ -10,6 +10,7 @@ const imageminPngquant = require('imagemin-pngquant');
 const imageminGiflossy = require('imagemin-giflossy');
 const TerserPlugin = require('terser-webpack-plugin');
 const TSLintPlugin = require('tslint-webpack-plugin');
+const {GenerateSW} = require('workbox-webpack-plugin');
 
 (async () => {
     await imagemin(['public/img/*.{jpg,svg,png,gif}'], 'dist/img', {
@@ -42,11 +43,10 @@ const TSLintPlugin = require('tslint-webpack-plugin');
 module.exports = {
     entry: {
         main: './public/src/main.ts',
-        worker: './public/src/worker.ts',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
+        filename: '[name].[contenthash].js',
         publicPath: "/",
 
     },
@@ -100,7 +100,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin('dist', {} ),
         new ExtractTextPlugin({
-            filename: 'style.css',
+            filename: 'style.[hash].css',
             publicPath: '/',
         }),
         new HtmlWebpackPlugin({
@@ -108,7 +108,33 @@ module.exports = {
             favicon: './favicon.ico',
             meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
         }),
-        new WebpackMd5Hash()
+        new WebpackMd5Hash(),
+        new GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+            runtimeCaching: [
+                {
+                    urlPattern: new RegExp('https://warscript-images.herokuapp.com'),
+                    handler: 'StaleWhileRevalidate',
+                },
+                {
+                    urlPattern: new RegExp('https://warscript.tech/games/v1'),
+                    handler: 'StaleWhileRevalidate',
+                },
+                {
+                    urlPattern: new RegExp('https://warscript.tech/auth/v1'),
+                    handler: 'StaleWhileRevalidate',
+                },
+                {
+                    urlPattern: new RegExp('https://warscript.tech/bots/v1'),
+                    handler: 'StaleWhileRevalidate',
+                },
+                {
+                    urlPattern: new RegExp('https://warscript.tech'),
+                    handler: 'StaleWhileRevalidate',
+                },
+            ],
+        }),
     ],
     optimization: {
         minimizer: [new TerserPlugin({

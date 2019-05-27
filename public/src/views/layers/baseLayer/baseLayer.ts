@@ -72,12 +72,12 @@ class BaseLayer extends Layer{
 
         this.profileButton = new Button(this.parent.el.querySelector('#profile'), () => {
             UserService.me()
-                .then(() => {
-                    ViewService.goToProfileView();
-                })
                 .catch(() => {
                     EventBus.publish(events.openSignIn, '');
                     Alert.alert(Message.accessError(), true);
+                })
+                .then(() => {
+                    ViewService.goToProfileView();
                 });
         });
 
@@ -119,6 +119,14 @@ class BaseLayer extends Layer{
         this.modalWindowContainer = new Component(this.parent.el.querySelector('.modal__window'));
 
         this.on();
+
+        UserService.getUser('4')
+            .then((resp) => {
+                console.log(resp);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
         UserService.me()
             .then(() => {
@@ -206,14 +214,73 @@ class BaseLayer extends Layer{
             (resp) => {
                 if (resp.type === 'match') {
 
-                    console.log('Match');
-                    console.log(resp.body);
+                    if (resp.body.diff > 0) {
+
+                        Alert.notify(
+                            'Great job! ' +
+                            `In the new battle, your bot # ${resp.body.bot_id} scored ${resp.body.diff} points. ` +
+                            'It\'s time to watch the ',
+                            'replay',
+                            () => {
+
+                                ViewService.goToGameMatchView(
+                                    resp.body.game_slug,
+                                    resp.body.match_id,
+                                );
+                            }
+                        )
+
+                    } else {
+
+                        Alert.notify(
+                            'At another time, be sure to succeed! ' +
+                            `In the new battle, your bot # ${resp.body.bot_id} scored ${resp.body.diff} points. ` +
+                            'It\'s time to watch the ',
+                            'replay',
+                            () => {
+
+                                ViewService.goToGameMatchView(
+                                    resp.body.game_slug,
+                                    resp.body.match_id,
+                                );
+                            }
+                        )
+                    }
                 }
 
                 if (resp.type === 'verify') {
 
-                    console.log('Verify');
-                    console.log(resp.body);
+                    if (resp.body.veryfied) {
+
+                        Alert.notify(
+                            'Great start, more interesting!\n' +
+                            `Your bot # ${resp.body.bot_id} was tested.\n` +
+                            'It\'s time to watch the ',
+                            'replay',
+                            () => {
+
+                                ViewService.goToGameMatchView(
+                                    resp.body.game_slug,
+                                    resp.body.match_id,
+                                );
+                            }
+                        )
+
+                    } else {
+
+                        Alert.notify(
+                            `Your bot # ${resp.body.bot_id} did not pass testing. ` +
+                            'It\'s time to watch the ',
+                            'replay',
+                            () => {
+
+                                ViewService.goToGameMatchView(
+                                    resp.body.game_slug,
+                                    resp.body.match_id,
+                                );
+                            }
+                        )
+                    }
                 }
             },
             () => {},

@@ -10,9 +10,21 @@ class Alert extends Component {
     }
 
     public alert(contentText: string, isError?: boolean): void {
+
         const alertWindow = AlertItem.create(contentText, isError);
         this.append(alertWindow);
         alertWindow.setTimeoutToClose(5);
+    }
+
+    public notify(
+        contentText: string,
+        linkText: string,
+        callbackOnClick: () => void
+    ): void {
+
+        const alertWindow = AlertItem.createNotify(contentText, linkText, callbackOnClick);
+        this.append(alertWindow);
+        alertWindow.setTimeoutToClose(8);
     }
 }
 

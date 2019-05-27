@@ -94,6 +94,12 @@ class Game {
     public clearData(): void {
         this.titleField = '';
         this.slugField = '';
+        this.backgrondUUIDField = '';
+        this.logoUUIDField = '';
+        this.descriptionField = '';
+        this.rulesField = '';
+        this.codeExampleField = '';
+        this.botCodeField = '';
     }
 }
 

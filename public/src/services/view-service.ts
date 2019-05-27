@@ -1,7 +1,11 @@
 'use strict';
 
 import Router from '../modules/router';
+import EventBus from '../modules/event-bus';
+import User from "../models/user";
+import AnotherUser from "../models/anotherUser";
 import {viewPaths, viewRegs} from './utils/paths';
+import {events} from '../modules/utils/events';
 
 class ViewService {
 
@@ -31,21 +35,15 @@ class ViewService {
             return;
         }
 
-        // if (path.match(viewRegs.settingsViewPath)) {
-        //
-        //     ViewService.goToSettingsView();
-        //     return;
-        // }
-
         if (path.match(viewRegs.profileViewPath)) {
 
-            ViewService.goToProfileView();
+            ViewService.goToProfileView(path.match(viewRegs.profileViewPath)[1]);
             return;
         }
 
         if (path.match(viewRegs.userBotsViewPath)) {
 
-            ViewService.goToUserBotsView();
+            ViewService.goToUserBotsView(path.match(viewRegs.userBotsViewPath)[1]);
             return;
         }
 
@@ -110,16 +108,12 @@ class ViewService {
         Router.go(viewPaths.signupViewPath);
     }
 
-    // public static goToSettingsView(): void {
-    //     Router.go(viewPaths.settingsViewPath);
-    // }
-
-    public static goToProfileView(): void {
-        Router.go(viewPaths.profileViewPath);
+    public static goToProfileView(id: string = 'me'): void {
+        Router.go(viewPaths.profileViewPath.replace('ID', id), false, [id]);
     }
 
-    public static goToUserBotsView(): void {
-        Router.go(viewPaths.userBotsViewPath);
+    public static goToUserBotsView(id: string = 'me'): void {
+        Router.go(viewPaths.userBotsViewPath.replace('ID', id), false, [id]);
     }
 
     public static goToGameDescriptionView(slug: string): void {
