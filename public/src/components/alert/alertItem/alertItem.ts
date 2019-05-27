@@ -4,6 +4,7 @@ import Button from '../../button/button';
 class AlertItem extends Component {
 
     private static template = require('./alertItem.pug');
+    private static templateNotify = require('./alertItemNotify.pug');
 
     private static curId: number = 0;
 
@@ -40,7 +41,27 @@ class AlertItem extends Component {
         }
 
         const uniqueId = AlertItem.getNextUniqueId();
-        alertWindow.el.innerHTML = AlertItem.template({text: contentText, id: uniqueId});
+        alertWindow.el.innerHTML = AlertItem.template({id: uniqueId});
+        new Component(alertWindow.el.querySelector('.alert__content__text')).setTextAnim(contentText);
+
+        return new AlertItem(alertWindow.el, uniqueId, contentText);
+    }
+
+    public static createNotify(
+        contentText: string,
+        linkText: string,
+        callbackOnClick: () => void
+    ): AlertItem {
+
+        let alertWindow: Component;
+        alertWindow = Component.Create('div', ['alert__content', 'alert__content_theme_success']);
+
+        const uniqueId = AlertItem.getNextUniqueId();
+        alertWindow.el.innerHTML = AlertItem.templateNotify({id: uniqueId});
+        new Component(alertWindow.el.querySelector('.alert__content__text')).setTextAnim(contentText, 2);
+        const link = new Component(alertWindow.el.querySelector('.alert__link__text'));
+        link.setTextAnim(linkText);
+        link.on('click', callbackOnClick);
 
         return new AlertItem(alertWindow.el, uniqueId, contentText);
     }
@@ -55,7 +76,7 @@ class AlertItem extends Component {
     }
 
     private closeItem(): void {
-        this.hide();
+        this.el.parentElement.removeChild(this.el);
     }
 
     private static getNextUniqueId(): number {

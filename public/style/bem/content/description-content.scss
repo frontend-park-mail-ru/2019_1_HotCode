@@ -1,6 +1,8 @@
 .description-content {
   margin-top: 4%;
-  width: 90%;
+  padding-right: 10%;
+  width: 50vw;
+  min-width: 90%;
 
   @extend %white;
   line-height: 32px;
@@ -12,6 +14,7 @@
 @media only screen and (max-width : 480px) and (orientation: portrait) {
   .description-content {
     width: 100%;
+    min-width: auto;
     padding: 6%;
     margin-top: 0;
 

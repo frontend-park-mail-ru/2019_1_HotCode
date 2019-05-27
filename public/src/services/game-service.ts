@@ -45,6 +45,7 @@ class GameService {
                 Game.description = resp.description;
                 Game.rules = resp.rules;
                 Game.codeExample = resp.code_example;
+                Game.botCode = resp.bot_code;
 
                 EventBus.publish(events.onSlug2Change);
 

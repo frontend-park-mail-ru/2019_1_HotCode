@@ -4,20 +4,28 @@ $backgroundColor3: rgba(0, 106, 106, 0.25);  // Светлый цвет град
 $backgroundColor4: rgba(71, 121, 142, 1);  // Светлый цвет градиента у всплывающего окна
 $backgroundColor5: rgba(23, 73, 115, 1);  // Светлый цвет градиента у всплывающего окна
 $backgroundInputColor: rgba(42, 93, 126, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundLogoPanel: rgba(0, 52, 104, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundKeyPanel: rgba(42, 94, 126, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundMenuPanel: rgba(1, 48, 94, 1);  // Светлый цвет градиента у всплывающего окна
+$backgroundLeftColor: rgba(16, 68, 111, 1);  // Светлый цвет градиента у всплывающего окна
 $backgroundColorBack2: rgba(49, 47, 126, 0.51);  // Цвет фона всплывающего окна
-$backgroundColorBack: rgba(49, 47, 126, 0.86);  // Цвет фона всплывающего окна
+$backgroundColorHover: rgba(0, 28, 71, 0.42);  // Цвет фона всплывающего окна
+$backgroundColorBack: rgba(49, 47, 126, 0.76);  // Цвет фона всплывающего окна
 $backgroundColorBack3: rgba(0, 18, 45, 0.59);  // Цвет фона игры
 $fontColorWhite: rgba(238, 238, 238, 1);  // Белый
 $fontColorGray: rgba(238, 238, 238, 0.5); // Прозрачный
 $fontColorYellow: rgba(255, 215, 0, 1);  // Желтый
-$fontColorYellowLight: rgba(255, 215, 0, 1);  // Желтый яркий
+$fontColorYellowLight: rgba(237, 225, 160, 1);  // Желтый яркий
 $fontColorError: rgba(255, 99, 71, 1); // Оранжевый
+$fontColorWin: rgba(117, 245, 151, 1); // Зеленый
+$fontColorLose: rgba(247, 71, 124, 1); // Красный
+$fontColorBag: rgba(255, 0, 255, 1); // Розовый
 
 $fontFamalyLogo: Jura;
 $fontFamaly: Roboto;
 $fontFamaly2: IBM Plex Mono;
 
-$DefaultFontSize: 22px;
+$DefaultFontSize: 18px;
 
 %yellowLogo {
   font-family: $fontFamalyLogo;
@@ -38,7 +46,6 @@ $DefaultFontSize: 22px;
 %error {
   font-family: $fontFamaly2;
   color: $fontColorError;
-  text-shadow: 0 0 10px $fontColorError;
 }
 
 %yellowLiteLight {

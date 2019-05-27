@@ -29,11 +29,11 @@ class SettingsForm extends Form{
 
         this.username = new Field(fields[0]);
 
-        this.newPassword = new Field(fields[1]);
+        this.oldPassword = new Field(fields[1]);
 
-        this.repeatNewPassword = new Field(fields[2]);
+        this.newPassword = new Field(fields[2]);
 
-        this.oldPassword = new Field(fields[3]);
+        this.repeatNewPassword = new Field(fields[3]);
 
         this.photoLoaderField = new PhotoLoader(Component.Create().el);
     }
@@ -66,7 +66,7 @@ class SettingsForm extends Form{
 
         } catch (usernameError) {
 
-            this.username.setError(usernameError.text);
+            this.username.setError(usernameError.errorText);
         }
     }
 

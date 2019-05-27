@@ -1,0 +1,47 @@
+.options {
+  position: fixed;
+  top: 4%;
+  right: 2em;
+  font-size: 20px;
+}
+
+.button_theme_options {
+  color: $fontColorWhite;
+}
+
+.options__menu__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+  color: $fontColorWhite;
+  font-size: 1em;
+  overflow: hidden;
+
+  bottom: 150px;
+}
+
+.options__menu {
+  position: relative;
+  overflow: hidden;
+}
+
+#optionsMenuMainButton:checked ~ .options__menu__content {
+  bottom: 0;
+}
+
+.options__menu__content__item {
+  position: relative;
+  margin-top: 1.7em;
+}
+
+.options__menu__content__item:first-child {
+  margin-top: 0;
+}
+
+.options__menu__content__item__sub {
+  position: absolute;
+  right: 100%;
+  top: 0;
+}

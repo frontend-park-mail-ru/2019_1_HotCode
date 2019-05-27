@@ -1,0 +1,15 @@
+.game-menu__content {
+}
+
+@media only screen and (max-width : 480px) and (orientation: portrait) {
+  .game-menu__content {
+    margin-top: 8%;
+
+  }
+}
+
+@media only screen and (max-width : 900px) and (orientation: landscape) {
+  .game-menu__content {
+
+  }
+}

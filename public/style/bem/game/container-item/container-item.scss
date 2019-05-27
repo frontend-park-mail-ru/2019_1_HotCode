@@ -1,11 +1,13 @@
 .game__container-item {
   grid-area: menu;
-  margin-left: 0.5%;
+}
+
+.game__container-item > .scrollable__area {
+  padding-right: 0;
 }
 
 @media only screen and (max-width : 480px) and (orientation: portrait) {
   .game__container-item {
-    margin-left: 0;
   }
 }
 

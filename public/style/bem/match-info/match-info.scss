@@ -1,0 +1,191 @@
+.match-info {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+.match-info__id {
+  position: absolute;
+  right: 3%;
+  top: 3%;
+
+  @extend %white;
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+.match-info__id_theme_left {
+  left: 3%;
+  right: auto;
+}
+
+.match-info__user {
+  position: relative;
+  width: 14%;
+  max-width: 140px;
+  box-shadow: 0 0 0 6px $fontColorWhite;
+  background: $fontColorWhite;
+}
+
+.match-info__user::before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+
+.match-info__user::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.match-info__user__avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.match-info__user__username {
+  position: absolute;
+  max-width: 126%;
+
+  @extend %white;
+  font-size: 1em;
+  font-weight: 300;
+
+  word-wrap: break-word;
+}
+
+.match-info__user__result {
+  position: absolute;
+  display: none;
+
+  @extend %white;
+  font-size: 1.3em;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.match-info__user__score {
+  position: absolute;
+
+  @extend %white;
+  font-size: 1.1em;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.match-info__user_theme_1 {
+}
+
+.match-info__user_theme_1 > .match-info__user__username {
+  right: 121%;
+  top: 13%;
+}
+
+.match-info__user_theme_1 > .match-info__user__result {
+  right: 100%;
+  top: -2em;
+}
+
+.match-info__user_theme_1 > .match-info__user__score {
+  top: 115%;
+  left: 0;
+}
+
+.match-info__user_theme_2 {
+}
+
+.match-info__user_theme_2 > .match-info__user__username {
+  left: 121%;
+  top: 13%;
+}
+
+.match-info__user_theme_2 > .match-info__user__result {
+  position: absolute;
+  left: 100%;
+  top: -2em;
+}
+
+.match-info__user_theme_2 > .match-info__user__score {
+  top: 115%;
+  right: 0;
+}
+
+.match-info__vs {
+  position: relative;
+  padding: 0 6%;
+
+  font-family: $fontFamaly2;
+  font-size: 2.2em;
+  font-weight: 300;
+
+  color: $fontColorYellow;
+}
+
+.match-info__draw {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+
+  @extend %white;
+  font-size: 1.3em;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.match-info__user_theme_win {
+  margin-bottom: 2em;
+}
+
+.match-info__user_theme_win > .match-info__user__result {
+  display: block;
+  color: $fontColorWin;
+}
+
+.match-info__user_theme_win > .match-info__user__score {
+  color: $fontColorWin;
+}
+
+.match-info__user_theme_loss {
+  margin-top: 2em;
+}
+
+.match-info__user_theme_loss > .match-info__user__username {
+  top: auto;
+  bottom: 13%;
+}
+
+.match-info__user_theme_loss > .match-info__user__result {
+  display: block;
+  top: auto;
+  bottom: -2em;
+
+  color: $fontColorLose;
+}
+
+.match-info__user_theme_loss > .match-info__user__score {
+  top: auto;
+  bottom: 115%;
+
+  color: $fontColorLose;
+}
+
+
+.match-info__date {
+  position: absolute;
+  left: 3%;
+  bottom: 3%;
+
+  @extend %white;
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+.match-info__date_theme_right {
+  right: 3%;
+  left: auto;
+}

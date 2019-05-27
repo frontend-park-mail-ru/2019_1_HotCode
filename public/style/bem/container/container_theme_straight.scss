@@ -1,12 +1,4 @@
 .container_theme_straight {
-  transform-origin: center center;
-  transform: translate(-50%, -50%);
-}
-
-.container_theme_straight::before {
-  content: none;
-}
-
-.container_theme_straight::after {
-  content: none;
+  background: $backgroundColorBack2;
+  z-index: 15;
 }

@@ -20,6 +20,10 @@ class Message {
         return 'Your data has been successfully updated.';
     }
 
+    public static successfulSendBot(): string {
+        return 'Your bot has been successfully sent. Wait for confirmation of testing.';
+    }
+
     constructor(text: string) {
         this.textField = text;
     }

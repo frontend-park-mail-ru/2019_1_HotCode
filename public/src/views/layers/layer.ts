@@ -10,7 +10,7 @@ abstract class Layer implements IRenderable{
         this.parent = parent;
     }
 
-    public abstract render(slug?: string): void;
+    public abstract render(slug?: string[]): void;
 
     public abstract clear(): void;
 

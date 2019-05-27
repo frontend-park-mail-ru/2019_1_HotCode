@@ -14,6 +14,11 @@ import SignupPage from '../pages/authorizationPages/signupPage/signupPage';
 import StartPage from '../pages/startPage/startPage';
 import GameMenuLayer from '../layers/gameMenuLayer/gameMenuLayer';
 import GamePage from '../pages/gameMenuPages/gamePage/gamePage';
+import MatchesPage from '../pages/gameMenuPages/matchesPage/matchesPage';
+import MatchPage from '../pages/gameMenuPages/matchPage/matchPage';
+import ProfileMenuLayer from '../layers/profileMenuLayer/profileMenuLayer';
+import ProfilePage from '../pages/profileMenuPages/profilePage/profilePage';
+import UserBotsPage from '../pages/profileMenuPages/userBotsPage/userBotsPage';
 
 export const views = [
     new ViewInfo(
@@ -51,7 +56,7 @@ export const views = [
         [
             'startPage',
             'mainPage',
-            'settingsPage',
+            'profileMenuLayer',
             'gameMenuLayer',
             'popUpLayer',
         ],
@@ -80,11 +85,33 @@ export const views = [
         'mainContainer',
         viewRegs.mainViewPath,
     ),
+    // new ViewInfo(
+    //     'settingsPage',
+    //     () => new SettingsPage(Component.getBy('.base-container_theme_main')),
+    //     'mainContainer',
+    //     viewRegs.settingsViewPath,
+    // ),
     new ViewInfo(
-        'settingsPage',
-        () => new SettingsPage(Component.getBy('.base-container_theme_main')),
+        'profileMenuLayer',
+        () => new ProfileMenuLayer(Component.getBy('.base-container_theme_main')),
         'mainContainer',
-        viewRegs.settingsViewPath,
+        null,
+        [
+            'profilePage',
+            'userBotsPage',
+        ],
+    ),
+    new ViewInfo(
+        'profilePage',
+        () => new ProfilePage(Component.getBy('.game-menu__content')),
+        'profileContainer',
+        viewRegs.profileViewPath,
+    ),
+    new ViewInfo(
+        'userBotsPage',
+        () => new UserBotsPage(Component.getBy('.game-menu__content')),
+        'profileContainer',
+        viewRegs.userBotsViewPath,
     ),
     new ViewInfo(
         'gameMenuLayer',
@@ -94,18 +121,20 @@ export const views = [
         [
             'descriptionPage',
             'liderboardPage',
+            'matchesPage',
+            'matchPage',
             'gamePage',
         ],
     ),
     new ViewInfo(
         'signinPage',
-        () => new SigninPage(Component.getBy('.modal-content')),
+        () => new SigninPage(Component.getBy('.container_theme_modal')),
         'modalWindow',
         viewRegs.loginViewPath,
     ),
     new ViewInfo(
         'signupPage',
-        () => new SignupPage(Component.getBy('.modal-content')),
+        () => new SignupPage(Component.getBy('.container_theme_modal')),
         'modalWindow',
         viewRegs.signupViewPath,
     ),
@@ -120,6 +149,18 @@ export const views = [
         () => new LiderboardPage(Component.getBy('.game-menu__content')),
         'gameContainer',
         viewRegs.liderboardViewPath,
+    ),
+    new ViewInfo(
+        'matchesPage',
+        () => new MatchesPage(Component.getBy('.game-menu__content')),
+        'gameContainer',
+        viewRegs.matchesViewPath,
+    ),
+    new ViewInfo(
+        'matchPage',
+        () => new MatchPage(Component.getBy('.game-menu__content')),
+        'gameContainer',
+        viewRegs.matchViewPath,
     ),
     new ViewInfo(
         'gamePage',

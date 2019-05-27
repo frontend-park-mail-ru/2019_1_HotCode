@@ -1,0 +1,43 @@
+.link2 {
+  position: relative;
+}
+
+.link2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -0.6em;
+  height: 1px;
+  width: 105%;
+  background: $fontColorYellow;
+  transition: all 0.3s ease 0.05s;
+}
+
+.link2:hover::after {
+  width: 130%;
+}
+
+
+
+
+
+.link3 {
+  position: relative;
+}
+
+.link3::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -0.3em;
+  height: 1px;
+  width: 105%;
+  background: $fontColorYellow;
+  transition: all 0.3s ease 0.05s;
+}
+
+.link3:hover::after {
+  width: 130%;
+}

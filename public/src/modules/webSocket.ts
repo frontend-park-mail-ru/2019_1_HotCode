@@ -16,22 +16,14 @@ class WebSock {
     }
 
     public open(
+        onOpen: (p?: any) => void,
         onMessage: (p?: any) => void,
         onError: (p?: any) => void,
         ): void {
 
         this.wsField.onopen = () => {
 
-            this.send(
-                {
-                    type: 'messages',
-                    chat_id: 1,
-                    payload: {
-                        limit: 1000,
-                        offset: 0,
-                    },
-                }
-            );
+            onOpen();
 
             this.wsField.onmessage = (event) => {
                 onMessage(JSON.parse(event.data));

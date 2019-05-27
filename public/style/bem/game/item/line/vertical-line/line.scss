@@ -1,15 +1,17 @@
 .play__item__vertical-line {
   position: absolute;
   top: 0;
-  right: -1.5%;
+  right: 0;
   height: 100%;
-  width: 0;
+  width: 1px;
   transform: translateX(50%);
-  border-right: 1.5px solid $fontColorWhite;
+  background: $fontColorWhite;
+
+  z-index: 5;
 }
 
 .play__item__vertical-line:hover {
-  border-right: 1.5px solid $fontColorYellow;
+  background: $fontColorYellow;
 }
 
 @media only screen and (max-width : 480px) and (orientation: portrait) {

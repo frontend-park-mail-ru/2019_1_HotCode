@@ -159,7 +159,10 @@ class SettingsPage extends Page {
                     })
                     .then(() => {
 
-                        this.settingsForm.resetPasswords();
+                        if (this.settingsForm) {
+
+                            this.settingsForm.resetPasswords();
+                        }
                         Alert.alert(Message.successfulUpdate());
                         UserService.me();
                     })

@@ -1,0 +1,168 @@
+.menu__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
+}
+
+.menu__item_theme_logo {
+  position: relative;
+  background: $backgroundLogoPanel;
+  padding: 10% 0;
+  width: 100%;
+
+  z-index: 15;
+}
+
+.button_theme_hide-menu {
+  position: absolute;
+  left: 104%;
+  top: 9%;
+  pointer-events: auto;
+}
+
+.menu__item__logo {
+  position: relative;
+  width: 85%;
+}
+
+.menu__item__logo::before {
+  content: '';
+  padding-top: 70%;
+  float: left;
+}
+
+.menu__item__logo::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.menu__item__logo_theme_avatar {
+  width: 67%;
+}
+
+.menu__item__logo_theme_avatar::before {
+  content: '';
+  padding-top: 100%;
+  float: left;
+}
+
+.menu__item__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.menu__item_theme_title {
+  position: relative;
+  background: $backgroundColor2;
+  width: 90%;
+
+  z-index: 10;
+}
+
+.menu__item__title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  overflow-x: hidden;
+  line-height: 1.5em;
+  text-align: center;
+
+  @extend %white;
+  font-size: 2em;
+}
+
+.menu__item_theme_options {
+  justify-content: space-around;
+  background: $backgroundMenuPanel;
+  padding: 1em 0;
+  height: 100%;
+  width: 80%;
+
+  z-index: 5;
+}
+
+.menu__item__option {
+
+  @extend %white;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+
+.menu__item_theme_back {
+  background: $backgroundColor2;
+  width: 90%;
+
+  z-index: 15;
+}
+
+.menu__item__back {
+
+  @extend %white;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.game-menu__content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  padding-left: calc(2.5vw + 325px);
+  transition: all 1.2s ease 0.6s;
+
+  font-size: 16px;
+}
+
+#menuNavBar:checked ~ .game-menu__content {
+  padding-left: 0;
+}
+
+
+@keyframes showMenu {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes hideMenu {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+
+
+
+.menu__item__logo__edit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 1.5em;
+
+  font-size: 0.9em;
+  font-weight: 300;
+  @extend %white;
+  background: $backgroundColorBack2;
+}

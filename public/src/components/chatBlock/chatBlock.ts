@@ -60,6 +60,18 @@ class ChatBlock extends Component {
 
         this.ws = ChatService.sendMessage();
         this.ws.open(
+            () => {
+                this.ws.send(
+                    {
+                        type: 'messages',
+                        chat_id: 1,
+                        payload: {
+                            limit: 1000,
+                            offset: 0,
+                        },
+                    }
+                );
+            },
             (resp) => {
                 if (resp.type === 'message') {
                     this.showMessage(resp);

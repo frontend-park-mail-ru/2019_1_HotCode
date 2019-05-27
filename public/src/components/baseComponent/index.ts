@@ -55,14 +55,39 @@ class Component {
 
     public active(): void {
         this.elField.classList.add('active');
+        this.elField.classList.remove('link');
+        this.elField.classList.remove('pointer');
     }
 
     public disactive(): void {
         this.elField.classList.remove('active');
+        this.elField.classList.add('link');
+        this.elField.classList.add('pointer');
+    }
+
+    public getText(): string {
+        return this.elField.textContent;
     }
 
     public setText(text: string): void {
         this.elField.textContent = text;
+    }
+
+    public setTextAnim(content: string, speed = 1): void {
+        const text = document.createElement('span');
+
+        const value = content;
+        let html = '';
+
+        for(let w of value){
+            if(w === ' ') w = '&nbsp;';
+            html += `<span class="letter">${w}</span>`;
+        }
+        text.innerHTML = html;
+
+        this.elField.innerHTML = '';
+        this.elField.append(text);
+        this.animText(text, speed);
     }
 
     public append(component: Component): Component {
@@ -111,6 +136,23 @@ class Component {
 
     public clear(): void {
         this.el.innerHTML = '';
+    }
+
+    private animText(textElement: HTMLElement,speed: number): void {
+        const letters = Array.from(textElement.children);
+        const time = 50 / speed;
+        letters.forEach((letter, i) => {
+            setTimeout(() => {
+                if (speed < 1) {
+
+                    letter.classList.add('letter_theme_slow');
+
+                } else {
+
+                    letter.classList.add('letter_theme_normal');
+                }
+            }, (time * i))
+        })
     }
 }
 

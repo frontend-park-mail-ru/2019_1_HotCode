@@ -1,47 +1,52 @@
 export const signinFormConfig = {
-    logotype: 'Sign In',
+    logotype: 'Login',
     formFields: [
         {
             label: 'Username',
             type: 'text',
             name: 'username',
             placeholder: 'Username',
+            autocomplite: 'username',
         },
         {
             label: 'Password',
             type: 'password',
             name: 'password',
             placeholder: 'Password',
+            autocomplite: 'current-password',
         },
     ],
     submitButtonName: 'Login',
-    otherButtonName: 'Sign up',
+    otherButtonName: '> Create account',
     nextFormNumber: 2,
 };
 
 export const signupFormConfig = {
-    logotype: 'Sign Up',
+    logotype: 'Sign up',
     formFields: [
         {
             label: 'Username',
             type: 'text',
             name: 'username',
             placeholder: 'Username',
+            autocomplite: 'username',
         },
         {
             label: 'Password',
             type: 'password',
             name: 'password',
             placeholder: 'Password',
+            autocomplite: 'new-password',
         },
         {
             label: 'Repeat Password',
             type: 'password',
             name: 'repeatPassword',
             placeholder: 'Password',
+            autocomplite: 'new-password',
         },
     ],
     submitButtonName: 'Create',
-    otherButtonName: 'Login',
+    otherButtonName: '> Have an account? Enter!',
     nextFormNumber: 1,
 };

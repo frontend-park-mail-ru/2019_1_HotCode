@@ -1,7 +1,11 @@
 'use strict';
 
 import Router from '../modules/router';
+import EventBus from '../modules/event-bus';
+import User from "../models/user";
+import AnotherUser from "../models/anotherUser";
 import {viewPaths, viewRegs} from './utils/paths';
+import {events} from '../modules/utils/events';
 
 class ViewService {
 
@@ -31,9 +35,15 @@ class ViewService {
             return;
         }
 
-        if (path.match(viewRegs.settingsViewPath)) {
+        if (path.match(viewRegs.profileViewPath)) {
 
-            ViewService.goToSettingsView();
+            ViewService.goToProfileView(path.match(viewRegs.profileViewPath)[1]);
+            return;
+        }
+
+        if (path.match(viewRegs.userBotsViewPath)) {
+
+            ViewService.goToUserBotsView(path.match(viewRegs.userBotsViewPath)[1]);
             return;
         }
 
@@ -46,6 +56,21 @@ class ViewService {
         if (path.match(viewRegs.liderboardViewPath)) {
 
             ViewService.goToGameLiderBoardView(path.match(viewRegs.liderboardViewPath)[1]);
+            return;
+        }
+
+        if (path.match(viewRegs.matchesViewPath)) {
+
+            ViewService.goToGameMatchesView(path.match(viewRegs.matchesViewPath)[1]);
+            return;
+        }
+
+        if (path.match(viewRegs.matchViewPath)) {
+
+            ViewService.goToGameMatchView(
+                path.match(viewRegs.matchViewPath)[1],
+                path.match(viewRegs.matchViewPath)[2],
+            );
             return;
         }
 
@@ -83,20 +108,39 @@ class ViewService {
         Router.go(viewPaths.signupViewPath);
     }
 
-    public static goToSettingsView(): void {
-        Router.go(viewPaths.settingsViewPath);
+    public static goToProfileView(id: string = 'me'): void {
+        Router.go(viewPaths.profileViewPath.replace('ID', id), false, [id]);
+    }
+
+    public static goToUserBotsView(id: string = 'me'): void {
+        Router.go(viewPaths.userBotsViewPath.replace('ID', id), false, [id]);
     }
 
     public static goToGameDescriptionView(slug: string): void {
-        Router.go(viewPaths.descriptionViewPath.replace('SLUG', slug), false, slug);
+        Router.go(viewPaths.descriptionViewPath.replace('SLUG', slug), false, [slug]);
     }
 
     public static goToGameLiderBoardView(slug: string): void {
-        Router.go(viewPaths.liderboardViewPath.replace('SLUG', slug), false, slug);
+        Router.go(viewPaths.liderboardViewPath.replace('SLUG', slug), false, [slug]);
+    }
+
+    public static goToGameMatchesView(slug: string): void {
+        Router.go(viewPaths.matchesViewPath.replace('SLUG', slug), false, [slug]);
+    }
+
+    public static goToGameMatchView(slug: string, id: string): void {
+        Router.go(
+            viewPaths.matchViewPath.replace('SLUG', slug).replace('ID', id),
+            false,
+            [
+                slug,
+                id,
+            ],
+        );
     }
 
     public static goToGameView(slug: string): void {
-        Router.go(viewPaths.gameViewPath.replace('SLUG', slug), false, slug);
+        Router.go(viewPaths.gameViewPath.replace('SLUG', slug), false, [slug]);
     }
 
     public static goToNotFoundView(): void {

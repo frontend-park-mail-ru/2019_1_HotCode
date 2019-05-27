@@ -11,7 +11,6 @@ abstract class BaseGame extends Component{
     private progressBar: Component;
     private progress: Component;
     private pauseButtonInput: Checkbox;
-    private pauseButton: Component;
     private stopButtonInput: Button;
 
     public framesCount: number;
@@ -30,17 +29,22 @@ abstract class BaseGame extends Component{
             this.counter = Math.floor(placeClick * this.framesCount / this.progressBar.el.clientWidth);
         });
 
-        this.pauseButton = new Component(this.el.querySelector('.walkmen__item_theme_pause'));
+        const playAnim1 = new Component(this.el.querySelector('#playOn1'));
+        const stopAnim1 = new Component(this.el.querySelector('#playOff1'));
+        const playAnim2 = new Component(this.el.querySelector('#playOn2'));
+        const stopAnim2 = new Component(this.el.querySelector('#playOff2'));
         this.pauseButtonInput = new Checkbox(this.el.querySelector('#pause'),
             () => {
 
                 this.pauseFlag = true;
-                this.pauseButton.setText('►');
+                (playAnim1.el as any).beginElement();
+                (playAnim2.el as any).beginElement();
             },
             () => {
 
                 EventBus.publish(events.onPause);
-                this.pauseButton.setText('⏸');
+                (stopAnim1.el as any).beginElement();
+                (stopAnim2.el as any).beginElement();
             },
         );
         this.pauseButtonInput.onChange();

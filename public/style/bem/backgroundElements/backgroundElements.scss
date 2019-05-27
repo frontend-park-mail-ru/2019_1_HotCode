@@ -1,0 +1,56 @@
+.bug-line {
+  position: fixed;
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  background: #FF00FF;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  z-index: 200;
+}
+
+.red-point {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: red;
+}
+
+.blue-point {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: blue;
+}
+
+.green-point {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #00FF00;
+}
+
+.fly-square {
+  position: fixed;
+  overflow: hidden;
+  background: linear-gradient(242.55deg, #265A7C 0%, #003366 44.79%, #011837 100%);
+  background-attachment: fixed;
+}
+
+.fly-square::before {
+  content: '';
+  float: left;
+  padding-top: 100%;
+}
+
+.fly-square::after {
+  content: '';
+  clear: both;
+  display: block;
+}

@@ -11,20 +11,27 @@ import {onDragAndDrop} from '../../../../modules/dragAndDrop';
 import ScrollableBlock from '../../../../components/scrollable/scrollable';
 import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
+import Button from '../../../../components/button/button';
+import BotsService from '../../../../services/bots-service';
+import Alert from '../../../../components/alert/alert';
+import Message from '../../../../utils/message';
 
 class GamePage extends Page{
 
     private static template = require('./gamePage.pug');
 
     private gamePanels: Panel[];
-    private editorPanel: Component;
-    private editorLine: Component;
+    private leftPanel: Component;
+    private verticalLine: Component;
     private testCodeForm: TestCodeForm;
+    private testCodeButton: Button;
     private pingPong: PingPong;
     private rulesContent: Component;
+    private choiseButton: Component;
 
     private onRulesChange: {[key: string]: () => void};
     private onCodeChange: {[key: string]: () => void};
+    private onBotCodeChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
         super(parent, 'Game - WarScript');
@@ -34,27 +41,26 @@ class GamePage extends Page{
         super.render();
         this.renderTmpl(GamePage.template);
 
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__content-right'));
-        const gameContent = new Component(document.querySelector('.game-menu__content-left'));
-        const gameHeader = new Component(document.querySelector('.game-menu__header'));
-        const gameOptions = new Component(document.querySelector('.game-menu__options'));
-        const gamePlayButton = new Component(document.querySelector('.button_theme_play'));
+        this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_game'));
 
-        gameContainer.addClass('container_theme_game-play');
-        gameImageLogo.hide();
-        gameContent.addClass('game-menu__content-left_theme_play');
-        gameHeader.el.style.top = 3.5 + 'em';
-        gameOptions.el.style.top = 4.5 + 'em';
-        gamePlayButton.hide();
+        EventBus.subscribe(events.onSlug2Change, () => {
+            EventBus.publish(events.onOpenGame, true);
+        });
+
+        this.choiseButton.active();
+
+        EventBus.publish(events.onHideMenu);
+
+        const rightPanel = new ScrollableBlock(this.parent.el.querySelector('.game__container-item'));
+        rightPanel.decorate();
 
         this.gamePanels = Array.from(this.parent.el.querySelectorAll('.play__item'))
             .map((panel) => new Panel(panel as HTMLElement));
 
-        this.editorPanel = new Component(this.parent.el.querySelector('.play__item_theme_editor'));
-        this.editorLine = new Component(this.editorPanel.el.querySelector('.play__item__vetical-line__outline'));
+        this.leftPanel = new Component(this.parent.el.querySelector('.game__container-item_theme_left'));
+        this.verticalLine = new Component(this.leftPanel.el.querySelector('.play__item__vetical-line__outline'));
 
-        onDragAndDrop(this.editorLine, this.onMove);
+        onDragAndDrop(this.verticalLine, this.onMove);
 
         this.rulesContent = new Component(this.parent.el.querySelector('.play__item__content_theme_rules'));
 
@@ -75,6 +81,7 @@ class GamePage extends Page{
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
+        new Component(this.parent.el.querySelector('.ace_editor')).el.style.fontSize = '1em';
 
         this.onCodeChange = EventBus.subscribe(events.onCodeChange, () => {
 
@@ -86,11 +93,28 @@ class GamePage extends Page{
             EventBus.publish(events.onCodeChange);
         }
 
+        this.onBotCodeChange = EventBus.subscribe(events.onBotCodeChange, () => {
+
+            this.testCodeButton = new Button(this.parent.el.querySelector('#testCode'), () => {
+                event.preventDefault();
+
+                const code = this.testCodeForm.code.getValue();
+
+                this.pingPong.init(runCode(code, Game.botCode));
+            });
+            this.testCodeButton.onClick();
+        });
+
+        if (Game.botCode) {
+            EventBus.publish(events.onBotCodeChange);
+        }
 
         this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
+
+        const submitButton = new Component(this.parent.el.querySelector('.button_theme_submit'));
 
         this.testCodeForm.onSubmit((event) => {
             event.preventDefault();
@@ -99,41 +123,48 @@ class GamePage extends Page{
 
             if (this.testCodeForm.validate()) {
 
-                this.pingPong.init(runCode(code));
+                (submitButton.el as HTMLInputElement).disabled = true;
+                submitButton.addClass('button_theme_disable-submit');
+                BotsService.sendBots(Game.slug, code)
+                    .then(() => {
+                        Alert.alert(Message.successfulSendBot());
+                        return;
+                    })
+                    .catch(() => {
+                        EventBus.publish(events.openSignIn, '');
+                        Alert.alert(Message.accessError(), true);
+                        return;
+                    })
+                    .finally(() => {
+                        (submitButton.el as HTMLInputElement).disabled = false;
+                        submitButton.removeClass('button_theme_disable-submit');
+                    });
             }
         });
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
+
+        this.choiseButton.disactive();
+
         this.onRulesChange.unsubscribe();
         this.onCodeChange.unsubscribe();
+        this.onBotCodeChange.unsubscribe();
 
         this.testCodeForm = null;
+        this.testCodeButton = null;
         this.pingPong = null;
-
-        const gameContainer = new Component(document.querySelector('.container_theme_game-menu'));
-        const gameImageLogo = new Component(document.querySelector('.game-menu__content-right'));
-        const gameContent = new Component(document.querySelector('.game-menu__content-left'));
-        const gameHeader = new Component(document.querySelector('.game-menu__header'));
-        const gameOptions = new Component(document.querySelector('.game-menu__options'));
-        const gamePlayButton = new Component(document.querySelector('.button_theme_play'));
-
-        gameContainer.removeClass('container_theme_game-play');
-        gameImageLogo.show();
-        gameContent.removeClass('game-menu__content-left_theme_play');
-        gameHeader.el.style.top = '';
-        gameOptions.el.style.top = '';
-        gamePlayButton.show();
     }
 
     private onMove = (shiftX: number) => {
         return (e: MouseEvent): void => {
             e.preventDefault();
-            this.editorPanel.el.style.width =
+            this.leftPanel.el.style.width =
                 e.pageX -
-                (this.editorPanel.el.offsetLeft +
+                (this.leftPanel.el.offsetLeft +
                     shiftX) +
+                this.verticalLine.el.offsetWidth / 2 +
                 'px';
         };
     };
