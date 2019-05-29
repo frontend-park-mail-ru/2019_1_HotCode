@@ -120,14 +120,6 @@ class BaseLayer extends Layer{
 
         this.on();
 
-        UserService.getUser('4')
-            .then((resp) => {
-                console.log(resp);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
         UserService.me()
             .then(() => {
                 EventBus.publish(events.authorized, '');
@@ -281,6 +273,14 @@ class BaseLayer extends Layer{
                             }
                         )
                     }
+                }
+
+                if (resp.type === 'alert') {
+                    Alert.alert(resp.body.message, true);
+                }
+
+                if (resp.type === 'info') {
+                    Alert.alert(resp.body.message);
                 }
             },
             () => {},

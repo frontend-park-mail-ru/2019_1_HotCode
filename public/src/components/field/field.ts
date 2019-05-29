@@ -79,6 +79,13 @@ class Field extends Component{
         return this.virginityField;
     }
 
+    public focus(): void {
+
+        if (this.input.el) {
+            this.input.el.focus();
+        }
+    }
+
     public onFocus(callback: () => void): void {
         if (this.input.el) {
             this.input.on('focus', callback);

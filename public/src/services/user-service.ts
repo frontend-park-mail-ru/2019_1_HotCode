@@ -88,15 +88,15 @@ class UserService {
         return Http.Get(UserService.server + userPaths.mePath)
             .then((resp) => {
 
-                if (User.id !== resp.id) {
+                if (User.id !== resp.id || AnotherUser.id) {
                     User.id = resp.id
                 }
 
-                if (User.username !== resp.username) {
+                if (User.username !== resp.username || AnotherUser.username) {
                     User.username = resp.username;
                 }
 
-                if (User.avatar !== resp.photo_uuid) {
+                if (User.avatar !== resp.photo_uuid || AnotherUser.avatar) {
                     User.avatar = resp.photo_uuid;
                 }
 

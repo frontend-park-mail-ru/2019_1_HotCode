@@ -109,32 +109,24 @@ module.exports = {
             meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
         }),
         new WebpackMd5Hash(),
-        new GenerateSW({
-            clientsClaim: true,
-            skipWaiting: true,
-            runtimeCaching: [
-                {
-                    urlPattern: new RegExp('https://warscript-images.herokuapp.com'),
-                    handler: 'StaleWhileRevalidate',
-                },
-                {
-                    urlPattern: new RegExp('https://warscript.tech/games/v1'),
-                    handler: 'StaleWhileRevalidate',
-                },
-                {
-                    urlPattern: new RegExp('https://warscript.tech/auth/v1'),
-                    handler: 'StaleWhileRevalidate',
-                },
-                {
-                    urlPattern: new RegExp('https://warscript.tech/bots/v1'),
-                    handler: 'StaleWhileRevalidate',
-                },
-                {
-                    urlPattern: new RegExp('https://warscript.tech'),
-                    handler: 'StaleWhileRevalidate',
-                },
-            ],
-        }),
+        // new GenerateSW({
+        //     clientsClaim: true,
+        //     skipWaiting: true,
+        //     runtimeCaching: [
+        //         {
+        //             urlPattern: new RegExp('https://warscript-images.herokuapp.com'),
+        //             handler: 'StaleWhileRevalidate',
+        //         },
+        //         {
+        //             urlPattern: new RegExp('https://warscript.tech/games/v1'),
+        //             handler: 'StaleWhileRevalidate',
+        //         },
+        //         {
+        //             urlPattern: new RegExp('https://warscript.tech/bots/v1'),
+        //             handler: 'StaleWhileRevalidate',
+        //         },
+        //     ],
+        // }),
     ],
     optimization: {
         minimizer: [new TerserPlugin({

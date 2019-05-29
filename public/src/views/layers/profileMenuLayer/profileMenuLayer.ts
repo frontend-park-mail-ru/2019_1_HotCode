@@ -13,6 +13,7 @@ import Checkbox from '../../../components/checkbox/checkbox';
 import Button from '../../../components/button/button';
 import Modal from '../../../components/modal/modal';
 import PhotoLoader from '../../../components/photoLoader/photoLoader';
+import UserService from '../../../services/user-service';
 
 class ProfileMenuLayer extends Layer {
 
@@ -27,6 +28,7 @@ class ProfileMenuLayer extends Layer {
     private avatarLoader: PhotoLoader;
 
     private isMe: boolean;
+    private idOfAnotherUser: string;
 
     private onUsernameChange: {[key: string]: () => void};
     private onAvatarChange: {[key: string]: () => void};
@@ -38,9 +40,8 @@ class ProfileMenuLayer extends Layer {
     }
 
     public render(param: string[]): void {
-        this.isMe = param[0] === 'me';
 
-        this.renderTmpl(ProfileMenuLayer.template, {isMe: this.isMe});
+        this.renderTmpl(ProfileMenuLayer.template);
 
         const navMenu = new Component(this.parent.el.querySelector('.container_theme_game-menu'));
         const logoPanel = new Component(this.parent.el.querySelector('.menu__item_theme_logo'));
@@ -101,56 +102,40 @@ class ProfileMenuLayer extends Layer {
 
         this.navMenuButton.emitCancel();
 
-        if (this.isMe) {
 
-            this.chooseAvatarModal = new Modal(
-                this.parent.el.querySelector('.modal__window_theme_settings'),
-                'choose-avatar',
-            );
-
-            this.avatarLoader = new PhotoLoader(Component.Create().el);
-            this.chooseAvatarModal.content = this.avatarLoader;
-
-            this.chooseAvatarButton = new Checkbox(this.parent.el.querySelector('#choose-avatar'),
-                () => {
-                    this.chooseAvatarModal.render();
-                },
-                () => {
-                    this.chooseAvatarModal.clear();
-                },
-            );
-            this.chooseAvatarButton.onChange();
-        }
 
         this.onUsernameChange = EventBus.subscribe(events.onUsernameChange, () => {
 
-            this.handleUsernameChande();
+            this.handleUsernameChande(User.username);
         });
-
-        if (User.username) {
-
-            this.handleUsernameChande();
-        }
 
         this.onAvatarChange = EventBus.subscribe(events.onAvatarChange, () => {
 
-            this.handleAvatarChande();
+            this.handleAvatarChande(User.avatar);
         });
-
-        if (User.avatar) {
-
-            this.handleAvatarChande();
-        }
 
         this.onUserIDChange = EventBus.subscribe(events.onUserIDChange, () => {
 
             this.handleUserIdChande();
         });
 
-        if (User.id) {
+        this.onUsernameChange = EventBus.subscribe(events.onAnotherUsernameChange, () => {
 
-            this.handleUserIdChande();
-        }
+            this.handleUsernameChande(AnotherUser.username);
+        });
+
+        this.onAvatarChange = EventBus.subscribe(events.onAnotherAvatarChange, () => {
+
+            this.handleAnotherAvatarChande(AnotherUser.avatar);
+        });
+
+        this.onUserIDChange = EventBus.subscribe(events.onAnotherUserIDChange, () => {
+
+            this.handleAnotherUserIdChande();
+        });
+
+
+        this.checkOnMe(param[0]);
 
         this.backButton = new Button(this.parent.el.querySelector('#menuBackButton'),
             () => {
@@ -158,6 +143,86 @@ class ProfileMenuLayer extends Layer {
             });
 
         this.backButton.onClick();
+    }
+
+    private checkOnMe(id: string): void {
+        this.isMe = id === 'me';
+
+        if (!this.isMe) {
+
+            this.idOfAnotherUser = id.match(/^id([\d]+)$/i)[1];
+
+            let onUserId: {[key: string]: () => void};
+
+            UserService.getUser(this.idOfAnotherUser)
+                .then((resp) => {
+
+                    onUserId = EventBus.subscribe(events.onUserIDChange, () => {
+
+                        onUserId.unsubscribe();
+                        if (User.id === AnotherUser.id) {
+                            this.isMe = true;
+                            this.renderMe();
+                            return;
+                        }
+                        this.renderOtherUser();
+                    });
+
+                    if (User.id) {
+                        onUserId.unsubscribe();
+
+                        if (User.id === AnotherUser.id) {
+                            this.isMe = true;
+                            this.renderMe();
+                            return;
+                        }
+                        this.renderOtherUser();
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            return;
+        }
+
+        this.renderMe();
+    }
+
+    private renderMe(): void {
+
+        if (User.username) {
+
+            this.handleUsernameChande(User.username);
+        }
+
+        if (User.avatar) {
+
+            this.handleAvatarChande(User.avatar);
+        }
+
+        if (User.id) {
+
+            this.handleUserIdChande();
+        }
+    }
+
+    private renderOtherUser(): void {
+
+        if (AnotherUser.username) {
+
+            this.handleUsernameChande(AnotherUser.username);
+        }
+
+        if (AnotherUser.avatar) {
+
+            this.handleAnotherAvatarChande(AnotherUser.avatar);
+        }
+
+        if (AnotherUser.id) {
+
+            this.handleAnotherUserIdChande();
+        }
     }
 
     public clear(): void {
@@ -176,23 +241,83 @@ class ProfileMenuLayer extends Layer {
         this.optionsTabbar = null;
         this.navMenuButton = null;
         this.backButton = null;
+        this.idOfAnotherUser = null;
+        AnotherUser.clearData();
     }
 
-    private handleUsernameChande = () => {
+    private handleUsernameChande = (username: string) => {
 
         new Component(this.parent.el.querySelector('.menu__item__title'))
-            .setText(User.username);
+            .setText(username);
     };
 
-    private handleAvatarChande = () => {
+    private handleAvatarChande = (avatarUUID: string) => {
 
-        if (User.avatar) {
+        const avatar = new Component(this.parent.el.querySelector('.menu__item__logo_theme_avatar'));
+        avatar.addClass('pointer');
+        avatar.el.setAttribute('for', 'choose-avatar');
+
+        const loadAvatar = Component.Create('input', ['hidden'], {
+            id: 'choose-avatar',
+            type: 'checkbox',
+        });
+
+        avatar.append(loadAvatar);
+
+        const loadButton = Component.Create('div', ['menu__item__logo__edit', 'pointer']);
+        loadButton.setText('Load avatar');
+
+        avatar.append(loadButton);
+
+        this.chooseAvatarModal = new Modal(
+            this.parent.el.querySelector('.modal__window_theme_settings'),
+            'choose-avatar',
+        );
+
+        this.avatarLoader = new PhotoLoader(Component.Create().el);
+        this.chooseAvatarModal.content = this.avatarLoader;
+
+        this.chooseAvatarButton = new Checkbox(this.parent.el.querySelector('#choose-avatar'),
+            () => {
+                this.chooseAvatarModal.render();
+            },
+            () => {
+                this.chooseAvatarModal.clear();
+            },
+        );
+        this.chooseAvatarButton.onChange();
+
+        this.onUsernameChange = EventBus.subscribe(events.onUsernameChange, () => {
+
+            this.handleUsernameChande(User.username);
+        });
+
+        if (avatarUUID) {
 
             const image = new Component(this.parent.el.querySelector('.menu__item__img'));
             const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
 
             spiner.show();
-            AvatarService.getAvatar(User.avatar)
+            AvatarService.getAvatar(avatarUUID)
+                .then((img) => {
+                    (image.el as HTMLImageElement).src = URL.createObjectURL(img);
+                    image.show();
+                })
+                .finally(() => {
+                    spiner.hide();
+                });
+        }
+    };
+
+    private handleAnotherAvatarChande = (avatar: string) => {
+
+        if (avatar) {
+
+            const image = new Component(this.parent.el.querySelector('.menu__item__img'));
+            const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
+
+            spiner.show();
+            AvatarService.getAvatar(avatar)
                 .then((img) => {
                     (image.el as HTMLImageElement).src = URL.createObjectURL(img);
                     image.show();
@@ -205,11 +330,34 @@ class ProfileMenuLayer extends Layer {
 
     private handleUserIdChande = () => {
 
+        const profileOption = new Component(this.parent.el.querySelector('.menu__item__option_theme_profile'));
+        profileOption.show();
+
         this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
             profileOption0: () => {
-                if (this.isMe) {
+                ViewService.goToProfileView();
+            },
+            profileOption1: () => {
+                ViewService.goToUserBotsView();
+            },
+            profileOption2: () => {
+                return;
+            },
+        });
 
-                    ViewService.goToProfileView();
+        this.optionsTabbar.onChange();
+    };
+
+    private handleAnotherUserIdChande = () => {
+
+        const profileOption = new Component(this.parent.el.querySelector('.menu__item__option_theme_profile'));
+        profileOption.hide();
+
+        this.optionsTabbar = new Tabbar(this.parent.el.querySelector('.options__check'), {
+            profileOption0: () => {
+                if (this.isMe && this.idOfAnotherUser) {
+
+                    ViewService.goToProfileView(`id${this.idOfAnotherUser}`);
 
                 } else {
 
@@ -217,7 +365,8 @@ class ProfileMenuLayer extends Layer {
                 }
             },
             profileOption1: () => {
-                ViewService.goToUserBotsView();
+
+                ViewService.goToUserBotsView(`id${this.idOfAnotherUser}`);
             },
             profileOption2: () => {
                 return;

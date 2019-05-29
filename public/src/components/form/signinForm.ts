@@ -20,6 +20,8 @@ class SigninForm extends Form{
 
         this.username = new Field(fields[0]);
         this.password = new Field(fields[1]);
+
+        this.username.focus();
     }
 
     get usernameField(): Field {

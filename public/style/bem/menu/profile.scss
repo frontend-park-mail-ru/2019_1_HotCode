@@ -97,11 +97,12 @@
 }
 
 .profile__item__content {
-  padding-left: 1em;
-  margin-top: 1.8em;
+  margin-top: 1.3em;
 }
 
 .profile__item__content__key {
+  width: auto;
+  border: 0;
   @extend %white;
   font-size: 0.9em;
   font-weight: 300;

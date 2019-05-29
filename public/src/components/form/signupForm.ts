@@ -22,6 +22,8 @@ class SignupForm extends Form{
         this.username = new Field(fields[0]);
         this.password = new Field(fields[1]);
         this.passwordRepeat = new Field(fields[2]);
+
+        this.username.focus();
     }
 
     get usernameField(): Field {

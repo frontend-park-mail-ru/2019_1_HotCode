@@ -15,6 +15,7 @@ import PingPong from '../../../../components/games/ping-pong/ping-pong';
 import BotsService from '../../../../services/bots-service';
 import Game from '../../../../models/game';
 import AvatarService from '../../../../services/avatar-service';
+import ViewService from '../../../../services/view-service';
 
 
 class MatchPage extends Page{
@@ -131,6 +132,28 @@ class MatchPage extends Page{
                 });
         }
 
+        if (Match.user1 && Match.user1.id) {
+
+            username1.addClass('pointer');
+            username1.addClass('link');
+
+            username1.on('click', (e) => {
+
+                e.preventDefault();
+                e.stopPropagation();
+                ViewService.goToUserBotsView(`id${Match.user1.id}`);
+            });
+
+            avatar1.addClass('pointer');
+
+            avatar1.on('click', (e) => {
+
+                e.preventDefault();
+                e.stopPropagation();
+                ViewService.goToUserBotsView(`id${Match.user1.id}`);
+            });
+        }
+
         diff1.setText(Match.diff1 < 0 ? `- ${Math.abs(Match.diff1)}` : `+ ${Match.diff1}`);
 
         username2.setText(Match.user2 ? Match.user2.username : 'Verification');
@@ -141,6 +164,28 @@ class MatchPage extends Page{
                     (avatar2.el as HTMLImageElement).src = URL.createObjectURL(img);
                     avatar2.show();
                 });
+        }
+
+        if (Match.user2 && Match.user2.id) {
+
+            username2.addClass('pointer');
+            username2.addClass('link');
+
+            username2.on('click', (e) => {
+
+                e.preventDefault();
+                e.stopPropagation();
+                ViewService.goToUserBotsView(`id${Match.user2.id}`);
+            });
+
+            avatar2.addClass('pointer');
+
+            avatar2.on('click', (e) => {
+
+                e.preventDefault();
+                e.stopPropagation();
+                ViewService.goToUserBotsView(`id${Match.user2.id}`);
+            });
         }
 
         diff2.setText(Match.diff2 < 0 ? `- ${Math.abs(Match.diff2)}` : `+ ${Match.diff2}`);

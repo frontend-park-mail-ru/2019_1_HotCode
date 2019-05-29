@@ -2,6 +2,7 @@
 
 import Component from '../../baseComponent/index';
 import AvatarService from '../../../services/avatar-service';
+import ViewService from '../../../services/view-service';
 
 class Row extends Component{
 
@@ -12,6 +13,7 @@ class Row extends Component{
 
     private idField: number;
     private positionField: number;
+    private userID: string;
     private username: string;
     private uuid: string;
     private scoreField: number;
@@ -22,6 +24,7 @@ class Row extends Component{
         el: HTMLElement,
         position: number,
         id: number,
+        userID: string,
         username: string,
         uuid: string,
         score: number,
@@ -30,6 +33,7 @@ class Row extends Component{
 
         this.positionField = position;
         this.idField = id;
+        this.userID = userID;
         this.username = username;
         this.uuid = uuid;
         this.scoreField = score;
@@ -71,6 +75,7 @@ class Row extends Component{
             ['match', 'match_theme_content', 'match_theme_row'],
         );
 
+        const userID = author ? author.id : '';
         const username = author ? author.username : '';
         const photo_uuid = author ? author.photo_uuid : '';
 
@@ -78,7 +83,7 @@ class Row extends Component{
 
         newRow.el.innerHTML = Row.template({position, id, username, score});
 
-        return new Row(newRow.el, position, id, username, photo_uuid, score);
+        return new Row(newRow.el, position, id, userID, username, photo_uuid, score);
     }
 
 
@@ -100,6 +105,28 @@ class Row extends Component{
         this.usernameComponent = new Component(
             this.el.querySelector('.match__item__username')
         );
+
+        if (this.userID) {
+
+            this.avatarComponent.addClass('pointer');
+
+            this.avatarComponent.on('click', (e) => {
+
+                e.preventDefault();
+                e.stopPropagation();
+                ViewService.goToUserBotsView(`id${this.userID}`);
+            });
+
+            this.usernameComponent.addClass('pointer');
+            this.usernameComponent.addClass('link');
+
+            this.usernameComponent.on('click', (e) => {
+
+                e.preventDefault();
+                e.stopPropagation();
+                ViewService.goToUserBotsView(`id${this.userID}`);
+            });
+        }
 
         this.scoreComponent = new Component(
             this.el.querySelector('.match__item_theme_score')

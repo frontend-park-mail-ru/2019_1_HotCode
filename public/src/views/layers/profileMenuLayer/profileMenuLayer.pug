@@ -7,21 +7,13 @@
                 path.hide-menu-icon_path(d='')
                     animate(id='menuShow', attributename='d', dur='400ms', begin='hide-menu-icon_trigger.click', fill="freeze", from='M0.941406 1.9C1.16146 2.54898 8.90983 19.9931 8.90983 19.9931C8.90983 19.9931 1.09122 37.4931 0.909832 37.9931C0.728657 38.4931 0.995015 39.2818 1.40983 39.4931C1.82465 39.7044 2.64536 39.4931 2.90271 38.9931C3.16006 38.4931 11.4098 19.9931 11.4098 19.9931C11.4098 19.9931 3.07563 1.42103 2.90271 0.99323C2.72978 0.565431 2.00146 0.259762 1.5 0.500082C0.998535 0.740403 0.721352 1.25102 0.941406 1.9Z', to='M9.5 1.00013C9.20813 1.58356 0.5 21.0001 0.5 21.0001C0.5 21.0001 9.24996 40.5 9.5 41.0002C9.75004 41.5003 10.4477 41.7763 11 41.5002C11.5523 41.224 11.7637 40.5275 11.5 40.0002C11.2363 39.4728 3 21.0001 3 21.0001C3 21.0001 11.2171 2.66016 11.5 2.00013C11.7829 1.3401 11.5 0.750212 11 0.500129C10.5 0.250045 9.79187 0.416697 9.5 1.00013Z')
                     animate(id='menuHide', attributename='d', dur='400ms', begin='hide-menu-icon_trigger.click', fill="freeze", from='M9.5 1.00013C9.20813 1.58356 0.5 21.0001 0.5 21.0001C0.5 21.0001 9.24996 40.5 9.5 41.0002C9.75004 41.5003 10.4477 41.7763 11 41.5002C11.5523 41.224 11.7637 40.5275 11.5 40.0002C11.2363 39.4728 3 21.0001 3 21.0001C3 21.0001 11.2171 2.66016 11.5 2.00013C11.7829 1.3401 11.5 0.750212 11 0.500129C10.5 0.250045 9.79187 0.416697 9.5 1.00013Z', to='M0.941406 1.9C1.16146 2.54898 8.90983 19.9931 8.90983 19.9931C8.90983 19.9931 1.09122 37.4931 0.909832 37.9931C0.728657 38.4931 0.995015 39.2818 1.40983 39.4931C1.82465 39.7044 2.64536 39.4931 2.90271 38.9931C3.16006 38.4931 11.4098 19.9931 11.4098 19.9931C11.4098 19.9931 3.07563 1.42103 2.90271 0.99323C2.72978 0.565431 2.00146 0.259762 1.5 0.500082C0.998535 0.740403 0.721352 1.25102 0.941406 1.9Z')
-        if isMe
-            label.menu__item__logo.menu__item__logo_theme_avatar.pointer(for='choose-avatar')
-                input#choose-avatar.hidden(type='checkbox')
-                .carousel__item__spinner.carousel__item__spinner_size_s.hidden
-                img.menu__item__img.hidden
-                .menu__item__logo__edit.pointer Load avatar
-        else
-            .menu__item__logo.menu__item__logo_theme_avatar
-                .carousel__item__spinner.carousel__item__spinner_size_s.hidden
-                img.menu__item__img.hidden
+        label.menu__item__logo.menu__item__logo_theme_avatar
+            .carousel__item__spinner.carousel__item__spinner_size_s.hidden
+            img.menu__item__img.hidden
     .menu__item.menu__item_theme_title
         .menu__item__title
     .menu__item.menu__item_theme_options
-        if isMe
-            label.menu__item__option.menu__item__option_theme_profile.pointer.link(for='profileOption0') Profile
+        label.menu__item__option.menu__item__option_theme_profile.pointer.link.hidden(for='profileOption0') Profile
         label.menu__item__option.menu__item__option_theme_bots.pointer.link(for='profileOption1') Bots
     .menu__item.menu__item_theme_back
         input#menuBackButton.hidden(type='button')

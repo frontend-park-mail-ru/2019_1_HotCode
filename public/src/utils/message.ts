@@ -24,6 +24,10 @@ class Message {
         return 'Your bot has been successfully sent. Wait for confirmation of testing.';
     }
 
+    public static successCopyKey(): string {
+        return 'Your key successfully copied.';
+    }
+
     constructor(text: string) {
         this.textField = text;
     }

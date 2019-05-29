@@ -57,8 +57,9 @@ class ProfilePage extends Page{
             //     .then(() => {
             //         // Получилось!
             //     })
-            // (this.keyTextContent.el as HTMLInputElement).select();
-            // document.execCommand("copy");
+            (this.keyTextContent.el as HTMLInputElement).select();
+            document.execCommand("copy");
+            Alert.alert(Message.successCopyKey());
 
         });
         this.copyVkKeyButton.onClick();
@@ -176,7 +177,7 @@ class ProfilePage extends Page{
     private handleVkKeyChange = () => {
 
         if (User.key) {
-            this.keyTextContent.setTextAnim(User.key);
+            (this.keyTextContent.el as HTMLInputElement).value = User.key;
         }
     };
 

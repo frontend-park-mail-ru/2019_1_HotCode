@@ -59,9 +59,9 @@ class AnotherUser {
     }
 
     public clearData(): void {
-        this.usernameField = '';
-        this.idField = '';
-        this.activeField = false;
+        this.usernameField = null;
+        this.idField = null;
+        this.avatarField = null;
     }
 }
 
