@@ -2,6 +2,7 @@
 
 import Player from './player';
 import Ball from './ball';
+import GameInfo from './gameInfo';
 import PlayablePlayer from './playablePlayer';
 
 class point {
@@ -106,7 +107,8 @@ function collidePlayerBall(player: Player, ball: Ball): [boolean, side, number, 
 
             collisionSide = side.left
 
-        } if (!isColliding) {
+        } 
+        if (!isColliding) {
             [isColliding, collisionPointX, collisionPointY] = intersection(pLeftLine, bRightUpLine);
             if (isColliding) {
                 collisionPointX -= ball.diameter / 2
@@ -147,7 +149,8 @@ function collidePlayerBall(player: Player, ball: Ball): [boolean, side, number, 
 
                 collisionSide = side.up
 
-            } if (!isColliding) {
+            } 
+            if (!isColliding) {
                 [isColliding, collisionPointX, collisionPointY] = intersection(pUpLine, bRightDownLine);
                 if (isColliding) {
                     collisionPointX -= ball.diameter / 2
@@ -259,7 +262,9 @@ function movePlayerWithBall(player: Player, ball: Ball, up: number, down: number
         player.y = up - player.height / 2
     }
 
+    let bounceSpeedCorr = true;
     if (up < ball.y + ball.diameter / 2 && collSide == side.up) {
+        bounceSpeedCorr = false;
         ball.y = up - ball.diameter / 2 - epsilonMove
         player.y = ball.y - ball.diameter / 2 - epsilonMove - player.height / 2
 
@@ -273,6 +278,7 @@ function movePlayerWithBall(player: Player, ball: Ball, up: number, down: number
         }
     }
     if (down > ball.y - ball.diameter / 2 && collSide == side.down) {
+        bounceSpeedCorr = false;
         ball.y = down + ball.diameter / 2 + epsilonMove
         player.y = ball.y + ball.diameter / 2 + epsilonMove + player.height / 2
 
@@ -291,7 +297,18 @@ function movePlayerWithBall(player: Player, ball: Ball, up: number, down: number
     if (Math.abs(player.vY) < Math.abs(ball.vY)) {
         ball.y += ball.vY - player.vY
     }
-    ////console.log(ball, player)
+
+    if (bounceSpeedCorr) {
+        let xDir = ball.x - player.x;
+        let yDir = ball.y - player.y;
+        const dirMod = Math.sqrt(xDir*xDir + yDir*yDir);
+        const vMod = Math.sqrt(ball.vX*ball.vX + ball.vY*ball.vY)
+
+        xDir = xDir/dirMod;
+        yDir = yDir/dirMod;
+        ball.vX = xDir * vMod;
+        ball.vY = yDir * vMod;
+    }
 }
 
 enum winner {
@@ -332,6 +349,7 @@ class Game {
     public ball: Ball;
     public fieldHeight: number;
     public fieldWidth: number;
+    public ticksLeft: number;
 
     constructor(fieldHeight: number, fieldWidth: number) {
         this.fieldHeight = fieldHeight;
@@ -351,6 +369,10 @@ class Game {
             fieldWidth / 20,
         );
         this.ball = new Ball(10, fieldWidth / 2, fieldHeight / 2, 2, 2);
+    }
+
+    public setTicksLeft(left: number): void {
+        this.ticksLeft = left;
     }
 
     public getInfo(): any {
@@ -391,12 +413,14 @@ class Game {
         return 0;
     }
 
-    public getObjectsP1(): [PlayablePlayer, Player, Ball] {
-        return [new PlayablePlayer(this.player1), Object.assign({}, this.player2), Object.assign({}, this.ball)];
+    public getObjectsP1(): [PlayablePlayer, Player, Ball, GameInfo] {
+        return [new PlayablePlayer(this.player1), Object.assign({}, this.player2),
+             Object.assign({}, this.ball), new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
 
-    public getObjectsP2(): [PlayablePlayer, Player, Ball] {
-        return [new PlayablePlayer(this.player2), Object.assign({}, this.player1), Object.assign({}, this.ball)];
+    public getObjectsP2(): [PlayablePlayer, Player, Ball, GameInfo] {
+        return [new PlayablePlayer(this.player2), Object.assign({}, this.player1),
+             Object.assign({}, this.ball), new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
 
     public saveObjects(st1: [PlayablePlayer, Player, Ball], st2: [PlayablePlayer, Player, Ball]) {

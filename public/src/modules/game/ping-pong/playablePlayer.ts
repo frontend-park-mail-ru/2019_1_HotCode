@@ -5,6 +5,8 @@ import Player from './player';
 class PlayablePlayer extends Player {
     constructor(p: Player) {
         super(p.x, p.y, p.height, p.width);
+        this.vX = p.vX;
+        this.vY = p.vY;
     }
 
     public setMoveVector(speed: number, x: number, y: number) {

@@ -6,8 +6,8 @@ import Game from './ping-pong/game';
 
 export const runCode = (code: string, enemyCode: string) => {
 
-    const p1 = new Function("me", "enemy", "ball", code);
-    const p2 = new Function("me", "enemy", "ball", enemyCode);
+    const p1 = new Function("me", "enemy", "ball", "game", code);
+    const p2 = new Function("me", "enemy", "ball", "game", enemyCode);
     const g = new Game(250, 500);
     const t = new Tester(p1, p2, g, 10000);
 

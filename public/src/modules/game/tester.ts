@@ -10,6 +10,8 @@ interface IGame {
     getObjectsP2(): any[];
 
     saveObjects(p1: any, p2: any): void;
+
+    setTicksLeft(l: number): void;
 }
 
 class Tester {
@@ -30,6 +32,8 @@ class Tester {
         let winner = 0; // 0 это ничья
         const ticks = [];
         for (let tick = 0; tick < this.ticksCount; tick++) {
+            this.game.setTicksLeft(this.ticksCount - tick);
+
             const p1Args = this.game.getObjectsP1();
             const p2Args = this.game.getObjectsP2();
 
