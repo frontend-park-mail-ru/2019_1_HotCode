@@ -419,8 +419,23 @@ class Game {
     }
 
     public getObjectsP2(): [PlayablePlayer, Player, Ball, GameInfo] {
-        return [new PlayablePlayer(this.player2), Object.assign({}, this.player1),
-             Object.assign({}, this.ball), new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
+        let f = new PlayablePlayer(this.player2)
+        f.vX = -f.vX
+        f.vY = -f.vY
+        f.x = this.fieldHeight - f.x
+        f.y = this.fieldWidth - f.y
+        let s = Object.assign({}, this.player1)
+        s.vX = -s.vX
+        s.vY = -s.vY
+        s.x = this.fieldHeight - s.x
+        s.y = this.fieldWidth - s.y
+        let t = Object.assign({}, this.ball)
+        t.vX = -t.vX
+        t.vY = -t.vY
+        t.x = this.fieldHeight - t.x
+        t.y = this.fieldWidth - t.y
+        return [f, s,
+             t, new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
 
     public saveObjects(st1: [PlayablePlayer, Player, Ball], st2: [PlayablePlayer, Player, Ball]) {
@@ -431,8 +446,8 @@ class Game {
 
         this.player1.vX = p1.vX;
         this.player1.vY = p1.vY;
-        this.player2.vX = p2.vX;
-        this.player2.vY = p2.vY;
+        this.player2.vX = -p2.vX;
+        this.player2.vY = -p2.vY;
         if (Math.abs(this.ball.x - 173.48739435875638) < epsilonMove && Math.abs(this.ball.y - 190.6122070010947) < epsilonMove) {
             k++;
             ////console.log("ON POSITION")
