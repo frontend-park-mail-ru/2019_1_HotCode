@@ -17,12 +17,11 @@ class CodeEditor extends Component{
         this.editor = edit(this.el);
         this.inputTextField = new Component(this.el.querySelector('.ace_text-input'));
 
-    //     this.inputTextField.on('blur', () => {
-    //
-    //         console.log((this.inputTextField.el as HTMLInputElement).value);
-    //         console.log('Ооопа');
-    //     });
-    // }
+        this.inputTextField.on('blur', () => {
+
+            // console.log(this.getValue());
+        });
+    }
 
     public getValue(): string {
         return this.editor.getValue();
