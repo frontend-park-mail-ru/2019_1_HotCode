@@ -57,7 +57,7 @@ class Table extends Component{
         this.rowsContent.onEndScroll = onEndTable;
     }
 
-    public updateScore = (id: number, newScore: string) => {
+    public updateScore = (id: number, newScore: number, author: {[key: string]: any}) => {
 
         let virginity = true;
 
@@ -66,33 +66,40 @@ class Table extends Component{
             if (row.id === id) {
 
                 virginity = false;
-                row.score = parseInt(newScore);
+                row.score = newScore;
 
             }
         });
 
-        if (!virginity) {
+        if (virginity) {
 
-            this.rows.sort((a: Row, b: Row) => {
-
-                return b.score - a.score;
-            });
-
-            this.updateTable();
+            console.log('new Row');
+            const tempRow = Row.CreateRow(this.lastRowIdField + 1, id, author, newScore);
+            this.rows.push(tempRow);
         }
+
+        this.rows.sort((a: Row, b: Row) => {
+
+            return b.score - a.score;
+        });
+
+        this.updateTable();
 
     };
 
     private updateTable = () => {
-        Array.from(this.partRowsContent.el.querySelectorAll('.match'))
+        const curRows = Array.from(this.partRowsContent.el.querySelectorAll('.match'));
+        const lengthOfCurRows = curRows.length;
+        curRows
             .map((row) => {
                 row.parentNode.removeChild(row);
             });
 
-        this.rows.map((row, i) => {
-            row.position = i + 1;
-            this.partRowsContent.append(row);
-        })
+        for (let i = 0; i < lengthOfCurRows; i++) {
+
+            this.rows[i].position = i + 1;
+            this.partRowsContent.append(this.rows[i]);
+        }
     };
 }
 

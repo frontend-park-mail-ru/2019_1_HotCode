@@ -19,6 +19,20 @@
   background: $backgroundColorBack3;
 }
 
+.match_theme_anim {
+  animation: translateFromLeft 1.4s ease;
+}
+
+@keyframes translateFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
 .match_theme_content:hover {
   background: $backgroundColorHover;
 }

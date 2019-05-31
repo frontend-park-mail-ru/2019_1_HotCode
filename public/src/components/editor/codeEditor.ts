@@ -9,11 +9,20 @@ class CodeEditor extends Component{
 
     private editor: any;
 
+    private inputTextField: Component;
+
     constructor(el: HTMLElement) {
         super(el);
 
         this.editor = edit(this.el);
-    }
+        this.inputTextField = new Component(this.el.querySelector('.ace_text-input'));
+
+    //     this.inputTextField.on('blur', () => {
+    //
+    //         console.log((this.inputTextField.el as HTMLInputElement).value);
+    //         console.log('Ооопа');
+    //     });
+    // }
 
     public getValue(): string {
         return this.editor.getValue();

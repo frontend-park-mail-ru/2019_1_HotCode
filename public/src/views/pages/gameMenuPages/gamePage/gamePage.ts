@@ -12,6 +12,7 @@ import ScrollableBlock from '../../../../components/scrollable/scrollable';
 import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
 import Button from '../../../../components/button/button';
+import Console from '../../../../components/console/console';
 import BotsService from '../../../../services/bots-service';
 import Alert from '../../../../components/alert/alert';
 import Message from '../../../../utils/message';
@@ -113,6 +114,8 @@ class GamePage extends Page{
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
+        Console.updateParent(consoleContent);
+
 
         const submitButton = new Component(this.parent.el.querySelector('.button_theme_submit'));
 

@@ -16,6 +16,7 @@ import BotsService from '../../../../services/bots-service';
 import Game from '../../../../models/game';
 import AvatarService from '../../../../services/avatar-service';
 import ViewService from '../../../../services/view-service';
+import Console from '../../../../components/console/console';
 
 
 class MatchPage extends Page{
@@ -74,6 +75,7 @@ class MatchPage extends Page{
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
+        Console.updateParent(consoleContent);
     }
 
     public clear(): void {
@@ -193,6 +195,7 @@ class MatchPage extends Page{
 
         if (Match.result === 0) {
 
+            drawPanel.setText('Draw');
             drawPanel.show();
 
         } else if (Match.result === 1) {
@@ -212,6 +215,10 @@ class MatchPage extends Page{
             result2.setText('Winner');
 
             date.addClass('match-info__date_theme_right');
+        } else if (Match.result === 3) {
+
+            drawPanel.setText('Error');
+            drawPanel.show();
         }
 
         matchID.setText(`Match #${Match.id}`);

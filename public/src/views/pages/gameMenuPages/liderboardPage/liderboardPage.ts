@@ -169,10 +169,12 @@ class LiderboardPage extends Page{
                             this.liderBoardTable.updateScore(
                                 resp.body.bot1_id,
                                 resp.body.new_score1,
+                                resp.body.author_1,
                             );
                             this.liderBoardTable.updateScore(
                                 resp.body.bot2_id,
                                 resp.body.new_score2,
+                                resp.body.author_2,
                             );
                             return;
                         }

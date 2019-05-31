@@ -10,6 +10,8 @@ import BotsService from '../../../../services/bots-service';
 import MatchShort from '../../../../components/matchShort/matchShort';
 import Button from '../../../../components/button/button';
 import ScrollableBlock from '../../../../components/scrollable/scrollable';
+import BotsWsService from '../../../../services/botsWs-service';
+import WebSock from '../../../../modules/webSocket';
 
 class MatchesPage extends Page{
 
@@ -20,6 +22,8 @@ class MatchesPage extends Page{
     private moreButton: Button;
     private moreButtonComponent: Component;
     private choiseButton: Component;
+
+    private ws: WebSock;
 
     private lastMatchId: number;
 
@@ -92,6 +96,31 @@ class MatchesPage extends Page{
 
                     this.moreButton.onClick();
                     this.matchTable.onEndScroll = this.moreButton.callback;
+                })
+                .then(() => {
+
+                    this.ws = BotsWsService.updateBots();
+                    this.ws.open(
+                        () => {},
+                        (resp) => {
+                            if (resp.type === 'match') {
+
+                                this.partMatchTable.unshift(
+                                    MatchShort.CreateMatch(
+                                        resp.body.id,
+                                        resp.body.author_1,
+                                        resp.body.author_2,
+                                        resp.body.result,
+                                        resp.body.diff1,
+                                        resp.body.diff2,
+                                        true
+                                    )
+                                );
+                                return;
+                            }
+                        },
+                        () => {},
+                    )
                 });
         });
 
@@ -108,6 +137,11 @@ class MatchesPage extends Page{
         this.matchTable = null;
         this.partMatchTable = null;
         this.onSlugChange.unsubscribe();
+
+        if (this.ws) {
+            this.ws.close();
+        }
+        this.ws = null;
     }
 
 

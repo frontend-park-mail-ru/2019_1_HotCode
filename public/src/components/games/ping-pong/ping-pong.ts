@@ -3,6 +3,7 @@
 import GameObject from '../gameObject';
 import BaseGame from '../baseGame';
 import Match from '../../../models/match';
+import Console from '../../../components/console/console';
 import EventBus from '../../../modules/event-bus';
 import {events} from '../../../modules/utils/events';
 import Component from '../../baseComponent/index';
@@ -80,7 +81,7 @@ class PingPong extends BaseGame{
         }
     }
 
-    public async renderState(state: {[key: string]: {[key: string]: number}}) {
+    public async renderState(state: {[key: string]: any}) {
         this.ball.setX(`${state.ball.x * this.el.clientWidth}px`);
         this.ball.setY(`${state.ball.y * this.el.clientHeight}px`);
 
@@ -89,6 +90,14 @@ class PingPong extends BaseGame{
 
         this.player2.setX(`${state.player_2.x * this.el.clientWidth}px`);
         this.player2.setY(`${state.player_2.y * this.el.clientHeight}px`);
+
+        console.log(state.console);
+        if (state.console && state.console.length > 0) {
+            state.console.map((log: string) => {
+
+                Console.createLog(log);
+            });
+        }
 
         await PingPong.sleep();
     }
