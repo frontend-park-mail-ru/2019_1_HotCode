@@ -65,12 +65,17 @@ class MatchShort extends Component{
         result: number,
         diff1: number,
         diff2: number,
+        withAnim = false,
     ): MatchShort {
 
         const newMatch = Component.Create(
             'div',
             ['match', 'match_theme_content', 'pointer'],
         );
+
+        if (withAnim) {
+            newMatch.addClass('match_theme_anim');
+        }
 
         newMatch.el.setAttribute('data-id', id.toString());
 

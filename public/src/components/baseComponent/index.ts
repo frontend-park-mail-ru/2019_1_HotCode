@@ -95,6 +95,11 @@ class Component {
         return this;
     }
 
+    public unshift(component: Component): Component {
+        this.elField.insertBefore(component.elField, this.elField.firstChild);
+        return this;
+    }
+
     public on(event: string, callback: EventListener): {[key: string]: () => void} {
 
         this.elField.addEventListener(event, callback);
