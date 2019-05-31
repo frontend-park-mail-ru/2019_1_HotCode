@@ -422,18 +422,18 @@ class Game {
         let f = new PlayablePlayer(this.player2)
         f.vX = -f.vX
         f.vY = -f.vY
-        f.x = this.fieldHeight - f.x
-        f.y = this.fieldWidth - f.y
+        f.x = this.fieldWidth - f.x
+        f.y = this.fieldHeight - f.y
         let s = Object.assign({}, this.player1)
         s.vX = -s.vX
         s.vY = -s.vY
-        s.x = this.fieldHeight - s.x
-        s.y = this.fieldWidth - s.y
+        s.x = this.fieldWidth - s.x
+        s.y = this.fieldHeight - s.y
         let t = Object.assign({}, this.ball)
         t.vX = -t.vX
         t.vY = -t.vY
-        t.x = this.fieldHeight - t.x
-        t.y = this.fieldWidth - t.y
+        t.x = this.fieldWidth - t.x
+        t.y = this.fieldHeight - t.y
         return [f, s,
              t, new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
