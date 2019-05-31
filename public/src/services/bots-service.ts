@@ -49,6 +49,20 @@ class BotsService {
         );
     }
 
+    public static getUserMatches(user: string): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getMatchesPath}?author=${user}`,
+        );
+    }
+
+    public static getMoreUserMatches(user: string, since: number, limit: number): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getMoreMatchesPath}?author=${user}&since=${since}&limit=${limit}`,
+        );
+    }
+
     public static getMatch(id: string): Promise<any> {
 
         return Http.Get(

@@ -36,7 +36,7 @@ export const botsPaths = {
 };
 
 export const botsWSPaths = {
-    updateBotsPath: '/bots/verification',
+    updateBotsPath: '/matches/connect',
 };
 
 export const notifyWSPaths = {

@@ -114,7 +114,7 @@ class Row extends Component{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${this.userID}`);
+                ViewService.goToUserMatchesView(`id${this.userID}`);
             });
 
             this.usernameComponent.addClass('pointer');
@@ -124,7 +124,7 @@ class Row extends Component{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${this.userID}`);
+                ViewService.goToUserMatchesView(`id${this.userID}`);
             });
         }
 

@@ -152,7 +152,7 @@ class MatchShort extends Component{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${this.userID1}`);
+                ViewService.goToUserMatchesView(`id${this.userID1}`);
             });
 
             this.username1Component.addClass('pointer');
@@ -162,7 +162,7 @@ class MatchShort extends Component{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${this.userID1}`);
+                ViewService.goToUserMatchesView(`id${this.userID1}`);
             });
         }
 
@@ -174,7 +174,7 @@ class MatchShort extends Component{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${this.userID2}`);
+                ViewService.goToUserMatchesView(`id${this.userID2}`);
             });
 
             this.username2Component.addClass('pointer');
@@ -184,7 +184,7 @@ class MatchShort extends Component{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${this.userID2}`);
+                ViewService.goToUserMatchesView(`id${this.userID2}`);
             });
         }
 
