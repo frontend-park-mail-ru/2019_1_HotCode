@@ -171,6 +171,9 @@ fabric.properties
 # Sonarlint plugin
 .idea/sonarlint
 
+# VSC sonarlint
+.sonarlint
+
 dist/
 
 Tasks
