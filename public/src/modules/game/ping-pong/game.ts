@@ -2,6 +2,7 @@
 
 import Player from './player';
 import Ball from './ball';
+import GameInfo from './gameInfo';
 import PlayablePlayer from './playablePlayer';
 
 class point {
@@ -348,6 +349,7 @@ class Game {
     public ball: Ball;
     public fieldHeight: number;
     public fieldWidth: number;
+    public ticksLeft: number;
 
     constructor(fieldHeight: number, fieldWidth: number) {
         this.fieldHeight = fieldHeight;
@@ -367,6 +369,10 @@ class Game {
             fieldWidth / 20,
         );
         this.ball = new Ball(10, fieldWidth / 2, fieldHeight / 2, 2, 2);
+    }
+
+    public setTicksLeft(left: number): void {
+        this.ticksLeft = left;
     }
 
     public getInfo(): any {
@@ -407,12 +413,14 @@ class Game {
         return 0;
     }
 
-    public getObjectsP1(): [PlayablePlayer, Player, Ball] {
-        return [new PlayablePlayer(this.player1), Object.assign({}, this.player2), Object.assign({}, this.ball)];
+    public getObjectsP1(): [PlayablePlayer, Player, Ball, GameInfo] {
+        return [new PlayablePlayer(this.player1), Object.assign({}, this.player2),
+             Object.assign({}, this.ball), new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
 
-    public getObjectsP2(): [PlayablePlayer, Player, Ball] {
-        return [new PlayablePlayer(this.player2), Object.assign({}, this.player1), Object.assign({}, this.ball)];
+    public getObjectsP2(): [PlayablePlayer, Player, Ball, GameInfo] {
+        return [new PlayablePlayer(this.player2), Object.assign({}, this.player1),
+             Object.assign({}, this.ball), new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
 
     public saveObjects(st1: [PlayablePlayer, Player, Ball], st2: [PlayablePlayer, Player, Ball]) {
