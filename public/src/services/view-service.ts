@@ -41,6 +41,12 @@ class ViewService {
             return;
         }
 
+        if (path.match(viewRegs.userMatchesViewPath)) {
+
+            ViewService.goToUserMatchesView(path.match(viewRegs.userMatchesViewPath)[1]);
+            return;
+        }
+
         if (path.match(viewRegs.userBotsViewPath)) {
 
             ViewService.goToUserBotsView(path.match(viewRegs.userBotsViewPath)[1]);
@@ -114,6 +120,10 @@ class ViewService {
 
     public static goToUserBotsView(id: string = 'me'): void {
         Router.go(viewPaths.userBotsViewPath.replace('ID', id), false, [id]);
+    }
+
+    public static goToUserMatchesView(id: string = 'me'): void {
+        Router.go(viewPaths.userMatchesViewPath.replace('ID', id), false, [id]);
     }
 
     public static goToGameDescriptionView(slug: string): void {

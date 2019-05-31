@@ -325,20 +325,26 @@
   fill: $fontColorYellow;
 }
 
-@keyframes hideMenuRotate {
-  from {
-    transform: rotateY(0);
-  }
-  to {
-    transform: rotateY(180deg);
-  }
+
+
+.magic-icon {
+  display: block;
+  width: 1.1em;
+  height: 1.1em;
 }
 
-@keyframes showMenuRotate {
-  from {
-    transform: rotateY(180deg);
-  }
-  to {
-    transform: rotateY(0);
-  }
+.magic-icon * {
+  fill: $fontColorWhite;
+}
+
+#magic-icon_line {
+  stroke: $fontColorWhite;
+}
+
+.magic-icon:hover * {
+  fill: $fontColorYellow;
+}
+
+.magic-icon:hover #magic-icon_line {
+  stroke: $fontColorYellow;
 }

@@ -1,6 +1,5 @@
 .modal__info {
   position: absolute;
-  right: 100%;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -11,6 +10,18 @@
   padding: 14%;
   background: $backgroundLeftColor;
   z-index: -5;
+  animation: modal-in-left 1s ease 0s forwards;
+}
+
+@keyframes modal-in-left {
+  from {
+
+    right: 0;
+  }
+  to {
+
+    right: 100%;
+  }
 }
 
 .modal__info__logo {
@@ -31,7 +42,6 @@
   background: $backgroundColor2;
   width: fit-content;
   padding: 2.2em;
-  z-index: -4;
 }
 
 .modal__content__close {

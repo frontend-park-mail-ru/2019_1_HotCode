@@ -25,8 +25,8 @@
   position: relative;
   width: 14%;
   max-width: 140px;
-  box-shadow: 0 0 0 6px $fontColorWhite;
-  background: $fontColorWhite;
+  box-shadow: 0 0 0 6px $backgroundMenuPanel;
+  background: $backgroundMenuPanel;
 }
 
 .match-info__user::before {

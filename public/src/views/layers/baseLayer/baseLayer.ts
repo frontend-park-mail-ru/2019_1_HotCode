@@ -14,12 +14,14 @@ import EventBus from '../../../modules/event-bus';
 import ChatBlock from '../../../components/chatBlock/chatBlock';
 import OptionsMenu from '../../../components/optionsMenu/optionsMenu';
 import WebSock from '../../../modules/webSocket';
+import User from '../../../models/user';
 import NotifyService from '../../../services/notify-service';
 
 class BaseLayer extends Layer{
 
     private static template = require('./baseLayer.pug');
     private static stopGenSquares: boolean;
+    private static stopGenGlitches: boolean;
 
     private optionsMenu: OptionsMenu;
     private logoButton: Button;
@@ -35,6 +37,8 @@ class BaseLayer extends Layer{
     private footerSection: Component;
     private modalWindowContainer: Component;
     private containerOfRandomSquares: Component;
+    private containerOfRandomGlitches: Component;
+    private headerComponent: Component;
 
     constructor(parent: Component) {
         super(parent);
@@ -49,6 +53,7 @@ class BaseLayer extends Layer{
         this.generateSqures();
 
         this.containerOfRandomSquares = new Component(this.parent.el.querySelector('.random-elements_squares'));
+        this.containerOfRandomGlitches = new Component(this.parent.el.querySelector('.random-elements'));
 
         EventBus.subscribe(events.onStopGenerateSqures, () => {
 
@@ -61,6 +66,17 @@ class BaseLayer extends Layer{
             BaseLayer.stopGenSquares = false;
             this.generateSqures();
         });
+        EventBus.subscribe(events.onStopGenerateGlitches, () => {
+
+            this.containerOfRandomGlitches.hide();
+            BaseLayer.stopGenGlitches = true;
+        });
+        EventBus.subscribe(events.onContinueGenerateGlitches, () => {
+
+            this.containerOfRandomGlitches.show();
+            BaseLayer.stopGenGlitches = false;
+            this.generateRandomEvents();
+        });
 
         this.menuMobile = new Component(this.parent.el.querySelector('.nav-content'));
 
@@ -71,15 +87,10 @@ class BaseLayer extends Layer{
         });
 
         this.profileButton = new Button(this.parent.el.querySelector('#profile'), () => {
-            UserService.me()
-                .catch(() => {
-                    EventBus.publish(events.openSignIn, '');
-                    Alert.alert(Message.accessError(), true);
-                })
-                .then(() => {
-                    ViewService.goToProfileView();
-                });
+                ViewService.goToProfileView();
         });
+
+        this.headerComponent = new Component(this.parent.el.querySelector('.header'));
 
         this.signoutButton = new Button(this.parent.el.querySelector('#signout'), () => {
             UserService.signout()
@@ -120,7 +131,11 @@ class BaseLayer extends Layer{
 
         this.on();
 
-        UserService.me()
+        EventBus.subscribe(events.onChangeSlug2, (newSlug) => {
+            console.log('change2 ', newSlug);
+        });
+
+        UserService.me(2)
             .then(() => {
                 EventBus.publish(events.authorized, '');
             })
@@ -173,6 +188,8 @@ class BaseLayer extends Layer{
         this.modalWindows.onChange();
 
         EventBus.subscribe(events.authorized, () => {
+            this.headerComponent.setTextAnim(`{${User.username}}`);
+
             this.authorizationSection.hide();
             this.modalWindows.tabs.map((tab) => {
                 tab.hideAllReferences();
@@ -195,6 +212,8 @@ class BaseLayer extends Layer{
                 tab.showAllReferences();
             });
             this.authorizationSection.show();
+
+            this.headerComponent.clear();
         });
     }
 
@@ -276,11 +295,11 @@ class BaseLayer extends Layer{
                 }
 
                 if (resp.type === 'alert') {
-                    Alert.alert(resp.body.message, true);
+                    Alert.alert(resp.body.message, true, 10);
                 }
 
                 if (resp.type === 'info') {
-                    Alert.alert(resp.body.message);
+                    Alert.alert(resp.body.message, false, 10);
                 }
             },
             () => {},
@@ -386,7 +405,7 @@ class BaseLayer extends Layer{
                 square.el.parentNode.removeChild(square.el);
             });
 
-            if(!BaseLayer.stopGenSquares) {
+            if (!BaseLayer.stopGenSquares) {
 
                 timerId = setTimeout(generateSquare, timeoutSquare);
             }
@@ -446,7 +465,10 @@ class BaseLayer extends Layer{
             setTimeout(() => {
                 point.el.parentNode.removeChild(point.el);
             }, timeoutOnDelete);
-            timerPixel = setTimeout(generatePixels, timeout);
+
+            if (!BaseLayer.stopGenGlitches) {
+                timerPixel = setTimeout(generatePixels, timeout);
+            }
         }, timeout);
 
 
@@ -455,9 +477,13 @@ class BaseLayer extends Layer{
 
         let timeout2 = Math.random() * (maxTime3 - minTime3) + minTime3;
 
-        let line = Component.Create('div', ['bug-line']);
+        let line = new Component(this.parent.el.querySelector('.bug-line'));
+        if (!line.el) {
+
+            line = Component.Create('div', ['bug-line']);
+            randomElements.el.appendChild(line.el);
+        }
         line.el.style.display = 'none';
-        randomElements.el.appendChild(line.el);
 
         let timerLine = setTimeout(function spawnLine() {
 
@@ -473,7 +499,10 @@ class BaseLayer extends Layer{
             setTimeout(() => {
                 line.el.style.display = 'none';
             }, timeoutOnDelete);
-            timerLine = setTimeout(spawnLine, timeout2);
+
+            if(!BaseLayer.stopGenGlitches) {
+                timerLine = setTimeout(spawnLine, timeout2);
+            }
         }, timeout2);
     }
 

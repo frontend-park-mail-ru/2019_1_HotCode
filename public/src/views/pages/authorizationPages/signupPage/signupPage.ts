@@ -53,13 +53,23 @@ class SignupPage extends Page {
             if (this.signupForm.validate()) {
 
                 UserService.signup(username, password)
-                    .then(() => {
-                        EventBus.publish(events.closeModal, '');
-                    })
                     .catch((err) => {
                         if (err.username) {
                             this.signupForm.usernameField.setError(ValidationError.uniqueError());
                         }
+
+                        throw new Error('');
+                    })
+                    .then(() => {
+                        EventBus.publish(events.closeModal);
+                        return UserService.me();
+                    })
+                    .then(() => {
+
+                        EventBus.publish(events.authorized, '');
+                    })
+                    .catch(() => {
+                        return;
                     });
             }
         });

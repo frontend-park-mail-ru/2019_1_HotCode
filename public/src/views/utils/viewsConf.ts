@@ -19,6 +19,7 @@ import MatchPage from '../pages/gameMenuPages/matchPage/matchPage';
 import ProfileMenuLayer from '../layers/profileMenuLayer/profileMenuLayer';
 import ProfilePage from '../pages/profileMenuPages/profilePage/profilePage';
 import UserBotsPage from '../pages/profileMenuPages/userBotsPage/userBotsPage';
+import UserMatchesPage from '../pages/profileMenuPages/userMatchesPage/userMatchesPage';
 
 export const views = [
     new ViewInfo(
@@ -99,6 +100,7 @@ export const views = [
         [
             'profilePage',
             'userBotsPage',
+            'userMatchesPage',
         ],
     ),
     new ViewInfo(
@@ -112,6 +114,12 @@ export const views = [
         () => new UserBotsPage(Component.getBy('.game-menu__content')),
         'profileContainer',
         viewRegs.userBotsViewPath,
+    ),
+    new ViewInfo(
+        'userMatchesPage',
+        () => new UserMatchesPage(Component.getBy('.game-menu__content')),
+        'profileContainer',
+        viewRegs.userMatchesViewPath,
     ),
     new ViewInfo(
         'gameMenuLayer',

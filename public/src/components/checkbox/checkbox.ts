@@ -11,6 +11,8 @@ import EventBus from '../../modules/event-bus';
 class Checkbox extends InputComponent{
 
     private callbackOnCancelField: (param?: any) => any;
+    private onCancelCallback: {[key: string]: () => void};
+    private onStop: {[key: string]: () => void};
 
     constructor(el: HTMLElement,
                 callbackOnCheck: () => void,
@@ -27,7 +29,7 @@ class Checkbox extends InputComponent{
         super(el, callbackOnCheck);
         this.callbackOnCancelField = callbackOnCancel;
 
-        EventBus.subscribe(`onClose_${this.getId()}`, () => {
+        this.onCancelCallback = EventBus.subscribe(`onClose_${this.getId()}`, () => {
 
             this.emitCancel();
         });
@@ -62,7 +64,7 @@ class Checkbox extends InputComponent{
     }
 
     public onChange(): void {
-        this.on('change', (event) => {
+        this.onStop = this.on('change', (event) => {
 
             if ((event.target as HTMLInputElement).checked) {
                 return this.callback();
@@ -70,6 +72,14 @@ class Checkbox extends InputComponent{
 
             return this.callbackOnCancelField();
         });
+    }
+
+    public stop(): void {
+        this.onStop.remover();
+        super.stop();
+
+        this.onCancelCallback.unsubscribe();
+        this.onCancelCallback = null;
     }
 }
 

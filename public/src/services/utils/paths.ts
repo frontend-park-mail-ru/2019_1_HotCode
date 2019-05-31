@@ -28,6 +28,7 @@ export const chatPaths = {
 
 export const botsPaths = {
     getBotsPath: '/bots',
+    getMoreBotsPath: '/bots',
     sendBotsPath: '/bots',
     getMatchesPath: '/matches',
     getMoreMatchesPath: '/matches',
@@ -48,7 +49,8 @@ export const viewPaths = {
     loginViewPath: '/login',
     signupViewPath: '/signup',
     profileViewPath: '/profile/ID/settings',
-    userBotsViewPath: '/profile/ID',
+    userMatchesViewPath: '/profile/ID/matches',
+    userBotsViewPath: '/profile/ID/bots',
     descriptionViewPath: '/SLUG',
     liderboardViewPath: '/SLUG/leaderboard',
     matchesViewPath: '/SLUG/matches',
@@ -62,7 +64,8 @@ export const viewRegs = {
     loginViewPath: /^\/login$/i,
     signupViewPath: /^\/signup$/i,
     profileViewPath: /^\/profile\/([\d\w-_]+)\/settings$/i,
-    userBotsViewPath: /^\/profile\/([\d\w-_]+)$/i,
+    userMatchesViewPath: /^\/profile\/([\d\w-_]+)\/matches$/i,
+    userBotsViewPath: /^\/profile\/([\d\w-_]+)\/bots$/i,
     descriptionViewPath: /^\/([\d\w-_]+)$/i,
     liderboardViewPath: /^\/([\d\w-_]+)\/leaderboard$/i,
     matchesViewPath: /^\/([\d\w-_]+)\/matches$/i,

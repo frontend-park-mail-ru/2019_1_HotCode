@@ -38,9 +38,20 @@ class ProfilePage extends Page{
 
         this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_profile'));
 
-        EventBus.subscribe(events.onUserIDChange, () => {
+        let onUserLoad: {[key: string]: () => void};
+        let onAnotherUserLoad: {[key: string]: () => void};
+
+        EventBus.subscribe(events.onUserIDRender, () => {
             EventBus.publish(events.onOpenProfile, true);
         });
+        EventBus.subscribe(events.onAnotherUserIDChange, () => {
+            EventBus.publish(events.onOpenProfile, true);
+        });
+
+        if (User.id || AnotherUser.id) {
+
+            EventBus.publish(events.onOpenProfile, true);
+        }
 
         this.choiseButton.active();
 
@@ -53,10 +64,6 @@ class ProfilePage extends Page{
 
         this.copyVkKeyButton = new Button(this.parent.el.querySelector('#copyVkKeyButton'), () => {
 
-            // navigator.clipboard.writeText(this.keyTextContent.getText())
-            //     .then(() => {
-            //         // Получилось!
-            //     })
             (this.keyTextContent.el as HTMLInputElement).select();
             document.execCommand("copy");
             Alert.alert(Message.successCopyKey());

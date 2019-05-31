@@ -10,6 +10,7 @@ import EventBus from '../../modules/event-bus';
 abstract class InputComponent extends Component{
 
     private callbackField: (param?: any) => any;
+    private onCallback: {[key: string]: () => void};
 
     constructor(el: HTMLElement, callback: () => void) {
         super(el);
@@ -20,7 +21,7 @@ abstract class InputComponent extends Component{
 
         this.callbackField = callback;
 
-        EventBus.subscribe(`${this.getId()}`, (param?: any) => {
+        this.onCallback = EventBus.subscribe(`${this.getId()}`, (param?: any) => {
             this.emit(param);
         });
     }
@@ -39,6 +40,12 @@ abstract class InputComponent extends Component{
 
     public getId(): string{
         return this.el.id;
+    }
+
+    public stop(): void {
+
+        this.onCallback.unsubscribe();
+        this.onCallback = null;
     }
 
     public hideAllReferences(): void {

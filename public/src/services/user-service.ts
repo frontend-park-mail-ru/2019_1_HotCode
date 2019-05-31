@@ -17,12 +17,6 @@ class UserService {
         const user = {username, password};
 
         return Http.Post(UserService.server + userPaths.signupPath, user)
-            .then((resp) => {
-
-                User.active = true;
-                EventBus.publish(events.authorized, '');
-                return resp;
-            });
     }
 
 
@@ -31,12 +25,6 @@ class UserService {
         const user = {username, password};
 
         return Http.Post(UserService.server + userPaths.loginPath, user)
-            .then((resp) => {
-
-                User.active = true;
-                EventBus.publish(events.authorized, '');
-                return resp;
-            });
     }
 
 
@@ -83,25 +71,57 @@ class UserService {
             });
     }
 
-    public static me(): Promise<any> {
+    public static me(isProfile = 0): Promise<any> {
 
         return Http.Get(UserService.server + userPaths.mePath)
             .then((resp) => {
 
-                if (User.id !== resp.id || AnotherUser.id) {
-                    User.id = resp.id
-                }
 
-                if (User.username !== resp.username || AnotherUser.username) {
-                    User.username = resp.username;
-                }
+                if (!isProfile) {
 
-                if (User.avatar !== resp.photo_uuid || AnotherUser.avatar) {
-                    User.avatar = resp.photo_uuid;
-                }
+                    if (User.id !== resp.id) {
+                        User.id = resp.id
+                    }
 
-                if (User.key !== resp.vk_secret) {
-                    User.key = resp.vk_secret;
+                    if (User.username !== resp.username) {
+                        User.username = resp.username;
+                    }
+
+                    if (User.avatar !== resp.photo_uuid) {
+                        User.avatar = resp.photo_uuid;
+                    }
+
+                    if (User.key !== resp.vk_secret) {
+                        User.key = resp.vk_secret;
+                    }
+
+                    EventBus.publish(events.onUserIDRender);
+                    EventBus.publish(events.onUsernameRender);
+                    EventBus.publish(events.onAvatarRender);
+
+                } else if (isProfile === 1) {
+
+                    EventBus.publish(events.onUserIDRender);
+                    EventBus.publish(events.onUsernameRender);
+                    EventBus.publish(events.onAvatarRender);
+
+                } else {
+
+                    if (User.id !== resp.id) {
+                        User.id = resp.id
+                    }
+
+                    if (User.username !== resp.username) {
+                        User.username = resp.username;
+                    }
+
+                    if (User.avatar !== resp.photo_uuid) {
+                        User.avatar = resp.photo_uuid;
+                    }
+
+                    if (User.key !== resp.vk_secret) {
+                        User.key = resp.vk_secret;
+                    }
                 }
 
                 return resp;

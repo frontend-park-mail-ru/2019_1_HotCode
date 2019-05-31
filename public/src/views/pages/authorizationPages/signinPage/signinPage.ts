@@ -40,9 +40,6 @@ class SigninPage extends Page {
             if (this.signinForm.validate()) {
 
                 UserService.auth(username, password)
-                    .then(() => {
-                        EventBus.publish(events.closeModal);
-                    })
                     .catch((err) => {
 
                         if (err.username) {
@@ -52,7 +49,20 @@ class SigninPage extends Page {
                         if (err.password) {
                             this.signinForm.passwordField.setError(ValidationError.invalidPasswordError());
                         }
-                    });
+
+                        throw new Error('');
+                    })
+                    .then(() => {
+                        EventBus.publish(events.closeModal);
+                        return UserService.me();
+                    })
+                    .then(() => {
+
+                        EventBus.publish(events.authorized, '');
+                    })
+                    .catch(() => {
+                        return;
+                    })
             }
         });
     }

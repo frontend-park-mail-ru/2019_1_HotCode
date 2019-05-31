@@ -1,6 +1,7 @@
 import Page from '../views/pages/page';
 import ViewInfo from '../views/viewInfo';
 import {views} from '../views/utils/viewsConf';
+import EventBus from './event-bus';
 
 class Router {
 
@@ -8,12 +9,14 @@ class Router {
 
     private preRenderStack: ViewInfo[];
     private postRenderStack: ViewInfo[];
+    private preSlug: string[];
 
     constructor() {
         this.views = views;
 
         this.preRenderStack = [];
         this.postRenderStack = [];
+        this.preSlug = [];
     }
 
     public start() {
@@ -27,15 +30,15 @@ class Router {
         console.log('go', path);
         console.log('postStack', this.postRenderStack);
 
-        let newView = this.views.find((view) => path.match(view.reg) !== null);
-        newView.path = path;
-        newView.slug = slug;
-
         if (this.postRenderStack.length > 0 &&
             path === this.postRenderStack[this.postRenderStack.length - 1].path) {
 
             isPopState = true;
         }
+
+        let newView = this.views.find((view) => path.match(view.reg) !== null);
+        newView.path = path;
+        newView.slug = slug;
 
         if (this.postRenderStack.find((view) => view.type === newView.type)) {
 
@@ -91,6 +94,20 @@ class Router {
             }
         }
 
+        if (slug && slug.length > 0) {
+
+            if (this.preSlug.length > 0 &&
+                this.preSlug !== slug) {
+
+                slug.forEach((elem, i) => {
+                    if (this.preSlug[i] && elem != this.preSlug[i]) {
+                        EventBus.publish(`onChangeSlug${i + 1}`, elem);
+                    }
+                });
+            }
+
+            this.preSlug = slug;
+        }
 
         while (this.preRenderStack.length !== 0) {
             this.draw(this.preRenderStack.pop(), slug);

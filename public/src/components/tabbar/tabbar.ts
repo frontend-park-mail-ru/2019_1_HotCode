@@ -4,6 +4,7 @@ import Tab from './tab';
 class Tabbar extends Component {
 
     private tabsField: Tab[];
+    private onStop: {[key: string]: () => void};
 
     constructor(el: HTMLElement, callbacks: {[key: string]: () => void}) {
         super(el);
@@ -22,7 +23,7 @@ class Tabbar extends Component {
     }
 
     public onChange(): void {
-        this.on('change', (event) => {
+        this.onStop = this.on('change', (event) => {
             if ((event.target as HTMLInputElement).checked) {
 
                 const currentStateOfTabbar = new Component(this.el.querySelector('input:checked'));
@@ -36,6 +37,13 @@ class Tabbar extends Component {
         return this.tabsField.filter((tab) => tab.getId() === id)[0];
     }
 
+    public stop(): void {
+        this.onStop.remover();
+        this.tabsField.forEach((tab) => {
+
+            tab.stop();
+        })
+    }
 }
 
 export default Tabbar;

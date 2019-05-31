@@ -9,11 +9,11 @@ class Alert extends Component {
         super(document.querySelector('.alert'));
     }
 
-    public alert(contentText: string, isError?: boolean): void {
+    public alert(contentText: string, isError?: boolean, timeToRemove = 5): void {
 
         const alertWindow = AlertItem.create(contentText, isError);
         this.append(alertWindow);
-        alertWindow.setTimeoutToClose(5);
+        alertWindow.setTimeoutToClose(timeToRemove);
     }
 
     public notify(

@@ -18,6 +18,13 @@ class BotsService {
         );
     }
 
+    public static getMoreBots(slug: string, since: number, limit: number): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getMoreBotsPath}?game_slug=${slug}&since=${since}&limit=${limit}`,
+        );
+    }
+
     public static sendBots(game_slug: string, code: string, lang = 'JS'): Promise<any> {
 
         const body = {code, game_slug, lang};

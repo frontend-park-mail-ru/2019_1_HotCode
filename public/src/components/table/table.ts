@@ -14,13 +14,17 @@ class Table extends Component{
     private partRowsContent: Component;
     private rows: Row[];
 
-    private lastRowId: number;
+    private lastRowIdField: number;
 
     constructor(el: HTMLElement) {
         super(el);
 
         this.rows = [];
-        this.lastRowId = 0;
+        this.lastRowIdField = 0;
+    }
+
+    get lastRowId(): number {
+        return this.lastRowIdField;
     }
 
     public render(data: {[key: string]: any}[]): void {
@@ -38,14 +42,14 @@ class Table extends Component{
     public fillTable(data: {[key: string]: any}[]): void {
 
         data.map((row) => {
-            const newRow = Row.CreateRow(this.lastRowId + 1, row.id, row.author, row.score);
+            const newRow = Row.CreateRow(this.lastRowIdField + 1, row.id, row.author, row.score);
             this.rows.push(newRow);
 
             this.partRowsContent.append(
                 newRow
             );
 
-            this.lastRowId++;
+            this.lastRowIdField++;
         });
     }
 

@@ -70,9 +70,15 @@ class User {
     }
 
     public clearData(): void {
-        this.usernameField = '';
-        this.idField = '';
-        this.activeField = false;
+        this.usernameField = null;
+        this.avatarField = null;
+        this.keyField = null;
+        this.idField = null;
+
+        EventBus.publish(events.onUsernameChange);
+        EventBus.publish(events.onAvatarChange);
+        EventBus.publish(events.onVkKeyChange);
+        EventBus.publish(events.onUserIDChange);
     }
 }
 

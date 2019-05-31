@@ -3,6 +3,8 @@
 import Component from '../baseComponent/index';
 import Checkbox from '../checkbox/checkbox';
 import {activeFullScreen, cancselFullScreen} from '../../modules/full-screen';
+import EventBus from '../../modules/event-bus';
+import {events} from '../../modules/utils/events';
 
 class OptionsMenu extends Component{
 
@@ -12,6 +14,7 @@ class OptionsMenu extends Component{
     private fullScreenButton: Checkbox;
     private soundButton: Checkbox;
     private musicButton: Checkbox;
+    private magicButton: Checkbox;
 
     constructor(el: HTMLElement) {
         super(el);
@@ -106,6 +109,57 @@ class OptionsMenu extends Component{
         this.musicButton.onChange();
 
 
+        const magicS1 = new Component(this.el.querySelector('#magicS1'));
+        const magicL1 = new Component(this.el.querySelector('#magicL1'));
+        const magicS2 = new Component(this.el.querySelector('#magicS2'));
+        const magicL2 = new Component(this.el.querySelector('#magicL2'));
+        const magicS3 = new Component(this.el.querySelector('#magicS3'));
+        const magicL3 = new Component(this.el.querySelector('#magicL3'));
+        const magicS4 = new Component(this.el.querySelector('#magicS4'));
+        const magicL4 = new Component(this.el.querySelector('#magicL4'));
+        const magicS5 = new Component(this.el.querySelector('#magicS5'));
+        const magicL5 = new Component(this.el.querySelector('#magicL5'));
+        const magicS6 = new Component(this.el.querySelector('#magicS6'));
+        const magicL6 = new Component(this.el.querySelector('#magicL6'));
+        const magicS7 = new Component(this.el.querySelector('#magicS7'));
+        const magicL7 = new Component(this.el.querySelector('#magicL7'));
+
+        const magicOnX = new Component(this.el.querySelector('#magicOnX'));
+        const magicOnY = new Component(this.el.querySelector('#magicOnY'));
+        const magicOffX = new Component(this.el.querySelector('#magicOffX'));
+        const magicOffY = new Component(this.el.querySelector('#magicOffY'));
+
+        this.magicButton = new Checkbox(this.el.querySelector('#magicButton'),
+            () => {
+
+                (magicOffX.el as any).beginElement();
+                (magicOffY.el as any).beginElement();
+                (magicS1.el as any).beginElement();
+                (magicS2.el as any).beginElement();
+                (magicS3.el as any).beginElement();
+                (magicS4.el as any).beginElement();
+                (magicS5.el as any).beginElement();
+                (magicS6.el as any).beginElement();
+                (magicS7.el as any).beginElement();
+
+                EventBus.publish(events.onStopGenerateGlitches);
+            },
+            () => {
+
+                (magicOnX.el as any).beginElement();
+                (magicOnY.el as any).beginElement();
+                (magicL1.el as any).beginElement();
+                (magicL2.el as any).beginElement();
+                (magicL3.el as any).beginElement();
+                (magicL4.el as any).beginElement();
+                (magicL5.el as any).beginElement();
+                (magicL6.el as any).beginElement();
+                (magicL7.el as any).beginElement();
+
+                EventBus.publish(events.onContinueGenerateGlitches);
+            }
+        );
+        this.magicButton.onChange();
     }
 
     public clear(): void {
@@ -115,6 +169,7 @@ class OptionsMenu extends Component{
         this.fullScreenButton = null;
         this.soundButton = null;
         this.musicButton = null;
+        this.magicButton = null;
     }
 }
 

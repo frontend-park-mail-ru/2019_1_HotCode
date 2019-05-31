@@ -1,8 +1,18 @@
 .container_theme_modal {
-  transform: translate(0, -50%);
+  //transform: translate(0, -50%);
   display: flex;
   font-size: 16px;
   z-index: 15;
+  animation: modal-in-right 1s ease 0s forwards;
+}
+
+@keyframes modal-in-right {
+  from {
+    transform: translate(-50%, -50%);
+  }
+  to {
+    transform: translate(0, -50%);
+  }
 }
 
 //@media only screen and (min-width: 480px) and (max-width: 1024px) and (orientation: portrait) {

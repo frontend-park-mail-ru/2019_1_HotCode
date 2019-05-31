@@ -60,45 +60,44 @@ class LiderboardPage extends Page{
             this.fillTable = EventBus.subscribe(events.fillTable, (table) => {
                 this.liderBoardTable.render(table);
 
-                // this.loadMoreDataButton = new Button(this.parent.el.querySelector('#loadMoreBots'));
-                //
-                // this.loadMoreDataButtonComponent =
-                //     new Component(this.parent.el.querySelector('.match__item_theme_load'));
-                //
-                // this.loadMoreDataButton.callback = () => {
-                //     return new Promise((res, rej) => {
-                //
-                //         this.loadMoreDataButtonComponent.removeClass('link');
-                //         this.loadMoreDataButtonComponent.removeClass('pointer');
-                //         this.loadMoreDataButtonComponent.addClass('disable');
-                //         (this.loadMoreDataButton.el as HTMLInputElement).disabled = true;
-                //
-                //         setTimeout(() => {
-                //             if (!resps[i].length) {
-                //
-                //                 this.loadMoreDataButtonComponent
-                //                     .setTextAnim('No more data. Try to download more?');
-                //                 this.liderBoardTable.handleEndTable(null);
-                //
-                //             } else {
-                //
-                //                 this.loadMoreDataButtonComponent.setTextAnim('Load more');
-                //                 EventBus.publish(events.updateTable, resps[i]);
-                //             }
-                //
-                //             i++;
-                //             (this.loadMoreDataButton.el as HTMLInputElement).disabled = false;
-                //             this.loadMoreDataButtonComponent.addClass('link');
-                //             this.loadMoreDataButtonComponent.addClass('pointer');
-                //             this.loadMoreDataButtonComponent.removeClass('disable');
-                //             res();
-                //         }, 2000);
-                //     });
-                // };
+                this.loadMoreDataButton = new Button(this.parent.el.querySelector('#loadMoreBots'));
 
-                // this.loadMoreDataButton.onClick();
+                this.loadMoreDataButtonComponent =
+                    new Component(this.parent.el.querySelector('.match__item_theme_load'));
 
-                // this.liderBoardTable.handleEndTable(this.loadMoreDataButton.callback);
+                this.loadMoreDataButton.callback = () => {
+
+                    this.loadMoreDataButtonComponent.removeClass('link');
+                    this.loadMoreDataButtonComponent.removeClass('pointer');
+                    this.loadMoreDataButtonComponent.addClass('disable');
+                    (this.loadMoreDataButton.el as HTMLInputElement).disabled = true;
+
+                    return BotsService.getMoreBots(Game.slug, this.liderBoardTable.lastRowId, 10)
+                        .then((resp) => {
+                            if (!resp.length) {
+
+                                this.loadMoreDataButtonComponent
+                                    .setTextAnim('No more data. Try to download more?');
+                                this.liderBoardTable.handleEndTable(null);
+
+                            } else {
+
+                                this.loadMoreDataButtonComponent.setTextAnim('Load more');
+                                EventBus.publish(events.updateTable, resp);
+                            }
+
+                            (this.loadMoreDataButton.el as HTMLInputElement).disabled = false;
+                            this.loadMoreDataButtonComponent.addClass('link');
+                            this.loadMoreDataButtonComponent.addClass('pointer');
+                            this.loadMoreDataButtonComponent.removeClass('disable');
+
+                            return;
+                        });
+                };
+
+                this.loadMoreDataButton.onClick();
+
+                this.liderBoardTable.handleEndTable(this.loadMoreDataButton.callback);
             });
 
             this.onUpdateTable = EventBus.subscribe(events.updateTable, (newRows) => {

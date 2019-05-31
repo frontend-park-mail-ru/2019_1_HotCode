@@ -7,24 +7,22 @@ import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
 import AnotherUser from '../../../../models/anotherUser';
 
-class UserBotsPage extends Page{
+class UserMatchesPage extends Page{
 
-    private static template = require('./userBotsPage.pug');
+    private static template = require('./userMatchesPage.pug');
 
     private choiseButton: Component;
 
-    // private onDescriptionChange: {[key: string]: () => void};
-
     constructor(parent: Component) {
-        super(parent, 'Bots - WarScript');
+        super(parent, 'Matches - WarScript');
     }
 
     public render(): void {
 
         super.render();
-        this.renderTmpl(UserBotsPage.template);
+        this.renderTmpl(UserMatchesPage.template);
 
-        this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_bots'));
+        this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_matches'));
 
         EventBus.subscribe(events.onUserIDRender, () => {
             EventBus.publish(events.onOpenUserBots, true);
@@ -40,24 +38,13 @@ class UserBotsPage extends Page{
 
         this.choiseButton.active();
 
-        // this.onDescriptionChange = EventBus.subscribe(events.onDescriptionChange, () => {
-        //
-        //     new Component(this.parent.el.querySelector('.description__text'))
-        //         .setTextAnim(Game.description, 7);
-        // });
-        //
-        // if (Game.description) {
-        //     EventBus.publish(events.onDescriptionChange);
-        // }
     }
 
     public clear(): void {
         this.parent.el.innerHTML = '';
 
         this.choiseButton.disactive();
-
-        // this.onDescriptionChange.unsubscribe();
     }
 }
 
-export default UserBotsPage;
+export default UserMatchesPage;
