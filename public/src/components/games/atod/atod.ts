@@ -249,13 +249,13 @@ class Atod extends BaseGame{
 
             if (state.p2_flags[i]) {
 
-                this.flagsMe[i].setX(`${state.p2_flags[i].x * this.el.clientWidth}px`);
-                this.flagsMe[i].setY(`${state.p2_flags[i].y * this.el.clientHeight}px`);
+                this.flagsEnemy[i].setX(`${state.p2_flags[i].x * this.el.clientWidth}px`);
+                this.flagsEnemy[i].setY(`${state.p2_flags[i].y * this.el.clientHeight}px`);
 
             } else {
 
-                this.flagsMe[i].hide();
-                this.flagsMe[i].hide();
+                this.flagsEnemy[i].hide();
+                this.flagsEnemy[i].hide();
             }
         }
 
