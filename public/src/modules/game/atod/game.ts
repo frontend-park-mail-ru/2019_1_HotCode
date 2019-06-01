@@ -536,6 +536,7 @@ class Atod {
 
 
         if (f1.length == 0 || f2.length == 0 || p1ct == 0 || p2ct == 0) {
+            this.ticksLeft = 0;
             if (f1.length == f2.length) {
                 if (p1ct > p2ct) {
                     return 1
