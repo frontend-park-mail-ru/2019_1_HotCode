@@ -40,7 +40,7 @@ class Tester {
             try {
                 this.player1(...p1Args);
             } catch (err) {
-                Console.createLog(`[${tick}] ERROR: ${err.name}: ${err.message};`, true);
+                Console.createLog(`[TICK: ${tick}] ERROR: ${err.name}: ${err.message};`, true);
                 winner = 2;
                 break;
             }
