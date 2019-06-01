@@ -416,6 +416,9 @@ class Atod {
             let counter = 0;
             while (movedY) {
                 counter++;
+                if (counter === 10) {
+                    counter = 10;
+                }
                 if (counter === 20) {
                     console.log(arrX, arrY);
                     break;
@@ -462,7 +465,7 @@ class Atod {
         }
 
         u.x += movement + adj
-        return [Math.abs(movement) > inter.lEPS, delta - movement - adj]
+        return [Math.abs(movement) > inter.lEPS * 10, delta - movement - adj]
     }
 
     public moveUnitY(u: unit, delta: number): [boolean, number] {
@@ -493,7 +496,7 @@ class Atod {
         }
 
         u.y += movement + adj
-        return [Math.abs(movement) > inter.lEPS, delta - movement - adj]
+        return [Math.abs(movement) > inter.lEPS * 10, delta - movement - adj]
     }
 
     public checkWinner(): number {
