@@ -18,7 +18,7 @@ export const runCode = (game_slug: string, code: string, enemyCode: string) => {
         const p1 = new Function("units", "enemy_units", "dropzone", "enemy_dropzone", "flags",
             "enemy_flags", "obstacles", "projectiles", "game", code);
         const p2 = new Function("units", "enemy_units", "dropzone", "enemy_dropzone", "flags",
-            "enemy_flags", "obstacles", "projectiles", "game", code);
+            "enemy_flags", "obstacles", "projectiles", "game", code); //TODO: POMENYAI EBACH
         const g = Atod.stdField();
         t = new Tester(p1, p2, g, 10000);
     } else {

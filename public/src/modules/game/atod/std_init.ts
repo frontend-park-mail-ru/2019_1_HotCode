@@ -28,8 +28,8 @@ export
     function stdField(): Atod {
     return new Atod(
         10000,
-        stdHeight,
         stdWidth,
+        stdHeight,
         stdObstacles(),
         new dropzone(
             stdDropZoneX,
@@ -341,7 +341,7 @@ function stdUnits(reversed: boolean): unit[] {
     if (reversed) {
         for (let u of units) {
             u.x = stdWidth - u.x
-            u.y = stdWidth - u.y
+            u.y = stdHeight - u.y
         }
     }
     return units

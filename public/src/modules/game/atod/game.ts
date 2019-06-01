@@ -40,7 +40,24 @@ class unit {
     shot: (x: number, y: number) => projectile
     special: (x: number, y: number) => projectile
 
-    constructor(x: number, y: number, radius: number, vX: number, vY: number, health: number, viewRange: number, maxSpeed: number, bulletDamage: number, bulletSpeed: number, bulletRange: number, reloadTime: number, reloadLeft: number, specialTime: number, specialLeft: number, unitType: string) {
+    constructor(
+        x: number,
+        y: number,
+        radius: number,
+        maxSpeed: number,
+        vX: number,
+        vY: number,
+        health: number,
+        viewRange: number,
+        bulletDamage: number,
+        bulletSpeed: number,
+        bulletRange: number,
+        reloadTime: number,
+        reloadLeft: number,
+        specialTime: number,
+        specialLeft: number,
+        unitType: string,
+    ) {
         this.x = x
         this.y = y
         this.radius = radius
@@ -184,6 +201,12 @@ class Atod {
             o.view_range /= this.heihgt;
         }
 
+        for (let o of tmpState.p2_units) {
+            o.x /= this.width;
+            o.y /= this.heihgt;
+            o.radius /= this.heihgt;
+            o.view_range /= this.heihgt;
+        }
 
         for (let o of tmpState.p1_flags) {
             o.x /= this.width;
@@ -388,10 +411,20 @@ class Atod {
             let deltaX = u.vX
             let deltaY = u.vY
             let movedY = true
+            let arrX = [];
+            let arrY = [];
+            let counter = 0;
             while (movedY) {
+                counter++;
+                if (counter === 20) {
+                    console.log(arrX, arrY);
+                    break;
+                }
                 let r = false;
                 [r, deltaX] = this.moveUnitX(u, deltaX);
-                [movedY, deltaY] = this.moveUnitX(u, deltaY);
+                arrX.push({r, deltaX});
+                [movedY, deltaY] = this.moveUnitY(u, deltaY);
+                arrY.push({movedY, deltaY});
             }
 
             if (u.carriedFlag != null) {
@@ -415,15 +448,17 @@ class Atod {
                         obst.x - obst.width / 2, obst.y - obst.height / 2, obst.y + obst.height / 2, delta),
                 )
             }
+            movement = Math.min(movement, this.width - u.radius - u.x);
         } else {
             adj = inter.lEPS
             for (let obst of this.obstacles) {
-                movement = Math.min(
+                movement = Math.max(
                     movement,
                     inter.moveCircle(u.x, u.y, u.radius,
                         obst.x + obst.width / 2, obst.y + obst.height / 2, obst.y + obst.height / 2, delta),
                 )
             }
+            movement = Math.max(movement, 0 + u.radius - u.x);
         }
 
         u.x += movement + adj
@@ -444,15 +479,17 @@ class Atod {
                         obst.y - obst.height / 2, obst.x - obst.width / 2, obst.x + obst.width / 2, delta),
                 )
             }
+            movement = Math.min(movement, this.heihgt - u.radius - u.y);
         } else {
             adj = inter.lEPS
             for (let obst of this.obstacles) {
-                movement = Math.min(
+                movement = Math.max(
                     movement,
                     inter.moveCircle(u.y, u.x, u.radius,
                         obst.y + obst.height / 2, obst.x - obst.width / 2, obst.x + obst.width / 2, delta),
                 )
             }
+            movement = Math.max(movement, 0 + u.radius - u.y);
         }
 
         u.y += movement + adj
@@ -618,6 +655,24 @@ class unitShot {
     bullet_dir_y: number
     special_dir_x: number
     special_dir_y: number
+
+    public setMoveVector(x: number, y: number, speed: number) {
+        let nSpeed = speed / Math.sqrt(x * x + y * y);
+        if (isNaN(nSpeed) || nSpeed === Infinity) {
+            nSpeed = 0;
+        }
+
+        this.vX = x * nSpeed;
+        this.vY = y * nSpeed;
+    }
+
+    public takeFlag() {
+        this.is_carring_flag = true;
+    }
+
+    public dropFlag() {
+        this.is_carring_flag = false;
+    }
 }
 
 function inverse3(s: unitShot, height: number, width: number) {
