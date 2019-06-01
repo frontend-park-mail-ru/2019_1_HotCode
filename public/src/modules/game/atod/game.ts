@@ -232,7 +232,7 @@ class Atod {
 
     public getObjectsP2(): [unitShot[], unitShot[], dropzoneShot, dropzoneShot, flagShot[], flagShot[], obstacleShot[], projectileShot[], GameInfo] {
         let s = this.createShot2()
-        return [s.enemy_units, s.units, s.enemy_dropzone, s.dropzone, s.enemy_flags, s.flags, s.obstacles, s.projectiles, new GameInfo(this.heihgt, this.width, this.ticksLeft)];
+        return [s.units, s.enemy_units, s.dropzone, s.enemy_dropzone, s.flags, s.enemy_flags, s.obstacles, s.projectiles, new GameInfo(this.heihgt, this.width, this.ticksLeft)];
     }
 
 
