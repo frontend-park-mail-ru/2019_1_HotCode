@@ -1,5 +1,6 @@
 'use strict';
 import Console from '../../components/console/console';
+import GameConsole from './console';
 interface IGame {
     getInfo(): any;
 
@@ -31,11 +32,19 @@ class Tester {
     public run(): any {
         let winner = 0; // 0 это ничья
         const ticks = [];
+
+        let logs1 = new GameConsole();
+        let logs2 = new GameConsole(); //TODO: убрать
         for (let tick = 0; tick < this.ticksCount; tick++) {
             this.game.setTicksLeft(this.ticksCount - tick);
 
             const p1Args = this.game.getObjectsP1();
             const p2Args = this.game.getObjectsP2();
+
+            logs1.logsTickCount = 0;
+            logs2.logsTickCount = 0;//TODO: убрать
+            p1Args.push(logs1);
+            p2Args.push(logs2);//TODO: убрать
 
             try {
                 this.player1(...p1Args);
@@ -63,6 +72,7 @@ class Tester {
             info: this.game.getInfo(),
             states: ticks,
             winner,
+            logs1,
         };
     }
 }
