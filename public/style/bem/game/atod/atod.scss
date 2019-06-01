@@ -82,7 +82,8 @@
   box-shadow: 0 0 0 3px #e8e815;
 }
 
-.atod__dd {
+.atod__dd1,
+.atod__dd2 {
 
   box-shadow: 0 0 0 3px #e81b1a;
 }
@@ -91,7 +92,8 @@
 .atod__flag {
   position: absolute;
   transform: translate(-50%, -50%);
-
+  width: 1vh;
+  height: 1vh;
   transition: all 0s ease 0s;
 }
 

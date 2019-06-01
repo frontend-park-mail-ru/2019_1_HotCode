@@ -46,14 +46,14 @@ class Atod extends BaseGame{
         this.player1Tank = new GameObject(this.el.querySelector('.atod__tank.atod__player1'));
         this.player1Healer = new GameObject(this.el.querySelector('.atod__healer.atod__player1'));
         this.player1Sniper = new GameObject(this.el.querySelector('.atod__sniper.atod__player1'));
-        this.player1DD1 = new GameObject(this.el.querySelector('.atod__dd.atod__player1'));
-        this.player1DD2 = new GameObject(this.el.querySelector('.atod__dd.atod__player1'));
+        this.player1DD1 = new GameObject(this.el.querySelector('.atod__dd1.atod__player1'));
+        this.player1DD2 = new GameObject(this.el.querySelector('.atod__dd2.atod__player1'));
 
         this.player2Tank = new GameObject(this.el.querySelector('.atod__tank.atod__player2'));
         this.player2Healer = new GameObject(this.el.querySelector('.atod__healer.atod__player2'));
         this.player2Sniper = new GameObject(this.el.querySelector('.atod__sniper.atod__player2'));
-        this.player2DD1 = new GameObject(this.el.querySelector('.atod__dd.atod__player2'));
-        this.player2DD2 = new GameObject(this.el.querySelector('.atod__dd.atod__player2'));
+        this.player2DD1 = new GameObject(this.el.querySelector('.atod__dd1.atod__player2'));
+        this.player2DD2 = new GameObject(this.el.querySelector('.atod__dd2.atod__player2'));
 
         this.flagsMe = Array.from(this.el.querySelectorAll('.atod__flag_me'))
             .map((flag) => new GameObject(flag as HTMLElement));
