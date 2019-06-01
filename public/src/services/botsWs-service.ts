@@ -11,9 +11,9 @@ class BotsWsService {
 
     private static server: string = serverNames.botsWSBackend;
 
-    public static updateBots(): WebSock {
+    public static updateBots(slug: string): WebSock {
 
-        return new WebSock(BotsWsService.server + botsWSPaths.updateBotsPath);
+        return new WebSock(`${BotsWsService.server}${botsWSPaths.updateBotsPath}?game_slug=${slug}`);
     }
 
 }

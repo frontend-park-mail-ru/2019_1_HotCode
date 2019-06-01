@@ -161,7 +161,7 @@ class LiderboardPage extends Page{
             })
             .then(() => {
 
-                this.ws = BotsWsService.updateBots();
+                this.ws = BotsWsService.updateBots(Game.slug);
                 this.ws.open(
                     () => {},
                     (resp) => {

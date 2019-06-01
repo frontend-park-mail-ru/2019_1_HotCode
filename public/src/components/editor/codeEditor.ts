@@ -26,6 +26,11 @@ class CodeEditor extends Component{
         });
     }
 
+    public disable(): void {
+
+        (this.inputTextField.el as HTMLInputElement).disabled = true;
+    }
+
     public getValue(): string {
         return this.editor.getValue();
     }
