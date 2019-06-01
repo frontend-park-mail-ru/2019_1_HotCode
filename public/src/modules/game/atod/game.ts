@@ -155,7 +155,7 @@ class Atod {
     }
 
     public getState(): any {
-        return {
+        let tmpState = {
             obstacles: obstaclesToShot(this.obstacles),
             projectiles: projectilesToShot(this.projectiles),
             p1_units: unitsToShot(this.player1Units),
@@ -163,6 +163,39 @@ class Atod {
             p1_flags: flagsToShot(this.flags1),
             p2_flags: flagsToShot(this.flags2),
         };
+
+        for (let o of tmpState.obstacles) {
+            o.x /= this.width;
+            o.y /= this.heihgt;
+
+            o.width /= this.width;
+            o.height /= this.heihgt;
+        }
+
+        for (let o of tmpState.projectiles) {
+            o.x /= this.width;
+            o.y /= this.heihgt;
+        }
+
+        for (let o of tmpState.p1_units) {
+            o.x /= this.width;
+            o.y /= this.heihgt;
+            o.radius /= this.heihgt;
+            o.view_range /= this.heihgt;
+        }
+
+
+        for (let o of tmpState.p1_flags) {
+            o.x /= this.width;
+            o.y /= this.heihgt;
+        }
+
+        for (let o of tmpState.p2_flags) {
+            o.x /= this.width;
+            o.y /= this.heihgt;
+        }
+
+        return tmpState;
     }
 
     public isDone(): number {
