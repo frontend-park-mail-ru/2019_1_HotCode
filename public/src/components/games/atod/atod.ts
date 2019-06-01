@@ -126,7 +126,7 @@ class Atod extends BaseGame{
         state.obstacles.map((obstacle: {[key: string]: any}, i: number) => {
 
             if (!this.obstacles[i]) {
-                const newObst = Component.Create('div', ['.atod__obstacle']);
+                const newObst = Component.Create('div', ['atod__obstacle']);
                 this.append(newObst);
                 this.obstacles[i] = new GameObject(newObst.el);
             }
