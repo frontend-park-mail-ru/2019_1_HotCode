@@ -1,5 +1,5 @@
 'use strict';
-
+import Console from '../../components/console/console';
 interface IGame {
     getInfo(): any;
 
@@ -37,7 +37,14 @@ class Tester {
             const p1Args = this.game.getObjectsP1();
             const p2Args = this.game.getObjectsP2();
 
-            this.player1(...p1Args);
+            try {
+                this.player1(...p1Args);
+            } catch (err) {
+                Console.createLog(`[TICK: ${tick}] ERROR: ${err.name}: ${err.message};`, true);
+                winner = 2;
+                break;
+            }
+
             this.player2(...p2Args);
 
             this.game.saveObjects(p1Args, p2Args);
