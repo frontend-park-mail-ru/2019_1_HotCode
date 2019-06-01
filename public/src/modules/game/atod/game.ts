@@ -222,7 +222,11 @@ class Atod {
     }
 
     public isDone(): number {
-        return this.winner;
+        if (this.isEnded) {
+            return this.winner;
+        }
+
+        return -1;
     }
 
     public getObjectsP1(): [unitShot[], unitShot[], dropzoneShot, dropzoneShot, flagShot[], flagShot[], obstacleShot[], projectileShot[], GameInfo] {

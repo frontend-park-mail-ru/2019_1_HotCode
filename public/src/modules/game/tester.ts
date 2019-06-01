@@ -53,7 +53,7 @@ class Tester {
 
             const res = this.game.isDone();
             //console.log(res);
-            if (res !== 0) {
+            if (res !== -1) {
                 winner = res;
                 break;
             }

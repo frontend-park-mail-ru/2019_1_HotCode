@@ -412,7 +412,7 @@ class Game {
             return 2;
         if (this.ball.x + this.ball.diameter / 2 >= this.fieldWidth)
             return 1;
-        return 0;
+        return -1;
     }
 
     public getObjectsP1(): [PlayablePlayer, Player, Ball, GameInfo, Object] {
