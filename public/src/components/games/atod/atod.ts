@@ -164,8 +164,8 @@ class Atod extends BaseGame{
 
                 this.player1Sniper.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player1Sniper.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player1Sniper.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player1Sniper.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player1Sniper.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player1Sniper.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'medic') {
 
