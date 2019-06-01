@@ -16,6 +16,8 @@ import Console from '../../../../components/console/console';
 import BotsService from '../../../../services/bots-service';
 import Alert from '../../../../components/alert/alert';
 import Message from '../../../../utils/message';
+import Atod from '../../../../components/games/atod/atod';
+import BaseGame from '../../../../components/games/baseGame';
 
 class GamePage extends Page{
 
@@ -26,7 +28,8 @@ class GamePage extends Page{
     private verticalLine: Component;
     private testCodeForm: TestCodeForm;
     private testCodeButton: Button;
-    private pingPong: PingPong;
+    private testCodeButtonComponent: Component;
+    private currentGame: BaseGame;
     private rulesContent: Component;
     private choiseButton: Component;
 
@@ -38,9 +41,9 @@ class GamePage extends Page{
         super(parent, 'Game - WarScript');
     }
 
-    public render(): void {
+    public render(param: string[]): void {
         super.render();
-        this.renderTmpl(GamePage.template);
+        this.renderTmpl(GamePage.template, {gameSlug: param[0]});
 
         this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_game'));
 
@@ -79,6 +82,7 @@ class GamePage extends Page{
 
 
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.form_theme_editor'));
+        this.testCodeForm.code.save(param[0]);
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
@@ -86,13 +90,36 @@ class GamePage extends Page{
 
         this.onCodeChange = EventBus.subscribe(events.onCodeChange, () => {
 
+            if (localStorage.getItem(`saveCode${param[0]}`)) {
+
+                this.testCodeForm.code.setValue(localStorage.getItem(`saveCode${param[0]}`));
+
+            } else {
+
                 this.testCodeForm.code.setValue(Game.codeExample);
+            }
         });
 
         if (Game.codeExample) {
 
             EventBus.publish(events.onCodeChange);
         }
+
+
+
+        console.log(param[0]);
+        if (param[0] === '2atod') {
+
+            this.currentGame = new Atod(this.parent.el.querySelector('.play__item__content_theme_screen'));
+
+        } else {
+
+            this.currentGame = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
+        }
+
+
+
+        this.testCodeButtonComponent = new Component(this.parent.el.querySelector('.button_theme_test'));
 
         this.onBotCodeChange = EventBus.subscribe(events.onBotCodeChange, () => {
 
@@ -101,16 +128,15 @@ class GamePage extends Page{
 
                 const code = this.testCodeForm.code.getValue();
 
-                this.pingPong.init(runCode(code, Game.botCode));
+                this.currentGame.init(runCode(code, Game.botCode));
             });
             this.testCodeButton.onClick();
+            this.testCodeButtonComponent.show();
         });
 
         if (Game.botCode) {
             EventBus.publish(events.onBotCodeChange);
         }
-
-        this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
@@ -157,7 +183,7 @@ class GamePage extends Page{
 
         this.testCodeForm = null;
         this.testCodeButton = null;
-        this.pingPong = null;
+        this.currentGame = null;
     }
 
     private onMove = (shiftX: number) => {

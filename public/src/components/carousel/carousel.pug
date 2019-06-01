@@ -1,9 +1,12 @@
 label
-    img.carousel__arrow.carousel__arrow_direction_left.pointer(src='img/left-arrow.svg')
+    svg.carousel__arrow.carousel__arrow_direction_left.pointer(width='27', height='79', viewbox='0 0 27 79', fill='none', xmlns='http://www.w3.org/2000/svg')
+        path(d='M26.5 39.5L0 78.5V0.5L26.5 39.5Z', fill='#C4C4C4')
+
 each game in games
     label
         .carousel__item.pointer(data-content=game.title, data-background=game.background_uuid, data-slug=game.slug)
             .carousel__item__spinner.hidden
             img.carousel__item__image.hidden
 label
-    img.carousel__arrow.carousel__arrow_direction_right.pointer(src='img/left-arrow.svg')
+    svg.carousel__arrow.carousel__arrow_direction_right.pointer(width='27', height='79', viewbox='0 0 27 79', fill='none', xmlns='http://www.w3.org/2000/svg')
+        path(d='M26.5 39.5L0 78.5V0.5L26.5 39.5Z', fill='#C4C4C4')

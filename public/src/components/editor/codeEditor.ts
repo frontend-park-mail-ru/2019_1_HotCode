@@ -16,10 +16,13 @@ class CodeEditor extends Component{
 
         this.editor = edit(this.el);
         this.inputTextField = new Component(this.el.querySelector('.ace_text-input'));
+    }
+
+    public save(gameSlug: string): void {
 
         this.inputTextField.on('blur', () => {
 
-            // console.log(this.getValue());
+            localStorage.setItem(`saveCode${gameSlug}`, this.getValue());
         });
     }
 

@@ -231,7 +231,6 @@ class MatchPage extends Page{
         this.testCodeForm.code.setValue(Match.code);
 
         this.testCodeButtonComponent = new Component(this.parent.el.querySelector('.button_theme_replay'));
-        this.testCodeButtonComponent.show();
 
         this.testCodeButton = new Button(this.parent.el.querySelector('#testCode'), () => {
             event.preventDefault();
@@ -239,6 +238,7 @@ class MatchPage extends Page{
             this.pingPong.init(Match.replay);
         });
         this.testCodeButton.onClick();
+        this.testCodeButtonComponent.show();
 
     }
 

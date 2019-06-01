@@ -17,6 +17,7 @@ class Match {
     private dateField: string;
     private codeField: string;
     private errorField: string;
+    private gameSlugField: string;
 
     constructor() {}
 
@@ -117,6 +118,14 @@ class Match {
         this.errorField = value;
     }
 
+    get gameSlug(): string {
+        return this.gameSlugField;
+    }
+
+    set gameSlug(value: string) {
+        this.gameSlugField = value;
+    }
+
     public clearData(): void {
         this.idField = null;
         this.resultField = null;
@@ -130,6 +139,7 @@ class Match {
         this.replayField = null;
         this.dateField = null;
         this.errorField = null;
+        this.gameSlugField = null;
     }
 }
 

@@ -4,3 +4,104 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.84);
 }
+
+.atod__player1__text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.1%;
+  background: $backgroundColorBack2;
+  font-weight: 300;
+  font-size: 1em;
+  display: inline-block;
+}
+
+.atod__player2__text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.1%;
+  background: $backgroundColorBack2;
+  font-weight: 300;
+  font-size: 1em;
+  display: inline-block;
+}
+
+
+.atod__resp {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+
+
+  transition: all 0s ease 0s;
+}
+
+.atod__dropzone_me {
+
+  background: #187b4e;
+}
+
+.atod__dropzone_enemy {
+
+  background: #af254e;
+}
+
+
+.atod__player {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+
+
+  transition: all 0s ease 0s;
+}
+
+.atod__player1 {
+
+  background: #e1e1de;
+}
+
+.atod__player2 {
+
+  background: rgba(0, 0, 0, 0.84);
+}
+
+.atod__tank {
+
+  box-shadow: 0 0 0 3px #37d6e8;
+}
+
+.atod__healer {
+
+  box-shadow: 0 0 0 3px #39e844;
+}
+
+.atod__sniper {
+
+  box-shadow: 0 0 0 3px #e8e815;
+}
+
+.atod__dd {
+
+  box-shadow: 0 0 0 3px #e81b1a;
+}
+
+
+.atod__flag {
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  transition: all 0s ease 0s;
+}
+
+.atod__flag_me {
+
+  background: #187b4e;
+}
+
+
+.atod__flag_enemy {
+
+  background: #af254e;
+}

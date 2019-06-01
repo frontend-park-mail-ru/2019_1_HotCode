@@ -5,7 +5,15 @@
   width: 7.66%;
   min-width: 35.45px;
   min-height: 86.05px;
-  transform: translate(-200%, -50%);
+  transform: translate(200%, -50%);
+}
+
+.carousel__arrow > path {
+  fill: $fontColorWhite;
+}
+
+.carousel__arrow > path:hover {
+  fill: $fontColorYellow;
 }
 
 @media only screen and (max-width : 1024px) and (orientation: portrait) {

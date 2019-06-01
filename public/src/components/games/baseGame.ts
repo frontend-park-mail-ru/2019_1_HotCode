@@ -64,7 +64,7 @@ abstract class BaseGame extends Component{
         });
     }
 
-    protected async init(states: any) {
+    public async init(states: any) {
         this.counter = this.framesCount;
         this.framesCount = states.states.length;
     }
