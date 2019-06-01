@@ -22,9 +22,11 @@ class MatchShort extends Component{
     private userID1: string;
     private username1: string;
     private uuid1: string;
+    private bot1: number;
     private userID2: string;
     private username2: string;
     private uuid2: string;
+    private bot2: number;
     private result: number;
     private diff1: number;
     private diff2: number;
@@ -35,9 +37,11 @@ class MatchShort extends Component{
             userID1: string,
             username1: string,
             uuid1: string,
+            bot1: number,
             userID2: string,
             username2: string,
             uuid2: string,
+            bot2: number,
             result: number,
             diff1: number,
             diff2: number,
@@ -48,9 +52,11 @@ class MatchShort extends Component{
         this.userID1 = userID1;
         this.username1 = username1;
         this.uuid1 = uuid1;
+        this.bot1 = bot1;
         this.userID2 = userID2;
         this.username2 = username2;
         this.uuid2 = uuid2;
+        this.bot2 = bot2;
         this.result = result;
         this.diff1 = diff1;
         this.diff2 = diff2;
@@ -61,7 +67,9 @@ class MatchShort extends Component{
     public static CreateMatch(
         id: number,
         author1: {[key: string]: string},
+        bot1: number,
         author2: {[key: string]: string},
+        bot2: number,
         result: number,
         diff1: number,
         diff2: number,
@@ -86,7 +94,7 @@ class MatchShort extends Component{
         const username2 = author2 ? author2.username : 'Verification';
         const photo_uuid2 = author2 ? author2.photo_uuid : '';
 
-        newMatch.el.innerHTML = MatchShort.template({username1, username2});
+        newMatch.el.innerHTML = MatchShort.template();
 
         return new MatchShort(
             newMatch.el,
@@ -94,9 +102,11 @@ class MatchShort extends Component{
             userId1,
             username1,
             photo_uuid1,
+            bot1,
             userId2,
             username2,
             photo_uuid2,
+            bot2,
             result,
             diff1,
             diff2,
@@ -144,9 +154,13 @@ class MatchShort extends Component{
             this.el.querySelector('.match__item_theme_1 > .match__item__username')
         );
 
+        this.username1Component.setText(this.username1 + (this.bot1 ? ` (${this.bot1})`: ''));
+
         this.username2Component = new Component(
             this.el.querySelector('.match__item_theme_2 > .match__item__username')
         );
+
+        this.username2Component.setText(this.username2 + (this.bot2 ? ` (${this.bot2})`: ''));
 
 
         if (this.userID1) {

@@ -124,7 +124,7 @@ class MatchPage extends Page{
         const date = new Component(this.parent.el.querySelector('.match-info__date'));
 
 
-        username1.setText(Match.user1 ? Match.user1.username : '');
+        username1.setText(Match.user1 ? `${Match.user1.username} (${Match.bot1_id})` : '');
 
         if (Match.user1 && Match.user1.photo_uuid) {
             AvatarService.getAvatar(Match.user1.photo_uuid)
@@ -158,7 +158,7 @@ class MatchPage extends Page{
 
         diff1.setText(Match.diff1 < 0 ? `- ${Math.abs(Match.diff1)}` : `+ ${Match.diff1}`);
 
-        username2.setText(Match.user2 ? Match.user2.username : 'Verification');
+        username2.setText(Match.user2 ? `${Match.user2.username} (${Match.bot2_id})` : 'Verification');
 
         if (Match.user2 && Match.user2.photo_uuid) {
             AvatarService.getAvatar(Match.user2.photo_uuid)
@@ -223,6 +223,8 @@ class MatchPage extends Page{
 
         matchID.setText(`Match #${Match.id}`);
         date.setText(Match.date);
+
+        Console.createLog(Match.error, true);
 
         this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
 

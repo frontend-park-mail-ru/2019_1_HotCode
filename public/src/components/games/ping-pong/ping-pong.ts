@@ -91,14 +91,6 @@ class PingPong extends BaseGame{
         this.player2.setX(`${state.player_2.x * this.el.clientWidth}px`);
         this.player2.setY(`${state.player_2.y * this.el.clientHeight}px`);
 
-        console.log(state.console);
-        if (state.console && state.console.length > 0) {
-            state.console.map((log: string) => {
-
-                Console.createLog(log);
-            });
-        }
-
         await PingPong.sleep();
     }
 

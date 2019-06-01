@@ -9,11 +9,14 @@ class Match {
     private resultField: number;
     private user1Field: {[key: string]: string};
     private user2Field: {[key: string]: string};
+    private bot1_idField: number;
+    private bot2_idField: number;
     private replayField: any;
     private diff1Field: number;
     private diff2Field: number;
     private dateField: string;
     private codeField: string;
+    private errorField: string;
 
     constructor() {}
 
@@ -48,6 +51,22 @@ class Match {
 
     set user2(value: { [p: string]: string }) {
         this.user2Field = value;
+    }
+
+    get bot1_id(): number {
+        return this.bot1_idField;
+    }
+
+    set bot1_id(value: number) {
+        this.bot1_idField = value;
+    }
+
+    get bot2_id(): number {
+        return this.bot2_idField;
+    }
+
+    set bot2_id(value: number) {
+        this.bot2_idField = value;
     }
 
     get replay(): any {
@@ -90,16 +109,27 @@ class Match {
         this.codeField = value;
     }
 
+    get error(): string {
+        return this.errorField;
+    }
+
+    set error(value: string) {
+        this.errorField = value;
+    }
+
     public clearData(): void {
         this.idField = null;
         this.resultField = null;
         this.user1Field = null;
         this.user2Field = null;
+        this.bot1_idField = null;
+        this.bot2_idField = null;
         this.diff1Field = null;
         this.diff2Field = null;
         this.codeField = null;
         this.replayField = null;
         this.dateField = null;
+        this.errorField = null;
     }
 }
 

@@ -109,7 +109,9 @@ class MatchesPage extends Page{
                                     MatchShort.CreateMatch(
                                         resp.body.id,
                                         resp.body.author_1,
+                                        resp.body.bot1_id,
                                         resp.body.author_2,
+                                        resp.body.bot2_id,
                                         resp.body.result,
                                         resp.body.diff1,
                                         resp.body.diff2,
@@ -153,7 +155,9 @@ class MatchesPage extends Page{
                 MatchShort.CreateMatch(
                     match.id,
                     match.author_1,
+                    match.bot1_id,
                     match.author_2,
+                    match.bot2_id,
                     match.result,
                     match.diff1,
                     match.diff2,

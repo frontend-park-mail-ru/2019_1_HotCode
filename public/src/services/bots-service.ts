@@ -78,6 +78,9 @@ class BotsService {
             Match.diff2 = resp.diff2;
             Match.user1 = resp.author_1;
             Match.user2 = resp.author_2;
+            Match.bot1_id = resp.bot1_id;
+            Match.bot2_id = resp.bot2_id;
+            Match.error = resp.error;
 
             EventBus.publish(events.onMatchLoad);
 

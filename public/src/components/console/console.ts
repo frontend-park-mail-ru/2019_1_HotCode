@@ -14,12 +14,18 @@ class Console extends Component{
         this.el = newParent.el;
     }
 
-    public createLog(textLog: string): void {
+    public createLog(textLog: string, isError = false): void {
 
         const newLog = Component.Create(
             'div',
             ['play__item__content__console-item'],
         );
+
+        if (isError) {
+            newLog.addClass('play__item__content__console-item_theme_error');
+        }
+
+        newLog.setTextAnim(textLog);
 
         this.append(newLog);
 

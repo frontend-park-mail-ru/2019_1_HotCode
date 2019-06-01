@@ -131,7 +131,9 @@ class UserMatchesPage extends Page{
                 MatchShort.CreateMatch(
                     match.id,
                     match.author_1,
+                    match.bot1_id,
                     match.author_2,
+                    match.bot2_id,
                     match.result,
                     match.diff1,
                     match.diff2,
