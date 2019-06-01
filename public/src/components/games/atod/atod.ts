@@ -32,6 +32,8 @@ class Atod extends BaseGame{
 
     private flagsEnemy: GameObject[];
 
+    private obstacles: GameObject[];
+
     private width: number;
     private height: number;
 
@@ -60,6 +62,8 @@ class Atod extends BaseGame{
 
         this.flagsEnemy = Array.from(this.el.querySelectorAll('.atod__flag_enemy'))
             .map((flag) => new GameObject(flag as HTMLElement));
+
+        this.obstacles = [];
 
         this.player1Text = new Component(this.el.querySelector('.atod__player1__text'));
         this.player2Text = new Component(this.el.querySelector('.atod__player2__text'));
@@ -97,8 +101,6 @@ class Atod extends BaseGame{
         this.dropzoneEnemy.setX(`${states.info.p2_dropzone.x * this.el.clientWidth}px`);
         this.dropzoneEnemy.setY(`${states.info.p2_dropzone.y * this.el.clientHeight}px`);
 
-
-
         await Atod.sleep();
         this.counter = 0;
         this.render(states);
@@ -120,6 +122,19 @@ class Atod extends BaseGame{
     }
 
     public async renderState(state: {[key: string]: any}) {
+
+        state.obstacles.map((obstacle: {[key: string]: any}, i: number) => {
+
+            if (!this.obstacles[i]) {
+                const newObst = Component.Create('div', ['.atod__obstacle']);
+                this.append(newObst);
+                this.obstacles[i] = new GameObject(newObst.el);
+            }
+            this.obstacles[i].setX(`${obstacle.x * this.el.clientWidth}px`);
+            this.obstacles[i].setY(`${obstacle.y * this.el.clientHeight}px`);
+            this.obstacles[i].setWidth(`${obstacle.width * this.el.clientWidth}px`);
+            this.obstacles[i].setHeight(`${obstacle.height * this.el.clientHeight}px`);
+        });
 
         state.p1_units.map((unit: {[key: string]: any}) => {
 

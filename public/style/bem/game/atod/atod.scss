@@ -107,3 +107,11 @@
 
   background: #af254e;
 }
+
+.atod__obstacle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  transition: all 0s ease 0s;
+  background: #fffdff;
+}
