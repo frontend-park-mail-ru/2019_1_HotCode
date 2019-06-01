@@ -37,17 +37,19 @@ abstract class BaseGame extends Component{
             () => {
 
                 this.pauseFlag = true;
-                (playAnim1.el as any).beginElement();
-                (playAnim2.el as any).beginElement();
+                (stopAnim1.el as any).beginElement();
+                (stopAnim2.el as any).beginElement();
             },
             () => {
 
                 EventBus.publish(events.onPause);
-                (stopAnim1.el as any).beginElement();
-                (stopAnim2.el as any).beginElement();
+                (playAnim1.el as any).beginElement();
+                (playAnim2.el as any).beginElement();
             },
         );
         this.pauseButtonInput.onChange();
+
+        this.pauseButtonInput.emitCheck();
 
         this.stopButtonInput = new Button(this.el.querySelector('#stop'), () => {
 
@@ -67,6 +69,7 @@ abstract class BaseGame extends Component{
     public async init(states: any) {
         this.counter = this.framesCount;
         this.framesCount = states.states.length;
+        this.pauseButtonInput.emitCancel();
     }
 }
 

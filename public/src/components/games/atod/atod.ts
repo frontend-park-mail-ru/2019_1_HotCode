@@ -63,6 +63,12 @@ class Atod extends BaseGame{
         this.flagsEnemy = Array.from(this.el.querySelectorAll('.atod__flag_enemy'))
             .map((flag) => new GameObject(flag as HTMLElement));
 
+        if (this.obstacles && this.obstacles.length > 0) {
+            this.obstacles.forEach((obstacle) => {
+
+                obstacle.el.parentElement.removeChild(obstacle.el);
+            })
+        }
         this.obstacles = [];
 
         this.player1Text = new Component(this.el.querySelector('.atod__player1__text'));
@@ -100,6 +106,16 @@ class Atod extends BaseGame{
         this.dropzoneEnemy.setHeight(`${states.info.p2_dropzone.radius * this.el.clientHeight}px`);
         this.dropzoneEnemy.setX(`${states.info.p2_dropzone.x * this.el.clientWidth}px`);
         this.dropzoneEnemy.setY(`${states.info.p2_dropzone.y * this.el.clientHeight}px`);
+
+        this.flagsMe.forEach((flag) => {
+
+            flag.show();
+        });
+
+        this.flagsEnemy.forEach((flag) => {
+
+            flag.show();
+        });
 
         await Atod.sleep();
         this.counter = 0;
@@ -215,19 +231,33 @@ class Atod extends BaseGame{
 
         });
 
-        state.p1_flags.map((flag: {[key: string]: any}, i: number) => {
+        for (let i = 0; i < 2; i++) {
 
-            this.flagsMe[i].setX(`${flag.x * this.el.clientWidth}px`);
-            this.flagsMe[i].setY(`${flag.y * this.el.clientHeight}px`);
+            if (state.p1_flags[i]) {
 
-        });
+                this.flagsMe[i].setX(`${state.p1_flags[i].x * this.el.clientWidth}px`);
+                this.flagsMe[i].setY(`${state.p1_flags[i].y * this.el.clientHeight}px`);
 
-        state.p2_flags.map((flag: {[key: string]: any}, i: number) => {
+            } else {
 
-            this.flagsEnemy[i].setX(`${flag.x * this.el.clientWidth}px`);
-            this.flagsEnemy[i].setY(`${flag.y * this.el.clientHeight}px`);
+                this.flagsMe[i].hide();
+                this.flagsMe[i].hide();
+            }
+        }
 
-        });
+        for (let i = 0; i < 2; i++) {
+
+            if (state.p2_flags[i]) {
+
+                this.flagsMe[i].setX(`${state.p2_flags[i].x * this.el.clientWidth}px`);
+                this.flagsMe[i].setY(`${state.p2_flags[i].y * this.el.clientHeight}px`);
+
+            } else {
+
+                this.flagsMe[i].hide();
+                this.flagsMe[i].hide();
+            }
+        }
 
         await Atod.sleep();
     }
