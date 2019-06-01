@@ -449,7 +449,7 @@ class Atod {
                 movement = Math.max(
                     movement,
                     inter.moveCircle(u.x, u.y, u.radius,
-                        obst.x + obst.width / 2, obst.y + obst.height / 2, obst.y + obst.height / 2, delta),
+                        obst.x + obst.width / 2, obst.y - obst.height / 2, obst.y + obst.height / 2, delta),
                 )
             }
             movement = Math.max(movement, 0 + u.radius - u.x);
