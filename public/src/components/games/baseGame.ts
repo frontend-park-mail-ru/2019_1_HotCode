@@ -11,6 +11,7 @@ abstract class BaseGame extends Component{
     private progressBar: Component;
     private progress: Component;
     private pauseButtonInput: Checkbox;
+    private fullScreenButton: Checkbox;
     private stopButtonInput: Button;
 
     public framesCount: number;
@@ -56,6 +57,30 @@ abstract class BaseGame extends Component{
             this.counter = this.framesCount - 1;
         });
         this.stopButtonInput.onClick();
+
+
+        const fullScreenIconArrow1 = new Component(this.el.querySelector('.full-icon_1'));
+        const fullScreenIconArrow2 = new Component(this.el.querySelector('.full-icon_2'));
+        const fullScreenIconArrow3 = new Component(this.el.querySelector('.full-icon_3'));
+        const fullScreenIconArrow4 = new Component(this.el.querySelector('.full-icon_4'));
+
+        this.fullScreenButton = new Checkbox(this.el.querySelector('#full-screen-game'),
+            () => {
+
+                fullScreenIconArrow1.addClass('full-icon_1_theme_anim');
+                fullScreenIconArrow2.addClass('full-icon_2_theme_anim');
+                fullScreenIconArrow3.addClass('full-icon_3_theme_anim');
+                fullScreenIconArrow4.addClass('full-icon_4_theme_anim');
+            },
+            () => {
+
+                fullScreenIconArrow1.removeClass('full-icon_1_theme_anim');
+                fullScreenIconArrow2.removeClass('full-icon_2_theme_anim');
+                fullScreenIconArrow3.removeClass('full-icon_3_theme_anim');
+                fullScreenIconArrow4.removeClass('full-icon_4_theme_anim');
+            },
+        );
+        this.fullScreenButton.onChange();
 
         this.counter = 0;
         this.framesCount = 0;
