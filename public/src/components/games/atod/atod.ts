@@ -157,8 +157,8 @@ class Atod extends BaseGame{
             if (unit.unit_type === 'tank') {
                 this.player1Tank.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player1Tank.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player1Tank.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player1Tank.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player1Tank.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player1Tank.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'sniper') {
 
@@ -171,22 +171,22 @@ class Atod extends BaseGame{
 
                 this.player1Healer.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player1Healer.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player1Healer.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player1Healer.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player1Healer.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player1Healer.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'soldier1') {
 
                 this.player1DD1.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player1DD1.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player1DD1.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player1DD1.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player1DD1.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player1DD1.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'soldier2') {
 
                 this.player1DD2.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player1DD2.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player1DD2.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player1DD2.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player1DD2.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player1DD2.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
             }
 
         });
@@ -197,36 +197,36 @@ class Atod extends BaseGame{
             if (unit.unit_type === 'tank') {
                 this.player2Tank.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player2Tank.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player2Tank.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player2Tank.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player2Tank.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player2Tank.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'sniper') {
 
                 this.player2Sniper.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player2Sniper.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player2Sniper.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player2Sniper.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player2Sniper.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player2Sniper.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'medic') {
 
                 this.player2Healer.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player2Healer.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player2Healer.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player2Healer.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player2Healer.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player2Healer.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'soldier1') {
 
                 this.player2DD1.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player2DD1.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player2DD1.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player2DD1.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player2DD1.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player2DD1.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
 
             } else if (unit.unit_type === 'soldier2') {
 
                 this.player2DD2.setX(`${unit.x * this.el.clientWidth}px`);
                 this.player2DD2.setY(`${unit.y * this.el.clientHeight}px`);
-                this.player2DD2.setWidth(`${unit.radius * this.el.clientHeight}px`);
-                this.player2DD2.setHeight(`${unit.radius * this.el.clientHeight}px`);
+                this.player2DD2.setWidth(`${unit.radius * 2 * this.el.clientHeight}px`);
+                this.player2DD2.setHeight(`${unit.radius * 2 * this.el.clientHeight}px`);
             }
 
         });
