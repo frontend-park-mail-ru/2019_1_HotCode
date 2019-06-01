@@ -128,8 +128,9 @@ class GamePage extends Page{
 
                 const code = this.testCodeForm.code.getValue();
 
-                console.log(runCode(param[0] ,code, Game.botCode));
-                this.currentGame.init(runCode(param[0] ,code, Game.botCode));
+                const states = runCode(param[0] ,code, Game.botCode);
+                console.log(states);
+                this.currentGame.init(states);
             });
             this.testCodeButton.onClick();
             this.testCodeButtonComponent.show();

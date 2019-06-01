@@ -33,6 +33,24 @@ class Component {
         return new Component(el);
     }
 
+    public static CreateSVGElem(tagName: string = 'rectangle',
+                         classes: string[] = [],
+                         attrs: {[key: string]: string} = {}): SVGElement
+    {
+        const NS = 'http://www.w3.org/2000/svg';
+        const el: SVGElement = document.createElementNS(NS, tagName);
+
+        classes.map((cls) => {
+            el.classList.add(cls);
+        });
+
+        for (const name of Object.keys(attrs)) {
+            el.setAttribute(name, attrs[name]);
+        }
+
+        return el;
+    }
+
     public static getBy(querySelector: string): Component {
         return new Component(document.querySelector(querySelector));
     }
