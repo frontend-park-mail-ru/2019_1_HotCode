@@ -415,23 +415,10 @@ class Atod {
             let deltaX = u.vX
             let deltaY = u.vY
             let movedY = true
-            let arrX = [];
-            let arrY = [];
-            let counter = 0;
             while (movedY) {
-                counter++;
-                if (counter === 10) {
-                    counter = 10;
-                }
-                if (counter === 20) {
-                    console.log(arrX, arrY);
-                    break;
-                }
                 let r = false;
                 [r, deltaX] = this.moveUnitX(u, deltaX);
-                arrX.push({r, deltaX});
                 [movedY, deltaY] = this.moveUnitY(u, deltaY);
-                arrY.push({movedY, deltaY});
             }
 
             if (u.carriedFlag != null) {
