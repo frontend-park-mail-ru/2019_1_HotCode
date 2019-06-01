@@ -5,6 +5,7 @@ import GameObject from './gameObject';
 class Player extends GameObject {
     public height: number;
     public width: number;
+    public memory: Object;
 
     constructor(x: number, y: number, height: number, width: number) {
         super(x, y, 0, 0);
