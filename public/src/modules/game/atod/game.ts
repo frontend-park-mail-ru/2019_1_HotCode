@@ -192,6 +192,8 @@ class Atod {
         for (let o of tmpState.projectiles) {
             o.x /= this.width;
             o.y /= this.heihgt;
+            o.vX /= this.width;
+            o.vY /= this.heihgt;
         }
 
         for (let o of tmpState.p1_units) {
@@ -411,7 +413,9 @@ class Atod {
             if (u.health <= 0) {
                 continue
             }
-
+            if (u.reloadLeft > 0) {
+                u.reloadLeft--
+            }
             let deltaX = u.vX
             let deltaY = u.vY
             let movedY = true
