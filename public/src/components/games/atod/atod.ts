@@ -230,8 +230,8 @@ class Atod extends BaseGame{
 
             if (state.p1_flags[i]) {
 
-                this.flagsMe[i].setX(`${state.p1_flags[i].x * this.width}`);
-                this.flagsMe[i].setY(`${state.p1_flags[i].y * this.height}`);
+                this.flagsMe[i].setX(`${state.p1_flags[i].x * this.width - 10}`);
+                this.flagsMe[i].setY(`${state.p1_flags[i].y * this.height - 10}`);
 
             } else {
 
@@ -244,8 +244,8 @@ class Atod extends BaseGame{
 
             if (state.p2_flags[i]) {
 
-                this.flagsEnemy[i].setX(`${state.p2_flags[i].x * this.width}`);
-                this.flagsEnemy[i].setY(`${state.p2_flags[i].y * this.height}`);
+                this.flagsEnemy[i].setX(`${state.p2_flags[i].x * this.width - 10}`);
+                this.flagsEnemy[i].setY(`${state.p2_flags[i].y * this.height - 10}`);
 
             } else {
 
