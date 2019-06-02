@@ -5,6 +5,10 @@ export
 export
     const qEPS = (.01)
 
+function between(px: number, py: number, x1: number, y1: number, x2: number, y2: number): boolean {
+    return ((x1 < px) && (px < x2)) && ((y1 < py) && (py < y2));
+}
+
 export
     function circleSectionInter(cX: number, cY: number, cR: number,
         x1: number, y1: number, x2: number, y2: number): number[] {
@@ -21,7 +25,13 @@ export
     if (c * c > cR * cR * (a * a + b * b) + lEPS) {
         return [0, 0, 0, 0, 0]
     } else if (Math.abs(c * c - cR * cR * (a * a + b * b)) < lEPS) {
-        return [1, x0, y0, 0, 0]
+        let count = 1;
+        if (!between(x0, y0, x1, y1, x2, y2)) {
+            count = 0;
+            x0 = 0;
+            y0 = 0;
+        } 
+        return [count, x0, y0, 0, 0]
     } else {
         let d = cR * cR - c * c / (a * a + b * b)
         let mult = Math.sqrt(d / (a * a + b * b))
@@ -29,7 +39,20 @@ export
         let bx = x0 - b * mult
         let ay = y0 - a * mult
         let by = y0 + a * mult
-        return [2, ax, ay, bx, by]
+        let count = 2;
+        if (!between(ax, ay, x1, y1, x2, y2)) {
+            count--;
+            ax = 0;
+            ay = 0;
+        }
+
+        if (!between(bx, by, x1, y1, x2, y2)) {
+            count--;
+            bx = 0;
+            by = 0;
+        }
+
+        return [count, ax, ay, bx, by]
     }
 }
 export
