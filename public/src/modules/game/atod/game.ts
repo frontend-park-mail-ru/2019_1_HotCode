@@ -764,6 +764,8 @@ function unitsToShot(us: unit[]): unitShot[] {
         r[i].bullet_dir_y = 0
         r[i].special_left = u.specialLeft
         r[i].special_time = u.specialTime
+        r[i].reload_time = u.reloadTime
+        r[i].reload_left = u.reloadLeft
         r[i].unit_type = u.unitType
     }
     return r
