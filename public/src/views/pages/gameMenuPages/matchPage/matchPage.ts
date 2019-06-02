@@ -146,7 +146,7 @@ class MatchPage extends Page{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${Match.user1.id}`);
+                ViewService.goToUserMatchesView(`id${Match.user1.id}`);
             });
 
             avatar1.addClass('pointer');
@@ -155,7 +155,7 @@ class MatchPage extends Page{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${Match.user1.id}`);
+                ViewService.goToUserMatchesView(`id${Match.user1.id}`);
             });
         }
 
@@ -180,7 +180,7 @@ class MatchPage extends Page{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${Match.user2.id}`);
+                ViewService.goToUserMatchesView(`id${Match.user2.id}`);
             });
 
             avatar2.addClass('pointer');
@@ -189,7 +189,7 @@ class MatchPage extends Page{
 
                 e.preventDefault();
                 e.stopPropagation();
-                ViewService.goToUserBotsView(`id${Match.user2.id}`);
+                ViewService.goToUserMatchesView(`id${Match.user2.id}`);
             });
         }
 
