@@ -34,8 +34,6 @@ class Tester {
         const ticks = [];
 
         let logs1 = new GameConsole();
-        let logs2 = new GameConsole(); //TODO: убрать
-
         let memory1 = {};
         let memory2 = {}
         for (let tick = 0; tick < this.ticksCount; tick++) {
@@ -48,9 +46,7 @@ class Tester {
             p2Args.push(memory2);
 
             logs1.logsTickCount = 0;
-            logs2.logsTickCount = 0;//TODO: убрать
             p1Args.push(logs1);
-            p2Args.push(logs2);//TODO: убрать
 
             try {
                 this.player1(...p1Args);
