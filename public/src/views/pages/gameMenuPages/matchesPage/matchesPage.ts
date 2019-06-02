@@ -108,6 +108,7 @@ class MatchesPage extends Page{
                                 this.partMatchTable.unshift(
                                     MatchShort.CreateMatch(
                                         resp.body.id,
+                                        resp.body.game_slug,
                                         resp.body.author_1,
                                         resp.body.bot1_id,
                                         resp.body.author_2,
@@ -154,6 +155,7 @@ class MatchesPage extends Page{
             this.partMatchTable.append(
                 MatchShort.CreateMatch(
                     match.id,
+                    match.game_slug,
                     match.author_1,
                     match.bot1_id,
                     match.author_2,
