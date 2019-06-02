@@ -25,6 +25,20 @@ class BotsService {
         );
     }
 
+    public static getUserBots(user: string): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getBotsPath}?author=${user}`,
+        );
+    }
+
+    public static getMoreUserBots(user: string, since: number, limit: number): Promise<any> {
+
+        return Http.Get(
+            `${BotsService.server}${botsPaths.getMoreBotsPath}?author=${user}&since=${since}&limit=${limit}`,
+        );
+    }
+
     public static sendBots(game_slug: string, code: string, lang = 'JS'): Promise<any> {
 
         const body = {code, game_slug, lang};

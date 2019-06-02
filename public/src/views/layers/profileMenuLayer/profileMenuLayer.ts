@@ -132,6 +132,8 @@ class ProfileMenuLayer extends Layer {
         this.isMe = id === 'me';
         this.idOfAnotherUser = null;
 
+        AnotherUser.clearData();
+
         if (this.onUserIDChange) {
             this.onUserIDChange.unsubscribe();
             this.onUserIDChange = null;

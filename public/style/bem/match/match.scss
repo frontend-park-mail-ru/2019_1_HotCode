@@ -41,6 +41,14 @@
   grid-template-columns: 8% 50% 1fr;
 }
 
+.match_theme_row2 {
+  grid-template-columns: 8% 28% 1fr 20% 20%;
+}
+
+.match__item_theme_verify {
+  text-align: right;
+}
+
 .match__item_theme_score {
   margin-right: 2.6em;
   text-align: right;

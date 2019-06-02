@@ -13,7 +13,9 @@
   padding-top: 6em;
   transform: translateX(-67%);
   width: 37vw;
+  min-width: 472px;
   height: 23vh;
+  min-height: 210px;
   background: $backgroundMenuPanel;
   box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
   z-index: -15;
@@ -26,7 +28,9 @@
   padding: 2.4em;
   padding-top: 6em;
   width: 30vw;
+  min-width: 382px;
   height: 43vh;
+  min-height: 400px;
   background: $backgroundLogoPanel;
   box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
   z-index: 5;
@@ -39,7 +43,9 @@
   padding: 2.4em;
   padding-top: 4.5em;
   width: 37vw;
+  min-width: 472px;
   height: 35vh;
+  min-height: 330px;
   background: $backgroundColor2;
   box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
   z-index: -15;
