@@ -36,6 +36,7 @@ class Atod extends BaseGame{
     private flagsEnemy: SvgGameObject[];
 
     private obstacles: SvgGameObject[];
+    private projectiles: SvgGameObject[];
 
     private width: number;
     private height: number;
@@ -78,6 +79,7 @@ class Atod extends BaseGame{
             })
         }
         this.obstacles = [];
+        this.projectiles = [];
 
         this.player1Text = new Component(this.el.querySelector('.atod__player1__text'));
         this.player2Text = new Component(this.el.querySelector('.atod__player2__text'));
@@ -157,6 +159,31 @@ class Atod extends BaseGame{
             this.obstacles[i].setHeight(`${obstacle.height * this.height}`);
 
         });
+
+        let indexOfProjectiles = 0;
+
+        state.projectiles.map((projectile: {[key: string]: any}, i: number) => {
+
+            if (!this.projectiles[i]) {
+                const newProj = Component.CreateSVGElem('line', ['atod__line']);
+                this.atodSvg.el.appendChild(newProj);
+                this.projectiles[i] = new SvgGameObject(newProj as Element as HTMLElement);
+            }
+
+            this.projectiles[i].show();
+            this.projectiles[i].setX1(`${projectile.x * this.width}`);
+            this.projectiles[i].setY1(`${projectile.y * this.height}`);
+            this.projectiles[i].setX2(`${projectile.vX * this.width}`);
+            this.projectiles[i].setY2(`${projectile.vY * this.height}`);
+
+            indexOfProjectiles = ++i;
+
+        });
+
+        for (;indexOfProjectiles < this.projectiles.length; indexOfProjectiles++) {
+
+            this.projectiles[indexOfProjectiles].hide();
+        }
 
         state.p1_units.map((unit: {[key: string]: any}) => {
 
