@@ -7,6 +7,10 @@
   outline: none;
 }
 
+.play__item__header_theme_editor {
+  flex-direction: row-reverse;
+}
+
 summary {
   display: block;
 }
