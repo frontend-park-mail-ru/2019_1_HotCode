@@ -223,8 +223,8 @@ function bulletProducer(u: unit): ((x: number, y: number) => projectile) {
         }
 
         let mod = Math.sqrt(x * x + y * y) + inter.lEPS
-        let dirX = mod / x
-        let dirY = mod / y
+        let dirX = x / mod
+        let dirY = y / mod
 
         return new stdBullet(
             u.x + dirX * u.radius,
