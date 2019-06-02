@@ -5,16 +5,23 @@ export
 export
     const qEPS = (.01)
 
-function between(px: number, py: number, x1: number, y1: number, x2: number, y2: number): boolean {
+export
+    function between(px: number, py: number, x1: number, y1: number, x2: number, y2: number): boolean {
+    if (x1 > x2) {
+        [x1, x2] = [x2, x1]
+    }
+    if (y1 > y2) {
+        [y1, y2] = [y2, y1]
+    }
     return ((x1 < px) && (px < x2)) && ((y1 < py) && (py < y2));
 }
 
 export
     function circleSectionInter(cX: number, cY: number, cR: number,
         x1: number, y1: number, x2: number, y2: number): number[] {
-    if (((x1 - cX)*(x1 - cX)+(y1 - cY)*(y1 - cY) < cR*cR) 
-        || ((x2 - cX)*(x2 - cX)+(y2 - cY)*(y2 - cY) < cR*cR)) {
-            return [1, 0, 0, 0, 0]
+    if (((x1 - cX) * (x1 - cX) + (y1 - cY) * (y1 - cY) < cR * cR)
+        || ((x2 - cX) * (x2 - cX) + (y2 - cY) * (y2 - cY) < cR * cR)) {
+        return [1, 0, 0, 0, 0]
     }
 
     x1 -= cX
@@ -35,7 +42,7 @@ export
             count = 0;
             x0 = 0;
             y0 = 0;
-        } 
+        }
         return [count, x0, y0, 0, 0]
     } else {
         let d = cR * cR - c * c / (a * a + b * b)

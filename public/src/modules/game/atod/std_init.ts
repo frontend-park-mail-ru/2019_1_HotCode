@@ -168,6 +168,11 @@ class stdBullet {
         if (p) {
             return true
         }
+        if (inter.between(this.x, this.y, o.x - deltX, o.x + deltX, o.y - deltY, o.y + deltY) ||
+            inter.between(this.prevX, this.prevY, o.x - deltX, o.x + deltX, o.y - deltY, o.y + deltY)) {
+            return true
+        }
+
         return false
     }
 
@@ -222,7 +227,7 @@ function bulletProducer(u: unit): ((x: number, y: number) => projectile) {
             return null
         }
 
-        let mod = Math.sqrt(x * x + y * y) *(1- inter.lEPS*10000)
+        let mod = Math.sqrt(x * x + y * y) * (1 - inter.lEPS * 10000)
         let dirX = x / mod
         let dirY = y / mod
 
