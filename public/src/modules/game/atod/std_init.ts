@@ -168,8 +168,8 @@ class stdBullet {
         if (p) {
             return true
         }
-        if (inter.between(this.x, this.y, o.x - deltX, o.x + deltX, o.y - deltY, o.y + deltY) ||
-            inter.between(this.prevX, this.prevY, o.x - deltX, o.x + deltX, o.y - deltY, o.y + deltY)) {
+        if (inter.between(this.x, this.y, o.x - deltX, o.y - deltY, o.x + deltX, o.y + deltY) ||
+            inter.between(this.prevX, this.prevY, o.x - deltX, o.y - deltY, o.x + deltX, o.y + deltY)) {
             return true
         }
 
