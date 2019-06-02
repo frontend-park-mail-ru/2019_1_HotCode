@@ -72,7 +72,7 @@ class Tester {
             info: this.game.getInfo(),
             states: ticks,
             winner,
-            logs: logs1,
+            logs: logs1.logs,
         };
     }
 }
