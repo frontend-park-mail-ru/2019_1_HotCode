@@ -107,7 +107,6 @@ class GamePage extends Page{
 
 
 
-        console.log(param[0]);
         if (param[0] === '2atod') {
 
             this.currentGame = new Atod(this.parent.el.querySelector('.play__item__content_theme_screen'));
