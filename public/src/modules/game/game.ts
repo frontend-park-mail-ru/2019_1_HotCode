@@ -12,15 +12,15 @@ export const runCode = (game_slug: string, code: string, enemyCode: string) => {
     let t
     try {
         if (game_slug === "pong") {
-            const p1 = new Function("me", "enemy", "ball", "game", "memory", code);
-            const p2 = new Function("me", "enemy", "ball", "game", "memory", enemyCode);
+            const p1 = new Function("me", "enemy", "ball", "game", "memory", "console", code);
+            const p2 = new Function("me", "enemy", "ball", "game", "memory", "console", enemyCode);
             const g = new PongGame(250, 500);
             t = new Tester(p1, p2, g, 10000);
         } else if (game_slug === "2atod") {
             const p1 = new Function("units", "enemy_units", "dropzone", "enemy_dropzone", "flags",
-                "enemy_flags", "obstacles", "projectiles", "game", code);
+                "enemy_flags", "obstacles", "projectiles", "game", "console", code);
             const p2 = new Function("units", "enemy_units", "dropzone", "enemy_dropzone", "flags",
-                "enemy_flags", "obstacles", "projectiles", "game", code); //TODO: POMENYAI EBACH
+                "enemy_flags", "obstacles", "projectiles", "game", "console",  code); //TODO: POMENYAI EBACH
             const g = Atod.stdField();
             t = new Tester(p1, p2, g, 10000);
         } else {
