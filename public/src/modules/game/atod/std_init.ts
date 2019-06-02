@@ -227,13 +227,13 @@ function bulletProducer(u: unit): ((x: number, y: number) => projectile) {
         let dirY = mod / y
 
         return new stdBullet(
-            u.bulletSpeed,
             u.x + dirX * u.radius,
             u.y + dirY * u.radius,
             dirX * u.bulletSpeed,
             dirY * u.bulletSpeed,
-            u.bulletDamage,
+            u.bulletSpeed,
             u.bulletRange,
+            u.bulletDamage,
         )
     }
 }
