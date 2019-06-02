@@ -12,6 +12,11 @@ function between(px: number, py: number, x1: number, y1: number, x2: number, y2:
 export
     function circleSectionInter(cX: number, cY: number, cR: number,
         x1: number, y1: number, x2: number, y2: number): number[] {
+    if (((x1 - cX)*(x1 - cX)+(y1 - cY)*(y1 - cY) < cR*cR) 
+        || ((x2 - cX)*(x2 - cX)+(y2 - cY)*(y2 - cY) < cR*cR)) {
+            return [1, 0, 0, 0, 0]
+    }
+
     x1 -= cX
     x2 -= cX
     y1 -= cY
