@@ -222,7 +222,7 @@ function bulletProducer(u: unit): ((x: number, y: number) => projectile) {
             return null
         }
 
-        let mod = Math.sqrt(x * x + y * y) - inter.lEPS
+        let mod = Math.sqrt(x * x + y * y) *(1- inter.lEPS)
         let dirX = x / mod
         let dirY = y / mod
 
