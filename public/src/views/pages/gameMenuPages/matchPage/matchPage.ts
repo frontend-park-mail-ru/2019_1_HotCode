@@ -17,6 +17,8 @@ import Game from '../../../../models/game';
 import AvatarService from '../../../../services/avatar-service';
 import ViewService from '../../../../services/view-service';
 import Console from '../../../../components/console/console';
+import BaseGame from '../../../../components/games/baseGame';
+import Atod from '../../../../components/games/atod/atod';
 
 
 class MatchPage extends Page{
@@ -28,7 +30,7 @@ class MatchPage extends Page{
     private verticalLine: Component;
     private testCodeButton: Button;
     private testCodeButtonComponent: Component;
-    private pingPong: PingPong;
+    private currentGame: BaseGame;
     private testCodeForm: TestCodeForm;
 
     private onMatchLoad: {[key: string]: () => void};
@@ -40,7 +42,7 @@ class MatchPage extends Page{
     public render(param: string[]): void {
 
         super.render();
-        this.renderTmpl(MatchPage.template);
+        this.renderTmpl(MatchPage.template, {gameSlug: param[0]});
 
         EventBus.publish(events.onHideMenu);
 
@@ -48,7 +50,7 @@ class MatchPage extends Page{
 
         this.onMatchLoad = EventBus.subscribe(events.onMatchLoad, () => {
 
-            this.renderMatchInfo();
+            this.renderMatchInfo(param);
         });
 
         if (Match.id) {
@@ -90,11 +92,11 @@ class MatchPage extends Page{
         this.verticalLine = null;
         this.testCodeButton = null;
         this.testCodeButtonComponent = null;
-        this.pingPong = null;
+        this.currentGame = null;
         this.testCodeForm = null;
     }
 
-    private renderMatchInfo() {
+    private renderMatchInfo(param: string[]) {
 
         const user1 = new Component(this.parent.el.querySelector('.match-info__user_theme_1'));
 
@@ -227,7 +229,14 @@ class MatchPage extends Page{
 
         Console.createLog(Match.error, true);
 
-        this.pingPong = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
+        if (param[0] === '2atod') {
+
+            this.currentGame = new Atod(this.parent.el.querySelector('.play__item__content_theme_screen'));
+
+        } else {
+
+            this.currentGame = new PingPong(this.parent.el.querySelector('.play__item__content_theme_screen'));
+        }
 
         this.testCodeForm.code.setValue(Match.code);
 
@@ -236,7 +245,7 @@ class MatchPage extends Page{
         this.testCodeButton = new Button(this.parent.el.querySelector('#testCode'), () => {
             event.preventDefault();
 
-            this.pingPong.init(Match.replay);
+            this.currentGame.init(Match.replay);
         });
         this.testCodeButton.onClick();
         this.testCodeButtonComponent.show();
