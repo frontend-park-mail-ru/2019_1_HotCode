@@ -31,6 +31,7 @@ class AlertItem extends Component {
 
         let alertWindow: Component;
 
+
         if (isError) {
 
             alertWindow = Component.Create('div', ['alert__content', 'alert__content_theme_error']);

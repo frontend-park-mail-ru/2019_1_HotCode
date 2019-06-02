@@ -28,6 +28,10 @@ class Message {
         return 'Your key successfully copied.';
     }
 
+    public static codeTaken(): string {
+        return 'This bot has already been sent. Try something else';
+    }
+
     constructor(text: string) {
         this.textField = text;
     }

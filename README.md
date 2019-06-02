@@ -14,7 +14,7 @@
 
 ## Ссылка на игру
 
-[WarScript](https://warscript.now.sh)
+[WarScript](https://warscript.tech)
 
 ## Ссылка на API
 
@@ -22,4 +22,4 @@
 
 ## Репозиторий бекенда
  
-[Бекенд](https://github.com/go-park-mail-ru/2019_1_HotCode)
+[Бекенд](https://github.com/HotCodeGroup)

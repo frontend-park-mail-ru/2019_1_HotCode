@@ -165,14 +165,14 @@ class GamePage extends Page{
                         return;
                     })
                     .catch((e) => {
-                        if (e.code === 401) {
+                        if (e.status === 401) {
 
                             EventBus.publish(events.openSignIn, '');
                             Alert.alert(Message.accessError(), true);
 
-                        } else {
+                        } else if (e.code === 'taken') {
 
-                            Alert.alert(e.message, true);
+                            Alert.alert(Message.codeTaken(), true);
                         }
                         return;
                     })

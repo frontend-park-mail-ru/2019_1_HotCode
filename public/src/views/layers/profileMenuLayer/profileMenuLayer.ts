@@ -192,7 +192,7 @@ class ProfileMenuLayer extends Layer {
         this.renderMe();
         UserService.me(1)
             .catch((e) => {
-                if (e.code === 401) {
+                if (e.status === 401) {
 
                     EventBus.publish(events.openSignIn, '');
                     Alert.alert(Message.accessError(), true);

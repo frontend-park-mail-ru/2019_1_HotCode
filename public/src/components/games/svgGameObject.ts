@@ -21,6 +21,9 @@ class SvgGameObject extends Component {
 
     public setHealth(value: number) {
         this.el.style.fillOpacity = (value / this.maxHealthField).toString();
+
+        this.el.style.opacity = '1';
+
         if (value <= 0) {
 
             this.el.style.opacity = '0';

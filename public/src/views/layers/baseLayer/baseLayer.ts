@@ -95,7 +95,7 @@ class BaseLayer extends Layer{
         this.signoutButton = new Button(this.parent.el.querySelector('#signout'), () => {
             UserService.signout()
                 .catch((e) => {
-                    if (e.code === 401) {
+                    if (e.status === 401) {
 
                         EventBus.publish(events.openSignIn, '');
                         Alert.alert(Message.accessError(), true);
@@ -137,6 +137,8 @@ class BaseLayer extends Layer{
         EventBus.subscribe(events.onChangeSlug2, (newSlug) => {
             console.log('change2 ', newSlug);
         });
+
+        this.getNotify();
 
         UserService.me(2)
             .then(() => {
@@ -199,13 +201,6 @@ class BaseLayer extends Layer{
             });
             this.profileButton.showAllReferences();
             this.signoutButton.showAllReferences();
-
-            if (this.ws) {
-                this.ws.close();
-            }
-            this.ws = null;
-
-            this.getNotify();
         });
 
         EventBus.subscribe(events.unauthorized, () => {

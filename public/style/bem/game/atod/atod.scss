@@ -6,7 +6,7 @@
 }
 
 .atod__background {
-  fill: #6a6468;
+  fill: #0C436A;
 }
 
 .atod__player1__text {
@@ -43,12 +43,12 @@
 
 .atod__dropzone_me {
 
-  fill: #187b4e;
+  fill: #FFFFFF;
 }
 
 .atod__dropzone_enemy {
 
-  fill: #af254e;
+  fill: #BD00FF;
 }
 
 
@@ -70,37 +70,37 @@
 
 .atod__player1 {
 
-  fill: #e1e1de;
+  fill: #FFFFFF;
 }
 
 .atod__player2 {
 
-  fill: rgba(0, 0, 0, 0.84);
+  fill: #BD00FF;
 }
 
 .atod__tank {
 
-  stroke: #37d6e8;
-  stroke-width: 3px;
+  stroke: #47D7F7;
+  stroke-width: 9px;
 }
 
 .atod__healer {
 
-  stroke: #39e844;
-  stroke-width: 3px;
+  stroke: #75F597;
+  stroke-width: 6px;
 }
 
 .atod__sniper {
 
-  stroke: #e8e815;
-  stroke-width: 3px;
+  stroke: #F7A647;
+  stroke-width: 6px;
 }
 
 .atod__dd1,
 .atod__dd2 {
 
-  stroke: #e81b1a;
-  stroke-width: 3px;
+  stroke: #F7477C;
+  stroke-width: 6px;
 }
 
 
@@ -114,13 +114,13 @@
 
 .atod__flag_me {
 
-  fill: #187b4e;
+  fill: #FFFFFF;
 }
 
 
 .atod__flag_enemy {
 
-  fill: #af254e;
+  fill: #BD00FF;
 }
 
 .atod__obstacle {
@@ -128,11 +128,11 @@
   //transform: translate(-50%, -50%);
 
   transition: all 0s ease 0s;
-  fill: #fffdff;
+  fill: #E67CF8;
 }
 
 .atod__line {
-  stroke: #FF00FF;
+  stroke: #FFD700;
   stroke-width: 4px;
   transition: all 0s ease 0s;
 }

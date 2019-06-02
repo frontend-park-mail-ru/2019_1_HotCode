@@ -70,7 +70,6 @@ class MatchPage extends Page{
         onDragAndDrop(this.verticalLine, this.onMove);
 
         this.testCodeForm = new TestCodeForm(this.parent.el.querySelector('.form_theme_editor'));
-        this.testCodeForm.code.disable();
 
         this.testCodeForm.code.setTheme('ace/theme/monokai');
         this.testCodeForm.code.setMode('ace/mode/javascript');
