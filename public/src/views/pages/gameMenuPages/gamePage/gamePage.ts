@@ -132,7 +132,7 @@ class GamePage extends Page{
                 console.log(states);
                 this.currentGame.init(states);
 
-                for (let logLine of states.logs1) {
+                for (let logLine of states.logs) {
                     Console.createLog(logLine, false);
                 }
             });
