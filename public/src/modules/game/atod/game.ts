@@ -398,8 +398,8 @@ class Atod {
                     }
                 }
                 if (!coll &&
-                    p.getX() < this.heihgt && 0 < p.getX() &&
-                    p.getY() < this.width && 0 < p.getY()) {
+                    p.getX() < this.width && 0 < p.getX() &&
+                    p.getY() < this.heihgt && 0 < p.getY()) {
                     ps.push(p)
                 }
             }
