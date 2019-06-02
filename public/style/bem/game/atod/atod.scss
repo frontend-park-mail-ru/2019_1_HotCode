@@ -6,7 +6,7 @@
 }
 
 .atod__background {
-  fill: #FF00FF;
+  fill: #6a6468;
 }
 
 .atod__player1__text {
@@ -118,4 +118,9 @@
 
   transition: all 0s ease 0s;
   fill: #fffdff;
+}
+
+.atod__line {
+  stroke: #FF00FF;
+  transition: all 0s ease 0s;
 }
