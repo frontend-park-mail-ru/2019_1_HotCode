@@ -293,11 +293,11 @@ class BaseLayer extends Layer{
                 }
 
                 if (resp.type === 'alert') {
-                    Alert.alert(resp.body.message, true, 10);
+                    Alert.alert(resp.body.message, true, 15);
                 }
 
                 if (resp.type === 'info') {
-                    Alert.alert(resp.body.message, false, 10);
+                    Alert.alert(resp.body.message, false, 15);
                 }
             },
             () => {},
