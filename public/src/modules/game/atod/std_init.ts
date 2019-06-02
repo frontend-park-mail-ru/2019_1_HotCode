@@ -176,8 +176,8 @@ class stdBullet {
             return false
         }
         this.distLeft -= this.v
-        this.prevX = this.vX
-        this.prevY = this.vY
+        this.prevX = this.x
+        this.prevY = this.y
         if (this.distLeft <= 0) {
             let newV = this.distLeft + this.v
             this.vX *= newV / this.v
@@ -222,7 +222,7 @@ function bulletProducer(u: unit): ((x: number, y: number) => projectile) {
             return null
         }
 
-        let mod = Math.sqrt(x * x + y * y) *(1- inter.lEPS)
+        let mod = Math.sqrt(x * x + y * y) *(1- inter.lEPS*10000)
         let dirX = x / mod
         let dirY = y / mod
 
