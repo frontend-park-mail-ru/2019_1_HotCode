@@ -35,11 +35,17 @@ class Tester {
 
         let logs1 = new GameConsole();
         let logs2 = new GameConsole(); //TODO: убрать
+
+        let memory1 = {};
+        let memory2 = {}
         for (let tick = 0; tick < this.ticksCount; tick++) {
             this.game.setTicksLeft(this.ticksCount - tick);
 
             const p1Args = this.game.getObjectsP1();
             const p2Args = this.game.getObjectsP2();
+
+            p1Args.push(memory1);
+            p2Args.push(memory2);
 
             logs1.logsTickCount = 0;
             logs2.logsTickCount = 0;//TODO: убрать

@@ -361,7 +361,6 @@ class Game {
             fieldHeight / 5,
             fieldWidth / 20,
         );
-        this.player1.memory = {};
 
         this.player2 = new Player(
             fieldWidth - fieldWidth / 10,
@@ -369,7 +368,6 @@ class Game {
             fieldHeight / 5,
             fieldWidth / 20,
         );
-        this.player2.memory = {}
         this.ball = new Ball(10, fieldWidth / 2, fieldHeight / 2, 2, 2);
     }
 
@@ -415,12 +413,12 @@ class Game {
         return -1;
     }
 
-    public getObjectsP1(): [PlayablePlayer, Player, Ball, GameInfo, Object] {
+    public getObjectsP1(): [PlayablePlayer, Player, Ball, GameInfo] {
         return [new PlayablePlayer(this.player1), Object.assign({}, this.player2),
-             Object.assign({}, this.ball), new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft), this.player1.memory];
+             Object.assign({}, this.ball), new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
 
-    public getObjectsP2(): [PlayablePlayer, Player, Ball, GameInfo, Object] {
+    public getObjectsP2(): [PlayablePlayer, Player, Ball, GameInfo] {
         let f = new PlayablePlayer(this.player2)
         f.vX = -f.vX
         f.vY = -f.vY
@@ -437,10 +435,10 @@ class Game {
         t.x = this.fieldWidth - t.x
         t.y = this.fieldHeight - t.y
         return [f, s,
-             t, new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft), this.player2.memory];
+             t, new GameInfo(this.fieldHeight, this.fieldWidth, this.ticksLeft)];
     }
 
-    public saveObjects(st1: [PlayablePlayer, Player, Ball, GameInfo, Object], st2: [PlayablePlayer, Player, Ball, GameInfo, Object]) {
+    public saveObjects(st1: [PlayablePlayer, Player, Ball, GameInfo], st2: [PlayablePlayer, Player, Ball, GameInfo]) {
         const p1 = st1[0];
         const p2 = st2[0];
         this.checkSpeed(p1);
@@ -448,10 +446,8 @@ class Game {
 
         this.player1.vX = p1.vX;
         this.player1.vY = p1.vY;
-        this.player1.memory = st1[4];
         this.player2.vX = -p2.vX;
         this.player2.vY = -p2.vY;
-        this.player2.memory = st2[4];
         if (Math.abs(this.ball.x - 173.48739435875638) < epsilonMove && Math.abs(this.ball.y - 190.6122070010947) < epsilonMove) {
             k++;
             ////console.log("ON POSITION")
