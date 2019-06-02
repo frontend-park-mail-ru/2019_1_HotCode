@@ -39,6 +39,7 @@ export const events = {
     onCloseModal: 'onClose_choose-avatar', // Важно
     onOpenProfile: 'profileOption0',
     onOpenUserBots: 'profileOption1',
+    onOpenUserMatches: 'profileOption3',
     onClickOnNotTabProfile: 'profileOption2',
     onClickOnNotTab: 'option4',
     onOpenDescription: 'option1',

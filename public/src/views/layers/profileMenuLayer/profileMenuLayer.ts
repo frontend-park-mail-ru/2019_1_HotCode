@@ -137,6 +137,21 @@ class ProfileMenuLayer extends Layer {
             this.onUserIDChange = null;
         }
 
+        if (this.onAnotherUserUsernameChange) {
+            this.onAnotherUserUsernameChange.unsubscribe();
+            this.onAnotherUserUsernameChange = null;
+        }
+
+        if (this.onAnotherUserAvatarChange) {
+            this.onAnotherUserAvatarChange.unsubscribe();
+            this.onAnotherUserAvatarChange = null;
+        }
+
+        if (this.onAnotherUserUserIDChange) {
+            this.onAnotherUserUserIDChange.unsubscribe();
+            this.onAnotherUserUserIDChange = null;
+        }
+
         if (!this.isMe) {
 
             this.idOfAnotherUser = id.match(/^id([\d]+)$/i)[1];

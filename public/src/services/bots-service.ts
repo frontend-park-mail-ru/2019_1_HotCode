@@ -82,6 +82,7 @@ class BotsService {
             Match.bot2_id = resp.bot2_id;
             Match.error = resp.error;
             Match.gameSlug = resp.game_slug;
+            Match.logs = resp.logs;
 
             EventBus.publish(events.onMatchLoad);
 

@@ -3,7 +3,6 @@
 import Component from '../baseComponent/index';
 import AvatarService from '../../services/avatar-service';
 import ViewService from '../../services/view-service';
-import Game from '../../models/game';
 import EventBus from '../../modules/event-bus';
 import {events} from '../../modules/utils/events';
 
@@ -19,6 +18,7 @@ class MatchShort extends Component{
     private diff2Component: Component;
 
     private id: number;
+    private game_slug: string;
     private userID1: string;
     private username1: string;
     private uuid1: string;
@@ -34,6 +34,7 @@ class MatchShort extends Component{
     constructor(
             el: HTMLElement,
             id: number,
+            game_slug: string,
             userID1: string,
             username1: string,
             uuid1: string,
@@ -49,6 +50,7 @@ class MatchShort extends Component{
         super(el);
 
         this.id = id;
+        this.game_slug = game_slug;
         this.userID1 = userID1;
         this.username1 = username1;
         this.uuid1 = uuid1;
@@ -66,6 +68,7 @@ class MatchShort extends Component{
 
     public static CreateMatch(
         id: number,
+        game_slug: string,
         author1: {[key: string]: string},
         bot1: number,
         author2: {[key: string]: string},
@@ -99,6 +102,7 @@ class MatchShort extends Component{
         return new MatchShort(
             newMatch.el,
             id,
+            game_slug,
             userId1,
             username1,
             photo_uuid1,
@@ -119,7 +123,7 @@ class MatchShort extends Component{
 
             EventBus.publish(events.onClickOnNotTab, true);
             ViewService.goToGameMatchView(
-                Game.slug,
+                this.game_slug,
                 this.id.toString(),
             );
         });

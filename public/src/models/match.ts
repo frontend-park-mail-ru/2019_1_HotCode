@@ -12,6 +12,7 @@ class Match {
     private bot1_idField: number;
     private bot2_idField: number;
     private replayField: any;
+    private logsField: any;
     private diff1Field: number;
     private diff2Field: number;
     private dateField: string;
@@ -78,6 +79,14 @@ class Match {
         this.replayField = value;
     }
 
+    get logs(): any {
+        return this.logsField;
+    }
+
+    set logs(value: any) {
+        this.logsField = value;
+    }
+
     get diff1(): number {
         return this.diff1Field;
     }
@@ -137,6 +146,7 @@ class Match {
         this.diff2Field = null;
         this.codeField = null;
         this.replayField = null;
+        this.logsField = null;
         this.dateField = null;
         this.errorField = null;
         this.gameSlugField = null;

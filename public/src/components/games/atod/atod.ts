@@ -113,6 +113,54 @@ class Atod extends BaseGame{
         this.dropzoneEnemy.setCX(`${states.info.p2_dropzone.x * this.width}`);
         this.dropzoneEnemy.setCY(`${states.info.p2_dropzone.y * this.height}`);
 
+        states.states[0].p1_units.map((unit: {[key: string]: any}) => {
+
+            if (unit.unit_type === 'tank') {
+                this.player1Tank.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'sniper') {
+
+                this.player1Sniper.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'medic') {
+
+                this.player1Healer.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'soldier1') {
+
+                this.player1DD1.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'soldier2') {
+
+                this.player1DD2.maxHealth = unit.health;
+            }
+
+        });
+
+        states.states[0].p2_units.map((unit: {[key: string]: any}) => {
+
+            if (unit.unit_type === 'tank') {
+                this.player2Tank.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'sniper') {
+
+                this.player2Sniper.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'medic') {
+
+                this.player2Healer.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'soldier1') {
+
+                this.player2DD1.maxHealth = unit.health;
+
+            } else if (unit.unit_type === 'soldier2') {
+
+                this.player2DD2.maxHealth = unit.health;
+            }
+
+        });
+
         this.flagsMe.forEach((flag) => {
 
             flag.show();
@@ -173,8 +221,8 @@ class Atod extends BaseGame{
             this.projectiles[i].show();
             this.projectiles[i].setX1(`${projectile.x * this.width}`);
             this.projectiles[i].setY1(`${projectile.y * this.height}`);
-            this.projectiles[i].setX2(`${projectile.vX * this.width}`);
-            this.projectiles[i].setY2(`${projectile.vY * this.height}`);
+            this.projectiles[i].setX2(`${projectile.x * this.width + projectile.vX * this.width}`);
+            this.projectiles[i].setY2(`${projectile.y * this.height + projectile.vY * this.height}`);
 
             indexOfProjectiles = ++i;
 
@@ -191,30 +239,35 @@ class Atod extends BaseGame{
                 this.player1Tank.setCX(`${unit.x * this.width}`);
                 this.player1Tank.setCY(`${unit.y * this.height}`);
                 this.player1Tank.setRadius(`${unit.radius * this.height}`);
+                this.player1Tank.setHealth(unit.health);
 
             } else if (unit.unit_type === 'sniper') {
 
                 this.player1Sniper.setCX(`${unit.x * this.width}`);
                 this.player1Sniper.setCY(`${unit.y * this.height}`);
                 this.player1Sniper.setRadius(`${unit.radius * this.height}`);
+                this.player1Sniper.setHealth(unit.health);
 
             } else if (unit.unit_type === 'medic') {
 
                 this.player1Healer.setCX(`${unit.x * this.width}`);
                 this.player1Healer.setCY(`${unit.y * this.height}`);
                 this.player1Healer.setRadius(`${unit.radius * this.height}`);
+                this.player1Healer.setHealth(unit.health);
 
             } else if (unit.unit_type === 'soldier1') {
 
                 this.player1DD1.setCX(`${unit.x * this.width}`);
                 this.player1DD1.setCY(`${unit.y * this.height}`);
                 this.player1DD1.setRadius(`${unit.radius * this.height}`);
+                this.player1DD1.setHealth(unit.health);
 
             } else if (unit.unit_type === 'soldier2') {
 
                 this.player1DD2.setCX(`${unit.x * this.width}`);
                 this.player1DD2.setCY(`${unit.y * this.height}`);
                 this.player1DD2.setRadius(`${unit.radius * this.height}`);
+                this.player1DD2.setHealth(unit.health);
             }
 
         });
@@ -225,30 +278,35 @@ class Atod extends BaseGame{
                 this.player2Tank.setCX(`${unit.x * this.width}`);
                 this.player2Tank.setCY(`${unit.y * this.height}`);
                 this.player2Tank.setRadius(`${unit.radius * this.height}`);
+                this.player2Tank.setHealth(unit.health);
 
             } else if (unit.unit_type === 'sniper') {
 
                 this.player2Sniper.setCX(`${unit.x * this.width}`);
                 this.player2Sniper.setCY(`${unit.y * this.height}`);
                 this.player2Sniper.setRadius(`${unit.radius * this.height}`);
+                this.player2Sniper.setHealth(unit.health);
 
             } else if (unit.unit_type === 'medic') {
 
                 this.player2Healer.setCX(`${unit.x * this.width}`);
                 this.player2Healer.setCY(`${unit.y * this.height}`);
                 this.player2Healer.setRadius(`${unit.radius * this.height}`);
+                this.player2Healer.setHealth(unit.health);
 
             } else if (unit.unit_type === 'soldier1') {
 
                 this.player2DD1.setCX(`${unit.x * this.width}`);
                 this.player2DD1.setCY(`${unit.y * this.height}`);
                 this.player2DD1.setRadius(`${unit.radius * this.height}`);
+                this.player2DD1.setHealth(unit.health);
 
             } else if (unit.unit_type === 'soldier2') {
 
                 this.player2DD2.setCX(`${unit.x * this.width}`);
                 this.player2DD2.setCY(`${unit.y * this.height}`);
                 this.player2DD2.setRadius(`${unit.radius * this.height}`);
+                this.player2DD2.setHealth(unit.health);
             }
 
         });

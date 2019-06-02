@@ -78,7 +78,7 @@ class MatchPage extends Page{
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
-        Console.updateParent(consoleContent);
+        Console.updateParent(consoleContent.content);
     }
 
     public clear(): void {
@@ -228,6 +228,12 @@ class MatchPage extends Page{
         date.setText(Match.date);
 
         Console.createLog(Match.error, true);
+        if (Match.logs.logs) {
+            Match.logs.logs.map((log: string) => {
+
+                Console.createLog(log);
+            });
+        }
 
         if (param[0] === '2atod') {
 

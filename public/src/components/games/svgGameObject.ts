@@ -4,8 +4,23 @@ import Component from '../baseComponent/index';
 
 class SvgGameObject extends Component {
 
+    private maxHealthField: number;
+
     constructor(el: HTMLElement) {
         super(el);
+    }
+
+
+    get maxHealth(): number {
+        return this.maxHealthField;
+    }
+
+    set maxHealth(value: number) {
+        this.maxHealthField = value;
+    }
+
+    public setHealth(value: number) {
+        this.el.style.opacity = (value / this.maxHealthField).toString();
     }
 
     public getX(): any {

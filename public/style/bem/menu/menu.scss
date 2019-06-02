@@ -70,12 +70,14 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-  overflow-x: hidden;
   line-height: 1.5em;
+  text-shadow: 4px 3px 0 $fontColorBag;
   text-align: center;
+  word-wrap: break-word;
+  letter-spacing: 0.5em;
 
   @extend %white;
-  font-size: 2em;
+  font-size: 1em;
 }
 
 .menu__item_theme_options {

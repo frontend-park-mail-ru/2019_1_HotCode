@@ -23,6 +23,7 @@ class UserMatchesPage extends Page{
     private choiseButton: Component;
 
     private lastMatchId: number;
+    private countRenderButton: number;
 
     private onIdChange: {[key: string]: () => void};
     private onAnotherIdChange: {[key: string]: () => void};
@@ -36,18 +37,20 @@ class UserMatchesPage extends Page{
         super.render();
         this.renderTmpl(UserMatchesPage.template);
 
+        this.countRenderButton = 0;
+
         this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_matches'));
 
         EventBus.subscribe(events.onUserIDRender, () => {
-            EventBus.publish(events.onOpenUserBots, true);
+            EventBus.publish(events.onOpenUserMatches, true);
         });
         EventBus.subscribe(events.onAnotherUserIDChange, () => {
-            EventBus.publish(events.onOpenUserBots, true);
+            EventBus.publish(events.onOpenUserMatches, true);
         });
 
         if (User.id || AnotherUser.id) {
 
-            EventBus.publish(events.onOpenUserBots, true);
+            EventBus.publish(events.onOpenUserMatches, true);
         }
 
         this.choiseButton.active();
@@ -104,8 +107,6 @@ class UserMatchesPage extends Page{
             this.handleOnUserId();
         });
 
-        console.log(User.username);
-        console.log(AnotherUser.username);
         if (AnotherUser.id || User.id) {
 
             this.handleOnUserId();
@@ -130,6 +131,7 @@ class UserMatchesPage extends Page{
             this.partMatchTable.append(
                 MatchShort.CreateMatch(
                     match.id,
+                    match.game_slug,
                     match.author_1,
                     match.bot1_id,
                     match.author_2,
@@ -144,16 +146,46 @@ class UserMatchesPage extends Page{
         });
     }
 
+    private initTable(data: any[]): void {
+
+        this.partMatchTable.clear();
+
+        data.map((match: any) => {
+
+            this.partMatchTable.append(
+                MatchShort.CreateMatch(
+                    match.id,
+                    match.game_slug,
+                    match.author_1,
+                    match.bot1_id,
+                    match.author_2,
+                    match.bot2_id,
+                    match.result,
+                    match.diff1,
+                    match.diff2,
+                )
+            );
+
+            this.lastMatchId = match.id;
+        });
+
+        if (this.countRenderButton < 1) {
+            this.moreButton.onClick();
+            this.matchTable.onEndScroll = this.moreButton.callback;
+
+            this.countRenderButton++;
+        }
+    }
+
     private handleOnUserId(): void {
 
         const username = AnotherUser.username || User.username;
         BotsService.getUserMatches(username)
             .then((resp) => {
 
-                this.fillTable(resp);
+                this.initTable(resp);
 
-                this.moreButton.onClick();
-                this.matchTable.onEndScroll = this.moreButton.callback;
+
             });
     }
 }

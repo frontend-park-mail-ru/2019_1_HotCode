@@ -145,7 +145,7 @@ class GamePage extends Page{
 
         const consoleContent = new ScrollableBlock(this.parent.el.querySelector('.play__item__content_theme_console'));
         consoleContent.decorate();
-        Console.updateParent(consoleContent);
+        Console.updateParent(consoleContent.content);
 
 
         const submitButton = new Component(this.parent.el.querySelector('.button_theme_submit'));
