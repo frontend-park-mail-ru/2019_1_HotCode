@@ -684,6 +684,9 @@ function inverse3(s: unitShot, height: number, width: number) {
     s.y = height - s.y
     s.vX = -s.vX
     s.vY = -s.vY
+
+    s.bullet_dir_x = -s.bullet_dir_x
+    s.bullet_dir_y = -s.bullet_dir_y
 }
 
 class dropzoneShot {
