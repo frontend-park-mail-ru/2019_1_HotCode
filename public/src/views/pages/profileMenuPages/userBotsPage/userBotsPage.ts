@@ -6,6 +6,11 @@ import User from "../../../../models/user";
 import EventBus from '../../../../modules/event-bus';
 import {events} from '../../../../modules/utils/events';
 import AnotherUser from '../../../../models/anotherUser';
+import Button from '../../../../components/button/button';
+import ScrollableBlock from '../../../../components/scrollable/scrollable';
+import Game from '../../../../models/game';
+import BotsService from '../../../../services/bots-service';
+import MatchShort from '../../../../components/matchShort/matchShort';
 
 class UserBotsPage extends Page{
 
@@ -13,10 +18,13 @@ class UserBotsPage extends Page{
 
     private choiseButton: Component;
 
-    // private onDescriptionChange: {[key: string]: () => void};
+    private countRenderButton: number;
+
+    private onIdChange: {[key: string]: () => void};
+    private onAnotherIdChange: {[key: string]: () => void};
 
     constructor(parent: Component) {
-        super(parent, 'Bots - WarScript');
+        super(parent, 'Matches - WarScript');
     }
 
     public render(): void {
@@ -24,31 +32,40 @@ class UserBotsPage extends Page{
         super.render();
         this.renderTmpl(UserBotsPage.template);
 
-        this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_bots'));
+        this.countRenderButton = 0;
+
+        this.choiseButton = new Component(document.querySelector('.menu__item__option_theme_matches'));
 
         EventBus.subscribe(events.onUserIDRender, () => {
-            EventBus.publish(events.onOpenUserBots, true);
+            EventBus.publish(events.onOpenUserMatches, true);
         });
         EventBus.subscribe(events.onAnotherUserIDChange, () => {
-            EventBus.publish(events.onOpenUserBots, true);
+            EventBus.publish(events.onOpenUserMatches, true);
         });
 
         if (User.id || AnotherUser.id) {
 
-            EventBus.publish(events.onOpenUserBots, true);
+            EventBus.publish(events.onOpenUserMatches, true);
         }
 
         this.choiseButton.active();
 
-        // this.onDescriptionChange = EventBus.subscribe(events.onDescriptionChange, () => {
-        //
-        //     new Component(this.parent.el.querySelector('.description__text'))
-        //         .setTextAnim(Game.description, 7);
-        // });
-        //
-        // if (Game.description) {
-        //     EventBus.publish(events.onDescriptionChange);
-        // }
+
+
+        this.onIdChange = EventBus.subscribe(events.onUsernameChange, () => {
+
+            this.handleOnUserId();
+        });
+
+        this.onAnotherIdChange = EventBus.subscribe(events.onAnotherUsernameChange, () => {
+
+            this.handleOnUserId();
+        });
+
+        if (AnotherUser.id || User.id) {
+
+            this.handleOnUserId();
+        }
     }
 
     public clear(): void {
@@ -56,7 +73,20 @@ class UserBotsPage extends Page{
 
         this.choiseButton.disactive();
 
-        // this.onDescriptionChange.unsubscribe();
+        this.onIdChange.unsubscribe();
+        this.onAnotherIdChange.unsubscribe();
+    }
+
+    private handleOnUserId(): void {
+
+        // const username = AnotherUser.username || User.username;
+        // BotsService.getUserMatches(username)
+        //     .then((resp) => {
+        //
+        //         this.initTable(resp);
+        //
+        //
+        //     });
     }
 }
 

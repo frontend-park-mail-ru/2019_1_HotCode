@@ -189,9 +189,12 @@ class ProfileMenuLayer extends Layer {
 
         this.renderMe();
         UserService.me(1)
-            .catch(() => {
-                EventBus.publish(events.openSignIn, '');
-                Alert.alert(Message.accessError(), true);
+            .catch((e) => {
+                if (e.code === 401) {
+
+                    EventBus.publish(events.openSignIn, '');
+                    Alert.alert(Message.accessError(), true);
+                }
             });
     }
 
@@ -407,6 +410,7 @@ class ProfileMenuLayer extends Layer {
             const image = new Component(this.parent.el.querySelector('.menu__item__img'));
             const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
 
+            image.show();
             spiner.show();
             AvatarService.getAvatar(avatarUUID)
                 .then((img) => {
@@ -491,6 +495,7 @@ class ProfileMenuLayer extends Layer {
             const image = new Component(this.parent.el.querySelector('.menu__item__img'));
             const spiner = new Component(this.parent.el.querySelector('.carousel__item__spinner'));
 
+            image.show();
             spiner.show();
             AvatarService.getAvatar(avatarUUID)
                 .then((img) => {
@@ -500,6 +505,9 @@ class ProfileMenuLayer extends Layer {
                 .finally(() => {
                     spiner.hide();
                 });
+        } else {
+            const image = new Component(this.parent.el.querySelector('.menu__item__img'));
+            image.hide();
         }
     };
 

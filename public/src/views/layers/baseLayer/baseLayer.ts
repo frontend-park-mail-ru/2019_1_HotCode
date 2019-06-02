@@ -94,9 +94,12 @@ class BaseLayer extends Layer{
 
         this.signoutButton = new Button(this.parent.el.querySelector('#signout'), () => {
             UserService.signout()
-                .catch(() => {
-                    EventBus.publish(events.openSignIn, '');
-                    Alert.alert(Message.accessError(), true);
+                .catch((e) => {
+                    if (e.code === 401) {
+
+                        EventBus.publish(events.openSignIn, '');
+                        Alert.alert(Message.accessError(), true);
+                    }
                 });
         });
 

@@ -20,7 +20,7 @@ class SvgGameObject extends Component {
     }
 
     public setHealth(value: number) {
-        this.el.style.opacity = (value / this.maxHealthField).toString();
+        this.el.style.fillOpacity = (value / this.maxHealthField).toString();
     }
 
     public getX(): any {

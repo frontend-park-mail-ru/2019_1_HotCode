@@ -66,7 +66,7 @@ class Http {
 
                     return responce.text().then((error) => {
 
-                        return Promise.reject(error ? JSON.parse(error) : error);
+                        return Promise.reject(error ? {...JSON.parse(error), code: responce.status} : error);
                     });
                 }
 

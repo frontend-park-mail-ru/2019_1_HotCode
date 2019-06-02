@@ -164,9 +164,16 @@ class GamePage extends Page{
                         Alert.alert(Message.successfulSendBot());
                         return;
                     })
-                    .catch(() => {
-                        EventBus.publish(events.openSignIn, '');
-                        Alert.alert(Message.accessError(), true);
+                    .catch((e) => {
+                        if (e.code === 401) {
+
+                            EventBus.publish(events.openSignIn, '');
+                            Alert.alert(Message.accessError(), true);
+
+                        } else {
+
+                            Alert.alert(e.message, true);
+                        }
                         return;
                     })
                     .finally(() => {

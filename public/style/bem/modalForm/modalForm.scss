@@ -11,6 +11,7 @@
   background: $backgroundLeftColor;
   z-index: -5;
   animation: modal-in-left 1s ease 0s forwards;
+  box-shadow: 0 0 59px rgba(0, 0, 0, 0.29);
 }
 
 @keyframes modal-in-left {
