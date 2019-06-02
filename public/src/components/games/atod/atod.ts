@@ -146,22 +146,16 @@ class Atod extends BaseGame{
         state.obstacles.map((obstacle: {[key: string]: any}, i: number) => {
 
             if (!this.obstacles[i]) {
-                const newObst = Component.CreateSVGElem('rect', ['atod__obstacle'], {
-                    width: `${obstacle.width * this.width}`,
-                    height: `${obstacle.height * this.height}`,
-                    x: `${obstacle.x * this.width}`,
-                    y: `${obstacle.y * this.height}`,
-                });
+                const newObst = Component.CreateSVGElem('rect', ['atod__obstacle']);
                 this.atodSvg.el.appendChild(newObst);
-                const c = new Component(newObst as Element as HTMLElement);
-                this.obstacles[i] = new SvgGameObject(c);
-            } else {
-
-                this.obstacles[i].setX(`${obstacle.x * this.width}`);
-                this.obstacles[i].setY(`${obstacle.y * this.height}`);
-                this.obstacles[i].setWidth(`${obstacle.width * this.width}`);
-                this.obstacles[i].setHeight(`${obstacle.height * this.height}`);
+                this.obstacles[i] = new SvgGameObject(newObst as Element as HTMLElement);
             }
+
+            this.obstacles[i].setX(`${obstacle.x * this.width - obstacle.width * this.width / 2}`);
+            this.obstacles[i].setY(`${obstacle.y * this.height - obstacle.height * this.height / 2}`);
+            this.obstacles[i].setWidth(`${obstacle.width * this.width}`);
+            this.obstacles[i].setHeight(`${obstacle.height * this.height}`);
+
         });
 
         state.p1_units.map((unit: {[key: string]: any}) => {
