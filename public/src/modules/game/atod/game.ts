@@ -665,6 +665,11 @@ class unitShot {
         this.is_carring_flag = true;
     }
 
+    public shot(x: number, y: number) {
+        this.bullet_dir_x = x;
+        this.bullet_dir_y = y;
+    }
+
     public dropFlag() {
         this.is_carring_flag = false;
     }
