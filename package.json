@@ -28,7 +28,7 @@
     "brace": "^0.11.1",
     "cookie-parser": "^1.4.4",
     "css-mqpacker": "^7.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-history-api-fallback": "^2.2.1",
     "express-http-proxy": "^1.5.1",
     "express-ws": "^4.0.0",
